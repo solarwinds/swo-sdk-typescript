@@ -1,0 +1,39 @@
+# ChangeEvent
+
+## Example Usage
+
+```typescript
+import { ChangeEvent } from "@solarwinds/swo-sdk-typescript/models/components";
+
+let value: ChangeEvent = {
+  id: 1731676626,
+  name: "app-deploys",
+  title: "deployed v45",
+  timestamp: 1731676626,
+  source: "foo3.example.com",
+  tags: {
+    "app": "foo",
+    "environment": "production",
+  },
+  links: [
+    {
+      rel: "self",
+      href: "https://example.com",
+    },
+  ],
+};
+```
+
+## Fields
+
+| Field                                                                                                                           | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     | Example                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                            | *number*                                                                                                                        | :heavy_minus_sign:                                                                                                              | Optional ID of the event. It is recommended to leave this empty when creating a new event so that a unique ID will be generated | 1731676626                                                                                                                      |
+| `name`                                                                                                                          | *string*                                                                                                                        | :heavy_check_mark:                                                                                                              | The name of the event. Can be used as a category or type of event. Does not need to be unique.                                  | app-deploys                                                                                                                     |
+| `title`                                                                                                                         | *string*                                                                                                                        | :heavy_check_mark:                                                                                                              | A short, high-level summary of the event.                                                                                       | deployed v45                                                                                                                    |
+| `timestamp`                                                                                                                     | *number*                                                                                                                        | :heavy_minus_sign:                                                                                                              | Timestamp of the event in seconds since the epoch. Defaults to the current time.                                                | 1731676626                                                                                                                      |
+| `source`                                                                                                                        | *string*                                                                                                                        | :heavy_minus_sign:                                                                                                              | Description of the event's origination. For example, a hostname, user, or application name.                                     | foo3.example.com                                                                                                                |
+| `description`                                                                                                                   | *string*                                                                                                                        | :heavy_minus_sign:                                                                                                              | Extra metadata about the event describing the specifics of the event.                                                           |                                                                                                                                 |
+| `parentEventId`                                                                                                                 | *number*                                                                                                                        | :heavy_minus_sign:                                                                                                              | The id of the parent event                                                                                                      |                                                                                                                                 |
+| `tags`                                                                                                                          | Record<string, *string*>                                                                                                        | :heavy_minus_sign:                                                                                                              | A set of key-value pairs that describe the event                                                                                | {<br/>"app": "foo",<br/>"environment": "production"<br/>}                                                                       |
+| `links`                                                                                                                         | [components.CommonLink](../../models/components/commonlink.md)[]                                                                | :heavy_minus_sign:                                                                                                              | A set of links to related resources                                                                                             | [<br/>{<br/>"href": "https://example.com",<br/>"rel": "self"<br/>}<br/>]                                                        |

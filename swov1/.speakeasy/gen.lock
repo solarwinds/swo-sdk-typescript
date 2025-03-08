@@ -1,0 +1,598 @@
+lockVersion: 2.0.0
+id: 07bd7da1-2b9c-45f1-ab2f-485c7af5c2f1
+management:
+  docChecksum: ccb615f8ae4bcd8ddf18937aa09ab499
+  docVersion: 1.0.5
+  speakeasyVersion: 1.513.4
+  generationVersion: 2.545.4
+  releaseVersion: 0.0.2
+  configChecksum: 210fa2878608473c62d9dd78e20cc159
+features:
+  typescript:
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.11
+    core: 3.21.3
+    defaultEnabledRetries: 0.1.0
+    deprecations: 2.81.1
+    devContainers: 2.90.0
+    enumUnions: 0.1.0
+    envVarSecurityUsage: 0.1.2
+    globalSecurity: 2.82.13
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
+    globalServerURLs: 2.82.4
+    ignores: 2.81.1
+    inputOutputModels: 2.82.0
+    mcpServer: 0.6.0
+    nullables: 0.1.1
+    pagination: 2.83.0
+    responseFormat: 0.2.3
+    retries: 2.83.0
+    sdkHooks: 0.2.0
+generatedFiles:
+  - .devcontainer/README.md
+  - .devcontainer/devcontainer.json
+  - .devcontainer/setup.sh
+  - .gitattributes
+  - .npmignore
+  - FUNCTIONS.md
+  - RUNTIMES.md
+  - USAGE.md
+  - docs/lib/utils/retryconfig.md
+  - docs/models/components/availabilitychecksettings.md
+  - docs/models/components/category.md
+  - docs/models/components/changeevent.md
+  - docs/models/components/checkforstring.md
+  - docs/models/components/checkforstringoperator.md
+  - docs/models/components/commonkeyvaluepair.md
+  - docs/models/components/commonlink.md
+  - docs/models/components/commonmetricinfo.md
+  - docs/models/components/commonpageinfo.md
+  - docs/models/components/compositemetric.md
+  - docs/models/components/createtokenrequest.md
+  - docs/models/components/customheaders.md
+  - docs/models/components/entity.md
+  - docs/models/components/entityid.md
+  - docs/models/components/entityinput.md
+  - docs/models/components/healthscore.md
+  - docs/models/components/logsarchive.md
+  - docs/models/components/logsevent.md
+  - docs/models/components/metricsaggregationmethods.md
+  - docs/models/components/metricseriestype.md
+  - docs/models/components/metricsgrouping.md
+  - docs/models/components/metricsmeasurement.md
+  - docs/models/components/outageconfiguration.md
+  - docs/models/components/outageconfigurationfailingtestlocations.md
+  - docs/models/components/probelocationtype.md
+  - docs/models/components/probeplatform.md
+  - docs/models/components/probeplatformoptions.md
+  - docs/models/components/rum.md
+  - docs/models/components/security.md
+  - docs/models/components/ssl.md
+  - docs/models/components/tag.md
+  - docs/models/components/tags.md
+  - docs/models/components/testfrom.md
+  - docs/models/components/type.md
+  - docs/models/components/updatecompositemetric.md
+  - docs/models/components/website.md
+  - docs/models/components/websitefailingtestlocations.md
+  - docs/models/components/websiteoutageconfiguration.md
+  - docs/models/components/websiteprotocol.md
+  - docs/models/errors/createcompositemetricbadrequesterror.md
+  - docs/models/errors/createcompositemetricforbiddenerror.md
+  - docs/models/errors/createcompositemetricnotimplementederror.md
+  - docs/models/errors/createwebsitebadrequesterror.md
+  - docs/models/errors/deletecompositemetricbadrequesterror.md
+  - docs/models/errors/deletecompositemetricforbiddenerror.md
+  - docs/models/errors/deletewebsitebadrequesterror.md
+  - docs/models/errors/getentitybyidbadrequesterror.md
+  - docs/models/errors/getentitybyidnotfounderror.md
+  - docs/models/errors/getentitybyidnotimplementederror.md
+  - docs/models/errors/getentitybyidunauthorizederror.md
+  - docs/models/errors/getmetricbynamenotfounderror.md
+  - docs/models/errors/getwebsitebadrequesterror.md
+  - docs/models/errors/listentitiesbadrequesterror.md
+  - docs/models/errors/listentitiesnotimplementederror.md
+  - docs/models/errors/listentitiesunauthorizederror.md
+  - docs/models/errors/listmetricattributesnotfounderror.md
+  - docs/models/errors/listmetricattributevaluesnotfounderror.md
+  - docs/models/errors/listmetricmeasurementsnotfounderror.md
+  - docs/models/errors/listmetricsforentitytypenotfounderror.md
+  - docs/models/errors/pausewebsitemonitoringbadrequesterror.md
+  - docs/models/errors/unpausewebsitemonitoringbadrequesterror.md
+  - docs/models/errors/updatecompositemetricbadrequesterror.md
+  - docs/models/errors/updatecompositemetricnotfounderror.md
+  - docs/models/errors/updatecompositemetricnotimplementederror.md
+  - docs/models/errors/updatecompositemetricunauthorizederror.md
+  - docs/models/errors/updateentitybyidbadrequesterror.md
+  - docs/models/errors/updateentitybyidnotfounderror.md
+  - docs/models/errors/updateentitybyidnotimplementederror.md
+  - docs/models/errors/updateentitybyidunauthorizederror.md
+  - docs/models/errors/updatewebsitebadrequesterror.md
+  - docs/models/operations/availabilitychecksettings.md
+  - docs/models/operations/checkforstring.md
+  - docs/models/operations/createchangeeventresponse.md
+  - docs/models/operations/createtokenresponse.md
+  - docs/models/operations/deletecompositemetricrequest.md
+  - docs/models/operations/deletewebsiterequest.md
+  - docs/models/operations/failingtestlocations.md
+  - docs/models/operations/getentitybyidrequest.md
+  - docs/models/operations/getmetricbynamerequest.md
+  - docs/models/operations/getmetricbynameresponse.md
+  - docs/models/operations/getwebsiterequest.md
+  - docs/models/operations/getwebsiteresponse.md
+  - docs/models/operations/listentitiesrequest.md
+  - docs/models/operations/listentitiesresponse.md
+  - docs/models/operations/listentitiesresponsebody.md
+  - docs/models/operations/listentitytypesresponse.md
+  - docs/models/operations/listlogarchivesrequest.md
+  - docs/models/operations/listlogarchivesresponse.md
+  - docs/models/operations/listlogarchivesresponsebody.md
+  - docs/models/operations/listmetricattributesrequest.md
+  - docs/models/operations/listmetricattributesresponse.md
+  - docs/models/operations/listmetricattributesresponsebody.md
+  - docs/models/operations/listmetricattributevaluesrequest.md
+  - docs/models/operations/listmetricattributevaluesresponse.md
+  - docs/models/operations/listmetricattributevaluesresponsebody.md
+  - docs/models/operations/listmetricmeasurementsrequest.md
+  - docs/models/operations/listmetricmeasurementsresponse.md
+  - docs/models/operations/listmetricmeasurementsresponsebody.md
+  - docs/models/operations/listmetricsforentitytyperequest.md
+  - docs/models/operations/listmetricsforentitytyperesponse.md
+  - docs/models/operations/listmetricsrequest.md
+  - docs/models/operations/listmetricsresponse.md
+  - docs/models/operations/listmetricsresponsebody.md
+  - docs/models/operations/outageconfiguration.md
+  - docs/models/operations/pausewebsitemonitoringrequest.md
+  - docs/models/operations/rum.md
+  - docs/models/operations/searchlogsrequest.md
+  - docs/models/operations/searchlogsresponse.md
+  - docs/models/operations/searchlogsresponsebody.md
+  - docs/models/operations/ssl.md
+  - docs/models/operations/status.md
+  - docs/models/operations/unpausewebsitemonitoringrequest.md
+  - docs/models/operations/updatecompositemetricrequest.md
+  - docs/models/operations/updateentitybyidrequest.md
+  - docs/models/operations/updatewebsiterequest.md
+  - docs/sdks/changeevents/README.md
+  - docs/sdks/dem/README.md
+  - docs/sdks/entities/README.md
+  - docs/sdks/logs/README.md
+  - docs/sdks/metadata/README.md
+  - docs/sdks/metrics/README.md
+  - docs/sdks/swo/README.md
+  - docs/sdks/tokens/README.md
+  - eslint.config.mjs
+  - jsr.json
+  - package.json
+  - src/core.ts
+  - src/funcs/changeEventsCreateChangeEvent.ts
+  - src/funcs/demCreateWebsite.ts
+  - src/funcs/demDeleteWebsite.ts
+  - src/funcs/demGetDemSettings.ts
+  - src/funcs/demGetWebsite.ts
+  - src/funcs/demPauseWebsiteMonitoring.ts
+  - src/funcs/demSetDemSettings.ts
+  - src/funcs/demUnpauseWebsiteMonitoring.ts
+  - src/funcs/demUpdateWebsite.ts
+  - src/funcs/entitiesGetEntityById.ts
+  - src/funcs/entitiesListEntities.ts
+  - src/funcs/entitiesUpdateEntityById.ts
+  - src/funcs/logsListLogArchives.ts
+  - src/funcs/logsSearchLogs.ts
+  - src/funcs/metadataListEntityTypes.ts
+  - src/funcs/metadataListMetricsForEntityType.ts
+  - src/funcs/metricsCreateCompositeMetric.ts
+  - src/funcs/metricsDeleteCompositeMetric.ts
+  - src/funcs/metricsGetMetricByName.ts
+  - src/funcs/metricsListMetricAttributeValues.ts
+  - src/funcs/metricsListMetricAttributes.ts
+  - src/funcs/metricsListMetricMeasurements.ts
+  - src/funcs/metricsListMetrics.ts
+  - src/funcs/metricsUpdateCompositeMetric.ts
+  - src/funcs/tokensCreateToken.ts
+  - src/hooks/hooks.ts
+  - src/hooks/index.ts
+  - src/hooks/types.ts
+  - src/index.ts
+  - src/lib/base64.ts
+  - src/lib/config.ts
+  - src/lib/dlv.ts
+  - src/lib/encodings.ts
+  - src/lib/env.ts
+  - src/lib/files.ts
+  - src/lib/http.ts
+  - src/lib/is-plain-object.ts
+  - src/lib/logger.ts
+  - src/lib/matchers.ts
+  - src/lib/primitives.ts
+  - src/lib/retries.ts
+  - src/lib/schemas.ts
+  - src/lib/sdks.ts
+  - src/lib/security.ts
+  - src/lib/url.ts
+  - src/mcp-server/build.mts
+  - src/mcp-server/cli.ts
+  - src/mcp-server/cli/start/command.ts
+  - src/mcp-server/cli/start/impl.ts
+  - src/mcp-server/console-logger.ts
+  - src/mcp-server/extensions.ts
+  - src/mcp-server/mcp-server.ts
+  - src/mcp-server/resources.ts
+  - src/mcp-server/scopes.ts
+  - src/mcp-server/server.ts
+  - src/mcp-server/shared.ts
+  - src/mcp-server/tools.ts
+  - src/mcp-server/tools/changeEventsCreateChangeEvent.ts
+  - src/mcp-server/tools/demCreateWebsite.ts
+  - src/mcp-server/tools/demDeleteWebsite.ts
+  - src/mcp-server/tools/demGetDemSettings.ts
+  - src/mcp-server/tools/demGetWebsite.ts
+  - src/mcp-server/tools/demPauseWebsiteMonitoring.ts
+  - src/mcp-server/tools/demSetDemSettings.ts
+  - src/mcp-server/tools/demUnpauseWebsiteMonitoring.ts
+  - src/mcp-server/tools/demUpdateWebsite.ts
+  - src/mcp-server/tools/entitiesGetEntityById.ts
+  - src/mcp-server/tools/entitiesListEntities.ts
+  - src/mcp-server/tools/entitiesUpdateEntityById.ts
+  - src/mcp-server/tools/logsListLogArchives.ts
+  - src/mcp-server/tools/logsSearchLogs.ts
+  - src/mcp-server/tools/metadataListEntityTypes.ts
+  - src/mcp-server/tools/metadataListMetricsForEntityType.ts
+  - src/mcp-server/tools/metricsCreateCompositeMetric.ts
+  - src/mcp-server/tools/metricsDeleteCompositeMetric.ts
+  - src/mcp-server/tools/metricsGetMetricByName.ts
+  - src/mcp-server/tools/metricsListMetricAttributeValues.ts
+  - src/mcp-server/tools/metricsListMetricAttributes.ts
+  - src/mcp-server/tools/metricsListMetricMeasurements.ts
+  - src/mcp-server/tools/metricsListMetrics.ts
+  - src/mcp-server/tools/metricsUpdateCompositeMetric.ts
+  - src/mcp-server/tools/tokensCreateToken.ts
+  - src/models/components/changeevent.ts
+  - src/models/components/checkforstringoperator.ts
+  - src/models/components/commonkeyvaluepair.ts
+  - src/models/components/commonlink.ts
+  - src/models/components/commonmetricinfo.ts
+  - src/models/components/commonpageinfo.ts
+  - src/models/components/compositemetric.ts
+  - src/models/components/createtokenrequest.ts
+  - src/models/components/customheaders.ts
+  - src/models/components/entity.ts
+  - src/models/components/entityid.ts
+  - src/models/components/entityinput.ts
+  - src/models/components/index.ts
+  - src/models/components/logsarchive.ts
+  - src/models/components/logsevent.ts
+  - src/models/components/metricsaggregationmethods.ts
+  - src/models/components/metricseriestype.ts
+  - src/models/components/metricsgrouping.ts
+  - src/models/components/metricsmeasurement.ts
+  - src/models/components/outageconfiguration.ts
+  - src/models/components/probelocationtype.ts
+  - src/models/components/probeplatform.ts
+  - src/models/components/probeplatformoptions.ts
+  - src/models/components/security.ts
+  - src/models/components/tag.ts
+  - src/models/components/testfrom.ts
+  - src/models/components/updatecompositemetric.ts
+  - src/models/components/website.ts
+  - src/models/components/websiteprotocol.ts
+  - src/models/errors/apierror.ts
+  - src/models/errors/createcompositemetric.ts
+  - src/models/errors/createwebsite.ts
+  - src/models/errors/deletecompositemetric.ts
+  - src/models/errors/deletewebsite.ts
+  - src/models/errors/getentitybyid.ts
+  - src/models/errors/getmetricbyname.ts
+  - src/models/errors/getwebsite.ts
+  - src/models/errors/httpclienterrors.ts
+  - src/models/errors/index.ts
+  - src/models/errors/listentities.ts
+  - src/models/errors/listmetricattributes.ts
+  - src/models/errors/listmetricattributevalues.ts
+  - src/models/errors/listmetricmeasurements.ts
+  - src/models/errors/listmetricsforentitytype.ts
+  - src/models/errors/pausewebsitemonitoring.ts
+  - src/models/errors/sdkvalidationerror.ts
+  - src/models/errors/unpausewebsitemonitoring.ts
+  - src/models/errors/updatecompositemetric.ts
+  - src/models/errors/updateentitybyid.ts
+  - src/models/errors/updatewebsite.ts
+  - src/models/operations/createchangeevent.ts
+  - src/models/operations/createtoken.ts
+  - src/models/operations/deletecompositemetric.ts
+  - src/models/operations/deletewebsite.ts
+  - src/models/operations/getentitybyid.ts
+  - src/models/operations/getmetricbyname.ts
+  - src/models/operations/getwebsite.ts
+  - src/models/operations/index.ts
+  - src/models/operations/listentities.ts
+  - src/models/operations/listentitytypes.ts
+  - src/models/operations/listlogarchives.ts
+  - src/models/operations/listmetricattributes.ts
+  - src/models/operations/listmetricattributevalues.ts
+  - src/models/operations/listmetricmeasurements.ts
+  - src/models/operations/listmetrics.ts
+  - src/models/operations/listmetricsforentitytype.ts
+  - src/models/operations/pausewebsitemonitoring.ts
+  - src/models/operations/searchlogs.ts
+  - src/models/operations/unpausewebsitemonitoring.ts
+  - src/models/operations/updatecompositemetric.ts
+  - src/models/operations/updateentitybyid.ts
+  - src/models/operations/updatewebsite.ts
+  - src/sdk/changeevents.ts
+  - src/sdk/dem.ts
+  - src/sdk/entities.ts
+  - src/sdk/index.ts
+  - src/sdk/logs.ts
+  - src/sdk/metadata.ts
+  - src/sdk/metrics.ts
+  - src/sdk/sdk.ts
+  - src/sdk/tokens.ts
+  - src/types/async.ts
+  - src/types/blobs.ts
+  - src/types/constdatetime.ts
+  - src/types/enums.ts
+  - src/types/fp.ts
+  - src/types/index.ts
+  - src/types/operations.ts
+  - src/types/rfcdate.ts
+  - src/types/streams.ts
+  - tsconfig.json
+examples:
+  createChangeEvent:
+    speakeasy-default-create-change-event:
+      requestBody:
+        application/json: {"id": 1731676626, "name": "app-deploys", "title": "deployed v45", "timestamp": 1731676626, "source": "foo3.example.com", "tags": {"app": "foo", "environment": "production"}, "links": [{"rel": "self", "href": "https://example.com"}]}
+      responses:
+        "200":
+          application/json: {"id": 119883}
+  getDemSettings:
+    speakeasy-default-get-dem-settings:
+      responses:
+        "200":
+          application/json: {"failingTestLocations": "all", "consecutiveForDown": 2}
+  setDemSettings:
+    speakeasy-default-set-dem-settings:
+      requestBody:
+        application/json: {"failingTestLocations": "all", "consecutiveForDown": 2}
+  createWebsite:
+    speakeasy-default-create-website:
+      requestBody:
+        application/json: {"name": "solarwinds.com", "url": "https://www.solarwinds.com", "availabilityCheckSettings": {"checkForString": {"operator": "CONTAINS", "value": "string"}, "testIntervalInSeconds": 14400, "protocols": ["HTTP", "HTTPS"], "platformOptions": {"probePlatforms": ["AWS"], "testFromAll": true}, "testFrom": {"type": "REGION", "values": ["NA"]}, "ssl": {"enabled": true, "daysPriorToExpiration": 7, "ignoreIntermediateCertificates": true}, "customHeaders": [{"name": "string", "value": "string"}], "allowInsecureRenegotiation": true, "postData": "{\"example\": \"value\"}", "outageConfiguration": {"failingTestLocations": "all", "consecutiveForDown": 2}}, "tags": [{"key": "environment", "value": "production"}], "rum": {"apdexTimeInSeconds": 4, "spa": true}}
+      responses:
+        "200":
+          application/json: {"id": "e-1448474379026206720"}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  getWebsite:
+    speakeasy-default-get-website:
+      parameters:
+        path:
+          entityId: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "e-1448474379026206720", "type": "Website", "status": "up", "name": "solarwinds.com", "url": "https://www.solarwinds.com", "availabilityCheckSettings": {"checkForString": {"operator": "CONTAINS", "value": "string"}, "testIntervalInSeconds": 14400, "protocols": ["HTTP", "HTTPS"], "platformOptions": {"probePlatforms": ["AWS"], "testFromAll": true}, "testFrom": {"type": "REGION", "values": ["NA"]}, "ssl": {"enabled": true, "daysPriorToExpiration": 7, "ignoreIntermediateCertificates": true}, "customHeaders": [{"name": "string", "value": "string"}], "allowInsecureRenegotiation": true, "postData": "{\"example\": \"value\"}", "outageConfiguration": {"failingTestLocations": "all", "consecutiveForDown": 2}}, "tags": [{"key": "environment", "value": "production"}], "rum": {"apdexTimeInSeconds": 4, "snippet": "string", "spa": true}, "lastOutageStartTime": "2025-01-15T14:31:19.735Z", "lastOutageEndTime": "2025-01-15T14:31:19.735Z", "lastTestTime": "2025-01-15T14:31:19.735Z", "lastErrorTime": "2025-01-15T14:31:19.735Z", "lastResponseTime": 376, "nextOnDemandAvailabilityTime": 0}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  updateWebsite:
+    speakeasy-default-update-website:
+      parameters:
+        path:
+          entityId: "<id>"
+      requestBody:
+        application/json: {"name": "solarwinds.com", "url": "https://www.solarwinds.com", "availabilityCheckSettings": {"checkForString": {"operator": "CONTAINS", "value": "string"}, "testIntervalInSeconds": 14400, "protocols": ["HTTP", "HTTPS"], "platformOptions": {"probePlatforms": ["AWS"], "testFromAll": true}, "testFrom": {"type": "REGION", "values": ["NA"]}, "ssl": {"enabled": true, "daysPriorToExpiration": 7, "ignoreIntermediateCertificates": true}, "customHeaders": [{"name": "string", "value": "string"}], "allowInsecureRenegotiation": true, "postData": "{\"example\": \"value\"}", "outageConfiguration": {"failingTestLocations": "all", "consecutiveForDown": 2}}, "tags": [{"key": "environment", "value": "production"}], "rum": {"apdexTimeInSeconds": 4, "spa": true}}
+      responses:
+        "200":
+          application/json: {"id": "e-1448474379026206720"}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  deleteWebsite:
+    speakeasy-default-delete-website:
+      parameters:
+        path:
+          entityId: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "e-1448474379026206720"}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  pauseWebsiteMonitoring:
+    speakeasy-default-pause-website-monitoring:
+      parameters:
+        path:
+          entityId: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "e-1448474379026206720"}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  unpauseWebsiteMonitoring:
+    speakeasy-default-unpause-website-monitoring:
+      parameters:
+        path:
+          entityId: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "e-1448474379026206720"}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  listEntities:
+    speakeasy-default-list-entities:
+      parameters:
+        query:
+          type: "<value>"
+      responses:
+        "200":
+          application/json: {"entities": [{"id": "e-1234567890", "type": "SyslogHost", "name": "syslog-host-1", "displayName": "SyslogTest", "createdTime": "2024-11-25T16:38:24Z", "updatedTime": "2024-12-01T16:38:24Z", "lastSeenTime": "2024-11-25T16:38:24Z", "inMaintenance": false, "healthscore": {"score": 100, "category": "good"}, "tags": {"gg.tk.token": "test", "kfi.tk.token": "qa-test"}, "attributes": {"protocols": ["HTTP"], "features": ["rum"], "isAvailabilityCheckPaused": false, "extensions": {"has_extension": true}}}], "pageInfo": {"prevPage": "<value>", "nextPage": "<value>"}}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "401":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "501":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  getEntityById:
+    speakeasy-default-get-entity-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      responses:
+        "200":
+          application/json: {"id": "e-1234567890", "type": "SyslogHost", "name": "syslog-host-1", "displayName": "SyslogTest", "createdTime": "2024-11-25T16:38:24Z", "updatedTime": "2024-12-01T16:38:24Z", "lastSeenTime": "2024-11-25T16:38:24Z", "inMaintenance": false, "healthscore": {"score": 100, "category": "good"}, "tags": {"gg.tk.token": "test", "kfi.tk.token": "qa-test"}, "attributes": {"protocols": ["HTTP"], "features": ["rum"], "isAvailabilityCheckPaused": false, "extensions": {"has_extension": true}}}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "401":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "501":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  updateEntityById:
+    speakeasy-default-update-entity-by-id:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"displayName": "SyslogTest", "tags": {"gg.tk.token": "test", "kfi.tk.token": "qa-test"}}
+      responses:
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "401":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "501":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  searchLogs:
+    speakeasy-default-search-logs:
+      parameters:
+        query:
+          direction: "backward"
+      responses:
+        "200":
+          application/json: {"logs": [{"id": "1793698955374546944", "time": "2024-01-01T00:00:00Z", "message": "This is a log message", "hostname": "webserver.example.com", "severity": "INFO", "program": "httpd"}], "pageInfo": {"prevPage": "<value>", "nextPage": "<value>"}}
+  listLogArchives:
+    speakeasy-default-list-log-archives:
+      parameters:
+        query:
+          startTime: "<value>"
+          endTime: "<value>"
+      responses:
+        "200":
+          application/json: {"logArchives": [{"id": "logs/138723/dt=2024-01-23/2024-01-23-08.json.gz", "name": "2024-01-23-08.json.gz", "downloadUrl": "https://ssp-log-archives.s3.amazonaws.com/logs/138723/dt%3D2024-01-23/2024-01-23-08.json.gz?X-Amz-Security-Token=IQ...", "archivedTimestamp": "1706020985", "archiveSize": 817226354}, {"id": "logs/138723/dt=2024-01-23/2024-01-23-08.json.gz", "name": "2024-01-23-08.json.gz", "downloadUrl": "https://ssp-log-archives.s3.amazonaws.com/logs/138723/dt%3D2024-01-23/2024-01-23-08.json.gz?X-Amz-Security-Token=IQ...", "archivedTimestamp": "1706020985", "archiveSize": 817226354}, {"id": "logs/138723/dt=2024-01-23/2024-01-23-08.json.gz", "name": "2024-01-23-08.json.gz", "downloadUrl": "https://ssp-log-archives.s3.amazonaws.com/logs/138723/dt%3D2024-01-23/2024-01-23-08.json.gz?X-Amz-Security-Token=IQ...", "archivedTimestamp": "1706020985", "archiveSize": 817226354}], "pageInfo": {"prevPage": "<value>", "nextPage": "<value>"}}
+  listEntityTypes:
+    speakeasy-default-list-entity-types:
+      responses:
+        "200":
+          application/json: {"types": ["Service", "ServiceInstance", "KubernetesCluster"]}
+  listMetricsForEntityType:
+    speakeasy-default-list-metrics-for-entity-type:
+      parameters:
+        path:
+          type: "<value>"
+        query: {}
+      responses:
+        "200":
+          application/json: {"type": "KubernetesCluster", "metrics": [{"name": "composite.k8s.pod.container.status.restarts.increase", "units": "count", "formula": "increase(k8s.kube_pod_container_status_restarts_total[5m])", "lastReportedTime": "2021-01-01T00:00:00Z"}]}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  listMetrics:
+    speakeasy-default-list-metrics:
+      responses:
+        "200":
+          application/json: {"metricsInfo": [], "pageInfo": {"prevPage": "<value>", "nextPage": "<value>"}}
+  createCompositeMetric:
+    speakeasy-default-create-composite-metric:
+      requestBody:
+        application/json: {"name": "composite.custom.system.disk.io.rate", "displayName": "Disk IO rate", "description": "Disk bytes transferred per second", "formula": "rate(system.disk.io[5m])", "units": "bytes/s"}
+      responses:
+        "201":
+          application/json: {"name": "composite.custom.system.disk.io.rate", "displayName": "Disk IO rate", "description": "Disk bytes transferred per second", "formula": "rate(system.disk.io[5m])", "units": "bytes/s"}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "403":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "501":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  updateCompositeMetric:
+    speakeasy-default-update-composite-metric:
+      parameters:
+        path:
+          name: "<value>"
+      requestBody:
+        application/json: {"displayName": "Disk IO rate", "description": "Disk bytes transferred per second", "formula": "rate(system.disk.io[5m])", "units": "bytes/s"}
+      responses:
+        "200":
+          application/json: {"name": "composite.custom.system.disk.io.rate", "displayName": "Disk IO rate", "description": "Disk bytes transferred per second", "formula": "rate(system.disk.io[5m])", "units": "bytes/s"}
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "401":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "501":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  deleteCompositeMetric:
+    speakeasy-default-delete-composite-metric:
+      parameters:
+        path:
+          name: "<value>"
+      responses:
+        "400":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+        "403":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  getMetricByName:
+    speakeasy-default-get-metric-by-name:
+      parameters:
+        path:
+          name: "<value>"
+      responses:
+        "200":
+          application/json: {"name": "composite.k8s.pod.container.status.restarts.increase", "units": "count", "formula": "increase(k8s.kube_pod_container_status_restarts_total[5m])", "lastReportedTime": "2021-01-01T00:00:00Z"}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  listMetricAttributes:
+    speakeasy-default-list-metric-attributes:
+      parameters:
+        path:
+          name: "<value>"
+        query: {}
+      responses:
+        "200":
+          application/json: {"names": [], "pageInfo": {"prevPage": "<value>", "nextPage": "<value>"}}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  listMetricAttributeValues:
+    speakeasy-default-list-metric-attribute-values:
+      parameters:
+        path:
+          name: "<value>"
+          attributeName: "<value>"
+        query: {}
+      responses:
+        "200":
+          application/json: {"name": "<value>", "values": [], "pageInfo": {"prevPage": "<value>", "nextPage": "<value>"}}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  listMetricMeasurements:
+    speakeasy-default-list-metric-measurements:
+      parameters:
+        path:
+          name: "<value>"
+        query:
+          seriesType: "SCALAR"
+      responses:
+        "200":
+          application/json: {"groupings": [{"attributes": [], "measurements": [{"time": "2025-07-08T21:51:20.598Z", "value": 7307.56}, {"time": "2023-05-07T22:33:23.333Z", "value": 250.26}, {"time": "2023-06-20T08:27:21.001Z", "value": 4929.43}]}, {"attributes": [], "measurements": []}], "bucketSizeInSeconds": 614937, "pageInfo": {"prevPage": "<value>", "nextPage": "<value>"}}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
+  createToken:
+    speakeasy-default-create-token:
+      requestBody:
+        application/json: {"name": "<value>", "tags": {"server": "<value>", "tag_without_value": "<value>"}, "type": "ingestion"}
+      responses:
+        "200":
+          application/json: {"token": "<value>"}
+examplesVersion: 1.0.0
+generatedTests: {}
