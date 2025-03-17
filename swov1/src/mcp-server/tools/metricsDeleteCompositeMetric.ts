@@ -11,10 +11,10 @@ const args = {
 };
 
 export const tool$metricsDeleteCompositeMetric: ToolDefinition<typeof args> = {
-  name: "metrics_delete-composite-metric",
+  name: "metrics-delete-composite-metric",
   description: `Delete composite metric
 
-Delete a composite metric given a metric name`,
+Delete a composite metric given a metric name.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await metricsDeleteCompositeMetric(

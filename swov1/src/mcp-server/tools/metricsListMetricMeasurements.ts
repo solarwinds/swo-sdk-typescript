@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$metricsListMetricMeasurements: ToolDefinition<typeof args> = {
-  name: "metrics_list-metric-measurements",
+  name: "metrics-list-metric-measurements",
   description:
     `List metric measurement values, grouped by attributes, filtered by the filter. An empty list indicates no data points are available for the given parameters.`,
   args,

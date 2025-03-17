@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$logsListLogArchives: ToolDefinition<typeof args> = {
-  name: "logs_list-log-archives",
+  name: "logs-list-log-archives",
   description: `Retrieve location and metadata of log archives
 
 Retrieves a list of log archives within a time period.`,

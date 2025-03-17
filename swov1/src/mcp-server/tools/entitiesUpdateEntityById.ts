@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$entitiesUpdateEntityById: ToolDefinition<typeof args> = {
-  name: "entities_update-entity-by-id",
+  name: "entities-update-entity-by-id",
   description: `Update an entity by ID`,
   args,
   tool: async (client, args, ctx) => {

@@ -5,48 +5,6 @@
 import * as z from "zod";
 
 /**
- * Server error
- */
-export type CreateCompositeMetricNotImplementedErrorData = {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  /**
-   * Supporting description of the error
-   */
-  message: string;
-  target?: string | undefined;
-};
-
-/**
- * Server error
- */
-export class CreateCompositeMetricNotImplementedError extends Error {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  target?: string | undefined;
-
-  /** The original data that was passed to this error instance. */
-  data$: CreateCompositeMetricNotImplementedErrorData;
-
-  constructor(err: CreateCompositeMetricNotImplementedErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
-    this.data$ = err;
-
-    this.code = err.code;
-    if (err.target != null) this.target = err.target;
-
-    this.name = "CreateCompositeMetricNotImplementedError";
-  }
-}
-
-/**
  * Access is forbidden.
  */
 export type CreateCompositeMetricForbiddenErrorData = {
@@ -128,55 +86,6 @@ export class CreateCompositeMetricBadRequestError extends Error {
 
     this.name = "CreateCompositeMetricBadRequestError";
   }
-}
-
-/** @internal */
-export const CreateCompositeMetricNotImplementedError$inboundSchema: z.ZodType<
-  CreateCompositeMetricNotImplementedError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.number().int(),
-  message: z.string(),
-  target: z.string().optional(),
-})
-  .transform((v) => {
-    return new CreateCompositeMetricNotImplementedError(v);
-  });
-
-/** @internal */
-export type CreateCompositeMetricNotImplementedError$Outbound = {
-  code: number;
-  message: string;
-  target?: string | undefined;
-};
-
-/** @internal */
-export const CreateCompositeMetricNotImplementedError$outboundSchema: z.ZodType<
-  CreateCompositeMetricNotImplementedError$Outbound,
-  z.ZodTypeDef,
-  CreateCompositeMetricNotImplementedError
-> = z.instanceof(CreateCompositeMetricNotImplementedError)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    code: z.number().int(),
-    message: z.string(),
-    target: z.string().optional(),
-  }));
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateCompositeMetricNotImplementedError$ {
-  /** @deprecated use `CreateCompositeMetricNotImplementedError$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateCompositeMetricNotImplementedError$inboundSchema;
-  /** @deprecated use `CreateCompositeMetricNotImplementedError$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCompositeMetricNotImplementedError$outboundSchema;
-  /** @deprecated use `CreateCompositeMetricNotImplementedError$Outbound` instead. */
-  export type Outbound = CreateCompositeMetricNotImplementedError$Outbound;
 }
 
 /** @internal */

@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$demPauseWebsiteMonitoring: ToolDefinition<typeof args> = {
-  name: "dem_pause-website-monitoring",
+  name: "dem-pause-website-monitoring",
   description: `Pause monitoring of a website`,
   args,
   tool: async (client, args, ctx) => {

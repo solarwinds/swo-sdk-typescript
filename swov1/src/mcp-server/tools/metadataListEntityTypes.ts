@@ -6,7 +6,7 @@ import { metadataListEntityTypes } from "../../funcs/metadataListEntityTypes.js"
 import { formatResult, ToolDefinition } from "../tools.js";
 
 export const tool$metadataListEntityTypes: ToolDefinition = {
-  name: "metadata_list-entity-types",
+  name: "metadata-list-entity-types",
   description: `List all entity types
 
 List all available entity types.`,

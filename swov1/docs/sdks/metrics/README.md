@@ -16,7 +16,7 @@
 
 ## listMetrics
 
-List metrics available within a time period. 
+List metrics available within a time period.
 
 ### Example Usage
 
@@ -92,7 +92,7 @@ run();
 
 ## createCompositeMetric
 
-Create a composite metric given a PromQL query
+Create a composite metric given a PromQL query.
 
 ### Example Usage
 
@@ -170,16 +170,15 @@ run();
 
 ### Errors
 
-| Error Type                                      | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| errors.CreateCompositeMetricBadRequestError     | 400                                             | application/json                                |
-| errors.CreateCompositeMetricForbiddenError      | 403                                             | application/json                                |
-| errors.CreateCompositeMetricNotImplementedError | 501                                             | application/json                                |
-| errors.APIError                                 | 4XX, 5XX                                        | \*/\*                                           |
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| errors.CreateCompositeMetricBadRequestError | 400                                         | application/json                            |
+| errors.CreateCompositeMetricForbiddenError  | 403                                         | application/json                            |
+| errors.APIError                             | 4XX, 5XX                                    | \*/\*                                       |
 
 ## updateCompositeMetric
 
-Update a composite metric given a metric name
+Update a composite metric given a metric name.
 
 ### Example Usage
 
@@ -261,17 +260,16 @@ run();
 
 ### Errors
 
-| Error Type                                      | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| errors.UpdateCompositeMetricBadRequestError     | 400                                             | application/json                                |
-| errors.UpdateCompositeMetricUnauthorizedError   | 401                                             | application/json                                |
-| errors.UpdateCompositeMetricNotFoundError       | 404                                             | application/json                                |
-| errors.UpdateCompositeMetricNotImplementedError | 501                                             | application/json                                |
-| errors.APIError                                 | 4XX, 5XX                                        | \*/\*                                           |
+| Error Type                                  | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| errors.UpdateCompositeMetricBadRequestError | 400                                         | application/json                            |
+| errors.UpdateCompositeMetricForbiddenError  | 403                                         | application/json                            |
+| errors.UpdateCompositeMetricNotFoundError   | 404                                         | application/json                            |
+| errors.APIError                             | 4XX, 5XX                                    | \*/\*                                       |
 
 ## deleteCompositeMetric
 
-Delete a composite metric given a metric name
+Delete a composite metric given a metric name.
 
 ### Example Usage
 
@@ -339,15 +337,15 @@ run();
 
 ### Errors
 
-| Error Type                                  | Status Code                                 | Content Type                                |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| errors.DeleteCompositeMetricBadRequestError | 400                                         | application/json                            |
-| errors.DeleteCompositeMetricForbiddenError  | 403                                         | application/json                            |
-| errors.APIError                             | 4XX, 5XX                                    | \*/\*                                       |
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.DeleteCompositeMetricForbiddenError | 403                                        | application/json                           |
+| errors.DeleteCompositeMetricNotFoundError  | 404                                        | application/json                           |
+| errors.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
 
 ## getMetricByName
 
-Get info about a metric
+Get information about a given metric.
 
 ### Example Usage
 

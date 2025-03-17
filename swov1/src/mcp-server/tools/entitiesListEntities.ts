@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$entitiesListEntities: ToolDefinition<typeof args> = {
-  name: "entities_list-entities",
+  name: "entities-list-entities",
   description:
     `Get a list of entities by type. A returned empty list indicates no entities matched the given parameters.`,
   args,

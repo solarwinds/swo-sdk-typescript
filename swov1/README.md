@@ -55,25 +55,25 @@ The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https
 ### NPM
 
 ```bash
-npm add <UNSET>
+npm add https://gitpkg.now.sh/solarwinds/swo-sdk-typescript/swov1
 ```
 
 ### PNPM
 
 ```bash
-pnpm add <UNSET>
+pnpm add https://gitpkg.now.sh/solarwinds/swo-sdk-typescript/swov1
 ```
 
 ### Bun
 
 ```bash
-bun add <UNSET>
+bun add https://gitpkg.now.sh/solarwinds/swo-sdk-typescript/swov1
 ```
 
 ### Yarn
 
 ```bash
-yarn add <UNSET> zod
+yarn add https://gitpkg.now.sh/solarwinds/swo-sdk-typescript/swov1 zod
 
 # Note that Yarn does not install peer dependencies automatically. You will need
 # to install zod as shown above.

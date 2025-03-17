@@ -9,11 +9,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type MetricsMeasurement = {
   /**
-   * Time of the measurement
+   * Time of the measurement.
    */
   time: Date;
   /**
-   * Value of the measurement
+   * Value of the measurement.
    */
   value: number;
 };

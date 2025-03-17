@@ -5,6 +5,48 @@
 import * as z from "zod";
 
 /**
+ * The server cannot find the requested resource.
+ */
+export type DeleteCompositeMetricNotFoundErrorData = {
+  /**
+   * HTTP status code as defined in RFC 2817
+   */
+  code: number;
+  /**
+   * Supporting description of the error
+   */
+  message: string;
+  target?: string | undefined;
+};
+
+/**
+ * The server cannot find the requested resource.
+ */
+export class DeleteCompositeMetricNotFoundError extends Error {
+  /**
+   * HTTP status code as defined in RFC 2817
+   */
+  code: number;
+  target?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: DeleteCompositeMetricNotFoundErrorData;
+
+  constructor(err: DeleteCompositeMetricNotFoundErrorData) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message);
+    this.data$ = err;
+
+    this.code = err.code;
+    if (err.target != null) this.target = err.target;
+
+    this.name = "DeleteCompositeMetricNotFoundError";
+  }
+}
+
+/**
  * Access is forbidden.
  */
 export type DeleteCompositeMetricForbiddenErrorData = {
@@ -46,46 +88,52 @@ export class DeleteCompositeMetricForbiddenError extends Error {
   }
 }
 
-/**
- * The server could not understand the request due to invalid syntax.
- */
-export type DeleteCompositeMetricBadRequestErrorData = {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
+/** @internal */
+export const DeleteCompositeMetricNotFoundError$inboundSchema: z.ZodType<
+  DeleteCompositeMetricNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  code: z.number().int(),
+  message: z.string(),
+  target: z.string().optional(),
+})
+  .transform((v) => {
+    return new DeleteCompositeMetricNotFoundError(v);
+  });
+
+/** @internal */
+export type DeleteCompositeMetricNotFoundError$Outbound = {
   code: number;
-  /**
-   * Supporting description of the error
-   */
   message: string;
   target?: string | undefined;
 };
 
+/** @internal */
+export const DeleteCompositeMetricNotFoundError$outboundSchema: z.ZodType<
+  DeleteCompositeMetricNotFoundError$Outbound,
+  z.ZodTypeDef,
+  DeleteCompositeMetricNotFoundError
+> = z.instanceof(DeleteCompositeMetricNotFoundError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    code: z.number().int(),
+    message: z.string(),
+    target: z.string().optional(),
+  }));
+
 /**
- * The server could not understand the request due to invalid syntax.
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export class DeleteCompositeMetricBadRequestError extends Error {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  target?: string | undefined;
-
-  /** The original data that was passed to this error instance. */
-  data$: DeleteCompositeMetricBadRequestErrorData;
-
-  constructor(err: DeleteCompositeMetricBadRequestErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
-    this.data$ = err;
-
-    this.code = err.code;
-    if (err.target != null) this.target = err.target;
-
-    this.name = "DeleteCompositeMetricBadRequestError";
-  }
+export namespace DeleteCompositeMetricNotFoundError$ {
+  /** @deprecated use `DeleteCompositeMetricNotFoundError$inboundSchema` instead. */
+  export const inboundSchema = DeleteCompositeMetricNotFoundError$inboundSchema;
+  /** @deprecated use `DeleteCompositeMetricNotFoundError$outboundSchema` instead. */
+  export const outboundSchema =
+    DeleteCompositeMetricNotFoundError$outboundSchema;
+  /** @deprecated use `DeleteCompositeMetricNotFoundError$Outbound` instead. */
+  export type Outbound = DeleteCompositeMetricNotFoundError$Outbound;
 }
 
 /** @internal */
@@ -135,53 +183,4 @@ export namespace DeleteCompositeMetricForbiddenError$ {
     DeleteCompositeMetricForbiddenError$outboundSchema;
   /** @deprecated use `DeleteCompositeMetricForbiddenError$Outbound` instead. */
   export type Outbound = DeleteCompositeMetricForbiddenError$Outbound;
-}
-
-/** @internal */
-export const DeleteCompositeMetricBadRequestError$inboundSchema: z.ZodType<
-  DeleteCompositeMetricBadRequestError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.number().int(),
-  message: z.string(),
-  target: z.string().optional(),
-})
-  .transform((v) => {
-    return new DeleteCompositeMetricBadRequestError(v);
-  });
-
-/** @internal */
-export type DeleteCompositeMetricBadRequestError$Outbound = {
-  code: number;
-  message: string;
-  target?: string | undefined;
-};
-
-/** @internal */
-export const DeleteCompositeMetricBadRequestError$outboundSchema: z.ZodType<
-  DeleteCompositeMetricBadRequestError$Outbound,
-  z.ZodTypeDef,
-  DeleteCompositeMetricBadRequestError
-> = z.instanceof(DeleteCompositeMetricBadRequestError)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    code: z.number().int(),
-    message: z.string(),
-    target: z.string().optional(),
-  }));
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteCompositeMetricBadRequestError$ {
-  /** @deprecated use `DeleteCompositeMetricBadRequestError$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteCompositeMetricBadRequestError$inboundSchema;
-  /** @deprecated use `DeleteCompositeMetricBadRequestError$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteCompositeMetricBadRequestError$outboundSchema;
-  /** @deprecated use `DeleteCompositeMetricBadRequestError$Outbound` instead. */
-  export type Outbound = DeleteCompositeMetricBadRequestError$Outbound;
 }

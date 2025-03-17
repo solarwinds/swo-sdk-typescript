@@ -23,7 +23,7 @@ export type ListEntitiesRequest = {
    */
   pageSize?: number | undefined;
   /**
-   * Token for the requested page
+   * Token for the requested page.
    */
   skipToken?: string | undefined;
 };

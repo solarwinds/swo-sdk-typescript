@@ -11,10 +11,10 @@ const args = {
 };
 
 export const tool$metricsListMetrics: ToolDefinition<typeof args> = {
-  name: "metrics_list-metrics",
+  name: "metrics-list-metrics",
   description: `List metrics
 
-List metrics available within a time period. `,
+List metrics available within a time period.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await metricsListMetrics(

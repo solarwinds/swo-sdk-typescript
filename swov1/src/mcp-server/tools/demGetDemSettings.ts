@@ -6,7 +6,7 @@ import { demGetDemSettings } from "../../funcs/demGetDemSettings.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 export const tool$demGetDemSettings: ToolDefinition = {
-  name: "dem_get-dem-settings",
+  name: "dem-get-dem-settings",
   description: `Get DEM settings`,
   tool: async (client, ctx) => {
     const [result, apiCall] = await demGetDemSettings(

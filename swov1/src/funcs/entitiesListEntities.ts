@@ -45,7 +45,6 @@ export function entitiesListEntities(
       operations.ListEntitiesResponse,
       | errors.ListEntitiesBadRequestError
       | errors.ListEntitiesUnauthorizedError
-      | errors.ListEntitiesNotImplementedError
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -75,7 +74,6 @@ async function $do(
         operations.ListEntitiesResponse,
         | errors.ListEntitiesBadRequestError
         | errors.ListEntitiesUnauthorizedError
-        | errors.ListEntitiesNotImplementedError
         | APIError
         | SDKValidationError
         | UnexpectedClientError
@@ -162,7 +160,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "4XX", "501", "5XX"],
+    errorCodes: ["400", "401", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -179,7 +177,6 @@ async function $do(
     operations.ListEntitiesResponse,
     | errors.ListEntitiesBadRequestError
     | errors.ListEntitiesUnauthorizedError
-    | errors.ListEntitiesNotImplementedError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -193,7 +190,6 @@ async function $do(
     }),
     M.jsonErr(400, errors.ListEntitiesBadRequestError$inboundSchema),
     M.jsonErr(401, errors.ListEntitiesUnauthorizedError$inboundSchema),
-    M.jsonErr(501, errors.ListEntitiesNotImplementedError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, { extraFields: responseFields });
@@ -213,7 +209,6 @@ async function $do(
         operations.ListEntitiesResponse,
         | errors.ListEntitiesBadRequestError
         | errors.ListEntitiesUnauthorizedError
-        | errors.ListEntitiesNotImplementedError
         | APIError
         | SDKValidationError
         | UnexpectedClientError

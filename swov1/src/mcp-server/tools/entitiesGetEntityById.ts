@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$entitiesGetEntityById: ToolDefinition<typeof args> = {
-  name: "entities_get-entity-by-id",
+  name: "entities-get-entity-by-id",
   description: `Get an entity by ID`,
   args,
   tool: async (client, args, ctx) => {

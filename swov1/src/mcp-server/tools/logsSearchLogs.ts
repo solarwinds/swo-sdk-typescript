@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$logsSearchLogs: ToolDefinition<typeof args> = {
-  name: "logs_search-logs",
+  name: "logs-search-logs",
   description: `Search logs
 
 Search logs within a time period`,

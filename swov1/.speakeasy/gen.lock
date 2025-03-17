@@ -1,17 +1,20 @@
 lockVersion: 2.0.0
 id: 07bd7da1-2b9c-45f1-ab2f-485c7af5c2f1
 management:
-  docChecksum: ccb615f8ae4bcd8ddf18937aa09ab499
+  docChecksum: f2cc43e084a416f5a4cf47a74b3f3e6c
   docVersion: 1.0.5
-  speakeasyVersion: 1.513.4
-  generationVersion: 2.545.4
-  releaseVersion: 0.0.2
-  configChecksum: 210fa2878608473c62d9dd78e20cc159
+  speakeasyVersion: 1.517.3
+  generationVersion: 2.548.6
+  releaseVersion: 0.1.0
+  configChecksum: 80875f5085b93895a25d186b3c058c7a
+  repoURL: https://github.com/solarwinds/swo-sdk-typescript.git
+  repoSubDirectory: swov1
+  installationURL: https://gitpkg.now.sh/solarwinds/swo-sdk-typescript/swov1
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.11
-    core: 3.21.3
+    core: 3.21.4
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.0
@@ -23,7 +26,7 @@ features:
     globalServerURLs: 2.82.4
     ignores: 2.81.1
     inputOutputModels: 2.82.0
-    mcpServer: 0.6.0
+    mcpServer: 0.7.0
     nullables: 0.1.1
     pagination: 2.83.0
     responseFormat: 0.2.3
@@ -80,19 +83,16 @@ generatedFiles:
   - docs/models/components/websiteprotocol.md
   - docs/models/errors/createcompositemetricbadrequesterror.md
   - docs/models/errors/createcompositemetricforbiddenerror.md
-  - docs/models/errors/createcompositemetricnotimplementederror.md
   - docs/models/errors/createwebsitebadrequesterror.md
-  - docs/models/errors/deletecompositemetricbadrequesterror.md
   - docs/models/errors/deletecompositemetricforbiddenerror.md
+  - docs/models/errors/deletecompositemetricnotfounderror.md
   - docs/models/errors/deletewebsitebadrequesterror.md
   - docs/models/errors/getentitybyidbadrequesterror.md
   - docs/models/errors/getentitybyidnotfounderror.md
-  - docs/models/errors/getentitybyidnotimplementederror.md
   - docs/models/errors/getentitybyidunauthorizederror.md
   - docs/models/errors/getmetricbynamenotfounderror.md
   - docs/models/errors/getwebsitebadrequesterror.md
   - docs/models/errors/listentitiesbadrequesterror.md
-  - docs/models/errors/listentitiesnotimplementederror.md
   - docs/models/errors/listentitiesunauthorizederror.md
   - docs/models/errors/listmetricattributesnotfounderror.md
   - docs/models/errors/listmetricattributevaluesnotfounderror.md
@@ -101,12 +101,10 @@ generatedFiles:
   - docs/models/errors/pausewebsitemonitoringbadrequesterror.md
   - docs/models/errors/unpausewebsitemonitoringbadrequesterror.md
   - docs/models/errors/updatecompositemetricbadrequesterror.md
+  - docs/models/errors/updatecompositemetricforbiddenerror.md
   - docs/models/errors/updatecompositemetricnotfounderror.md
-  - docs/models/errors/updatecompositemetricnotimplementederror.md
-  - docs/models/errors/updatecompositemetricunauthorizederror.md
   - docs/models/errors/updateentitybyidbadrequesterror.md
   - docs/models/errors/updateentitybyidnotfounderror.md
-  - docs/models/errors/updateentitybyidnotimplementederror.md
   - docs/models/errors/updateentitybyidunauthorizederror.md
   - docs/models/errors/updatewebsitebadrequesterror.md
   - docs/models/operations/availabilitychecksettings.md
@@ -493,7 +491,7 @@ examples:
         query: {}
       responses:
         "200":
-          application/json: {"type": "KubernetesCluster", "metrics": [{"name": "composite.k8s.pod.container.status.restarts.increase", "units": "count", "formula": "increase(k8s.kube_pod_container_status_restarts_total[5m])", "lastReportedTime": "2021-01-01T00:00:00Z"}]}
+          application/json: {"type": "KubernetesCluster", "metrics": [{"name": "composite.custom.system.disk.io.rate", "displayName": "Disk IO rate", "description": "Disk bytes transferred per second", "units": "bytes/s", "formula": "rate(system.disk.io[5m]", "lastReportedTime": "2024-11-25T16:38:24Z"}]}
         "404":
           application/json: {"code": 404, "message": "Entity does not exist"}
   listMetrics:
@@ -532,6 +530,8 @@ examples:
           application/json: {"code": 404, "message": "Entity does not exist"}
         "501":
           application/json: {"code": 404, "message": "Entity does not exist"}
+        "403":
+          application/json: {"code": 404, "message": "Entity does not exist"}
   deleteCompositeMetric:
     speakeasy-default-delete-composite-metric:
       parameters:
@@ -542,6 +542,8 @@ examples:
           application/json: {"code": 404, "message": "Entity does not exist"}
         "403":
           application/json: {"code": 404, "message": "Entity does not exist"}
+        "404":
+          application/json: {"code": 404, "message": "Entity does not exist"}
   getMetricByName:
     speakeasy-default-get-metric-by-name:
       parameters:
@@ -549,7 +551,7 @@ examples:
           name: "<value>"
       responses:
         "200":
-          application/json: {"name": "composite.k8s.pod.container.status.restarts.increase", "units": "count", "formula": "increase(k8s.kube_pod_container_status_restarts_total[5m])", "lastReportedTime": "2021-01-01T00:00:00Z"}
+          application/json: {"name": "composite.custom.system.disk.io.rate", "displayName": "Disk IO rate", "description": "Disk bytes transferred per second", "units": "bytes/s", "formula": "rate(system.disk.io[5m]", "lastReportedTime": "2024-11-25T16:38:24Z"}
         "404":
           application/json: {"code": 404, "message": "Entity does not exist"}
   listMetricAttributes:

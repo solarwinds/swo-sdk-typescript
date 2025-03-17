@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$tokensCreateToken: ToolDefinition<typeof args> = {
-  name: "tokens_create-token",
+  name: "tokens-create-token",
   description: `Create ingestion token`,
   args,
   tool: async (client, args, ctx) => {

@@ -27,7 +27,7 @@ export type ListMetricAttributesRequest = {
    */
   pageSize?: number | undefined;
   /**
-   * Token for the requested page
+   * Token for the requested page.
    */
   skipToken?: string | undefined;
 };

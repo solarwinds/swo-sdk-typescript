@@ -9,21 +9,29 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CommonMetricInfo = {
   /**
-   * Name of the metric
+   * Name of the metric.
    */
   name: string;
   /**
-   * Units of the metric
+   * Display name of the metric. A short description of the metric.
    */
-  units: string;
+  displayName?: string | null | undefined;
   /**
-   * Formula of the metric
+   * Description of the metric. A detailed description of the metric.
    */
-  formula?: string | undefined;
+  description?: string | null | undefined;
   /**
-   * Last reported time of the metric
+   * Unit of the metric.
    */
-  lastReportedTime: string;
+  units?: string | null | undefined;
+  /**
+   * Formula of the metric.
+   */
+  formula?: string | null | undefined;
+  /**
+   * Last reported time of the metric.
+   */
+  lastReportedTime?: Date | null | undefined;
 };
 
 /** @internal */
@@ -33,17 +41,23 @@ export const CommonMetricInfo$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string(),
-  units: z.string(),
-  formula: z.string().optional(),
-  lastReportedTime: z.string(),
+  displayName: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  units: z.nullable(z.string()).optional(),
+  formula: z.nullable(z.string()).optional(),
+  lastReportedTime: z.nullable(
+    z.string().datetime({ offset: true }).transform(v => new Date(v)),
+  ).optional(),
 });
 
 /** @internal */
 export type CommonMetricInfo$Outbound = {
   name: string;
-  units: string;
-  formula?: string | undefined;
-  lastReportedTime: string;
+  displayName?: string | null | undefined;
+  description?: string | null | undefined;
+  units?: string | null | undefined;
+  formula?: string | null | undefined;
+  lastReportedTime?: string | null | undefined;
 };
 
 /** @internal */
@@ -53,9 +67,12 @@ export const CommonMetricInfo$outboundSchema: z.ZodType<
   CommonMetricInfo
 > = z.object({
   name: z.string(),
-  units: z.string(),
-  formula: z.string().optional(),
-  lastReportedTime: z.string(),
+  displayName: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
+  units: z.nullable(z.string()).optional(),
+  formula: z.nullable(z.string()).optional(),
+  lastReportedTime: z.nullable(z.date().transform(v => v.toISOString()))
+    .optional(),
 });
 
 /**

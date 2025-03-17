@@ -5,48 +5,6 @@
 import * as z from "zod";
 
 /**
- * Server error
- */
-export type UpdateEntityByIdNotImplementedErrorData = {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  /**
-   * Supporting description of the error
-   */
-  message: string;
-  target?: string | undefined;
-};
-
-/**
- * Server error
- */
-export class UpdateEntityByIdNotImplementedError extends Error {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  target?: string | undefined;
-
-  /** The original data that was passed to this error instance. */
-  data$: UpdateEntityByIdNotImplementedErrorData;
-
-  constructor(err: UpdateEntityByIdNotImplementedErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
-    this.data$ = err;
-
-    this.code = err.code;
-    if (err.target != null) this.target = err.target;
-
-    this.name = "UpdateEntityByIdNotImplementedError";
-  }
-}
-
-/**
  * The server cannot find the requested resource.
  */
 export type UpdateEntityByIdNotFoundErrorData = {
@@ -170,55 +128,6 @@ export class UpdateEntityByIdBadRequestError extends Error {
 
     this.name = "UpdateEntityByIdBadRequestError";
   }
-}
-
-/** @internal */
-export const UpdateEntityByIdNotImplementedError$inboundSchema: z.ZodType<
-  UpdateEntityByIdNotImplementedError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.number().int(),
-  message: z.string(),
-  target: z.string().optional(),
-})
-  .transform((v) => {
-    return new UpdateEntityByIdNotImplementedError(v);
-  });
-
-/** @internal */
-export type UpdateEntityByIdNotImplementedError$Outbound = {
-  code: number;
-  message: string;
-  target?: string | undefined;
-};
-
-/** @internal */
-export const UpdateEntityByIdNotImplementedError$outboundSchema: z.ZodType<
-  UpdateEntityByIdNotImplementedError$Outbound,
-  z.ZodTypeDef,
-  UpdateEntityByIdNotImplementedError
-> = z.instanceof(UpdateEntityByIdNotImplementedError)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    code: z.number().int(),
-    message: z.string(),
-    target: z.string().optional(),
-  }));
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateEntityByIdNotImplementedError$ {
-  /** @deprecated use `UpdateEntityByIdNotImplementedError$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateEntityByIdNotImplementedError$inboundSchema;
-  /** @deprecated use `UpdateEntityByIdNotImplementedError$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateEntityByIdNotImplementedError$outboundSchema;
-  /** @deprecated use `UpdateEntityByIdNotImplementedError$Outbound` instead. */
-  export type Outbound = UpdateEntityByIdNotImplementedError$Outbound;
 }
 
 /** @internal */
