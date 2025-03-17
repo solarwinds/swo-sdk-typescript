@@ -38,7 +38,7 @@ export class Metrics extends ClientSDK {
    * Create composite metric
    *
    * @remarks
-   * Create a composite metric given a PromQL query
+   * Create a composite metric given a PromQL query.
    */
   async createCompositeMetric(
     request: components.CompositeMetric,
@@ -55,7 +55,7 @@ export class Metrics extends ClientSDK {
    * Update composite metric
    *
    * @remarks
-   * Update a composite metric given a metric name
+   * Update a composite metric given a metric name.
    */
   async updateCompositeMetric(
     request: operations.UpdateCompositeMetricRequest,
@@ -72,7 +72,7 @@ export class Metrics extends ClientSDK {
    * Delete composite metric
    *
    * @remarks
-   * Delete a composite metric given a metric name
+   * Delete a composite metric given a metric name.
    */
   async deleteCompositeMetric(
     request: operations.DeleteCompositeMetricRequest,
@@ -89,7 +89,7 @@ export class Metrics extends ClientSDK {
    * Get metric info by name
    *
    * @remarks
-   * Get info about a metric
+   * Get information about a given metric.
    */
   async getMetricByName(
     request: operations.GetMetricByNameRequest,

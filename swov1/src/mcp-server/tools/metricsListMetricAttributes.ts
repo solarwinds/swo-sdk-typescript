@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$metricsListMetricAttributes: ToolDefinition<typeof args> = {
-  name: "metrics_list-metric-attributes",
+  name: "metrics-list-metric-attributes",
   description: `List metric attribute names
 
 List attribute names for a given metric.`,

@@ -85,12 +85,11 @@ run();
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.ListEntitiesBadRequestError     | 400                                    | application/json                       |
-| errors.ListEntitiesUnauthorizedError   | 401                                    | application/json                       |
-| errors.ListEntitiesNotImplementedError | 501                                    | application/json                       |
-| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+| Error Type                           | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ListEntitiesBadRequestError   | 400                                  | application/json                     |
+| errors.ListEntitiesUnauthorizedError | 401                                  | application/json                     |
+| errors.APIError                      | 4XX, 5XX                             | \*/\*                                |
 
 ## getEntityById
 
@@ -164,13 +163,12 @@ run();
 
 ### Errors
 
-| Error Type                              | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.GetEntityByIdBadRequestError     | 400                                     | application/json                        |
-| errors.GetEntityByIdUnauthorizedError   | 401                                     | application/json                        |
-| errors.GetEntityByIdNotFoundError       | 404                                     | application/json                        |
-| errors.GetEntityByIdNotImplementedError | 501                                     | application/json                        |
-| errors.APIError                         | 4XX, 5XX                                | \*/\*                                   |
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.GetEntityByIdBadRequestError   | 400                                   | application/json                      |
+| errors.GetEntityByIdUnauthorizedError | 401                                   | application/json                      |
+| errors.GetEntityByIdNotFoundError     | 404                                   | application/json                      |
+| errors.APIError                       | 4XX, 5XX                              | \*/\*                                 |
 
 ## updateEntityById
 
@@ -256,10 +254,9 @@ run();
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.UpdateEntityByIdBadRequestError     | 400                                        | application/json                           |
-| errors.UpdateEntityByIdUnauthorizedError   | 401                                        | application/json                           |
-| errors.UpdateEntityByIdNotFoundError       | 404                                        | application/json                           |
-| errors.UpdateEntityByIdNotImplementedError | 501                                        | application/json                           |
-| errors.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| errors.UpdateEntityByIdBadRequestError   | 400                                      | application/json                         |
+| errors.UpdateEntityByIdUnauthorizedError | 401                                      | application/json                         |
+| errors.UpdateEntityByIdNotFoundError     | 404                                      | application/json                         |
+| errors.APIError                          | 4XX, 5XX                                 | \*/\*                                    |

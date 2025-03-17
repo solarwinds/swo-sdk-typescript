@@ -5,48 +5,6 @@
 import * as z from "zod";
 
 /**
- * Server error
- */
-export type ListEntitiesNotImplementedErrorData = {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  /**
-   * Supporting description of the error
-   */
-  message: string;
-  target?: string | undefined;
-};
-
-/**
- * Server error
- */
-export class ListEntitiesNotImplementedError extends Error {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  target?: string | undefined;
-
-  /** The original data that was passed to this error instance. */
-  data$: ListEntitiesNotImplementedErrorData;
-
-  constructor(err: ListEntitiesNotImplementedErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
-    this.data$ = err;
-
-    this.code = err.code;
-    if (err.target != null) this.target = err.target;
-
-    this.name = "ListEntitiesNotImplementedError";
-  }
-}
-
-/**
  * Access is unauthorized.
  */
 export type ListEntitiesUnauthorizedErrorData = {
@@ -128,53 +86,6 @@ export class ListEntitiesBadRequestError extends Error {
 
     this.name = "ListEntitiesBadRequestError";
   }
-}
-
-/** @internal */
-export const ListEntitiesNotImplementedError$inboundSchema: z.ZodType<
-  ListEntitiesNotImplementedError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.number().int(),
-  message: z.string(),
-  target: z.string().optional(),
-})
-  .transform((v) => {
-    return new ListEntitiesNotImplementedError(v);
-  });
-
-/** @internal */
-export type ListEntitiesNotImplementedError$Outbound = {
-  code: number;
-  message: string;
-  target?: string | undefined;
-};
-
-/** @internal */
-export const ListEntitiesNotImplementedError$outboundSchema: z.ZodType<
-  ListEntitiesNotImplementedError$Outbound,
-  z.ZodTypeDef,
-  ListEntitiesNotImplementedError
-> = z.instanceof(ListEntitiesNotImplementedError)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    code: z.number().int(),
-    message: z.string(),
-    target: z.string().optional(),
-  }));
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListEntitiesNotImplementedError$ {
-  /** @deprecated use `ListEntitiesNotImplementedError$inboundSchema` instead. */
-  export const inboundSchema = ListEntitiesNotImplementedError$inboundSchema;
-  /** @deprecated use `ListEntitiesNotImplementedError$outboundSchema` instead. */
-  export const outboundSchema = ListEntitiesNotImplementedError$outboundSchema;
-  /** @deprecated use `ListEntitiesNotImplementedError$Outbound` instead. */
-  export type Outbound = ListEntitiesNotImplementedError$Outbound;
 }
 
 /** @internal */

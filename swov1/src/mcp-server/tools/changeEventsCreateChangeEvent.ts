@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$changeEventsCreateChangeEvent: ToolDefinition<typeof args> = {
-  name: "change-events_create-change-event",
+  name: "change-events-create-change-event",
   description: `Create an event`,
   args,
   tool: async (client, args, ctx) => {

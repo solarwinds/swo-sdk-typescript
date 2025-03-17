@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Delete composite metric
  *
  * @remarks
- * Delete a composite metric given a metric name
+ * Delete a composite metric given a metric name.
  */
 export function metricsDeleteCompositeMetric(
   client: SwoCore,
@@ -38,8 +38,8 @@ export function metricsDeleteCompositeMetric(
 ): APIPromise<
   Result<
     void,
-    | errors.DeleteCompositeMetricBadRequestError
     | errors.DeleteCompositeMetricForbiddenError
+    | errors.DeleteCompositeMetricNotFoundError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -64,8 +64,8 @@ async function $do(
   [
     Result<
       void,
-      | errors.DeleteCompositeMetricBadRequestError
       | errors.DeleteCompositeMetricForbiddenError
+      | errors.DeleteCompositeMetricNotFoundError
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -146,7 +146,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "403", "4XX", "5XX"],
+    errorCodes: ["403", "404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -161,8 +161,8 @@ async function $do(
 
   const [result] = await M.match<
     void,
-    | errors.DeleteCompositeMetricBadRequestError
     | errors.DeleteCompositeMetricForbiddenError
+    | errors.DeleteCompositeMetricNotFoundError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -171,9 +171,9 @@ async function $do(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.nil([200, 204], z.void()),
-    M.jsonErr(400, errors.DeleteCompositeMetricBadRequestError$inboundSchema),
+    M.nil(204, z.void()),
     M.jsonErr(403, errors.DeleteCompositeMetricForbiddenError$inboundSchema),
+    M.jsonErr(404, errors.DeleteCompositeMetricNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, { extraFields: responseFields });

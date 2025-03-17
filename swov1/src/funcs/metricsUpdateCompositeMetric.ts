@@ -29,7 +29,7 @@ import { Result } from "../types/fp.js";
  * Update composite metric
  *
  * @remarks
- * Update a composite metric given a metric name
+ * Update a composite metric given a metric name.
  */
 export function metricsUpdateCompositeMetric(
   client: SwoCore,
@@ -39,9 +39,8 @@ export function metricsUpdateCompositeMetric(
   Result<
     components.CompositeMetric | undefined,
     | errors.UpdateCompositeMetricBadRequestError
-    | errors.UpdateCompositeMetricUnauthorizedError
+    | errors.UpdateCompositeMetricForbiddenError
     | errors.UpdateCompositeMetricNotFoundError
-    | errors.UpdateCompositeMetricNotImplementedError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -67,9 +66,8 @@ async function $do(
     Result<
       components.CompositeMetric | undefined,
       | errors.UpdateCompositeMetricBadRequestError
-      | errors.UpdateCompositeMetricUnauthorizedError
+      | errors.UpdateCompositeMetricForbiddenError
       | errors.UpdateCompositeMetricNotFoundError
-      | errors.UpdateCompositeMetricNotImplementedError
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -153,7 +151,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "501", "5XX"],
+    errorCodes: ["400", "403", "404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -169,9 +167,8 @@ async function $do(
   const [result] = await M.match<
     components.CompositeMetric | undefined,
     | errors.UpdateCompositeMetricBadRequestError
-    | errors.UpdateCompositeMetricUnauthorizedError
+    | errors.UpdateCompositeMetricForbiddenError
     | errors.UpdateCompositeMetricNotFoundError
-    | errors.UpdateCompositeMetricNotImplementedError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -183,12 +180,8 @@ async function $do(
     M.json(200, components.CompositeMetric$inboundSchema.optional()),
     M.nil(202, components.CompositeMetric$inboundSchema.optional()),
     M.jsonErr(400, errors.UpdateCompositeMetricBadRequestError$inboundSchema),
-    M.jsonErr(401, errors.UpdateCompositeMetricUnauthorizedError$inboundSchema),
+    M.jsonErr(403, errors.UpdateCompositeMetricForbiddenError$inboundSchema),
     M.jsonErr(404, errors.UpdateCompositeMetricNotFoundError$inboundSchema),
-    M.jsonErr(
-      501,
-      errors.UpdateCompositeMetricNotImplementedError$inboundSchema,
-    ),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, { extraFields: responseFields });

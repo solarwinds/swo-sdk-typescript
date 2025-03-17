@@ -9,25 +9,25 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CompositeMetric = {
   /**
-   * Name of the composite metric
+   * Name of the composite metric.
    */
   name: string;
   /**
    * Display name of the composite metric. A short description of the metric.
    */
-  displayName: string;
+  displayName?: string | null | undefined;
   /**
    * Description of the composite metric. A detailed description of the metric.
    */
-  description: string;
+  description?: string | null | undefined;
   /**
-   * PromQL query to calculate the composite metric
+   * PromQL query to calculate the composite metric.
    */
   formula: string;
   /**
-   * Unit of the composite metric
+   * Unit of the composite metric.
    */
-  units: string;
+  units?: string | null | undefined;
 };
 
 /** @internal */
@@ -37,19 +37,19 @@ export const CompositeMetric$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string(),
-  displayName: z.string(),
-  description: z.string(),
+  displayName: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   formula: z.string(),
-  units: z.string(),
+  units: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
 export type CompositeMetric$Outbound = {
   name: string;
-  displayName: string;
-  description: string;
+  displayName?: string | null | undefined;
+  description?: string | null | undefined;
   formula: string;
-  units: string;
+  units?: string | null | undefined;
 };
 
 /** @internal */
@@ -59,10 +59,10 @@ export const CompositeMetric$outboundSchema: z.ZodType<
   CompositeMetric
 > = z.object({
   name: z.string(),
-  displayName: z.string(),
-  description: z.string(),
+  displayName: z.nullable(z.string()).optional(),
+  description: z.nullable(z.string()).optional(),
   formula: z.string(),
-  units: z.string(),
+  units: z.nullable(z.string()).optional(),
 });
 
 /**

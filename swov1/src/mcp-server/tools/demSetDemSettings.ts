@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$demSetDemSettings: ToolDefinition<typeof args> = {
-  name: "dem_set-dem-settings",
+  name: "dem-set-dem-settings",
   description: `Set DEM settings`,
   args,
   tool: async (client, args, ctx) => {

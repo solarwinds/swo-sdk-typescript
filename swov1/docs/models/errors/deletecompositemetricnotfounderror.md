@@ -1,11 +1,11 @@
-# DeleteCompositeMetricBadRequestError
+# DeleteCompositeMetricNotFoundError
 
-The server could not understand the request due to invalid syntax.
+The server cannot find the requested resource.
 
 ## Example Usage
 
 ```typescript
-import { DeleteCompositeMetricBadRequestError } from "@solarwinds/swo-sdk-typescript/models/errors";
+import { DeleteCompositeMetricNotFoundError } from "@solarwinds/swo-sdk-typescript/models/errors";
 
 // No examples available for this model
 ```

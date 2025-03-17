@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$demDeleteWebsite: ToolDefinition<typeof args> = {
-  name: "dem_delete-website",
+  name: "dem-delete-website",
   description: `Delete website`,
   args,
   tool: async (client, args, ctx) => {

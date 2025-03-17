@@ -7,10 +7,12 @@ import { GetMetricByNameResponse } from "@solarwinds/swo-sdk-typescript/models/o
 
 let value: GetMetricByNameResponse = {
   result: {
-    name: "composite.k8s.pod.container.status.restarts.increase",
-    units: "count",
-    formula: "increase(k8s.kube_pod_container_status_restarts_total[5m])",
-    lastReportedTime: "2021-01-01T00:00:00Z",
+    name: "composite.custom.system.disk.io.rate",
+    displayName: "Disk IO rate",
+    description: "Disk bytes transferred per second",
+    units: "bytes/s",
+    formula: "rate(system.disk.io[5m]",
+    lastReportedTime: new Date("2024-11-25T16:38:24Z"),
   },
 };
 ```

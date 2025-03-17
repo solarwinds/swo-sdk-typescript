@@ -23,7 +23,7 @@ export type ListMetricMeasurementsRequest = {
    */
   groupBy?: string | undefined;
   /**
-   * Aggregation method used to group measurements
+   * Aggregation method used to group measurements.
    */
   aggregateBy?: components.MetricsAggregationMethods | undefined;
   /**
@@ -33,11 +33,11 @@ export type ListMetricMeasurementsRequest = {
    */
   bucketSizeInSeconds?: number | undefined;
   /**
-   * Secondary grouping to allow aggregating data points inside individual buckets. Has to be set together with `preGroupByMethod`
+   * Secondary grouping to allow aggregating data points inside individual buckets. Has to be set together with `preGroupByMethod`.
    */
   preGroupBy?: string | undefined;
   /**
-   * Secondary aggregation to allow aggregating data points inside individual buckets. Has to be set together with `preGroupBy`
+   * Secondary aggregation to allow aggregating data points inside individual buckets. Has to be set together with `preGroupBy`.
    */
   preGroupByMethod?: string | undefined;
   /**
@@ -57,7 +57,7 @@ export type ListMetricMeasurementsRequest = {
    */
   pageSize?: number | undefined;
   /**
-   * Token for the requested page
+   * Token for the requested page.
    */
   skipToken?: string | undefined;
 };

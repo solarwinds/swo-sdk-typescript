@@ -11,10 +11,10 @@ const args = {
 };
 
 export const tool$metricsCreateCompositeMetric: ToolDefinition<typeof args> = {
-  name: "metrics_create-composite-metric",
+  name: "metrics-create-composite-metric",
   description: `Create composite metric
 
-Create a composite metric given a PromQL query`,
+Create a composite metric given a PromQL query.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await metricsCreateCompositeMetric(

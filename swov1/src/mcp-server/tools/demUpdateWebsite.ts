@@ -11,7 +11,7 @@ const args = {
 };
 
 export const tool$demUpdateWebsite: ToolDefinition<typeof args> = {
-  name: "dem_update-website",
+  name: "dem-update-website",
   description: `Update website monitoring configuration`,
   args,
   tool: async (client, args, ctx) => {

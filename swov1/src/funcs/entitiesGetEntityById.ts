@@ -38,7 +38,6 @@ export function entitiesGetEntityById(
     | errors.GetEntityByIdBadRequestError
     | errors.GetEntityByIdUnauthorizedError
     | errors.GetEntityByIdNotFoundError
-    | errors.GetEntityByIdNotImplementedError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -66,7 +65,6 @@ async function $do(
       | errors.GetEntityByIdBadRequestError
       | errors.GetEntityByIdUnauthorizedError
       | errors.GetEntityByIdNotFoundError
-      | errors.GetEntityByIdNotImplementedError
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -146,7 +144,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "401", "404", "4XX", "501", "5XX"],
+    errorCodes: ["400", "401", "404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -164,7 +162,6 @@ async function $do(
     | errors.GetEntityByIdBadRequestError
     | errors.GetEntityByIdUnauthorizedError
     | errors.GetEntityByIdNotFoundError
-    | errors.GetEntityByIdNotImplementedError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -177,7 +174,6 @@ async function $do(
     M.jsonErr(400, errors.GetEntityByIdBadRequestError$inboundSchema),
     M.jsonErr(401, errors.GetEntityByIdUnauthorizedError$inboundSchema),
     M.jsonErr(404, errors.GetEntityByIdNotFoundError$inboundSchema),
-    M.jsonErr(501, errors.GetEntityByIdNotImplementedError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, { extraFields: responseFields });

@@ -36,7 +36,7 @@ import {
  * Get metric info by name
  *
  * @remarks
- * Get info about a metric
+ * Get information about a given metric.
  */
 export function metricsGetMetricByName(
   client: SwoCore,

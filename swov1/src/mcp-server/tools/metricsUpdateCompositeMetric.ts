@@ -11,10 +11,10 @@ const args = {
 };
 
 export const tool$metricsUpdateCompositeMetric: ToolDefinition<typeof args> = {
-  name: "metrics_update-composite-metric",
+  name: "metrics-update-composite-metric",
   description: `Update composite metric
 
-Update a composite metric given a metric name`,
+Update a composite metric given a metric name.`,
   args,
   tool: async (client, args, ctx) => {
     const [result, apiCall] = await metricsUpdateCompositeMetric(

@@ -1,11 +1,11 @@
-# UpdateEntityByIdNotImplementedError
+# UpdateCompositeMetricForbiddenError
 
-Server error
+Access is forbidden.
 
 ## Example Usage
 
 ```typescript
-import { UpdateEntityByIdNotImplementedError } from "@solarwinds/swo-sdk-typescript/models/errors";
+import { UpdateCompositeMetricForbiddenError } from "@solarwinds/swo-sdk-typescript/models/errors";
 
 // No examples available for this model
 ```

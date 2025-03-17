@@ -5,48 +5,6 @@
 import * as z from "zod";
 
 /**
- * Server error
- */
-export type UpdateCompositeMetricNotImplementedErrorData = {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  /**
-   * Supporting description of the error
-   */
-  message: string;
-  target?: string | undefined;
-};
-
-/**
- * Server error
- */
-export class UpdateCompositeMetricNotImplementedError extends Error {
-  /**
-   * HTTP status code as defined in RFC 2817
-   */
-  code: number;
-  target?: string | undefined;
-
-  /** The original data that was passed to this error instance. */
-  data$: UpdateCompositeMetricNotImplementedErrorData;
-
-  constructor(err: UpdateCompositeMetricNotImplementedErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
-    this.data$ = err;
-
-    this.code = err.code;
-    if (err.target != null) this.target = err.target;
-
-    this.name = "UpdateCompositeMetricNotImplementedError";
-  }
-}
-
-/**
  * The server cannot find the requested resource.
  */
 export type UpdateCompositeMetricNotFoundErrorData = {
@@ -89,9 +47,9 @@ export class UpdateCompositeMetricNotFoundError extends Error {
 }
 
 /**
- * Access is unauthorized.
+ * Access is forbidden.
  */
-export type UpdateCompositeMetricUnauthorizedErrorData = {
+export type UpdateCompositeMetricForbiddenErrorData = {
   /**
    * HTTP status code as defined in RFC 2817
    */
@@ -104,9 +62,9 @@ export type UpdateCompositeMetricUnauthorizedErrorData = {
 };
 
 /**
- * Access is unauthorized.
+ * Access is forbidden.
  */
-export class UpdateCompositeMetricUnauthorizedError extends Error {
+export class UpdateCompositeMetricForbiddenError extends Error {
   /**
    * HTTP status code as defined in RFC 2817
    */
@@ -114,9 +72,9 @@ export class UpdateCompositeMetricUnauthorizedError extends Error {
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
-  data$: UpdateCompositeMetricUnauthorizedErrorData;
+  data$: UpdateCompositeMetricForbiddenErrorData;
 
-  constructor(err: UpdateCompositeMetricUnauthorizedErrorData) {
+  constructor(err: UpdateCompositeMetricForbiddenErrorData) {
     const message = "message" in err && typeof err.message === "string"
       ? err.message
       : `API error occurred: ${JSON.stringify(err)}`;
@@ -126,7 +84,7 @@ export class UpdateCompositeMetricUnauthorizedError extends Error {
     this.code = err.code;
     if (err.target != null) this.target = err.target;
 
-    this.name = "UpdateCompositeMetricUnauthorizedError";
+    this.name = "UpdateCompositeMetricForbiddenError";
   }
 }
 
@@ -170,55 +128,6 @@ export class UpdateCompositeMetricBadRequestError extends Error {
 
     this.name = "UpdateCompositeMetricBadRequestError";
   }
-}
-
-/** @internal */
-export const UpdateCompositeMetricNotImplementedError$inboundSchema: z.ZodType<
-  UpdateCompositeMetricNotImplementedError,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.number().int(),
-  message: z.string(),
-  target: z.string().optional(),
-})
-  .transform((v) => {
-    return new UpdateCompositeMetricNotImplementedError(v);
-  });
-
-/** @internal */
-export type UpdateCompositeMetricNotImplementedError$Outbound = {
-  code: number;
-  message: string;
-  target?: string | undefined;
-};
-
-/** @internal */
-export const UpdateCompositeMetricNotImplementedError$outboundSchema: z.ZodType<
-  UpdateCompositeMetricNotImplementedError$Outbound,
-  z.ZodTypeDef,
-  UpdateCompositeMetricNotImplementedError
-> = z.instanceof(UpdateCompositeMetricNotImplementedError)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    code: z.number().int(),
-    message: z.string(),
-    target: z.string().optional(),
-  }));
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateCompositeMetricNotImplementedError$ {
-  /** @deprecated use `UpdateCompositeMetricNotImplementedError$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateCompositeMetricNotImplementedError$inboundSchema;
-  /** @deprecated use `UpdateCompositeMetricNotImplementedError$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateCompositeMetricNotImplementedError$outboundSchema;
-  /** @deprecated use `UpdateCompositeMetricNotImplementedError$Outbound` instead. */
-  export type Outbound = UpdateCompositeMetricNotImplementedError$Outbound;
 }
 
 /** @internal */
@@ -270,8 +179,8 @@ export namespace UpdateCompositeMetricNotFoundError$ {
 }
 
 /** @internal */
-export const UpdateCompositeMetricUnauthorizedError$inboundSchema: z.ZodType<
-  UpdateCompositeMetricUnauthorizedError,
+export const UpdateCompositeMetricForbiddenError$inboundSchema: z.ZodType<
+  UpdateCompositeMetricForbiddenError,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -280,22 +189,22 @@ export const UpdateCompositeMetricUnauthorizedError$inboundSchema: z.ZodType<
   target: z.string().optional(),
 })
   .transform((v) => {
-    return new UpdateCompositeMetricUnauthorizedError(v);
+    return new UpdateCompositeMetricForbiddenError(v);
   });
 
 /** @internal */
-export type UpdateCompositeMetricUnauthorizedError$Outbound = {
+export type UpdateCompositeMetricForbiddenError$Outbound = {
   code: number;
   message: string;
   target?: string | undefined;
 };
 
 /** @internal */
-export const UpdateCompositeMetricUnauthorizedError$outboundSchema: z.ZodType<
-  UpdateCompositeMetricUnauthorizedError$Outbound,
+export const UpdateCompositeMetricForbiddenError$outboundSchema: z.ZodType<
+  UpdateCompositeMetricForbiddenError$Outbound,
   z.ZodTypeDef,
-  UpdateCompositeMetricUnauthorizedError
-> = z.instanceof(UpdateCompositeMetricUnauthorizedError)
+  UpdateCompositeMetricForbiddenError
+> = z.instanceof(UpdateCompositeMetricForbiddenError)
   .transform(v => v.data$)
   .pipe(z.object({
     code: z.number().int(),
@@ -307,15 +216,15 @@ export const UpdateCompositeMetricUnauthorizedError$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace UpdateCompositeMetricUnauthorizedError$ {
-  /** @deprecated use `UpdateCompositeMetricUnauthorizedError$inboundSchema` instead. */
+export namespace UpdateCompositeMetricForbiddenError$ {
+  /** @deprecated use `UpdateCompositeMetricForbiddenError$inboundSchema` instead. */
   export const inboundSchema =
-    UpdateCompositeMetricUnauthorizedError$inboundSchema;
-  /** @deprecated use `UpdateCompositeMetricUnauthorizedError$outboundSchema` instead. */
+    UpdateCompositeMetricForbiddenError$inboundSchema;
+  /** @deprecated use `UpdateCompositeMetricForbiddenError$outboundSchema` instead. */
   export const outboundSchema =
-    UpdateCompositeMetricUnauthorizedError$outboundSchema;
-  /** @deprecated use `UpdateCompositeMetricUnauthorizedError$Outbound` instead. */
-  export type Outbound = UpdateCompositeMetricUnauthorizedError$Outbound;
+    UpdateCompositeMetricForbiddenError$outboundSchema;
+  /** @deprecated use `UpdateCompositeMetricForbiddenError$Outbound` instead. */
+  export type Outbound = UpdateCompositeMetricForbiddenError$Outbound;
 }
 
 /** @internal */

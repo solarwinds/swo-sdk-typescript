@@ -13,7 +13,7 @@ const args = {
 export const tool$metadataListMetricsForEntityType: ToolDefinition<
   typeof args
 > = {
-  name: "metadata_list-metrics-for-entity-type",
+  name: "metadata-list-metrics-for-entity-type",
   description: `List metrics metadata for an entity type
 
 List metrics metadata for an entity type between a start and end time. If start time and end time unspecified, a default time range is be applied. An empty list indicates no metrics matched the given parameters.`,
