@@ -11,7 +11,7 @@
 import { CheckForString } from "@solarwinds/swo-sdk-typescript/models/operations";
 
 let value: CheckForString = {
-  operator: "DOES_NOT_CONTAIN",
+  operator: "CONTAINS",
   value: "<value>",
 };
 ```

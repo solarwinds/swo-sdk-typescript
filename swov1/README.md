@@ -88,7 +88,7 @@ yarn add https://gitpkg.now.sh/solarwinds/swo-sdk-typescript/swov1 zod
 This SDK is also an installable MCP server where the various SDK methods are
 exposed as tools that can be invoked by AI applications.
 
-> Node.js v20 or greater is required to run the MCP server.
+> Node.js v20 or greater is required to run the MCP server from npm.
 
 <details>
 <summary>Claude installation steps</summary>
@@ -116,16 +116,49 @@ Add the following server definition to your `claude_desktop_config.json` file:
 <details>
 <summary>Cursor installation steps</summary>
 
-Go to `Cursor Settings > Features > MCP Servers > Add new MCP server` and use the following settings:
+Create a `.cursor/mcp.json` file in your project root with the following content:
 
-- Name: Swo
-- Type: `command`
-- Command:
-```sh
-npx -y --package @solarwinds/swo-sdk-typescript -- mcp start --api-token ... 
+```json
+{
+  "mcpServers": {
+    "Swo": {
+      "command": "npx",
+      "args": [
+        "-y", "--package", "@solarwinds/swo-sdk-typescript",
+        "--",
+        "mcp", "start",
+        "--api-token", "..."
+      ]
+    }
+  }
+}
 ```
 
 </details>
+
+You can also run MCP servers as a standalone binary with no additional dependencies. You must pull these binaries from available Github releases:
+
+```bash
+curl -L -o mcp-server \
+    https://github.com/{org}/{repo}/releases/download/{tag}/mcp-server-bun-darwin-arm64 && \
+chmod +x mcp-server
+```
+
+If the repo is a private repo you must add your Github PAT to download a release `-H "Authorization: Bearer {GITHUB_PAT}"`.
+
+
+```json
+{
+  "mcpServers": {
+    "Todos": {
+      "command": "./DOWNLOAD/PATH/mcp-server",
+      "args": [
+        "start"
+      ]
+    }
+  }
+}
+```
 
 For a full list of server arguments, run:
 
@@ -237,10 +270,34 @@ run();
 
 * [createChangeEvent](docs/sdks/changeevents/README.md#createchangeevent) - Create an event
 
+### [cloudAccounts](docs/sdks/cloudaccounts/README.md)
+
+* [activateAwsIntegration](docs/sdks/cloudaccounts/README.md#activateawsintegration) - Activate AWS Integration
+* [createOrgStructure](docs/sdks/cloudaccounts/README.md#createorgstructure) - Create Organizational Structure
+* [updateAwsIntegration](docs/sdks/cloudaccounts/README.md#updateawsintegration) - Update AWS Integration
+* [validateMgmtAccountOnboarding](docs/sdks/cloudaccounts/README.md#validatemgmtaccountonboarding) - Validate Management Account Onboarding
+
+### [dbo](docs/sdks/dbo/README.md)
+
+* [observeDatabase](docs/sdks/dbo/README.md#observedatabase) - Add database observability to a database
+* [getPublicKey](docs/sdks/dbo/README.md#getpublickey) - Get public key for encrypting database credentials locally
+* [updateDatabase](docs/sdks/dbo/README.md#updatedatabase) - Update an observed database
+* [deleteDatabase](docs/sdks/dbo/README.md#deletedatabase) - Delete an observed database
+* [getPluginConfig](docs/sdks/dbo/README.md#getpluginconfig) - Get configuration of plugins observing a database
+* [getPlugins](docs/sdks/dbo/README.md#getplugins) - Get status of plugins observing a database
+* [pluginOperation](docs/sdks/dbo/README.md#pluginoperation) - Apply an operation on a database observability plugin
+
 ### [dem](docs/sdks/dem/README.md)
 
+* [listProbes](docs/sdks/dem/README.md#listprobes) - Get a list of existing synthetic probes
 * [getDemSettings](docs/sdks/dem/README.md#getdemsettings) - Get DEM settings
 * [setDemSettings](docs/sdks/dem/README.md#setdemsettings) - Set DEM settings
+* [createUri](docs/sdks/dem/README.md#createuri) - Create URI monitoring configuration
+* [getUri](docs/sdks/dem/README.md#geturi) - Get URI monitoring configuration
+* [updateUri](docs/sdks/dem/README.md#updateuri) - Update URI monitoring configuration
+* [deleteUri](docs/sdks/dem/README.md#deleteuri) - Delete URI
+* [pauseUriMonitoring](docs/sdks/dem/README.md#pauseurimonitoring) - Pause monitoring of the URI
+* [unpauseUriMonitoring](docs/sdks/dem/README.md#unpauseurimonitoring) - Unpause monitoring of the URI
 * [createWebsite](docs/sdks/dem/README.md#createwebsite) - Create website monitoring configuration
 * [getWebsite](docs/sdks/dem/README.md#getwebsite) - Get website monitoring configuration
 * [updateWebsite](docs/sdks/dem/README.md#updatewebsite) - Update website monitoring configuration
@@ -268,6 +325,7 @@ run();
 
 * [listMetrics](docs/sdks/metrics/README.md#listmetrics) - List metrics
 * [createCompositeMetric](docs/sdks/metrics/README.md#createcompositemetric) - Create composite metric
+* [listMultiMetricMeasurements](docs/sdks/metrics/README.md#listmultimetricmeasurements) - List measurements for a batch of metrics
 * [updateCompositeMetric](docs/sdks/metrics/README.md#updatecompositemetric) - Update composite metric
 * [deleteCompositeMetric](docs/sdks/metrics/README.md#deletecompositemetric) - Delete composite metric
 * [getMetricByName](docs/sdks/metrics/README.md#getmetricbyname) - Get metric info by name
@@ -299,13 +357,31 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`changeEventsCreateChangeEvent`](docs/sdks/changeevents/README.md#createchangeevent) - Create an event
+- [`cloudAccountsActivateAwsIntegration`](docs/sdks/cloudaccounts/README.md#activateawsintegration) - Activate AWS Integration
+- [`cloudAccountsCreateOrgStructure`](docs/sdks/cloudaccounts/README.md#createorgstructure) - Create Organizational Structure
+- [`cloudAccountsUpdateAwsIntegration`](docs/sdks/cloudaccounts/README.md#updateawsintegration) - Update AWS Integration
+- [`cloudAccountsValidateMgmtAccountOnboarding`](docs/sdks/cloudaccounts/README.md#validatemgmtaccountonboarding) - Validate Management Account Onboarding
+- [`dboDeleteDatabase`](docs/sdks/dbo/README.md#deletedatabase) - Delete an observed database
+- [`dboGetPluginConfig`](docs/sdks/dbo/README.md#getpluginconfig) - Get configuration of plugins observing a database
+- [`dboGetPlugins`](docs/sdks/dbo/README.md#getplugins) - Get status of plugins observing a database
+- [`dboGetPublicKey`](docs/sdks/dbo/README.md#getpublickey) - Get public key for encrypting database credentials locally
+- [`dboObserveDatabase`](docs/sdks/dbo/README.md#observedatabase) - Add database observability to a database
+- [`dboPluginOperation`](docs/sdks/dbo/README.md#pluginoperation) - Apply an operation on a database observability plugin
+- [`dboUpdateDatabase`](docs/sdks/dbo/README.md#updatedatabase) - Update an observed database
+- [`demCreateUri`](docs/sdks/dem/README.md#createuri) - Create URI monitoring configuration
 - [`demCreateWebsite`](docs/sdks/dem/README.md#createwebsite) - Create website monitoring configuration
+- [`demDeleteUri`](docs/sdks/dem/README.md#deleteuri) - Delete URI
 - [`demDeleteWebsite`](docs/sdks/dem/README.md#deletewebsite) - Delete website
 - [`demGetDemSettings`](docs/sdks/dem/README.md#getdemsettings) - Get DEM settings
+- [`demGetUri`](docs/sdks/dem/README.md#geturi) - Get URI monitoring configuration
 - [`demGetWebsite`](docs/sdks/dem/README.md#getwebsite) - Get website monitoring configuration
+- [`demListProbes`](docs/sdks/dem/README.md#listprobes) - Get a list of existing synthetic probes
+- [`demPauseUriMonitoring`](docs/sdks/dem/README.md#pauseurimonitoring) - Pause monitoring of the URI
 - [`demPauseWebsiteMonitoring`](docs/sdks/dem/README.md#pausewebsitemonitoring) - Pause monitoring of a website
 - [`demSetDemSettings`](docs/sdks/dem/README.md#setdemsettings) - Set DEM settings
+- [`demUnpauseUriMonitoring`](docs/sdks/dem/README.md#unpauseurimonitoring) - Unpause monitoring of the URI
 - [`demUnpauseWebsiteMonitoring`](docs/sdks/dem/README.md#unpausewebsitemonitoring) - Unpause monitoring of a website
+- [`demUpdateUri`](docs/sdks/dem/README.md#updateuri) - Update URI monitoring configuration
 - [`demUpdateWebsite`](docs/sdks/dem/README.md#updatewebsite) - Update website monitoring configuration
 - [`entitiesGetEntityById`](docs/sdks/entities/README.md#getentitybyid) - Get an entity by ID
 - [`entitiesListEntities`](docs/sdks/entities/README.md#listentities) - Get a list of entities by type. A returned empty list indicates no entities matched the given parameters.
@@ -321,6 +397,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`metricsListMetricAttributeValues`](docs/sdks/metrics/README.md#listmetricattributevalues) - List metric attribute values
 - [`metricsListMetricMeasurements`](docs/sdks/metrics/README.md#listmetricmeasurements) - List metric measurement values, grouped by attributes, filtered by the filter. An empty list indicates no data points are available for the given parameters.
 - [`metricsListMetrics`](docs/sdks/metrics/README.md#listmetrics) - List metrics
+- [`metricsListMultiMetricMeasurements`](docs/sdks/metrics/README.md#listmultimetricmeasurements) - List measurements for a batch of metrics
 - [`metricsUpdateCompositeMetric`](docs/sdks/metrics/README.md#updatecompositemetric) - Update composite metric
 - [`tokensCreateToken`](docs/sdks/tokens/README.md#createtoken) - Create ingestion token
 
@@ -462,19 +539,25 @@ run();
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `createWebsite` method may throw the following errors:
+Some methods specify known errors which can be thrown. All the known errors are enumerated in the `models/errors/errors.ts` module. The known errors for a method are documented under the *Errors* tables in SDK docs. For example, the `activateAwsIntegration` method may throw the following errors:
 
-| Error Type                          | Status Code | Content Type     |
-| ----------------------------------- | ----------- | ---------------- |
-| errors.CreateWebsiteBadRequestError | 400         | application/json |
-| errors.APIError                     | 4XX, 5XX    | \*/\*            |
+| Error Type                                       | Status Code | Content Type     |
+| ------------------------------------------------ | ----------- | ---------------- |
+| errors.ActivateAwsIntegrationBadRequestError     | 400         | application/json |
+| errors.ActivateAwsIntegrationUnauthorizedError   | 401         | application/json |
+| errors.ActivateAwsIntegrationNotFoundError       | 404         | application/json |
+| errors.ActivateAwsIntegrationInternalServerError | 500         | application/json |
+| errors.APIError                                  | 4XX, 5XX    | \*/\*            |
 
 If the method throws an error and it is not captured by the known errors, it will default to throwing a `APIError`.
 
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 import {
-  CreateWebsiteBadRequestError,
+  ActivateAwsIntegrationBadRequestError,
+  ActivateAwsIntegrationInternalServerError,
+  ActivateAwsIntegrationNotFoundError,
+  ActivateAwsIntegrationUnauthorizedError,
   SDKValidationError,
 } from "@solarwinds/swo-sdk-typescript/models/errors";
 
@@ -483,65 +566,12 @@ const swo = new Swo({
 });
 
 async function run() {
-  let result;
   try {
-    result = await swo.dem.createWebsite({
-      name: "solarwinds.com",
-      url: "https://www.solarwinds.com",
-      availabilityCheckSettings: {
-        checkForString: {
-          operator: "CONTAINS",
-          value: "string",
-        },
-        testIntervalInSeconds: 14400,
-        protocols: [
-          "HTTP",
-          "HTTPS",
-        ],
-        platformOptions: {
-          probePlatforms: [
-            "AWS",
-          ],
-          testFromAll: true,
-        },
-        testFrom: {
-          type: "REGION",
-          values: [
-            "NA",
-          ],
-        },
-        ssl: {
-          enabled: true,
-          daysPriorToExpiration: 7,
-          ignoreIntermediateCertificates: true,
-        },
-        customHeaders: [
-          {
-            name: "string",
-            value: "string",
-          },
-        ],
-        allowInsecureRenegotiation: true,
-        postData: "{\"example\": \"value\"}",
-        outageConfiguration: {
-          failingTestLocations: "all",
-          consecutiveForDown: 2,
-        },
-      },
-      tags: [
-        {
-          key: "environment",
-          value: "production",
-        },
-      ],
-      rum: {
-        apdexTimeInSeconds: 4,
-        spa: true,
-      },
+    await swo.cloudAccounts.activateAwsIntegration({
+      managementAccountId: "<id>",
+      accountId: "<id>",
+      enable: false,
     });
-
-    // Handle the result
-    console.log(result);
   } catch (err) {
     switch (true) {
       // The server response does not match the expected SDK schema
@@ -552,8 +582,23 @@ async function run() {
         console.error(err.rawValue);
         return;
       }
-      case (err instanceof CreateWebsiteBadRequestError): {
-        // Handle err.data$: CreateWebsiteBadRequestErrorData
+      case (err instanceof ActivateAwsIntegrationBadRequestError): {
+        // Handle err.data$: ActivateAwsIntegrationBadRequestErrorData
+        console.error(err);
+        return;
+      }
+      case (err instanceof ActivateAwsIntegrationUnauthorizedError): {
+        // Handle err.data$: ActivateAwsIntegrationUnauthorizedErrorData
+        console.error(err);
+        return;
+      }
+      case (err instanceof ActivateAwsIntegrationNotFoundError): {
+        // Handle err.data$: ActivateAwsIntegrationNotFoundErrorData
+        console.error(err);
+        return;
+      }
+      case (err instanceof ActivateAwsIntegrationInternalServerError): {
+        // Handle err.data$: ActivateAwsIntegrationInternalServerErrorData
         console.error(err);
         return;
       }

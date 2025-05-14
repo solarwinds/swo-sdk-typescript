@@ -7,7 +7,7 @@ import { ListMetricMeasurementsRequest } from "@solarwinds/swo-sdk-typescript/mo
 
 let value: ListMetricMeasurementsRequest = {
   name: "<value>",
-  seriesType: "SCALAR",
+  seriesType: "TIMESERIES",
 };
 ```
 

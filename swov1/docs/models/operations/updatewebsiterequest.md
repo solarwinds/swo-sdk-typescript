@@ -11,15 +11,6 @@ let value: UpdateWebsiteRequest = {
     name: "solarwinds.com",
     url: "https://www.solarwinds.com",
     availabilityCheckSettings: {
-      checkForString: {
-        operator: "CONTAINS",
-        value: "string",
-      },
-      testIntervalInSeconds: 14400,
-      protocols: [
-        "HTTP",
-        "HTTPS",
-      ],
       platformOptions: {
         probePlatforms: [
           "AWS",
@@ -32,6 +23,15 @@ let value: UpdateWebsiteRequest = {
           "NA",
         ],
       },
+      testIntervalInSeconds: 14400,
+      checkForString: {
+        operator: "CONTAINS",
+        value: "string",
+      },
+      protocols: [
+        "HTTP",
+        "HTTPS",
+      ],
       ssl: {
         enabled: true,
         daysPriorToExpiration: 7,

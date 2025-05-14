@@ -8,7 +8,7 @@ The ID of the created event
 import { CreateChangeEventResponse } from "@solarwinds/swo-sdk-typescript/models/operations";
 
 let value: CreateChangeEventResponse = {
-  id: 548814,
+  id: 601294,
 };
 ```
 

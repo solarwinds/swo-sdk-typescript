@@ -14,8 +14,8 @@ let value: MetricsGrouping = {
   ],
   measurements: [
     {
-      time: new Date("2025-05-02T20:38:06.637Z"),
-      value: 8700.13,
+      time: new Date("2025-10-01T01:48:52.101Z"),
+      value: 4001.92,
     },
   ],
 };

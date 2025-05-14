@@ -35,7 +35,7 @@ export function demDeleteWebsite(
 ): APIPromise<
   Result<
     components.EntityId,
-    | errors.DeleteWebsiteBadRequestError
+    | errors.DeleteWebsiteNotFoundError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -60,7 +60,7 @@ async function $do(
   [
     Result<
       components.EntityId,
-      | errors.DeleteWebsiteBadRequestError
+      | errors.DeleteWebsiteNotFoundError
       | APIError
       | SDKValidationError
       | UnexpectedClientError
@@ -140,7 +140,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "4XX", "5XX"],
+    errorCodes: ["404", "4XX", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -155,7 +155,7 @@ async function $do(
 
   const [result] = await M.match<
     components.EntityId,
-    | errors.DeleteWebsiteBadRequestError
+    | errors.DeleteWebsiteNotFoundError
     | APIError
     | SDKValidationError
     | UnexpectedClientError
@@ -165,7 +165,7 @@ async function $do(
     | ConnectionError
   >(
     M.json(200, components.EntityId$inboundSchema),
-    M.jsonErr(400, errors.DeleteWebsiteBadRequestError$inboundSchema),
+    M.jsonErr(404, errors.DeleteWebsiteNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, { extraFields: responseFields });

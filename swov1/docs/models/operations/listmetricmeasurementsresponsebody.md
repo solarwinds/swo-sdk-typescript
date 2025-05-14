@@ -18,13 +18,13 @@ let value: ListMetricMeasurementsResponseBody = {
       ],
       measurements: [
         {
-          time: new Date("2024-08-20T04:36:26.084Z"),
-          value: 4236.55,
+          time: new Date("2024-04-22T08:27:29.790Z"),
+          value: 5467.36,
         },
       ],
     },
   ],
-  bucketSizeInSeconds: 645894,
+  bucketSizeInSeconds: 394183,
   pageInfo: {
     prevPage: "<value>",
     nextPage: "<value>",

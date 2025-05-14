@@ -5,7 +5,7 @@
 ```typescript
 import { MetricsAggregationMethods } from "@solarwinds/swo-sdk-typescript/models/components";
 
-let value: MetricsAggregationMethods = "SUM";
+let value: MetricsAggregationMethods = "LAST";
 ```
 
 ## Values

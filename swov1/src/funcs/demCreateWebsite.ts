@@ -157,7 +157,7 @@ async function $do(
     | RequestTimeoutError
     | ConnectionError
   >(
-    M.json(200, components.EntityId$inboundSchema),
+    M.json(201, components.EntityId$inboundSchema),
     M.jsonErr(400, errors.CreateWebsiteBadRequestError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

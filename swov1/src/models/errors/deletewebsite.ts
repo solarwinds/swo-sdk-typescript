@@ -5,9 +5,9 @@
 import * as z from "zod";
 
 /**
- * The server could not understand the request due to invalid syntax.
+ * The server cannot find the requested resource.
  */
-export type DeleteWebsiteBadRequestErrorData = {
+export type DeleteWebsiteNotFoundErrorData = {
   /**
    * HTTP status code as defined in RFC 2817
    */
@@ -20,9 +20,9 @@ export type DeleteWebsiteBadRequestErrorData = {
 };
 
 /**
- * The server could not understand the request due to invalid syntax.
+ * The server cannot find the requested resource.
  */
-export class DeleteWebsiteBadRequestError extends Error {
+export class DeleteWebsiteNotFoundError extends Error {
   /**
    * HTTP status code as defined in RFC 2817
    */
@@ -30,9 +30,9 @@ export class DeleteWebsiteBadRequestError extends Error {
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
-  data$: DeleteWebsiteBadRequestErrorData;
+  data$: DeleteWebsiteNotFoundErrorData;
 
-  constructor(err: DeleteWebsiteBadRequestErrorData) {
+  constructor(err: DeleteWebsiteNotFoundErrorData) {
     const message = "message" in err && typeof err.message === "string"
       ? err.message
       : `API error occurred: ${JSON.stringify(err)}`;
@@ -42,13 +42,13 @@ export class DeleteWebsiteBadRequestError extends Error {
     this.code = err.code;
     if (err.target != null) this.target = err.target;
 
-    this.name = "DeleteWebsiteBadRequestError";
+    this.name = "DeleteWebsiteNotFoundError";
   }
 }
 
 /** @internal */
-export const DeleteWebsiteBadRequestError$inboundSchema: z.ZodType<
-  DeleteWebsiteBadRequestError,
+export const DeleteWebsiteNotFoundError$inboundSchema: z.ZodType<
+  DeleteWebsiteNotFoundError,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -57,22 +57,22 @@ export const DeleteWebsiteBadRequestError$inboundSchema: z.ZodType<
   target: z.string().optional(),
 })
   .transform((v) => {
-    return new DeleteWebsiteBadRequestError(v);
+    return new DeleteWebsiteNotFoundError(v);
   });
 
 /** @internal */
-export type DeleteWebsiteBadRequestError$Outbound = {
+export type DeleteWebsiteNotFoundError$Outbound = {
   code: number;
   message: string;
   target?: string | undefined;
 };
 
 /** @internal */
-export const DeleteWebsiteBadRequestError$outboundSchema: z.ZodType<
-  DeleteWebsiteBadRequestError$Outbound,
+export const DeleteWebsiteNotFoundError$outboundSchema: z.ZodType<
+  DeleteWebsiteNotFoundError$Outbound,
   z.ZodTypeDef,
-  DeleteWebsiteBadRequestError
-> = z.instanceof(DeleteWebsiteBadRequestError)
+  DeleteWebsiteNotFoundError
+> = z.instanceof(DeleteWebsiteNotFoundError)
   .transform(v => v.data$)
   .pipe(z.object({
     code: z.number().int(),
@@ -84,11 +84,11 @@ export const DeleteWebsiteBadRequestError$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace DeleteWebsiteBadRequestError$ {
-  /** @deprecated use `DeleteWebsiteBadRequestError$inboundSchema` instead. */
-  export const inboundSchema = DeleteWebsiteBadRequestError$inboundSchema;
-  /** @deprecated use `DeleteWebsiteBadRequestError$outboundSchema` instead. */
-  export const outboundSchema = DeleteWebsiteBadRequestError$outboundSchema;
-  /** @deprecated use `DeleteWebsiteBadRequestError$Outbound` instead. */
-  export type Outbound = DeleteWebsiteBadRequestError$Outbound;
+export namespace DeleteWebsiteNotFoundError$ {
+  /** @deprecated use `DeleteWebsiteNotFoundError$inboundSchema` instead. */
+  export const inboundSchema = DeleteWebsiteNotFoundError$inboundSchema;
+  /** @deprecated use `DeleteWebsiteNotFoundError$outboundSchema` instead. */
+  export const outboundSchema = DeleteWebsiteNotFoundError$outboundSchema;
+  /** @deprecated use `DeleteWebsiteNotFoundError$Outbound` instead. */
+  export type Outbound = DeleteWebsiteNotFoundError$Outbound;
 }

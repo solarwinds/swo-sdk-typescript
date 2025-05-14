@@ -13,14 +13,84 @@ export type GetWebsiteRequest = {
   entityId: string;
 };
 
-export const Status = {
+export const GetWebsiteStatus = {
   Up: "up",
   Down: "down",
   Paused: "paused",
   Maintenance: "maintenance",
   Unknown: "unknown",
 } as const;
-export type Status = ClosedEnum<typeof Status>;
+export type GetWebsiteStatus = ClosedEnum<typeof GetWebsiteStatus>;
+
+/**
+ * Defines which monitoring features are enabled for a website.
+ */
+export type MonitoringOptions = {
+  /**
+   * True if the availability monitoring is active.
+   */
+  isAvailabilityActive: boolean;
+  /**
+   * True if the real user monitoring (RUM) is active.
+   */
+  isRumActive: boolean;
+};
+
+/**
+ * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, no particular cloud platform will be enforced.
+ */
+export type GetWebsitePlatformOptions = {
+  /**
+   * Cloud platforms hosting synthetic probes.
+   */
+  probePlatforms: Array<components.ProbePlatform>;
+  /**
+   *   Use this field to configure whether availability tests should be performed from all selected
+   *
+   * @remarks
+   *   platforms or one randomly selected platform. It has no effect if you provided only one platform
+   *   in the `probePlatforms` field.
+   *
+   *   If set to true, a separate test is made from each of the selected platforms.
+   *
+   *   If set to false, only one of the selected platforms is chosen every time.
+   *
+   *   If omitted, the previous setting will stay in effect. If there is no previous setting, the value
+   *   will default to false.
+   */
+  testFromAll?: boolean | undefined;
+};
+
+/**
+ * How many locations must report a failure for an entity to be considered down.
+ */
+export const GetWebsiteFailingTestLocations = {
+  All: "all",
+  Any: "any",
+} as const;
+/**
+ * How many locations must report a failure for an entity to be considered down.
+ */
+export type GetWebsiteFailingTestLocations = ClosedEnum<
+  typeof GetWebsiteFailingTestLocations
+>;
+
+/**
+ *   Default conditions when the entity is considered down.
+ *
+ * @remarks
+ *   If omitted or set to null, organization configuration will be used for this entity.
+ */
+export type GetWebsiteOutageConfiguration = {
+  /**
+   * How many locations must report a failure for an entity to be considered down.
+   */
+  failingTestLocations: GetWebsiteFailingTestLocations;
+  /**
+   * Number of consecutive failing tests for an entity to be considered down.
+   */
+  consecutiveForDown: number;
+};
 
 /**
  *   Use this field to configure whether availability tests should check for presence or absence of a particular string on a page.
@@ -72,41 +142,34 @@ export type Ssl = {
 };
 
 /**
- * How many locations must report a failure for an entity to be considered down.
- */
-export const FailingTestLocations = {
-  All: "all",
-  Any: "any",
-} as const;
-/**
- * How many locations must report a failure for an entity to be considered down.
- */
-export type FailingTestLocations = ClosedEnum<typeof FailingTestLocations>;
-
-/**
- *   Default conditions when the entity is considered down.
- *
- * @remarks
- *   If omitted or set to null, organization configuration will be used for this entity.
- */
-export type OutageConfiguration = {
-  /**
-   * How many locations must report a failure for an entity to be considered down.
-   */
-  failingTestLocations: FailingTestLocations;
-  /**
-   * Number of consecutive failing tests for an entity to be considered down.
-   */
-  consecutiveForDown: number;
-};
-
-/**
  *   Use this field to configure availability tests for the website.
  *
  * @remarks
  *   You are required to configure at least availability monitoring or real user monitoring to be able to create website.
  */
-export type AvailabilityCheckSettings = {
+export type GetWebsiteAvailabilityCheckSettings = {
+  /**
+   * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, no particular cloud platform will be enforced.
+   */
+  platformOptions?: GetWebsitePlatformOptions | null | undefined;
+  /**
+   *   Configure locations of the synthetic availability test probes.
+   *
+   * @remarks
+   *   Acceptable values depend on the selected type and actual values of existing probes.
+   */
+  testFrom: components.TestFrom;
+  /**
+   * Configure how often availability tests should be performed. Provide a number of seconds that is one of 60, 300, 600, 900, 1800, 3600, 7200, 14400.
+   */
+  testIntervalInSeconds: number;
+  /**
+   *   Default conditions when the entity is considered down.
+   *
+   * @remarks
+   *   If omitted or set to null, organization configuration will be used for this entity.
+   */
+  outageConfiguration?: GetWebsiteOutageConfiguration | null | undefined;
   /**
    *   Use this field to configure whether availability tests should check for presence or absence of a particular string on a page.
    *
@@ -117,24 +180,9 @@ export type AvailabilityCheckSettings = {
    */
   checkForString?: CheckForString | null | undefined;
   /**
-   * Configure how often availability tests should be performed. Provide a number of seconds that is divisible by 60 and no greater than 14400 (4 hours).
-   */
-  testIntervalInSeconds: number;
-  /**
    * Configure which protocols need availability tests to be performed. At least one protocol must be provided.
    */
   protocols: Array<components.WebsiteProtocol>;
-  /**
-   * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, no particular cloud platform will be enforced.
-   */
-  platformOptions?: components.ProbePlatformOptions | undefined;
-  /**
-   *   Configure locations of the synthetic availability test probes.
-   *
-   * @remarks
-   *   Acceptable values depend on the selected type and actual values of existing probes.
-   */
-  testFrom: components.TestFrom;
   /**
    *   Configure monitoring of SSL/TLS certificates validity. This option is relevant for HTTPS protocol only.
    *
@@ -165,13 +213,6 @@ export type AvailabilityCheckSettings = {
    *   If omitted or set to null/empty string, the probe will send the usual GET requests.
    */
   postData?: string | null | undefined;
-  /**
-   *   Default conditions when the entity is considered down.
-   *
-   * @remarks
-   *   If omitted or set to null, organization configuration will be used for this entity.
-   */
-  outageConfiguration?: OutageConfiguration | null | undefined;
 };
 
 /**
@@ -192,7 +233,7 @@ export type Rum = {
 export type GetWebsiteResponse = {
   id: string;
   type: string;
-  status: Status;
+  status: GetWebsiteStatus;
   /**
    *   Name of the website, which must be unique within the organization.
    *
@@ -205,12 +246,19 @@ export type GetWebsiteResponse = {
    */
   url: string;
   /**
+   * Defines which monitoring features are enabled for a website.
+   */
+  monitoringOptions: MonitoringOptions;
+  /**
    *   Use this field to configure availability tests for the website.
    *
    * @remarks
    *   You are required to configure at least availability monitoring or real user monitoring to be able to create website.
    */
-  availabilityCheckSettings?: AvailabilityCheckSettings | null | undefined;
+  availabilityCheckSettings?:
+    | GetWebsiteAvailabilityCheckSettings
+    | null
+    | undefined;
   /**
    * Entity tags. Tag is a key-value pair, where there may be only single tag value for the same key.
    */
@@ -303,22 +351,218 @@ export function getWebsiteRequestFromJSON(
 }
 
 /** @internal */
-export const Status$inboundSchema: z.ZodNativeEnum<typeof Status> = z
-  .nativeEnum(Status);
+export const GetWebsiteStatus$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebsiteStatus
+> = z.nativeEnum(GetWebsiteStatus);
 
 /** @internal */
-export const Status$outboundSchema: z.ZodNativeEnum<typeof Status> =
-  Status$inboundSchema;
+export const GetWebsiteStatus$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebsiteStatus
+> = GetWebsiteStatus$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Status$ {
-  /** @deprecated use `Status$inboundSchema` instead. */
-  export const inboundSchema = Status$inboundSchema;
-  /** @deprecated use `Status$outboundSchema` instead. */
-  export const outboundSchema = Status$outboundSchema;
+export namespace GetWebsiteStatus$ {
+  /** @deprecated use `GetWebsiteStatus$inboundSchema` instead. */
+  export const inboundSchema = GetWebsiteStatus$inboundSchema;
+  /** @deprecated use `GetWebsiteStatus$outboundSchema` instead. */
+  export const outboundSchema = GetWebsiteStatus$outboundSchema;
+}
+
+/** @internal */
+export const MonitoringOptions$inboundSchema: z.ZodType<
+  MonitoringOptions,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  isAvailabilityActive: z.boolean(),
+  isRumActive: z.boolean(),
+});
+
+/** @internal */
+export type MonitoringOptions$Outbound = {
+  isAvailabilityActive: boolean;
+  isRumActive: boolean;
+};
+
+/** @internal */
+export const MonitoringOptions$outboundSchema: z.ZodType<
+  MonitoringOptions$Outbound,
+  z.ZodTypeDef,
+  MonitoringOptions
+> = z.object({
+  isAvailabilityActive: z.boolean(),
+  isRumActive: z.boolean(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace MonitoringOptions$ {
+  /** @deprecated use `MonitoringOptions$inboundSchema` instead. */
+  export const inboundSchema = MonitoringOptions$inboundSchema;
+  /** @deprecated use `MonitoringOptions$outboundSchema` instead. */
+  export const outboundSchema = MonitoringOptions$outboundSchema;
+  /** @deprecated use `MonitoringOptions$Outbound` instead. */
+  export type Outbound = MonitoringOptions$Outbound;
+}
+
+export function monitoringOptionsToJSON(
+  monitoringOptions: MonitoringOptions,
+): string {
+  return JSON.stringify(
+    MonitoringOptions$outboundSchema.parse(monitoringOptions),
+  );
+}
+
+export function monitoringOptionsFromJSON(
+  jsonString: string,
+): SafeParseResult<MonitoringOptions, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => MonitoringOptions$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'MonitoringOptions' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetWebsitePlatformOptions$inboundSchema: z.ZodType<
+  GetWebsitePlatformOptions,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  probePlatforms: z.array(components.ProbePlatform$inboundSchema),
+  testFromAll: z.boolean().optional(),
+});
+
+/** @internal */
+export type GetWebsitePlatformOptions$Outbound = {
+  probePlatforms: Array<string>;
+  testFromAll?: boolean | undefined;
+};
+
+/** @internal */
+export const GetWebsitePlatformOptions$outboundSchema: z.ZodType<
+  GetWebsitePlatformOptions$Outbound,
+  z.ZodTypeDef,
+  GetWebsitePlatformOptions
+> = z.object({
+  probePlatforms: z.array(components.ProbePlatform$outboundSchema),
+  testFromAll: z.boolean().optional(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebsitePlatformOptions$ {
+  /** @deprecated use `GetWebsitePlatformOptions$inboundSchema` instead. */
+  export const inboundSchema = GetWebsitePlatformOptions$inboundSchema;
+  /** @deprecated use `GetWebsitePlatformOptions$outboundSchema` instead. */
+  export const outboundSchema = GetWebsitePlatformOptions$outboundSchema;
+  /** @deprecated use `GetWebsitePlatformOptions$Outbound` instead. */
+  export type Outbound = GetWebsitePlatformOptions$Outbound;
+}
+
+export function getWebsitePlatformOptionsToJSON(
+  getWebsitePlatformOptions: GetWebsitePlatformOptions,
+): string {
+  return JSON.stringify(
+    GetWebsitePlatformOptions$outboundSchema.parse(getWebsitePlatformOptions),
+  );
+}
+
+export function getWebsitePlatformOptionsFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWebsitePlatformOptions, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWebsitePlatformOptions$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebsitePlatformOptions' from JSON`,
+  );
+}
+
+/** @internal */
+export const GetWebsiteFailingTestLocations$inboundSchema: z.ZodNativeEnum<
+  typeof GetWebsiteFailingTestLocations
+> = z.nativeEnum(GetWebsiteFailingTestLocations);
+
+/** @internal */
+export const GetWebsiteFailingTestLocations$outboundSchema: z.ZodNativeEnum<
+  typeof GetWebsiteFailingTestLocations
+> = GetWebsiteFailingTestLocations$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebsiteFailingTestLocations$ {
+  /** @deprecated use `GetWebsiteFailingTestLocations$inboundSchema` instead. */
+  export const inboundSchema = GetWebsiteFailingTestLocations$inboundSchema;
+  /** @deprecated use `GetWebsiteFailingTestLocations$outboundSchema` instead. */
+  export const outboundSchema = GetWebsiteFailingTestLocations$outboundSchema;
+}
+
+/** @internal */
+export const GetWebsiteOutageConfiguration$inboundSchema: z.ZodType<
+  GetWebsiteOutageConfiguration,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  failingTestLocations: GetWebsiteFailingTestLocations$inboundSchema,
+  consecutiveForDown: z.number().int(),
+});
+
+/** @internal */
+export type GetWebsiteOutageConfiguration$Outbound = {
+  failingTestLocations: string;
+  consecutiveForDown: number;
+};
+
+/** @internal */
+export const GetWebsiteOutageConfiguration$outboundSchema: z.ZodType<
+  GetWebsiteOutageConfiguration$Outbound,
+  z.ZodTypeDef,
+  GetWebsiteOutageConfiguration
+> = z.object({
+  failingTestLocations: GetWebsiteFailingTestLocations$outboundSchema,
+  consecutiveForDown: z.number().int(),
+});
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace GetWebsiteOutageConfiguration$ {
+  /** @deprecated use `GetWebsiteOutageConfiguration$inboundSchema` instead. */
+  export const inboundSchema = GetWebsiteOutageConfiguration$inboundSchema;
+  /** @deprecated use `GetWebsiteOutageConfiguration$outboundSchema` instead. */
+  export const outboundSchema = GetWebsiteOutageConfiguration$outboundSchema;
+  /** @deprecated use `GetWebsiteOutageConfiguration$Outbound` instead. */
+  export type Outbound = GetWebsiteOutageConfiguration$Outbound;
+}
+
+export function getWebsiteOutageConfigurationToJSON(
+  getWebsiteOutageConfiguration: GetWebsiteOutageConfiguration,
+): string {
+  return JSON.stringify(
+    GetWebsiteOutageConfiguration$outboundSchema.parse(
+      getWebsiteOutageConfiguration,
+    ),
+  );
+}
+
+export function getWebsiteOutageConfigurationFromJSON(
+  jsonString: string,
+): SafeParseResult<GetWebsiteOutageConfiguration, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => GetWebsiteOutageConfiguration$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebsiteOutageConfiguration' from JSON`,
+  );
 }
 
 /** @internal */
@@ -425,169 +669,103 @@ export function sslFromJSON(
 }
 
 /** @internal */
-export const FailingTestLocations$inboundSchema: z.ZodNativeEnum<
-  typeof FailingTestLocations
-> = z.nativeEnum(FailingTestLocations);
-
-/** @internal */
-export const FailingTestLocations$outboundSchema: z.ZodNativeEnum<
-  typeof FailingTestLocations
-> = FailingTestLocations$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace FailingTestLocations$ {
-  /** @deprecated use `FailingTestLocations$inboundSchema` instead. */
-  export const inboundSchema = FailingTestLocations$inboundSchema;
-  /** @deprecated use `FailingTestLocations$outboundSchema` instead. */
-  export const outboundSchema = FailingTestLocations$outboundSchema;
-}
-
-/** @internal */
-export const OutageConfiguration$inboundSchema: z.ZodType<
-  OutageConfiguration,
+export const GetWebsiteAvailabilityCheckSettings$inboundSchema: z.ZodType<
+  GetWebsiteAvailabilityCheckSettings,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  failingTestLocations: FailingTestLocations$inboundSchema,
-  consecutiveForDown: z.number().int(),
-});
-
-/** @internal */
-export type OutageConfiguration$Outbound = {
-  failingTestLocations: string;
-  consecutiveForDown: number;
-};
-
-/** @internal */
-export const OutageConfiguration$outboundSchema: z.ZodType<
-  OutageConfiguration$Outbound,
-  z.ZodTypeDef,
-  OutageConfiguration
-> = z.object({
-  failingTestLocations: FailingTestLocations$outboundSchema,
-  consecutiveForDown: z.number().int(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutageConfiguration$ {
-  /** @deprecated use `OutageConfiguration$inboundSchema` instead. */
-  export const inboundSchema = OutageConfiguration$inboundSchema;
-  /** @deprecated use `OutageConfiguration$outboundSchema` instead. */
-  export const outboundSchema = OutageConfiguration$outboundSchema;
-  /** @deprecated use `OutageConfiguration$Outbound` instead. */
-  export type Outbound = OutageConfiguration$Outbound;
-}
-
-export function outageConfigurationToJSON(
-  outageConfiguration: OutageConfiguration,
-): string {
-  return JSON.stringify(
-    OutageConfiguration$outboundSchema.parse(outageConfiguration),
-  );
-}
-
-export function outageConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<OutageConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutageConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutageConfiguration' from JSON`,
-  );
-}
-
-/** @internal */
-export const AvailabilityCheckSettings$inboundSchema: z.ZodType<
-  AvailabilityCheckSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  platformOptions: z.nullable(
+    z.lazy(() => GetWebsitePlatformOptions$inboundSchema),
+  ).optional(),
+  testFrom: components.TestFrom$inboundSchema,
+  testIntervalInSeconds: z.number(),
+  outageConfiguration: z.nullable(
+    z.lazy(() => GetWebsiteOutageConfiguration$inboundSchema),
+  ).optional(),
   checkForString: z.nullable(z.lazy(() => CheckForString$inboundSchema))
     .optional(),
-  testIntervalInSeconds: z.number().int(),
   protocols: z.array(components.WebsiteProtocol$inboundSchema),
-  platformOptions: components.ProbePlatformOptions$inboundSchema.optional(),
-  testFrom: components.TestFrom$inboundSchema,
   ssl: z.nullable(z.lazy(() => Ssl$inboundSchema)).optional(),
   customHeaders: z.nullable(z.array(components.CustomHeaders$inboundSchema))
     .optional(),
   allowInsecureRenegotiation: z.boolean().optional(),
   postData: z.nullable(z.string()).optional(),
-  outageConfiguration: z.nullable(
-    z.lazy(() => OutageConfiguration$inboundSchema),
-  ).optional(),
 });
 
 /** @internal */
-export type AvailabilityCheckSettings$Outbound = {
-  checkForString?: CheckForString$Outbound | null | undefined;
-  testIntervalInSeconds: number;
-  protocols: Array<string>;
-  platformOptions?: components.ProbePlatformOptions$Outbound | undefined;
+export type GetWebsiteAvailabilityCheckSettings$Outbound = {
+  platformOptions?: GetWebsitePlatformOptions$Outbound | null | undefined;
   testFrom: components.TestFrom$Outbound;
+  testIntervalInSeconds: number;
+  outageConfiguration?:
+    | GetWebsiteOutageConfiguration$Outbound
+    | null
+    | undefined;
+  checkForString?: CheckForString$Outbound | null | undefined;
+  protocols: Array<string>;
   ssl?: Ssl$Outbound | null | undefined;
   customHeaders?: Array<components.CustomHeaders$Outbound> | null | undefined;
   allowInsecureRenegotiation?: boolean | undefined;
   postData?: string | null | undefined;
-  outageConfiguration?: OutageConfiguration$Outbound | null | undefined;
 };
 
 /** @internal */
-export const AvailabilityCheckSettings$outboundSchema: z.ZodType<
-  AvailabilityCheckSettings$Outbound,
+export const GetWebsiteAvailabilityCheckSettings$outboundSchema: z.ZodType<
+  GetWebsiteAvailabilityCheckSettings$Outbound,
   z.ZodTypeDef,
-  AvailabilityCheckSettings
+  GetWebsiteAvailabilityCheckSettings
 > = z.object({
+  platformOptions: z.nullable(
+    z.lazy(() => GetWebsitePlatformOptions$outboundSchema),
+  ).optional(),
+  testFrom: components.TestFrom$outboundSchema,
+  testIntervalInSeconds: z.number(),
+  outageConfiguration: z.nullable(
+    z.lazy(() => GetWebsiteOutageConfiguration$outboundSchema),
+  ).optional(),
   checkForString: z.nullable(z.lazy(() => CheckForString$outboundSchema))
     .optional(),
-  testIntervalInSeconds: z.number().int(),
   protocols: z.array(components.WebsiteProtocol$outboundSchema),
-  platformOptions: components.ProbePlatformOptions$outboundSchema.optional(),
-  testFrom: components.TestFrom$outboundSchema,
   ssl: z.nullable(z.lazy(() => Ssl$outboundSchema)).optional(),
   customHeaders: z.nullable(z.array(components.CustomHeaders$outboundSchema))
     .optional(),
   allowInsecureRenegotiation: z.boolean().optional(),
   postData: z.nullable(z.string()).optional(),
-  outageConfiguration: z.nullable(
-    z.lazy(() => OutageConfiguration$outboundSchema),
-  ).optional(),
 });
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace AvailabilityCheckSettings$ {
-  /** @deprecated use `AvailabilityCheckSettings$inboundSchema` instead. */
-  export const inboundSchema = AvailabilityCheckSettings$inboundSchema;
-  /** @deprecated use `AvailabilityCheckSettings$outboundSchema` instead. */
-  export const outboundSchema = AvailabilityCheckSettings$outboundSchema;
-  /** @deprecated use `AvailabilityCheckSettings$Outbound` instead. */
-  export type Outbound = AvailabilityCheckSettings$Outbound;
+export namespace GetWebsiteAvailabilityCheckSettings$ {
+  /** @deprecated use `GetWebsiteAvailabilityCheckSettings$inboundSchema` instead. */
+  export const inboundSchema =
+    GetWebsiteAvailabilityCheckSettings$inboundSchema;
+  /** @deprecated use `GetWebsiteAvailabilityCheckSettings$outboundSchema` instead. */
+  export const outboundSchema =
+    GetWebsiteAvailabilityCheckSettings$outboundSchema;
+  /** @deprecated use `GetWebsiteAvailabilityCheckSettings$Outbound` instead. */
+  export type Outbound = GetWebsiteAvailabilityCheckSettings$Outbound;
 }
 
-export function availabilityCheckSettingsToJSON(
-  availabilityCheckSettings: AvailabilityCheckSettings,
+export function getWebsiteAvailabilityCheckSettingsToJSON(
+  getWebsiteAvailabilityCheckSettings: GetWebsiteAvailabilityCheckSettings,
 ): string {
   return JSON.stringify(
-    AvailabilityCheckSettings$outboundSchema.parse(availabilityCheckSettings),
+    GetWebsiteAvailabilityCheckSettings$outboundSchema.parse(
+      getWebsiteAvailabilityCheckSettings,
+    ),
   );
 }
 
-export function availabilityCheckSettingsFromJSON(
+export function getWebsiteAvailabilityCheckSettingsFromJSON(
   jsonString: string,
-): SafeParseResult<AvailabilityCheckSettings, SDKValidationError> {
+): SafeParseResult<GetWebsiteAvailabilityCheckSettings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => AvailabilityCheckSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AvailabilityCheckSettings' from JSON`,
+    (x) =>
+      GetWebsiteAvailabilityCheckSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'GetWebsiteAvailabilityCheckSettings' from JSON`,
   );
 }
 
@@ -649,11 +827,12 @@ export const GetWebsiteResponse$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   type: z.string(),
-  status: Status$inboundSchema,
+  status: GetWebsiteStatus$inboundSchema,
   name: z.string(),
   url: z.string(),
+  monitoringOptions: z.lazy(() => MonitoringOptions$inboundSchema),
   availabilityCheckSettings: z.nullable(
-    z.lazy(() => AvailabilityCheckSettings$inboundSchema),
+    z.lazy(() => GetWebsiteAvailabilityCheckSettings$inboundSchema),
   ).optional(),
   tags: z.array(components.Tag$inboundSchema).optional(),
   rum: z.lazy(() => Rum$inboundSchema).optional(),
@@ -680,8 +859,9 @@ export type GetWebsiteResponse$Outbound = {
   status: string;
   name: string;
   url: string;
+  monitoringOptions: MonitoringOptions$Outbound;
   availabilityCheckSettings?:
-    | AvailabilityCheckSettings$Outbound
+    | GetWebsiteAvailabilityCheckSettings$Outbound
     | null
     | undefined;
   tags?: Array<components.Tag$Outbound> | undefined;
@@ -702,11 +882,12 @@ export const GetWebsiteResponse$outboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
   type: z.string(),
-  status: Status$outboundSchema,
+  status: GetWebsiteStatus$outboundSchema,
   name: z.string(),
   url: z.string(),
+  monitoringOptions: z.lazy(() => MonitoringOptions$outboundSchema),
   availabilityCheckSettings: z.nullable(
-    z.lazy(() => AvailabilityCheckSettings$outboundSchema),
+    z.lazy(() => GetWebsiteAvailabilityCheckSettings$outboundSchema),
   ).optional(),
   tags: z.array(components.Tag$outboundSchema).optional(),
   rum: z.lazy(() => Rum$outboundSchema).optional(),

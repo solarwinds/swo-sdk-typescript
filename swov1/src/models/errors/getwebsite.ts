@@ -5,9 +5,9 @@
 import * as z from "zod";
 
 /**
- * The server could not understand the request due to invalid syntax.
+ * The server cannot find the requested resource.
  */
-export type GetWebsiteBadRequestErrorData = {
+export type GetWebsiteNotFoundErrorData = {
   /**
    * HTTP status code as defined in RFC 2817
    */
@@ -20,9 +20,9 @@ export type GetWebsiteBadRequestErrorData = {
 };
 
 /**
- * The server could not understand the request due to invalid syntax.
+ * The server cannot find the requested resource.
  */
-export class GetWebsiteBadRequestError extends Error {
+export class GetWebsiteNotFoundError extends Error {
   /**
    * HTTP status code as defined in RFC 2817
    */
@@ -30,9 +30,9 @@ export class GetWebsiteBadRequestError extends Error {
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
-  data$: GetWebsiteBadRequestErrorData;
+  data$: GetWebsiteNotFoundErrorData;
 
-  constructor(err: GetWebsiteBadRequestErrorData) {
+  constructor(err: GetWebsiteNotFoundErrorData) {
     const message = "message" in err && typeof err.message === "string"
       ? err.message
       : `API error occurred: ${JSON.stringify(err)}`;
@@ -42,13 +42,13 @@ export class GetWebsiteBadRequestError extends Error {
     this.code = err.code;
     if (err.target != null) this.target = err.target;
 
-    this.name = "GetWebsiteBadRequestError";
+    this.name = "GetWebsiteNotFoundError";
   }
 }
 
 /** @internal */
-export const GetWebsiteBadRequestError$inboundSchema: z.ZodType<
-  GetWebsiteBadRequestError,
+export const GetWebsiteNotFoundError$inboundSchema: z.ZodType<
+  GetWebsiteNotFoundError,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -57,22 +57,22 @@ export const GetWebsiteBadRequestError$inboundSchema: z.ZodType<
   target: z.string().optional(),
 })
   .transform((v) => {
-    return new GetWebsiteBadRequestError(v);
+    return new GetWebsiteNotFoundError(v);
   });
 
 /** @internal */
-export type GetWebsiteBadRequestError$Outbound = {
+export type GetWebsiteNotFoundError$Outbound = {
   code: number;
   message: string;
   target?: string | undefined;
 };
 
 /** @internal */
-export const GetWebsiteBadRequestError$outboundSchema: z.ZodType<
-  GetWebsiteBadRequestError$Outbound,
+export const GetWebsiteNotFoundError$outboundSchema: z.ZodType<
+  GetWebsiteNotFoundError$Outbound,
   z.ZodTypeDef,
-  GetWebsiteBadRequestError
-> = z.instanceof(GetWebsiteBadRequestError)
+  GetWebsiteNotFoundError
+> = z.instanceof(GetWebsiteNotFoundError)
   .transform(v => v.data$)
   .pipe(z.object({
     code: z.number().int(),
@@ -84,11 +84,11 @@ export const GetWebsiteBadRequestError$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace GetWebsiteBadRequestError$ {
-  /** @deprecated use `GetWebsiteBadRequestError$inboundSchema` instead. */
-  export const inboundSchema = GetWebsiteBadRequestError$inboundSchema;
-  /** @deprecated use `GetWebsiteBadRequestError$outboundSchema` instead. */
-  export const outboundSchema = GetWebsiteBadRequestError$outboundSchema;
-  /** @deprecated use `GetWebsiteBadRequestError$Outbound` instead. */
-  export type Outbound = GetWebsiteBadRequestError$Outbound;
+export namespace GetWebsiteNotFoundError$ {
+  /** @deprecated use `GetWebsiteNotFoundError$inboundSchema` instead. */
+  export const inboundSchema = GetWebsiteNotFoundError$inboundSchema;
+  /** @deprecated use `GetWebsiteNotFoundError$outboundSchema` instead. */
+  export const outboundSchema = GetWebsiteNotFoundError$outboundSchema;
+  /** @deprecated use `GetWebsiteNotFoundError$Outbound` instead. */
+  export type Outbound = GetWebsiteNotFoundError$Outbound;
 }
