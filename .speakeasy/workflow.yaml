@@ -13,6 +13,9 @@ targets:
         target: typescript
         source: swov1
         output: swov1
+        publish:
+            npm:
+                token: $npm_token
         codeSamples:
             registry:
                 location: registry.speakeasyapi.dev/swo/swo/solar-winds-observability-typescript-code-samples
