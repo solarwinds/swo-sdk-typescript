@@ -5,9 +5,9 @@
 import * as z from "zod";
 
 /**
- * The server could not understand the request due to invalid syntax.
+ * The server cannot find the requested resource.
  */
-export type PauseWebsiteMonitoringBadRequestErrorData = {
+export type PauseWebsiteMonitoringNotFoundErrorData = {
   /**
    * HTTP status code as defined in RFC 2817
    */
@@ -20,9 +20,9 @@ export type PauseWebsiteMonitoringBadRequestErrorData = {
 };
 
 /**
- * The server could not understand the request due to invalid syntax.
+ * The server cannot find the requested resource.
  */
-export class PauseWebsiteMonitoringBadRequestError extends Error {
+export class PauseWebsiteMonitoringNotFoundError extends Error {
   /**
    * HTTP status code as defined in RFC 2817
    */
@@ -30,9 +30,9 @@ export class PauseWebsiteMonitoringBadRequestError extends Error {
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
-  data$: PauseWebsiteMonitoringBadRequestErrorData;
+  data$: PauseWebsiteMonitoringNotFoundErrorData;
 
-  constructor(err: PauseWebsiteMonitoringBadRequestErrorData) {
+  constructor(err: PauseWebsiteMonitoringNotFoundErrorData) {
     const message = "message" in err && typeof err.message === "string"
       ? err.message
       : `API error occurred: ${JSON.stringify(err)}`;
@@ -42,13 +42,13 @@ export class PauseWebsiteMonitoringBadRequestError extends Error {
     this.code = err.code;
     if (err.target != null) this.target = err.target;
 
-    this.name = "PauseWebsiteMonitoringBadRequestError";
+    this.name = "PauseWebsiteMonitoringNotFoundError";
   }
 }
 
 /** @internal */
-export const PauseWebsiteMonitoringBadRequestError$inboundSchema: z.ZodType<
-  PauseWebsiteMonitoringBadRequestError,
+export const PauseWebsiteMonitoringNotFoundError$inboundSchema: z.ZodType<
+  PauseWebsiteMonitoringNotFoundError,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -57,22 +57,22 @@ export const PauseWebsiteMonitoringBadRequestError$inboundSchema: z.ZodType<
   target: z.string().optional(),
 })
   .transform((v) => {
-    return new PauseWebsiteMonitoringBadRequestError(v);
+    return new PauseWebsiteMonitoringNotFoundError(v);
   });
 
 /** @internal */
-export type PauseWebsiteMonitoringBadRequestError$Outbound = {
+export type PauseWebsiteMonitoringNotFoundError$Outbound = {
   code: number;
   message: string;
   target?: string | undefined;
 };
 
 /** @internal */
-export const PauseWebsiteMonitoringBadRequestError$outboundSchema: z.ZodType<
-  PauseWebsiteMonitoringBadRequestError$Outbound,
+export const PauseWebsiteMonitoringNotFoundError$outboundSchema: z.ZodType<
+  PauseWebsiteMonitoringNotFoundError$Outbound,
   z.ZodTypeDef,
-  PauseWebsiteMonitoringBadRequestError
-> = z.instanceof(PauseWebsiteMonitoringBadRequestError)
+  PauseWebsiteMonitoringNotFoundError
+> = z.instanceof(PauseWebsiteMonitoringNotFoundError)
   .transform(v => v.data$)
   .pipe(z.object({
     code: z.number().int(),
@@ -84,13 +84,13 @@ export const PauseWebsiteMonitoringBadRequestError$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace PauseWebsiteMonitoringBadRequestError$ {
-  /** @deprecated use `PauseWebsiteMonitoringBadRequestError$inboundSchema` instead. */
+export namespace PauseWebsiteMonitoringNotFoundError$ {
+  /** @deprecated use `PauseWebsiteMonitoringNotFoundError$inboundSchema` instead. */
   export const inboundSchema =
-    PauseWebsiteMonitoringBadRequestError$inboundSchema;
-  /** @deprecated use `PauseWebsiteMonitoringBadRequestError$outboundSchema` instead. */
+    PauseWebsiteMonitoringNotFoundError$inboundSchema;
+  /** @deprecated use `PauseWebsiteMonitoringNotFoundError$outboundSchema` instead. */
   export const outboundSchema =
-    PauseWebsiteMonitoringBadRequestError$outboundSchema;
-  /** @deprecated use `PauseWebsiteMonitoringBadRequestError$Outbound` instead. */
-  export type Outbound = PauseWebsiteMonitoringBadRequestError$Outbound;
+    PauseWebsiteMonitoringNotFoundError$outboundSchema;
+  /** @deprecated use `PauseWebsiteMonitoringNotFoundError$Outbound` instead. */
+  export type Outbound = PauseWebsiteMonitoringNotFoundError$Outbound;
 }

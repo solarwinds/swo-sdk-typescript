@@ -1,0 +1,46 @@
+# ListMultiMetricMeasurementsResponseBody
+
+The request has succeeded.
+
+## Example Usage
+
+```typescript
+import { ListMultiMetricMeasurementsResponseBody } from "@solarwinds/swo-sdk-typescript/models/operations";
+
+let value: ListMultiMetricMeasurementsResponseBody = {
+  metrics: [
+    {
+      id: "throughput-series",
+      name: "dbo.host.queries.tput",
+      groupings: [
+        {
+          attributes: [
+            {
+              key: "<key>",
+              value: "<value>",
+            },
+          ],
+          measurements: [
+            {
+              time: new Date("2025-10-29T03:45:37.462Z"),
+              value: 2221.64,
+            },
+          ],
+        },
+      ],
+      bucketSizeInSeconds: 1,
+    },
+  ],
+  pageInfo: {
+    prevPage: "<value>",
+    nextPage: "<value>",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `metrics`                                                              | [operations.Metric](../../models/operations/metric.md)[]               | :heavy_check_mark:                                                     | N/A                                                                    |
+| `pageInfo`                                                             | [components.CommonPageInfo](../../models/components/commonpageinfo.md) | :heavy_check_mark:                                                     | N/A                                                                    |

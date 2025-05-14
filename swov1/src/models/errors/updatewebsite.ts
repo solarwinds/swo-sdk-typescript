@@ -5,6 +5,48 @@
 import * as z from "zod";
 
 /**
+ * The server cannot find the requested resource.
+ */
+export type UpdateWebsiteNotFoundErrorData = {
+  /**
+   * HTTP status code as defined in RFC 2817
+   */
+  code: number;
+  /**
+   * Supporting description of the error
+   */
+  message: string;
+  target?: string | undefined;
+};
+
+/**
+ * The server cannot find the requested resource.
+ */
+export class UpdateWebsiteNotFoundError extends Error {
+  /**
+   * HTTP status code as defined in RFC 2817
+   */
+  code: number;
+  target?: string | undefined;
+
+  /** The original data that was passed to this error instance. */
+  data$: UpdateWebsiteNotFoundErrorData;
+
+  constructor(err: UpdateWebsiteNotFoundErrorData) {
+    const message = "message" in err && typeof err.message === "string"
+      ? err.message
+      : `API error occurred: ${JSON.stringify(err)}`;
+    super(message);
+    this.data$ = err;
+
+    this.code = err.code;
+    if (err.target != null) this.target = err.target;
+
+    this.name = "UpdateWebsiteNotFoundError";
+  }
+}
+
+/**
  * The server could not understand the request due to invalid syntax.
  */
 export type UpdateWebsiteBadRequestErrorData = {
@@ -44,6 +86,53 @@ export class UpdateWebsiteBadRequestError extends Error {
 
     this.name = "UpdateWebsiteBadRequestError";
   }
+}
+
+/** @internal */
+export const UpdateWebsiteNotFoundError$inboundSchema: z.ZodType<
+  UpdateWebsiteNotFoundError,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  code: z.number().int(),
+  message: z.string(),
+  target: z.string().optional(),
+})
+  .transform((v) => {
+    return new UpdateWebsiteNotFoundError(v);
+  });
+
+/** @internal */
+export type UpdateWebsiteNotFoundError$Outbound = {
+  code: number;
+  message: string;
+  target?: string | undefined;
+};
+
+/** @internal */
+export const UpdateWebsiteNotFoundError$outboundSchema: z.ZodType<
+  UpdateWebsiteNotFoundError$Outbound,
+  z.ZodTypeDef,
+  UpdateWebsiteNotFoundError
+> = z.instanceof(UpdateWebsiteNotFoundError)
+  .transform(v => v.data$)
+  .pipe(z.object({
+    code: z.number().int(),
+    message: z.string(),
+    target: z.string().optional(),
+  }));
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace UpdateWebsiteNotFoundError$ {
+  /** @deprecated use `UpdateWebsiteNotFoundError$inboundSchema` instead. */
+  export const inboundSchema = UpdateWebsiteNotFoundError$inboundSchema;
+  /** @deprecated use `UpdateWebsiteNotFoundError$outboundSchema` instead. */
+  export const outboundSchema = UpdateWebsiteNotFoundError$outboundSchema;
+  /** @deprecated use `UpdateWebsiteNotFoundError$Outbound` instead. */
+  export type Outbound = UpdateWebsiteNotFoundError$Outbound;
 }
 
 /** @internal */

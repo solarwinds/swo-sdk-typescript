@@ -4,6 +4,8 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { ChangeEvents } from "./changeevents.js";
+import { CloudAccounts } from "./cloudaccounts.js";
+import { Dbo } from "./dbo.js";
 import { Dem } from "./dem.js";
 import { Entities } from "./entities.js";
 import { Logs } from "./logs.js";
@@ -15,6 +17,16 @@ export class Swo extends ClientSDK {
   private _changeEvents?: ChangeEvents;
   get changeEvents(): ChangeEvents {
     return (this._changeEvents ??= new ChangeEvents(this._options));
+  }
+
+  private _cloudAccounts?: CloudAccounts;
+  get cloudAccounts(): CloudAccounts {
+    return (this._cloudAccounts ??= new CloudAccounts(this._options));
+  }
+
+  private _dbo?: Dbo;
+  get dbo(): Dbo {
+    return (this._dbo ??= new Dbo(this._options));
   }
 
   private _dem?: Dem;

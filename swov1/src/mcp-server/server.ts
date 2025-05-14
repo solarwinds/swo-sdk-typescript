@@ -6,20 +6,39 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { SwoCore } from "../core.js";
 import { SDKOptions } from "../lib/config.js";
 import type { ConsoleLogger } from "./console-logger.js";
+import { createRegisterPrompt } from "./prompts.js";
 import {
   createRegisterResource,
   createRegisterResourceTemplate,
 } from "./resources.js";
-import { MCPScope, mcpScopes } from "./scopes.js";
+import { MCPScope } from "./scopes.js";
 import { createRegisterTool } from "./tools.js";
 import { tool$changeEventsCreateChangeEvent } from "./tools/changeEventsCreateChangeEvent.js";
+import { tool$cloudAccountsActivateAwsIntegration } from "./tools/cloudAccountsActivateAwsIntegration.js";
+import { tool$cloudAccountsCreateOrgStructure } from "./tools/cloudAccountsCreateOrgStructure.js";
+import { tool$cloudAccountsUpdateAwsIntegration } from "./tools/cloudAccountsUpdateAwsIntegration.js";
+import { tool$cloudAccountsValidateMgmtAccountOnboarding } from "./tools/cloudAccountsValidateMgmtAccountOnboarding.js";
+import { tool$dboDeleteDatabase } from "./tools/dboDeleteDatabase.js";
+import { tool$dboGetPluginConfig } from "./tools/dboGetPluginConfig.js";
+import { tool$dboGetPlugins } from "./tools/dboGetPlugins.js";
+import { tool$dboGetPublicKey } from "./tools/dboGetPublicKey.js";
+import { tool$dboObserveDatabase } from "./tools/dboObserveDatabase.js";
+import { tool$dboPluginOperation } from "./tools/dboPluginOperation.js";
+import { tool$dboUpdateDatabase } from "./tools/dboUpdateDatabase.js";
+import { tool$demCreateUri } from "./tools/demCreateUri.js";
 import { tool$demCreateWebsite } from "./tools/demCreateWebsite.js";
+import { tool$demDeleteUri } from "./tools/demDeleteUri.js";
 import { tool$demDeleteWebsite } from "./tools/demDeleteWebsite.js";
 import { tool$demGetDemSettings } from "./tools/demGetDemSettings.js";
+import { tool$demGetUri } from "./tools/demGetUri.js";
 import { tool$demGetWebsite } from "./tools/demGetWebsite.js";
+import { tool$demListProbes } from "./tools/demListProbes.js";
+import { tool$demPauseUriMonitoring } from "./tools/demPauseUriMonitoring.js";
 import { tool$demPauseWebsiteMonitoring } from "./tools/demPauseWebsiteMonitoring.js";
 import { tool$demSetDemSettings } from "./tools/demSetDemSettings.js";
+import { tool$demUnpauseUriMonitoring } from "./tools/demUnpauseUriMonitoring.js";
 import { tool$demUnpauseWebsiteMonitoring } from "./tools/demUnpauseWebsiteMonitoring.js";
+import { tool$demUpdateUri } from "./tools/demUpdateUri.js";
 import { tool$demUpdateWebsite } from "./tools/demUpdateWebsite.js";
 import { tool$entitiesGetEntityById } from "./tools/entitiesGetEntityById.js";
 import { tool$entitiesListEntities } from "./tools/entitiesListEntities.js";
@@ -35,6 +54,7 @@ import { tool$metricsListMetricAttributes } from "./tools/metricsListMetricAttri
 import { tool$metricsListMetricAttributeValues } from "./tools/metricsListMetricAttributeValues.js";
 import { tool$metricsListMetricMeasurements } from "./tools/metricsListMetricMeasurements.js";
 import { tool$metricsListMetrics } from "./tools/metricsListMetrics.js";
+import { tool$metricsListMultiMetricMeasurements } from "./tools/metricsListMultiMetricMeasurements.js";
 import { tool$metricsUpdateCompositeMetric } from "./tools/metricsUpdateCompositeMetric.js";
 import { tool$tokensCreateToken } from "./tools/tokensCreateToken.js";
 
@@ -49,7 +69,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Swo",
-    version: "0.1.0",
+    version: "0.2.0",
   });
 
   const client = new SwoCore({
@@ -59,7 +79,7 @@ export function createMCPServer(deps: {
     region: deps.region,
   });
 
-  const scopes = new Set(deps.scopes ?? mcpScopes);
+  const scopes = new Set(deps.scopes);
 
   const allowedTools = deps.allowedTools && new Set(deps.allowedTools);
   const tool = createRegisterTool(
@@ -76,12 +96,31 @@ export function createMCPServer(deps: {
     client,
     scopes,
   );
-  const register = { tool, resource, resourceTemplate };
+  const prompt = createRegisterPrompt(deps.logger, server, client, scopes);
+  const register = { tool, resource, resourceTemplate, prompt };
   void register; // suppress unused warnings
 
   tool(tool$changeEventsCreateChangeEvent);
+  tool(tool$cloudAccountsActivateAwsIntegration);
+  tool(tool$cloudAccountsCreateOrgStructure);
+  tool(tool$cloudAccountsUpdateAwsIntegration);
+  tool(tool$cloudAccountsValidateMgmtAccountOnboarding);
+  tool(tool$dboObserveDatabase);
+  tool(tool$dboGetPublicKey);
+  tool(tool$dboUpdateDatabase);
+  tool(tool$dboDeleteDatabase);
+  tool(tool$dboGetPluginConfig);
+  tool(tool$dboGetPlugins);
+  tool(tool$dboPluginOperation);
+  tool(tool$demListProbes);
   tool(tool$demGetDemSettings);
   tool(tool$demSetDemSettings);
+  tool(tool$demCreateUri);
+  tool(tool$demGetUri);
+  tool(tool$demUpdateUri);
+  tool(tool$demDeleteUri);
+  tool(tool$demPauseUriMonitoring);
+  tool(tool$demUnpauseUriMonitoring);
   tool(tool$demCreateWebsite);
   tool(tool$demGetWebsite);
   tool(tool$demUpdateWebsite);
@@ -97,6 +136,7 @@ export function createMCPServer(deps: {
   tool(tool$metadataListMetricsForEntityType);
   tool(tool$metricsListMetrics);
   tool(tool$metricsCreateCompositeMetric);
+  tool(tool$metricsListMultiMetricMeasurements);
   tool(tool$metricsUpdateCompositeMetric);
   tool(tool$metricsDeleteCompositeMetric);
   tool(tool$metricsGetMetricByName);

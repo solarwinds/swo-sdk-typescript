@@ -5,7 +5,7 @@
 ```typescript
 import { ProbeLocationType } from "@solarwinds/swo-sdk-typescript/models/components";
 
-let value: ProbeLocationType = "COUNTRY";
+let value: ProbeLocationType = "REGION";
 ```
 
 ## Values

@@ -7,6 +7,7 @@
 
 * [listMetrics](#listmetrics) - List metrics
 * [createCompositeMetric](#createcompositemetric) - Create composite metric
+* [listMultiMetricMeasurements](#listmultimetricmeasurements) - List measurements for a batch of metrics
 * [updateCompositeMetric](#updatecompositemetric) - Update composite metric
 * [deleteCompositeMetric](#deletecompositemetric) - Delete composite metric
 * [getMetricByName](#getmetricbyname) - Get metric info by name
@@ -175,6 +176,162 @@ run();
 | errors.CreateCompositeMetricBadRequestError | 400                                         | application/json                            |
 | errors.CreateCompositeMetricForbiddenError  | 403                                         | application/json                            |
 | errors.APIError                             | 4XX, 5XX                                    | \*/\*                                       |
+
+## listMultiMetricMeasurements
+
+  List metric measurements, potentially filtered and aggregated. This operation mimics the
+  capabilities found in GET `/v1/metrics/{name}/measurements`, extending it for an entire batch of
+  metrics that can be requested at once, over the same time interval.
+
+  It is legal to request the same metric multiple times, using different aggregations. For
+  example, both the total for the interval (scalar) and a time series can be read simultaneously,
+  using two different entries in the request payload. Entries in the response can be matched with
+  the respective requests by metric name. When more than one exist for the same name, an `id`
+  can be provided to disambiguate. This property will be echoed back unchanged and can be used
+  for some or all entries, regardless of whether metrics repeat.
+
+  By default, this endpoint will omit response entries that include no measurements. This is done
+  only when the request contains enough information for the client to successfully match all
+  responses back to their respective requests—i.e., when there is at most one entry for each
+  combination of metric name and `id`. This provides a cleaner response, especially in case where
+  multiple pages need to be traversed and data for most metric entries is exhausted early.
+  Otherwise, empty entries will be included as well and the output will be fully positional. This
+  positional mode can be forced with `forcePositional`.
+
+  Pages can be navigated by following the links returned in `pageInfo`. Those requests must also
+  be POST and must include the same payload that was initially sent. Behavior is undefined
+  otherwise.
+
+### Example Usage
+
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.metrics.listMultiMetricMeasurements({
+    requestBody: {
+      metrics: [
+        {
+          id: "throughput-series",
+          name: "dbo.host.queries.tput",
+          filter: "id:[id1,id2] category:moderate",
+          groupBy: [
+            "query",
+          ],
+          preGroupBy: [
+            "host",
+          ],
+          preGroupByMethod: "SUM",
+        },
+        {
+          id: "throughput-series",
+          name: "dbo.host.queries.tput",
+          filter: "id:[id1,id2] category:moderate",
+          groupBy: [
+            "query",
+          ],
+          preGroupBy: [
+            "host",
+          ],
+          preGroupByMethod: "SUM",
+        },
+      ],
+    },
+  });
+
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { metricsListMultiMetricMeasurements } from "@solarwinds/swo-sdk-typescript/funcs/metricsListMultiMetricMeasurements.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await metricsListMultiMetricMeasurements(swo, {
+    requestBody: {
+      metrics: [
+        {
+          id: "throughput-series",
+          name: "dbo.host.queries.tput",
+          filter: "id:[id1,id2] category:moderate",
+          groupBy: [
+            "query",
+          ],
+          preGroupBy: [
+            "host",
+          ],
+          preGroupByMethod: "SUM",
+        },
+        {
+          id: "throughput-series",
+          name: "dbo.host.queries.tput",
+          filter: "id:[id1,id2] category:moderate",
+          groupBy: [
+            "query",
+          ],
+          preGroupBy: [
+            "host",
+          ],
+          preGroupByMethod: "SUM",
+        },
+      ],
+    },
+  });
+
+  if (!res.ok) {
+    throw res.error;
+  }
+
+  const { value: result } = res;
+
+  for await (const page of result) {
+    // Handle the page
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.ListMultiMetricMeasurementsRequest](../../models/operations/listmultimetricmeasurementsrequest.md)                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.ListMultiMetricMeasurementsResponse](../../models/operations/listmultimetricmeasurementsresponse.md)\>**
+
+### Errors
+
+| Error Type                                        | Status Code                                       | Content Type                                      |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| errors.ListMultiMetricMeasurementsBadRequestError | 400                                               | application/json                                  |
+| errors.APIError                                   | 4XX, 5XX                                          | \*/\*                                             |
 
 ## updateCompositeMetric
 
