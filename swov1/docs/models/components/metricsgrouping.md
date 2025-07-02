@@ -12,12 +12,7 @@ let value: MetricsGrouping = {
       value: "<value>",
     },
   ],
-  measurements: [
-    {
-      time: new Date("2025-10-01T01:48:52.101Z"),
-      value: 4001.92,
-    },
-  ],
+  measurements: [],
 };
 ```
 

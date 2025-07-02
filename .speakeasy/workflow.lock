@@ -1,4 +1,4 @@
-speakeasyVersion: 1.544.0
+speakeasyVersion: 1.574.1
 sources:
     SolarWinds Observability:
         sourceNamespace: solar-winds-observability
@@ -9,11 +9,11 @@ sources:
             - 1.0.5
     swov1:
         sourceNamespace: solar-winds-observability
-        sourceRevisionDigest: sha256:497ba59b0679735cf007ad4dc32e8ff9e4bb9f989efd06b0032cc64e0cdc21b7
-        sourceBlobDigest: sha256:63f72a00d701ceb5cabc7f120a563af340b18802c95a74cc919e7228ab89659c
+        sourceRevisionDigest: sha256:a799562c1351f8ba12a8464dd74d95b2c0d6b3027d0b636b7adca7af3e7b1581
+        sourceBlobDigest: sha256:3aa1a45db32fa3b36dec48b477d2232b8351f39ca2af28c7dada22c63e07c9b6
         tags:
             - latest
-            - speakeasy-sdk-regen-1743639567
+            - speakeasy-sdk-regen-1747267414
             - 1.0.8
 targets:
     swo:
@@ -26,10 +26,10 @@ targets:
     swov1:
         source: swov1
         sourceNamespace: solar-winds-observability
-        sourceRevisionDigest: sha256:497ba59b0679735cf007ad4dc32e8ff9e4bb9f989efd06b0032cc64e0cdc21b7
-        sourceBlobDigest: sha256:63f72a00d701ceb5cabc7f120a563af340b18802c95a74cc919e7228ab89659c
+        sourceRevisionDigest: sha256:a799562c1351f8ba12a8464dd74d95b2c0d6b3027d0b636b7adca7af3e7b1581
+        sourceBlobDigest: sha256:3aa1a45db32fa3b36dec48b477d2232b8351f39ca2af28c7dada22c63e07c9b6
         codeSamplesNamespace: solar-winds-observability-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:62329997f68a2482f69e190e3289b4760e725bb0d62fa4537e747359a6428897
+        codeSamplesRevisionDigest: sha256:eb9d3817f0bf4c24a19dda49c119618668f7514f682c3ab849f6717f326dc44e
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -46,6 +46,9 @@ workflow:
             target: typescript
             source: swov1
             output: swov1
+            publish:
+                npm:
+                    token: $npm_token
             codeSamples:
                 registry:
                     location: registry.speakeasyapi.dev/swo/swo/solar-winds-observability-typescript-code-samples

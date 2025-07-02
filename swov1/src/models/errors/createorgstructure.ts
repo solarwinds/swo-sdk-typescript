@@ -3,43 +3,51 @@
  */
 
 import * as z from "zod";
+import * as components from "../components/index.js";
+import { SwoError } from "./swoerror.js";
 
 /**
  * Server error
  */
 export type CreateOrgStructureInternalServerErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * Server error
  */
-export class CreateOrgStructureInternalServerError extends Error {
+export class CreateOrgStructureInternalServerError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: CreateOrgStructureInternalServerErrorData;
 
-  constructor(err: CreateOrgStructureInternalServerErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: CreateOrgStructureInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "CreateOrgStructureInternalServerError";
@@ -51,37 +59,43 @@ export class CreateOrgStructureInternalServerError extends Error {
  */
 export type CreateOrgStructureNotFoundErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server cannot find the requested resource.
  */
-export class CreateOrgStructureNotFoundError extends Error {
+export class CreateOrgStructureNotFoundError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: CreateOrgStructureNotFoundErrorData;
 
-  constructor(err: CreateOrgStructureNotFoundErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: CreateOrgStructureNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "CreateOrgStructureNotFoundError";
@@ -93,37 +107,43 @@ export class CreateOrgStructureNotFoundError extends Error {
  */
 export type CreateOrgStructureUnauthorizedErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * Access is unauthorized.
  */
-export class CreateOrgStructureUnauthorizedError extends Error {
+export class CreateOrgStructureUnauthorizedError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: CreateOrgStructureUnauthorizedErrorData;
 
-  constructor(err: CreateOrgStructureUnauthorizedErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: CreateOrgStructureUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "CreateOrgStructureUnauthorizedError";
@@ -135,37 +155,43 @@ export class CreateOrgStructureUnauthorizedError extends Error {
  */
 export type CreateOrgStructureBadRequestErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server could not understand the request due to invalid syntax.
  */
-export class CreateOrgStructureBadRequestError extends Error {
+export class CreateOrgStructureBadRequestError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: CreateOrgStructureBadRequestErrorData;
 
-  constructor(err: CreateOrgStructureBadRequestErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: CreateOrgStructureBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "CreateOrgStructureBadRequestError";
@@ -178,17 +204,24 @@ export const CreateOrgStructureInternalServerError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new CreateOrgStructureInternalServerError(v);
+    return new CreateOrgStructureInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type CreateOrgStructureInternalServerError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -201,7 +234,7 @@ export const CreateOrgStructureInternalServerError$outboundSchema: z.ZodType<
 > = z.instanceof(CreateOrgStructureInternalServerError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -227,17 +260,24 @@ export const CreateOrgStructureNotFoundError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new CreateOrgStructureNotFoundError(v);
+    return new CreateOrgStructureNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type CreateOrgStructureNotFoundError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -250,7 +290,7 @@ export const CreateOrgStructureNotFoundError$outboundSchema: z.ZodType<
 > = z.instanceof(CreateOrgStructureNotFoundError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -274,17 +314,24 @@ export const CreateOrgStructureUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new CreateOrgStructureUnauthorizedError(v);
+    return new CreateOrgStructureUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type CreateOrgStructureUnauthorizedError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -297,7 +344,7 @@ export const CreateOrgStructureUnauthorizedError$outboundSchema: z.ZodType<
 > = z.instanceof(CreateOrgStructureUnauthorizedError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -323,17 +370,24 @@ export const CreateOrgStructureBadRequestError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new CreateOrgStructureBadRequestError(v);
+    return new CreateOrgStructureBadRequestError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type CreateOrgStructureBadRequestError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -346,7 +400,7 @@ export const CreateOrgStructureBadRequestError$outboundSchema: z.ZodType<
 > = z.instanceof(CreateOrgStructureBadRequestError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));

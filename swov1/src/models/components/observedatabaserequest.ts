@@ -4,7 +4,6 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
@@ -25,24 +24,15 @@ import {
   DatabaseConnectionOptions$outboundSchema,
 } from "./databaseconnectionoptions.js";
 import {
+  DatabaseMetricsCaptureMethod,
+  DatabaseMetricsCaptureMethod$inboundSchema,
+  DatabaseMetricsCaptureMethod$outboundSchema,
+} from "./databasemetricscapturemethod.js";
+import {
   DatabaseType,
   DatabaseType$inboundSchema,
   DatabaseType$outboundSchema,
 } from "./databasetype.js";
-
-/**
- * Method for capturing metrics from database server: sniff/profiler/slow-log/poll, ignored for SqlServer and Redis
- */
-export const CaptureMethod = {
-  Sniffer: "sniffer",
-  Poll: "poll",
-  Profiler: "profiler",
-  SlowLog: "slow-log",
-} as const;
-/**
- * Method for capturing metrics from database server: sniff/profiler/slow-log/poll, ignored for SqlServer and Redis
- */
-export type CaptureMethod = ClosedEnum<typeof CaptureMethod>;
 
 export type ObserveDatabaseRequest = {
   /**
@@ -50,7 +40,7 @@ export type ObserveDatabaseRequest = {
    */
   name: string;
   /**
-   * Swo Agent ID wehre the plugins for observing database server should run
+   * Swo Agent ID where the plugin(s) for observing database server should run
    */
   agentId: string;
   /**
@@ -62,13 +52,18 @@ export type ObserveDatabaseRequest = {
    */
   authMethod: DatabaseAuthMethod;
   /**
-   * Method for capturing metrics from database server: sniff/profiler/slow-log/poll, ignored for SqlServer and Redis
+   * Method for capturing metrics from database server: sniffer/poll/profiler/slow-log, ignored for SqlServer and Redis
+   *
+   * @remarks
+   * Sniffer is supported for mysql, mongo, redis and pgsql.
+   * Poll is supported for mysql, mssql, pgsql.
+   * profiler and slow-log are supported for mongo.
    */
-  captureMethod?: CaptureMethod | null | undefined;
+  captureMethod?: DatabaseMetricsCaptureMethod | undefined;
   /**
-   * Optional advanced configuration options for plugins, e.g. disable-sampling
+   * Optional advanced configuration options for plugins, e.g. disable-sampling set to true
    */
-  configOptions: Array<CommonKeyValuePair> | null;
+  configOptions?: Array<CommonKeyValuePair> | undefined;
   /**
    * Options specifying how plugins connect to database server
    */
@@ -76,29 +71,8 @@ export type ObserveDatabaseRequest = {
   /**
    * Tags for observed database entity
    */
-  tags: Array<CommonKeyValuePair> | null;
+  tags?: Array<CommonKeyValuePair> | undefined;
 };
-
-/** @internal */
-export const CaptureMethod$inboundSchema: z.ZodNativeEnum<
-  typeof CaptureMethod
-> = z.nativeEnum(CaptureMethod);
-
-/** @internal */
-export const CaptureMethod$outboundSchema: z.ZodNativeEnum<
-  typeof CaptureMethod
-> = CaptureMethod$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CaptureMethod$ {
-  /** @deprecated use `CaptureMethod$inboundSchema` instead. */
-  export const inboundSchema = CaptureMethod$inboundSchema;
-  /** @deprecated use `CaptureMethod$outboundSchema` instead. */
-  export const outboundSchema = CaptureMethod$outboundSchema;
-}
 
 /** @internal */
 export const ObserveDatabaseRequest$inboundSchema: z.ZodType<
@@ -110,10 +84,10 @@ export const ObserveDatabaseRequest$inboundSchema: z.ZodType<
   agentId: z.string(),
   dbType: DatabaseType$inboundSchema,
   authMethod: DatabaseAuthMethod$inboundSchema,
-  captureMethod: z.nullable(CaptureMethod$inboundSchema).default(null),
-  configOptions: z.nullable(z.array(CommonKeyValuePair$inboundSchema)),
+  captureMethod: DatabaseMetricsCaptureMethod$inboundSchema.optional(),
+  configOptions: z.array(CommonKeyValuePair$inboundSchema).optional(),
   dbConnOptions: DatabaseConnectionOptions$inboundSchema,
-  tags: z.nullable(z.array(CommonKeyValuePair$inboundSchema)),
+  tags: z.array(CommonKeyValuePair$inboundSchema).optional(),
 });
 
 /** @internal */
@@ -122,10 +96,10 @@ export type ObserveDatabaseRequest$Outbound = {
   agentId: string;
   dbType: string;
   authMethod: string;
-  captureMethod: string | null;
-  configOptions: Array<CommonKeyValuePair$Outbound> | null;
+  captureMethod?: string | undefined;
+  configOptions?: Array<CommonKeyValuePair$Outbound> | undefined;
   dbConnOptions: DatabaseConnectionOptions$Outbound;
-  tags: Array<CommonKeyValuePair$Outbound> | null;
+  tags?: Array<CommonKeyValuePair$Outbound> | undefined;
 };
 
 /** @internal */
@@ -138,10 +112,10 @@ export const ObserveDatabaseRequest$outboundSchema: z.ZodType<
   agentId: z.string(),
   dbType: DatabaseType$outboundSchema,
   authMethod: DatabaseAuthMethod$outboundSchema,
-  captureMethod: z.nullable(CaptureMethod$outboundSchema).default(null),
-  configOptions: z.nullable(z.array(CommonKeyValuePair$outboundSchema)),
+  captureMethod: DatabaseMetricsCaptureMethod$outboundSchema.optional(),
+  configOptions: z.array(CommonKeyValuePair$outboundSchema).optional(),
   dbConnOptions: DatabaseConnectionOptions$outboundSchema,
-  tags: z.nullable(z.array(CommonKeyValuePair$outboundSchema)),
+  tags: z.array(CommonKeyValuePair$outboundSchema).optional(),
 });
 
 /**

@@ -4,46 +4,14 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-
-/**
- * SSL mode such as require, verify-ca, verify-full as applicable
- */
-export const DatabaseConnectionOptionsSslMode = {
-  Require: "require",
-  VerfifyCa: "verfify-ca",
-  VerifyFull: "verify-full",
-} as const;
-/**
- * SSL mode such as require, verify-ca, verify-full as applicable
- */
-export type DatabaseConnectionOptionsSslMode = ClosedEnum<
-  typeof DatabaseConnectionOptionsSslMode
->;
-
-/**
- * SSL connection options, when sslEnabled is true
- */
-export type DatabaseConnectionOptionsSslOptions = {
-  /**
-   * SSL mode such as require, verify-ca, verify-full as applicable
-   */
-  sslMode?: DatabaseConnectionOptionsSslMode | undefined;
-  /**
-   * CA file path
-   */
-  sslCAPath?: string | undefined;
-  /**
-   * SSL key file path
-   */
-  sslKeyPath?: string | undefined;
-  /**
-   * SSL cert file path
-   */
-  sslCertPath?: string | undefined;
-};
+import {
+  DatabaseSslOptions,
+  DatabaseSslOptions$inboundSchema,
+  DatabaseSslOptions$Outbound,
+  DatabaseSslOptions$outboundSchema,
+} from "./databasessloptions.js";
 
 export type DatabaseConnectionOptions = {
   /**
@@ -53,9 +21,19 @@ export type DatabaseConnectionOptions = {
   /**
    * Database server port
    */
-  port: string | null;
+  port?: string | undefined;
   /**
-   * Encrypted credentials for connecting to database server when using basic auth method (username, password)
+   * Database schema name
+   */
+  dbname?: string | undefined;
+  /**
+   * Encrypted credentials for connecting to the database server when using basic authentication (username, password)
+   *
+   * @remarks
+   * can be generated using this command:
+   * ./dbo-headless-installer -swoparams=<SwoParamasJsonFile> --encrypt-creds --user=<USERNAME> --password=<PASSWORD>
+   * Use the dbo-headless-installer binary located at:
+   * https://agent-binaries.cloud.solarwinds.com/?prefix=dbo-headless-installer/latest/
    */
   encryptedCredentials?: string | undefined;
   /**
@@ -69,101 +47,16 @@ export type DatabaseConnectionOptions = {
   /**
    * SSL connection options, when sslEnabled is true
    */
-  sslOptions: DatabaseConnectionOptionsSslOptions | null;
+  sslOptions?: DatabaseSslOptions | undefined;
   /**
    * Cloud region in case of database managed by cloud provider, required for IAM authentication
    */
   cloudRegion?: string | undefined;
+  /**
+   * binding for packet sniffing for sniffer captureMethod (on-host), example: 0.0.0.0:6379,[::]:6379
+   */
+  bindings?: string | undefined;
 };
-
-/** @internal */
-export const DatabaseConnectionOptionsSslMode$inboundSchema: z.ZodNativeEnum<
-  typeof DatabaseConnectionOptionsSslMode
-> = z.nativeEnum(DatabaseConnectionOptionsSslMode);
-
-/** @internal */
-export const DatabaseConnectionOptionsSslMode$outboundSchema: z.ZodNativeEnum<
-  typeof DatabaseConnectionOptionsSslMode
-> = DatabaseConnectionOptionsSslMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DatabaseConnectionOptionsSslMode$ {
-  /** @deprecated use `DatabaseConnectionOptionsSslMode$inboundSchema` instead. */
-  export const inboundSchema = DatabaseConnectionOptionsSslMode$inboundSchema;
-  /** @deprecated use `DatabaseConnectionOptionsSslMode$outboundSchema` instead. */
-  export const outboundSchema = DatabaseConnectionOptionsSslMode$outboundSchema;
-}
-
-/** @internal */
-export const DatabaseConnectionOptionsSslOptions$inboundSchema: z.ZodType<
-  DatabaseConnectionOptionsSslOptions,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sslMode: DatabaseConnectionOptionsSslMode$inboundSchema.default("require"),
-  sslCAPath: z.string().default(""),
-  sslKeyPath: z.string().default(""),
-  sslCertPath: z.string().default(""),
-});
-
-/** @internal */
-export type DatabaseConnectionOptionsSslOptions$Outbound = {
-  sslMode: string;
-  sslCAPath: string;
-  sslKeyPath: string;
-  sslCertPath: string;
-};
-
-/** @internal */
-export const DatabaseConnectionOptionsSslOptions$outboundSchema: z.ZodType<
-  DatabaseConnectionOptionsSslOptions$Outbound,
-  z.ZodTypeDef,
-  DatabaseConnectionOptionsSslOptions
-> = z.object({
-  sslMode: DatabaseConnectionOptionsSslMode$outboundSchema.default("require"),
-  sslCAPath: z.string().default(""),
-  sslKeyPath: z.string().default(""),
-  sslCertPath: z.string().default(""),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DatabaseConnectionOptionsSslOptions$ {
-  /** @deprecated use `DatabaseConnectionOptionsSslOptions$inboundSchema` instead. */
-  export const inboundSchema =
-    DatabaseConnectionOptionsSslOptions$inboundSchema;
-  /** @deprecated use `DatabaseConnectionOptionsSslOptions$outboundSchema` instead. */
-  export const outboundSchema =
-    DatabaseConnectionOptionsSslOptions$outboundSchema;
-  /** @deprecated use `DatabaseConnectionOptionsSslOptions$Outbound` instead. */
-  export type Outbound = DatabaseConnectionOptionsSslOptions$Outbound;
-}
-
-export function databaseConnectionOptionsSslOptionsToJSON(
-  databaseConnectionOptionsSslOptions: DatabaseConnectionOptionsSslOptions,
-): string {
-  return JSON.stringify(
-    DatabaseConnectionOptionsSslOptions$outboundSchema.parse(
-      databaseConnectionOptionsSslOptions,
-    ),
-  );
-}
-
-export function databaseConnectionOptionsSslOptionsFromJSON(
-  jsonString: string,
-): SafeParseResult<DatabaseConnectionOptionsSslOptions, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DatabaseConnectionOptionsSslOptions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DatabaseConnectionOptionsSslOptions' from JSON`,
-  );
-}
 
 /** @internal */
 export const DatabaseConnectionOptions$inboundSchema: z.ZodType<
@@ -172,25 +65,27 @@ export const DatabaseConnectionOptions$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   host: z.string(),
-  port: z.nullable(z.string()),
+  port: z.string().default(""),
+  dbname: z.string().default(""),
   encryptedCredentials: z.string().default(""),
   user: z.string().default(""),
   sslEnabled: z.boolean().default(false),
-  sslOptions: z.nullable(
-    z.lazy(() => DatabaseConnectionOptionsSslOptions$inboundSchema),
-  ),
+  sslOptions: DatabaseSslOptions$inboundSchema.optional(),
   cloudRegion: z.string().default(""),
+  bindings: z.string().default(""),
 });
 
 /** @internal */
 export type DatabaseConnectionOptions$Outbound = {
   host: string;
-  port: string | null;
+  port: string;
+  dbname: string;
   encryptedCredentials: string;
   user: string;
   sslEnabled: boolean;
-  sslOptions: DatabaseConnectionOptionsSslOptions$Outbound | null;
+  sslOptions?: DatabaseSslOptions$Outbound | undefined;
   cloudRegion: string;
+  bindings: string;
 };
 
 /** @internal */
@@ -200,14 +95,14 @@ export const DatabaseConnectionOptions$outboundSchema: z.ZodType<
   DatabaseConnectionOptions
 > = z.object({
   host: z.string(),
-  port: z.nullable(z.string()),
+  port: z.string().default(""),
+  dbname: z.string().default(""),
   encryptedCredentials: z.string().default(""),
   user: z.string().default(""),
   sslEnabled: z.boolean().default(false),
-  sslOptions: z.nullable(
-    z.lazy(() => DatabaseConnectionOptionsSslOptions$outboundSchema),
-  ),
+  sslOptions: DatabaseSslOptions$outboundSchema.optional(),
   cloudRegion: z.string().default(""),
+  bindings: z.string().default(""),
 });
 
 /**

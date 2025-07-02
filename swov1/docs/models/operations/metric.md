@@ -10,16 +10,11 @@ let value: Metric = {
   name: "dbo.host.queries.tput",
   groupings: [
     {
-      attributes: [
-        {
-          key: "<key>",
-          value: "<value>",
-        },
-      ],
+      attributes: [],
       measurements: [
         {
-          time: new Date("2025-05-30T00:58:39.369Z"),
-          value: 1009.14,
+          time: new Date("2025-06-12T04:58:43.421Z"),
+          value: 1220.89,
         },
       ],
     },

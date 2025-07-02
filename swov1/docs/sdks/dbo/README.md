@@ -32,21 +32,11 @@ async function run() {
     agentId: "<id>",
     dbType: "mongo",
     authMethod: "entraclientsecret",
-    configOptions: [
-      {
-        key: "<key>",
-        value: "<value>",
-      },
-    ],
     dbConnOptions: {
-      host: "dependent-bar.com",
-      port: "<value>",
-      sslOptions: {},
+      host: "mixed-scrap.com",
     },
-    tags: [],
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -73,28 +63,16 @@ async function run() {
     agentId: "<id>",
     dbType: "mongo",
     authMethod: "entraclientsecret",
-    configOptions: [
-      {
-        key: "<key>",
-        value: "<value>",
-      },
-    ],
     dbConnOptions: {
-      host: "dependent-bar.com",
-      port: "<value>",
-      sslOptions: {},
+      host: "mixed-scrap.com",
     },
-    tags: [],
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("dboObserveDatabase failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -136,7 +114,6 @@ const swo = new Swo({
 async function run() {
   const result = await swo.dbo.getPublicKey();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -159,15 +136,12 @@ const swo = new SwoCore({
 
 async function run() {
   const res = await dboGetPublicKey(swo);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("dboGetPublicKey failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -237,14 +211,12 @@ async function run() {
     entityId: "<id>",
     updateDatabaseRequest: {},
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("dboUpdateDatabase failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();
@@ -313,14 +285,12 @@ async function run() {
   const res = await dboDeleteDatabase(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("dboDeleteDatabase failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();
@@ -365,7 +335,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -390,15 +359,12 @@ async function run() {
   const res = await dboGetPluginConfig(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("dboGetPluginConfig failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -443,7 +409,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -468,15 +433,12 @@ async function run() {
   const res = await dboGetPlugins(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("dboGetPlugins failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -547,14 +509,12 @@ async function run() {
     entityId: "<id>",
     operation: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("dboPluginOperation failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();

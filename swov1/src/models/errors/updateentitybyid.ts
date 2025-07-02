@@ -3,43 +3,51 @@
  */
 
 import * as z from "zod";
+import * as components from "../components/index.js";
+import { SwoError } from "./swoerror.js";
 
 /**
  * The server cannot find the requested resource.
  */
 export type UpdateEntityByIdNotFoundErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server cannot find the requested resource.
  */
-export class UpdateEntityByIdNotFoundError extends Error {
+export class UpdateEntityByIdNotFoundError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: UpdateEntityByIdNotFoundErrorData;
 
-  constructor(err: UpdateEntityByIdNotFoundErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: UpdateEntityByIdNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "UpdateEntityByIdNotFoundError";
@@ -51,37 +59,43 @@ export class UpdateEntityByIdNotFoundError extends Error {
  */
 export type UpdateEntityByIdUnauthorizedErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * Access is unauthorized.
  */
-export class UpdateEntityByIdUnauthorizedError extends Error {
+export class UpdateEntityByIdUnauthorizedError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: UpdateEntityByIdUnauthorizedErrorData;
 
-  constructor(err: UpdateEntityByIdUnauthorizedErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: UpdateEntityByIdUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "UpdateEntityByIdUnauthorizedError";
@@ -93,37 +107,43 @@ export class UpdateEntityByIdUnauthorizedError extends Error {
  */
 export type UpdateEntityByIdBadRequestErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server could not understand the request due to invalid syntax.
  */
-export class UpdateEntityByIdBadRequestError extends Error {
+export class UpdateEntityByIdBadRequestError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: UpdateEntityByIdBadRequestErrorData;
 
-  constructor(err: UpdateEntityByIdBadRequestErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: UpdateEntityByIdBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "UpdateEntityByIdBadRequestError";
@@ -136,17 +156,24 @@ export const UpdateEntityByIdNotFoundError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new UpdateEntityByIdNotFoundError(v);
+    return new UpdateEntityByIdNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type UpdateEntityByIdNotFoundError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -159,7 +186,7 @@ export const UpdateEntityByIdNotFoundError$outboundSchema: z.ZodType<
 > = z.instanceof(UpdateEntityByIdNotFoundError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -183,17 +210,24 @@ export const UpdateEntityByIdUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new UpdateEntityByIdUnauthorizedError(v);
+    return new UpdateEntityByIdUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type UpdateEntityByIdUnauthorizedError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -206,7 +240,7 @@ export const UpdateEntityByIdUnauthorizedError$outboundSchema: z.ZodType<
 > = z.instanceof(UpdateEntityByIdUnauthorizedError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -231,17 +265,24 @@ export const UpdateEntityByIdBadRequestError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new UpdateEntityByIdBadRequestError(v);
+    return new UpdateEntityByIdBadRequestError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type UpdateEntityByIdBadRequestError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -254,7 +295,7 @@ export const UpdateEntityByIdBadRequestError$outboundSchema: z.ZodType<
 > = z.instanceof(UpdateEntityByIdBadRequestError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));

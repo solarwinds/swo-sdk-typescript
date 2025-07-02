@@ -3,43 +3,51 @@
  */
 
 import * as z from "zod";
+import * as components from "../components/index.js";
+import { SwoError } from "./swoerror.js";
 
 /**
  * Server error
  */
 export type ActivateAwsIntegrationInternalServerErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * Server error
  */
-export class ActivateAwsIntegrationInternalServerError extends Error {
+export class ActivateAwsIntegrationInternalServerError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: ActivateAwsIntegrationInternalServerErrorData;
 
-  constructor(err: ActivateAwsIntegrationInternalServerErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ActivateAwsIntegrationInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "ActivateAwsIntegrationInternalServerError";
@@ -51,37 +59,43 @@ export class ActivateAwsIntegrationInternalServerError extends Error {
  */
 export type ActivateAwsIntegrationNotFoundErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server cannot find the requested resource.
  */
-export class ActivateAwsIntegrationNotFoundError extends Error {
+export class ActivateAwsIntegrationNotFoundError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: ActivateAwsIntegrationNotFoundErrorData;
 
-  constructor(err: ActivateAwsIntegrationNotFoundErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ActivateAwsIntegrationNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "ActivateAwsIntegrationNotFoundError";
@@ -93,37 +107,43 @@ export class ActivateAwsIntegrationNotFoundError extends Error {
  */
 export type ActivateAwsIntegrationUnauthorizedErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * Access is unauthorized.
  */
-export class ActivateAwsIntegrationUnauthorizedError extends Error {
+export class ActivateAwsIntegrationUnauthorizedError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: ActivateAwsIntegrationUnauthorizedErrorData;
 
-  constructor(err: ActivateAwsIntegrationUnauthorizedErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ActivateAwsIntegrationUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "ActivateAwsIntegrationUnauthorizedError";
@@ -135,37 +155,43 @@ export class ActivateAwsIntegrationUnauthorizedError extends Error {
  */
 export type ActivateAwsIntegrationBadRequestErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server could not understand the request due to invalid syntax.
  */
-export class ActivateAwsIntegrationBadRequestError extends Error {
+export class ActivateAwsIntegrationBadRequestError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: ActivateAwsIntegrationBadRequestErrorData;
 
-  constructor(err: ActivateAwsIntegrationBadRequestErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ActivateAwsIntegrationBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "ActivateAwsIntegrationBadRequestError";
@@ -178,17 +204,24 @@ export const ActivateAwsIntegrationInternalServerError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new ActivateAwsIntegrationInternalServerError(v);
+    return new ActivateAwsIntegrationInternalServerError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type ActivateAwsIntegrationInternalServerError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -202,7 +235,7 @@ export const ActivateAwsIntegrationInternalServerError$outboundSchema:
   > = z.instanceof(ActivateAwsIntegrationInternalServerError)
     .transform(v => v.data$)
     .pipe(z.object({
-      code: z.number().int(),
+      code: components.CommonDefaultErrorCode$outboundSchema.optional(),
       message: z.string(),
       target: z.string().optional(),
     }));
@@ -228,17 +261,24 @@ export const ActivateAwsIntegrationNotFoundError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new ActivateAwsIntegrationNotFoundError(v);
+    return new ActivateAwsIntegrationNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type ActivateAwsIntegrationNotFoundError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -251,7 +291,7 @@ export const ActivateAwsIntegrationNotFoundError$outboundSchema: z.ZodType<
 > = z.instanceof(ActivateAwsIntegrationNotFoundError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -277,17 +317,24 @@ export const ActivateAwsIntegrationUnauthorizedError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new ActivateAwsIntegrationUnauthorizedError(v);
+    return new ActivateAwsIntegrationUnauthorizedError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type ActivateAwsIntegrationUnauthorizedError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -300,7 +347,7 @@ export const ActivateAwsIntegrationUnauthorizedError$outboundSchema: z.ZodType<
 > = z.instanceof(ActivateAwsIntegrationUnauthorizedError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -326,17 +373,24 @@ export const ActivateAwsIntegrationBadRequestError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new ActivateAwsIntegrationBadRequestError(v);
+    return new ActivateAwsIntegrationBadRequestError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type ActivateAwsIntegrationBadRequestError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -349,7 +403,7 @@ export const ActivateAwsIntegrationBadRequestError$outboundSchema: z.ZodType<
 > = z.instanceof(ActivateAwsIntegrationBadRequestError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));

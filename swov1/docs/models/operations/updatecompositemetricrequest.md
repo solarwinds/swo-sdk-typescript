@@ -7,12 +7,6 @@ import { UpdateCompositeMetricRequest } from "@solarwinds/swo-sdk-typescript/mod
 
 let value: UpdateCompositeMetricRequest = {
   name: "<value>",
-  updateCompositeMetric: {
-    displayName: "Disk IO rate",
-    description: "Disk bytes transferred per second",
-    formula: "rate(system.disk.io[5m])",
-    units: "bytes/s",
-  },
 };
 ```
 

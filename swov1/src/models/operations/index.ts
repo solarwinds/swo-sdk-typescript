@@ -3,7 +3,6 @@
  */
 
 export * from "./createchangeevent.js";
-export * from "./createtoken.js";
 export * from "./deletecompositemetric.js";
 export * from "./deletedatabase.js";
 export * from "./deleteuri.js";
@@ -23,7 +22,6 @@ export * from "./listmetricmeasurements.js";
 export * from "./listmetrics.js";
 export * from "./listmetricsforentitytype.js";
 export * from "./listmultimetricmeasurements.js";
-export * from "./listprobes.js";
 export * from "./observedatabase.js";
 export * from "./pauseurimonitoring.js";
 export * from "./pausewebsitemonitoring.js";

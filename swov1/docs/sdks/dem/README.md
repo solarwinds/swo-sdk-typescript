@@ -37,7 +37,6 @@ const swo = new Swo({
 async function run() {
   const result = await swo.dem.listProbes();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -60,15 +59,12 @@ const swo = new SwoCore({
 
 async function run() {
   const res = await demListProbes(swo);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demListProbes failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -84,7 +80,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListProbesResponse](../../models/operations/listprobesresponse.md)\>**
+**Promise\<[components.ListProbesResponse](../../models/components/listprobesresponse.md)\>**
 
 ### Errors
 
@@ -109,7 +105,6 @@ const swo = new Swo({
 async function run() {
   const result = await swo.dem.getDemSettings();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -132,15 +127,12 @@ const swo = new SwoCore({
 
 async function run() {
   const res = await demGetDemSettings(swo);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demGetDemSettings failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -208,14 +200,12 @@ async function run() {
     failingTestLocations: "all",
     consecutiveForDown: 2,
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("demSetDemSettings failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();
@@ -255,7 +245,7 @@ const swo = new Swo({
 
 async function run() {
   const result = await swo.dem.createUri({
-    name: "example-uri",
+    name: "solarwinds.com",
     ipOrDomain: "solarwinds.com",
     availabilityCheckSettings: {
       platformOptions: {
@@ -270,14 +260,20 @@ async function run() {
           "NA",
         ],
       },
-      testIntervalInSeconds: 300,
-      outageConfiguration: {
-        failingTestLocations: "all",
-        consecutiveForDown: 2,
+      testIntervalInSeconds: 14400,
+      outageConfiguration: null,
+      ping: {
+        enabled: true,
       },
       tcp: {
         enabled: true,
         port: 443,
+        stringToSend: "GET / HTTP/1.1\r\n" +
+        "Host: solarwinds.com\r\n" +
+        "Connection: close\r\n" +
+        "\r\n" +
+        "",
+        stringToExpect: "HTTP/1.1 200 OK",
       },
     },
     tags: [
@@ -288,7 +284,6 @@ async function run() {
     ],
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -311,7 +306,7 @@ const swo = new SwoCore({
 
 async function run() {
   const res = await demCreateUri(swo, {
-    name: "example-uri",
+    name: "solarwinds.com",
     ipOrDomain: "solarwinds.com",
     availabilityCheckSettings: {
       platformOptions: {
@@ -326,14 +321,20 @@ async function run() {
           "NA",
         ],
       },
-      testIntervalInSeconds: 300,
-      outageConfiguration: {
-        failingTestLocations: "all",
-        consecutiveForDown: 2,
+      testIntervalInSeconds: 14400,
+      outageConfiguration: null,
+      ping: {
+        enabled: true,
       },
       tcp: {
         enabled: true,
         port: 443,
+        stringToSend: "GET / HTTP/1.1\r\n" +
+        "Host: solarwinds.com\r\n" +
+        "Connection: close\r\n" +
+        "\r\n" +
+        "",
+        stringToExpect: "HTTP/1.1 200 OK",
       },
     },
     tags: [
@@ -343,15 +344,12 @@ async function run() {
       },
     ],
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demCreateUri failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -395,7 +393,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -420,15 +417,12 @@ async function run() {
   const res = await demGetUri(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demGetUri failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -445,7 +439,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetUriResponse](../../models/operations/geturiresponse.md)\>**
+**Promise\<[components.GetUriResponse](../../models/components/geturiresponse.md)\>**
 
 ### Errors
 
@@ -471,7 +465,7 @@ async function run() {
   const result = await swo.dem.updateUri({
     entityId: "<id>",
     uri: {
-      name: "example-uri",
+      name: "solarwinds.com",
       ipOrDomain: "solarwinds.com",
       availabilityCheckSettings: {
         platformOptions: {
@@ -486,14 +480,23 @@ async function run() {
             "NA",
           ],
         },
-        testIntervalInSeconds: 300,
+        testIntervalInSeconds: 14400,
         outageConfiguration: {
           failingTestLocations: "all",
           consecutiveForDown: 2,
         },
+        ping: {
+          enabled: true,
+        },
         tcp: {
           enabled: true,
           port: 443,
+          stringToSend: "GET / HTTP/1.1\r\n" +
+          "Host: solarwinds.com\r\n" +
+          "Connection: close\r\n" +
+          "\r\n" +
+          "",
+          stringToExpect: "HTTP/1.1 200 OK",
         },
       },
       tags: [
@@ -505,7 +508,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -530,7 +532,7 @@ async function run() {
   const res = await demUpdateUri(swo, {
     entityId: "<id>",
     uri: {
-      name: "example-uri",
+      name: "solarwinds.com",
       ipOrDomain: "solarwinds.com",
       availabilityCheckSettings: {
         platformOptions: {
@@ -545,14 +547,23 @@ async function run() {
             "NA",
           ],
         },
-        testIntervalInSeconds: 300,
+        testIntervalInSeconds: 14400,
         outageConfiguration: {
           failingTestLocations: "all",
           consecutiveForDown: 2,
         },
+        ping: {
+          enabled: true,
+        },
         tcp: {
           enabled: true,
           port: 443,
+          stringToSend: "GET / HTTP/1.1\r\n" +
+          "Host: solarwinds.com\r\n" +
+          "Connection: close\r\n" +
+          "\r\n" +
+          "",
+          stringToExpect: "HTTP/1.1 200 OK",
         },
       },
       tags: [
@@ -563,15 +574,12 @@ async function run() {
       ],
     },
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demUpdateUri failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -616,7 +624,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -641,15 +648,12 @@ async function run() {
   const res = await demDeleteUri(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demDeleteUri failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -693,7 +697,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -718,15 +721,12 @@ async function run() {
   const res = await demPauseUriMonitoring(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demPauseUriMonitoring failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -770,7 +770,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -795,15 +794,12 @@ async function run() {
   const res = await demUnpauseUriMonitoring(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demUnpauseUriMonitoring failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -898,7 +894,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -974,15 +969,12 @@ async function run() {
       spa: true,
     },
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demCreateWebsite failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -1026,7 +1018,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -1051,15 +1042,12 @@ async function run() {
   const res = await demGetWebsite(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demGetWebsite failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -1076,7 +1064,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetWebsiteResponse](../../models/operations/getwebsiteresponse.md)\>**
+**Promise\<[components.GetWebsiteResponse](../../models/components/getwebsiteresponse.md)\>**
 
 ### Errors
 
@@ -1157,7 +1145,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -1236,15 +1223,12 @@ async function run() {
       },
     },
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demUpdateWebsite failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -1289,7 +1273,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -1314,15 +1297,12 @@ async function run() {
   const res = await demDeleteWebsite(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demDeleteWebsite failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -1366,7 +1346,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -1391,15 +1370,12 @@ async function run() {
   const res = await demPauseWebsiteMonitoring(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demPauseWebsiteMonitoring failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -1443,7 +1419,6 @@ async function run() {
     entityId: "<id>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -1468,15 +1443,12 @@ async function run() {
   const res = await demUnpauseWebsiteMonitoring(swo, {
     entityId: "<id>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demUnpauseWebsiteMonitoring failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

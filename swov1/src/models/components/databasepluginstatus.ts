@@ -13,9 +13,13 @@ export type DatabasePluginStatus = {
    */
   pluginName: string;
   /**
-   * Status of plugin observing database server
+   * Deployment Status of plugin observing database server
    */
-  status: string;
+  deploymentStatus: string;
+  /**
+   * Health Status of plugin observing database server
+   */
+  healthStatus: string;
 };
 
 /** @internal */
@@ -25,13 +29,15 @@ export const DatabasePluginStatus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   pluginName: z.string(),
-  status: z.string(),
+  deploymentStatus: z.string(),
+  healthStatus: z.string(),
 });
 
 /** @internal */
 export type DatabasePluginStatus$Outbound = {
   pluginName: string;
-  status: string;
+  deploymentStatus: string;
+  healthStatus: string;
 };
 
 /** @internal */
@@ -41,7 +47,8 @@ export const DatabasePluginStatus$outboundSchema: z.ZodType<
   DatabasePluginStatus
 > = z.object({
   pluginName: z.string(),
-  status: z.string(),
+  deploymentStatus: z.string(),
+  healthStatus: z.string(),
 });
 
 /**

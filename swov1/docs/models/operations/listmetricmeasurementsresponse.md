@@ -5,31 +5,7 @@
 ```typescript
 import { ListMetricMeasurementsResponse } from "@solarwinds/swo-sdk-typescript/models/operations";
 
-let value: ListMetricMeasurementsResponse = {
-  result: {
-    groupings: [
-      {
-        attributes: [
-          {
-            key: "<key>",
-            value: "<value>",
-          },
-        ],
-        measurements: [
-          {
-            time: new Date("2025-11-09T11:58:33.263Z"),
-            value: 2581.91,
-          },
-        ],
-      },
-    ],
-    bucketSizeInSeconds: 861932,
-    pageInfo: {
-      prevPage: "<value>",
-      nextPage: "<value>",
-    },
-  },
-};
+let value: ListMetricMeasurementsResponse = {};
 ```
 
 ## Fields

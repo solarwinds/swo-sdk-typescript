@@ -3,43 +3,51 @@
  */
 
 import * as z from "zod";
+import * as components from "../components/index.js";
+import { SwoError } from "./swoerror.js";
 
 /**
  * The server cannot find the requested resource.
  */
 export type UpdateUriNotFoundErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server cannot find the requested resource.
  */
-export class UpdateUriNotFoundError extends Error {
+export class UpdateUriNotFoundError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: UpdateUriNotFoundErrorData;
 
-  constructor(err: UpdateUriNotFoundErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: UpdateUriNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "UpdateUriNotFoundError";
@@ -51,37 +59,43 @@ export class UpdateUriNotFoundError extends Error {
  */
 export type UpdateUriBadRequestErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server could not understand the request due to invalid syntax.
  */
-export class UpdateUriBadRequestError extends Error {
+export class UpdateUriBadRequestError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: UpdateUriBadRequestErrorData;
 
-  constructor(err: UpdateUriBadRequestErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: UpdateUriBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "UpdateUriBadRequestError";
@@ -94,17 +108,24 @@ export const UpdateUriNotFoundError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new UpdateUriNotFoundError(v);
+    return new UpdateUriNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type UpdateUriNotFoundError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -117,7 +138,7 @@ export const UpdateUriNotFoundError$outboundSchema: z.ZodType<
 > = z.instanceof(UpdateUriNotFoundError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -141,17 +162,24 @@ export const UpdateUriBadRequestError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new UpdateUriBadRequestError(v);
+    return new UpdateUriBadRequestError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type UpdateUriBadRequestError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -164,7 +192,7 @@ export const UpdateUriBadRequestError$outboundSchema: z.ZodType<
 > = z.instanceof(UpdateUriBadRequestError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));

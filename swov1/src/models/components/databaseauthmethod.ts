@@ -9,8 +9,8 @@ export const DatabaseAuthMethod = {
   Basic: "basic",
   Awsiam: "awsiam",
   Windows: "windows",
-  Entraclientcert: "entraclientcert",
   Entraclientsecret: "entraclientsecret",
+  Entraclientcert: "entraclientcert",
   Cert: "cert",
 } as const;
 export type DatabaseAuthMethod = ClosedEnum<typeof DatabaseAuthMethod>;

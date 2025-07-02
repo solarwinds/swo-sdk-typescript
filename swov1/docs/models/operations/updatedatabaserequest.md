@@ -7,7 +7,6 @@ import { UpdateDatabaseRequest } from "@solarwinds/swo-sdk-typescript/models/ope
 
 let value: UpdateDatabaseRequest = {
   entityId: "<id>",
-  updateDatabaseRequest: {},
 };
 ```
 

@@ -3,43 +3,51 @@
  */
 
 import * as z from "zod";
+import * as components from "../components/index.js";
+import { SwoError } from "./swoerror.js";
 
 /**
  * The server cannot find the requested resource.
  */
 export type DeleteCompositeMetricNotFoundErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server cannot find the requested resource.
  */
-export class DeleteCompositeMetricNotFoundError extends Error {
+export class DeleteCompositeMetricNotFoundError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: DeleteCompositeMetricNotFoundErrorData;
 
-  constructor(err: DeleteCompositeMetricNotFoundErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: DeleteCompositeMetricNotFoundErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "DeleteCompositeMetricNotFoundError";
@@ -51,37 +59,43 @@ export class DeleteCompositeMetricNotFoundError extends Error {
  */
 export type DeleteCompositeMetricForbiddenErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.MetricErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * Access is forbidden.
  */
-export class DeleteCompositeMetricForbiddenError extends Error {
+export class DeleteCompositeMetricForbiddenError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.MetricErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: DeleteCompositeMetricForbiddenErrorData;
 
-  constructor(err: DeleteCompositeMetricForbiddenErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: DeleteCompositeMetricForbiddenErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "DeleteCompositeMetricForbiddenError";
@@ -94,17 +108,24 @@ export const DeleteCompositeMetricNotFoundError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new DeleteCompositeMetricNotFoundError(v);
+    return new DeleteCompositeMetricNotFoundError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type DeleteCompositeMetricNotFoundError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -117,7 +138,7 @@ export const DeleteCompositeMetricNotFoundError$outboundSchema: z.ZodType<
 > = z.instanceof(DeleteCompositeMetricNotFoundError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -142,17 +163,24 @@ export const DeleteCompositeMetricForbiddenError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.MetricErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new DeleteCompositeMetricForbiddenError(v);
+    return new DeleteCompositeMetricForbiddenError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type DeleteCompositeMetricForbiddenError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -165,7 +193,7 @@ export const DeleteCompositeMetricForbiddenError$outboundSchema: z.ZodType<
 > = z.instanceof(DeleteCompositeMetricForbiddenError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.MetricErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));

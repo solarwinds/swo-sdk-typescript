@@ -31,6 +31,7 @@ export * from "./observedatabase.js";
 export * from "./pauseurimonitoring.js";
 export * from "./pausewebsitemonitoring.js";
 export * from "./pluginoperation.js";
+export * from "./responsevalidationerror.js";
 export * from "./sdkvalidationerror.js";
 export * from "./unpauseurimonitoring.js";
 export * from "./unpausewebsitemonitoring.js";

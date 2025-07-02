@@ -6,12 +6,7 @@
 import { DatabasePluginStatusResponse } from "@solarwinds/swo-sdk-typescript/models/components";
 
 let value: DatabasePluginStatusResponse = {
-  plugins: [
-    {
-      pluginName: "<value>",
-      status: "<value>",
-    },
-  ],
+  plugins: [],
 };
 ```
 

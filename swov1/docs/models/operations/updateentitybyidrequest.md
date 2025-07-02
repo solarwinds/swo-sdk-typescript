@@ -7,13 +7,6 @@ import { UpdateEntityByIdRequest } from "@solarwinds/swo-sdk-typescript/models/o
 
 let value: UpdateEntityByIdRequest = {
   id: "<id>",
-  entity: {
-    displayName: "SyslogTest",
-    tags: {
-      "gg.tk.token": "test",
-      "kfi.tk.token": "qa-test",
-    },
-  },
 };
 ```
 

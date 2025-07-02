@@ -3,43 +3,51 @@
  */
 
 import * as z from "zod";
+import * as components from "../components/index.js";
+import { SwoError } from "./swoerror.js";
 
 /**
  * Server error
  */
 export type ValidateMgmtAccountOnboardingInternalServerErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * Server error
  */
-export class ValidateMgmtAccountOnboardingInternalServerError extends Error {
+export class ValidateMgmtAccountOnboardingInternalServerError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: ValidateMgmtAccountOnboardingInternalServerErrorData;
 
-  constructor(err: ValidateMgmtAccountOnboardingInternalServerErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ValidateMgmtAccountOnboardingInternalServerErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "ValidateMgmtAccountOnboardingInternalServerError";
@@ -51,37 +59,43 @@ export class ValidateMgmtAccountOnboardingInternalServerError extends Error {
  */
 export type ValidateMgmtAccountOnboardingUnauthorizedErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * Access is unauthorized.
  */
-export class ValidateMgmtAccountOnboardingUnauthorizedError extends Error {
+export class ValidateMgmtAccountOnboardingUnauthorizedError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: ValidateMgmtAccountOnboardingUnauthorizedErrorData;
 
-  constructor(err: ValidateMgmtAccountOnboardingUnauthorizedErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ValidateMgmtAccountOnboardingUnauthorizedErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "ValidateMgmtAccountOnboardingUnauthorizedError";
@@ -93,37 +107,43 @@ export class ValidateMgmtAccountOnboardingUnauthorizedError extends Error {
  */
 export type ValidateMgmtAccountOnboardingBadRequestErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server could not understand the request due to invalid syntax.
  */
-export class ValidateMgmtAccountOnboardingBadRequestError extends Error {
+export class ValidateMgmtAccountOnboardingBadRequestError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: ValidateMgmtAccountOnboardingBadRequestErrorData;
 
-  constructor(err: ValidateMgmtAccountOnboardingBadRequestErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ValidateMgmtAccountOnboardingBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "ValidateMgmtAccountOnboardingBadRequestError";
@@ -137,17 +157,24 @@ export const ValidateMgmtAccountOnboardingInternalServerError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$inboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
   })
     .transform((v) => {
-      return new ValidateMgmtAccountOnboardingInternalServerError(v);
+      return new ValidateMgmtAccountOnboardingInternalServerError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
     });
 
 /** @internal */
 export type ValidateMgmtAccountOnboardingInternalServerError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -161,7 +188,7 @@ export const ValidateMgmtAccountOnboardingInternalServerError$outboundSchema:
   > = z.instanceof(ValidateMgmtAccountOnboardingInternalServerError)
     .transform(v => v.data$)
     .pipe(z.object({
-      code: z.number().int(),
+      code: components.CommonDefaultErrorCode$outboundSchema.optional(),
       message: z.string(),
       target: z.string().optional(),
     }));
@@ -189,17 +216,24 @@ export const ValidateMgmtAccountOnboardingUnauthorizedError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$inboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
   })
     .transform((v) => {
-      return new ValidateMgmtAccountOnboardingUnauthorizedError(v);
+      return new ValidateMgmtAccountOnboardingUnauthorizedError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
     });
 
 /** @internal */
 export type ValidateMgmtAccountOnboardingUnauthorizedError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -213,7 +247,7 @@ export const ValidateMgmtAccountOnboardingUnauthorizedError$outboundSchema:
   > = z.instanceof(ValidateMgmtAccountOnboardingUnauthorizedError)
     .transform(v => v.data$)
     .pipe(z.object({
-      code: z.number().int(),
+      code: components.CommonDefaultErrorCode$outboundSchema.optional(),
       message: z.string(),
       target: z.string().optional(),
     }));
@@ -241,17 +275,24 @@ export const ValidateMgmtAccountOnboardingBadRequestError$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$inboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
+    request$: z.instanceof(Request),
+    response$: z.instanceof(Response),
+    body$: z.string(),
   })
     .transform((v) => {
-      return new ValidateMgmtAccountOnboardingBadRequestError(v);
+      return new ValidateMgmtAccountOnboardingBadRequestError(v, {
+        request: v.request$,
+        response: v.response$,
+        body: v.body$,
+      });
     });
 
 /** @internal */
 export type ValidateMgmtAccountOnboardingBadRequestError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -265,7 +306,7 @@ export const ValidateMgmtAccountOnboardingBadRequestError$outboundSchema:
   > = z.instanceof(ValidateMgmtAccountOnboardingBadRequestError)
     .transform(v => v.data$)
     .pipe(z.object({
-      code: z.number().int(),
+      code: components.CommonDefaultErrorCode$outboundSchema.optional(),
       message: z.string(),
       target: z.string().optional(),
     }));

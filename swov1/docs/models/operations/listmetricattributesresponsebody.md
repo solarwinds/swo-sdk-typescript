@@ -9,7 +9,7 @@ import { ListMetricAttributesResponseBody } from "@solarwinds/swo-sdk-typescript
 
 let value: ListMetricAttributesResponseBody = {
   names: [
-    "<value>",
+    "<value 1>",
   ],
   pageInfo: {
     prevPage: "<value>",
