@@ -5,7 +5,6 @@
 import { tokensCreateToken } from "../funcs/tokensCreateToken.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
-import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Tokens extends ClientSDK {
@@ -15,7 +14,7 @@ export class Tokens extends ClientSDK {
   async createToken(
     request: components.CreateTokenRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateTokenResponse> {
+  ): Promise<components.CreateTokenResponse> {
     return unwrapAsync(tokensCreateToken(
       this,
       request,

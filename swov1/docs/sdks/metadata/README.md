@@ -24,7 +24,6 @@ const swo = new Swo({
 async function run() {
   const result = await swo.metadata.listEntityTypes();
 
-  // Handle the result
   console.log(result);
 }
 
@@ -47,15 +46,12 @@ const swo = new SwoCore({
 
 async function run() {
   const res = await metadataListEntityTypes(swo);
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("metadataListEntityTypes failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -97,7 +93,6 @@ async function run() {
     type: "<value>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -122,15 +117,12 @@ async function run() {
   const res = await metadataListMetricsForEntityType(swo, {
     type: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("metadataListMetricsForEntityType failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

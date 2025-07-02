@@ -8,11 +8,6 @@ import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
-  CheckForStringOperator,
-  CheckForStringOperator$inboundSchema,
-  CheckForStringOperator$outboundSchema,
-} from "./checkforstringoperator.js";
-import {
   CustomHeaders,
   CustomHeaders$inboundSchema,
   CustomHeaders$Outbound,
@@ -98,6 +93,18 @@ export type WebsiteOutageConfiguration = {
 };
 
 /**
+ * Defines whether the check should pass only when the string is present on the page (CONTAINS) or only when it is absent (DOES_NOT_CONTAIN).
+ */
+export const WebsiteOperator = {
+  Contains: "CONTAINS",
+  DoesNotContain: "DOES_NOT_CONTAIN",
+} as const;
+/**
+ * Defines whether the check should pass only when the string is present on the page (CONTAINS) or only when it is absent (DOES_NOT_CONTAIN).
+ */
+export type WebsiteOperator = ClosedEnum<typeof WebsiteOperator>;
+
+/**
  *   Use this field to configure whether availability tests should check for presence or absence of a particular string on a page.
  *
  * @remarks
@@ -105,11 +112,11 @@ export type WebsiteOutageConfiguration = {
  *   Likewise, if the operator is CONTAINS and the value is not found on the page, the availability test will fail.
  *   If omitted or set to null, the string checking functionality will be disabled.
  */
-export type CheckForString = {
+export type WebsiteCheckForString = {
   /**
    * Defines whether the check should pass only when the string is present on the page (CONTAINS) or only when it is absent (DOES_NOT_CONTAIN).
    */
-  operator: CheckForStringOperator;
+  operator: WebsiteOperator;
   /**
    * The string that which will be searched in the page source code.
    */
@@ -122,7 +129,7 @@ export type CheckForString = {
  * @remarks
  *   If omitted or set to null, SSL monitoring will be disabled and its previous configuration discarded.
  */
-export type Ssl = {
+export type WebsiteSsl = {
   /**
    *   Whether SSL monitoring is enabled for the website.
    *
@@ -149,7 +156,7 @@ export type Ssl = {
 /**
  * Use this field to configure availability tests for the website.
  */
-export type AvailabilityCheckSettings = {
+export type WebsiteAvailabilityCheckSettings = {
   /**
    * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, no particular cloud platform will be enforced.
    */
@@ -180,7 +187,7 @@ export type AvailabilityCheckSettings = {
    *   Likewise, if the operator is CONTAINS and the value is not found on the page, the availability test will fail.
    *   If omitted or set to null, the string checking functionality will be disabled.
    */
-  checkForString?: CheckForString | null | undefined;
+  checkForString?: WebsiteCheckForString | null | undefined;
   /**
    * Configure which protocols need availability tests to be performed. At least one protocol must be provided.
    */
@@ -191,7 +198,7 @@ export type AvailabilityCheckSettings = {
    * @remarks
    *   If omitted or set to null, SSL monitoring will be disabled and its previous configuration discarded.
    */
-  ssl?: Ssl | null | undefined;
+  ssl?: WebsiteSsl | null | undefined;
   /**
    *   Configure custom request headers to be sent with each availability test. It is possible to provide multiple headers with the same name.
    *
@@ -223,7 +230,7 @@ export type AvailabilityCheckSettings = {
  * @remarks
  *     You are required to configure at least availability monitoring or real user monitoring to be able to create website.
  */
-export type Rum = {
+export type WebsiteRum = {
   apdexTimeInSeconds?: number | undefined;
   spa: boolean;
 };
@@ -240,7 +247,10 @@ export type Website = {
   /**
    * Use this field to configure availability tests for the website.
    */
-  availabilityCheckSettings?: AvailabilityCheckSettings | null | undefined;
+  availabilityCheckSettings?:
+    | WebsiteAvailabilityCheckSettings
+    | null
+    | undefined;
   /**
    * Entity tags. Tag is a key-value pair, where there may be only single tag value for the same key.
    */
@@ -251,7 +261,7 @@ export type Website = {
    * @remarks
    *     You are required to configure at least availability monitoring or real user monitoring to be able to create website.
    */
-  rum?: Rum | undefined;
+  rum?: WebsiteRum | undefined;
 };
 
 /** @internal */
@@ -390,28 +400,49 @@ export function websiteOutageConfigurationFromJSON(
 }
 
 /** @internal */
-export const CheckForString$inboundSchema: z.ZodType<
-  CheckForString,
+export const WebsiteOperator$inboundSchema: z.ZodNativeEnum<
+  typeof WebsiteOperator
+> = z.nativeEnum(WebsiteOperator);
+
+/** @internal */
+export const WebsiteOperator$outboundSchema: z.ZodNativeEnum<
+  typeof WebsiteOperator
+> = WebsiteOperator$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace WebsiteOperator$ {
+  /** @deprecated use `WebsiteOperator$inboundSchema` instead. */
+  export const inboundSchema = WebsiteOperator$inboundSchema;
+  /** @deprecated use `WebsiteOperator$outboundSchema` instead. */
+  export const outboundSchema = WebsiteOperator$outboundSchema;
+}
+
+/** @internal */
+export const WebsiteCheckForString$inboundSchema: z.ZodType<
+  WebsiteCheckForString,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  operator: CheckForStringOperator$inboundSchema,
+  operator: WebsiteOperator$inboundSchema,
   value: z.string(),
 });
 
 /** @internal */
-export type CheckForString$Outbound = {
+export type WebsiteCheckForString$Outbound = {
   operator: string;
   value: string;
 };
 
 /** @internal */
-export const CheckForString$outboundSchema: z.ZodType<
-  CheckForString$Outbound,
+export const WebsiteCheckForString$outboundSchema: z.ZodType<
+  WebsiteCheckForString$Outbound,
   z.ZodTypeDef,
-  CheckForString
+  WebsiteCheckForString
 > = z.object({
-  operator: CheckForStringOperator$outboundSchema,
+  operator: WebsiteOperator$outboundSchema,
   value: z.string(),
 });
 
@@ -419,82 +450,92 @@ export const CheckForString$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace CheckForString$ {
-  /** @deprecated use `CheckForString$inboundSchema` instead. */
-  export const inboundSchema = CheckForString$inboundSchema;
-  /** @deprecated use `CheckForString$outboundSchema` instead. */
-  export const outboundSchema = CheckForString$outboundSchema;
-  /** @deprecated use `CheckForString$Outbound` instead. */
-  export type Outbound = CheckForString$Outbound;
+export namespace WebsiteCheckForString$ {
+  /** @deprecated use `WebsiteCheckForString$inboundSchema` instead. */
+  export const inboundSchema = WebsiteCheckForString$inboundSchema;
+  /** @deprecated use `WebsiteCheckForString$outboundSchema` instead. */
+  export const outboundSchema = WebsiteCheckForString$outboundSchema;
+  /** @deprecated use `WebsiteCheckForString$Outbound` instead. */
+  export type Outbound = WebsiteCheckForString$Outbound;
 }
 
-export function checkForStringToJSON(checkForString: CheckForString): string {
-  return JSON.stringify(CheckForString$outboundSchema.parse(checkForString));
+export function websiteCheckForStringToJSON(
+  websiteCheckForString: WebsiteCheckForString,
+): string {
+  return JSON.stringify(
+    WebsiteCheckForString$outboundSchema.parse(websiteCheckForString),
+  );
 }
 
-export function checkForStringFromJSON(
+export function websiteCheckForStringFromJSON(
   jsonString: string,
-): SafeParseResult<CheckForString, SDKValidationError> {
+): SafeParseResult<WebsiteCheckForString, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CheckForString$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CheckForString' from JSON`,
+    (x) => WebsiteCheckForString$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'WebsiteCheckForString' from JSON`,
   );
 }
 
 /** @internal */
-export const Ssl$inboundSchema: z.ZodType<Ssl, z.ZodTypeDef, unknown> = z
-  .object({
-    enabled: z.nullable(z.boolean()).optional(),
-    daysPriorToExpiration: z.nullable(z.number().int()).optional(),
-    ignoreIntermediateCertificates: z.nullable(z.boolean()).optional(),
-  });
+export const WebsiteSsl$inboundSchema: z.ZodType<
+  WebsiteSsl,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.nullable(z.boolean()).optional(),
+  daysPriorToExpiration: z.nullable(z.number().int()).optional(),
+  ignoreIntermediateCertificates: z.nullable(z.boolean()).optional(),
+});
 
 /** @internal */
-export type Ssl$Outbound = {
+export type WebsiteSsl$Outbound = {
   enabled?: boolean | null | undefined;
   daysPriorToExpiration?: number | null | undefined;
   ignoreIntermediateCertificates?: boolean | null | undefined;
 };
 
 /** @internal */
-export const Ssl$outboundSchema: z.ZodType<Ssl$Outbound, z.ZodTypeDef, Ssl> = z
-  .object({
-    enabled: z.nullable(z.boolean()).optional(),
-    daysPriorToExpiration: z.nullable(z.number().int()).optional(),
-    ignoreIntermediateCertificates: z.nullable(z.boolean()).optional(),
-  });
+export const WebsiteSsl$outboundSchema: z.ZodType<
+  WebsiteSsl$Outbound,
+  z.ZodTypeDef,
+  WebsiteSsl
+> = z.object({
+  enabled: z.nullable(z.boolean()).optional(),
+  daysPriorToExpiration: z.nullable(z.number().int()).optional(),
+  ignoreIntermediateCertificates: z.nullable(z.boolean()).optional(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Ssl$ {
-  /** @deprecated use `Ssl$inboundSchema` instead. */
-  export const inboundSchema = Ssl$inboundSchema;
-  /** @deprecated use `Ssl$outboundSchema` instead. */
-  export const outboundSchema = Ssl$outboundSchema;
-  /** @deprecated use `Ssl$Outbound` instead. */
-  export type Outbound = Ssl$Outbound;
+export namespace WebsiteSsl$ {
+  /** @deprecated use `WebsiteSsl$inboundSchema` instead. */
+  export const inboundSchema = WebsiteSsl$inboundSchema;
+  /** @deprecated use `WebsiteSsl$outboundSchema` instead. */
+  export const outboundSchema = WebsiteSsl$outboundSchema;
+  /** @deprecated use `WebsiteSsl$Outbound` instead. */
+  export type Outbound = WebsiteSsl$Outbound;
 }
 
-export function sslToJSON(ssl: Ssl): string {
-  return JSON.stringify(Ssl$outboundSchema.parse(ssl));
+export function websiteSslToJSON(websiteSsl: WebsiteSsl): string {
+  return JSON.stringify(WebsiteSsl$outboundSchema.parse(websiteSsl));
 }
 
-export function sslFromJSON(
+export function websiteSslFromJSON(
   jsonString: string,
-): SafeParseResult<Ssl, SDKValidationError> {
+): SafeParseResult<WebsiteSsl, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Ssl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Ssl' from JSON`,
+    (x) => WebsiteSsl$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'WebsiteSsl' from JSON`,
   );
 }
 
 /** @internal */
-export const AvailabilityCheckSettings$inboundSchema: z.ZodType<
-  AvailabilityCheckSettings,
+export const WebsiteAvailabilityCheckSettings$inboundSchema: z.ZodType<
+  WebsiteAvailabilityCheckSettings,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -506,34 +547,34 @@ export const AvailabilityCheckSettings$inboundSchema: z.ZodType<
   outageConfiguration: z.nullable(
     z.lazy(() => WebsiteOutageConfiguration$inboundSchema),
   ).optional(),
-  checkForString: z.nullable(z.lazy(() => CheckForString$inboundSchema))
+  checkForString: z.nullable(z.lazy(() => WebsiteCheckForString$inboundSchema))
     .optional(),
   protocols: z.array(WebsiteProtocol$inboundSchema),
-  ssl: z.nullable(z.lazy(() => Ssl$inboundSchema)).optional(),
+  ssl: z.nullable(z.lazy(() => WebsiteSsl$inboundSchema)).optional(),
   customHeaders: z.nullable(z.array(CustomHeaders$inboundSchema)).optional(),
   allowInsecureRenegotiation: z.boolean().optional(),
   postData: z.nullable(z.string()).optional(),
 });
 
 /** @internal */
-export type AvailabilityCheckSettings$Outbound = {
+export type WebsiteAvailabilityCheckSettings$Outbound = {
   platformOptions?: WebsitePlatformOptions$Outbound | null | undefined;
   testFrom: TestFrom$Outbound;
   testIntervalInSeconds: number;
   outageConfiguration?: WebsiteOutageConfiguration$Outbound | null | undefined;
-  checkForString?: CheckForString$Outbound | null | undefined;
+  checkForString?: WebsiteCheckForString$Outbound | null | undefined;
   protocols: Array<string>;
-  ssl?: Ssl$Outbound | null | undefined;
+  ssl?: WebsiteSsl$Outbound | null | undefined;
   customHeaders?: Array<CustomHeaders$Outbound> | null | undefined;
   allowInsecureRenegotiation?: boolean | undefined;
   postData?: string | null | undefined;
 };
 
 /** @internal */
-export const AvailabilityCheckSettings$outboundSchema: z.ZodType<
-  AvailabilityCheckSettings$Outbound,
+export const WebsiteAvailabilityCheckSettings$outboundSchema: z.ZodType<
+  WebsiteAvailabilityCheckSettings$Outbound,
   z.ZodTypeDef,
-  AvailabilityCheckSettings
+  WebsiteAvailabilityCheckSettings
 > = z.object({
   platformOptions: z.nullable(
     z.lazy(() => WebsitePlatformOptions$outboundSchema),
@@ -543,10 +584,10 @@ export const AvailabilityCheckSettings$outboundSchema: z.ZodType<
   outageConfiguration: z.nullable(
     z.lazy(() => WebsiteOutageConfiguration$outboundSchema),
   ).optional(),
-  checkForString: z.nullable(z.lazy(() => CheckForString$outboundSchema))
+  checkForString: z.nullable(z.lazy(() => WebsiteCheckForString$outboundSchema))
     .optional(),
   protocols: z.array(WebsiteProtocol$outboundSchema),
-  ssl: z.nullable(z.lazy(() => Ssl$outboundSchema)).optional(),
+  ssl: z.nullable(z.lazy(() => WebsiteSsl$outboundSchema)).optional(),
   customHeaders: z.nullable(z.array(CustomHeaders$outboundSchema)).optional(),
   allowInsecureRenegotiation: z.boolean().optional(),
   postData: z.nullable(z.string()).optional(),
@@ -556,77 +597,85 @@ export const AvailabilityCheckSettings$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace AvailabilityCheckSettings$ {
-  /** @deprecated use `AvailabilityCheckSettings$inboundSchema` instead. */
-  export const inboundSchema = AvailabilityCheckSettings$inboundSchema;
-  /** @deprecated use `AvailabilityCheckSettings$outboundSchema` instead. */
-  export const outboundSchema = AvailabilityCheckSettings$outboundSchema;
-  /** @deprecated use `AvailabilityCheckSettings$Outbound` instead. */
-  export type Outbound = AvailabilityCheckSettings$Outbound;
+export namespace WebsiteAvailabilityCheckSettings$ {
+  /** @deprecated use `WebsiteAvailabilityCheckSettings$inboundSchema` instead. */
+  export const inboundSchema = WebsiteAvailabilityCheckSettings$inboundSchema;
+  /** @deprecated use `WebsiteAvailabilityCheckSettings$outboundSchema` instead. */
+  export const outboundSchema = WebsiteAvailabilityCheckSettings$outboundSchema;
+  /** @deprecated use `WebsiteAvailabilityCheckSettings$Outbound` instead. */
+  export type Outbound = WebsiteAvailabilityCheckSettings$Outbound;
 }
 
-export function availabilityCheckSettingsToJSON(
-  availabilityCheckSettings: AvailabilityCheckSettings,
+export function websiteAvailabilityCheckSettingsToJSON(
+  websiteAvailabilityCheckSettings: WebsiteAvailabilityCheckSettings,
 ): string {
   return JSON.stringify(
-    AvailabilityCheckSettings$outboundSchema.parse(availabilityCheckSettings),
+    WebsiteAvailabilityCheckSettings$outboundSchema.parse(
+      websiteAvailabilityCheckSettings,
+    ),
   );
 }
 
-export function availabilityCheckSettingsFromJSON(
+export function websiteAvailabilityCheckSettingsFromJSON(
   jsonString: string,
-): SafeParseResult<AvailabilityCheckSettings, SDKValidationError> {
+): SafeParseResult<WebsiteAvailabilityCheckSettings, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => AvailabilityCheckSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AvailabilityCheckSettings' from JSON`,
+    (x) => WebsiteAvailabilityCheckSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'WebsiteAvailabilityCheckSettings' from JSON`,
   );
 }
 
 /** @internal */
-export const Rum$inboundSchema: z.ZodType<Rum, z.ZodTypeDef, unknown> = z
-  .object({
-    apdexTimeInSeconds: z.number().int().optional(),
-    spa: z.boolean(),
-  });
+export const WebsiteRum$inboundSchema: z.ZodType<
+  WebsiteRum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  apdexTimeInSeconds: z.number().int().optional(),
+  spa: z.boolean(),
+});
 
 /** @internal */
-export type Rum$Outbound = {
+export type WebsiteRum$Outbound = {
   apdexTimeInSeconds?: number | undefined;
   spa: boolean;
 };
 
 /** @internal */
-export const Rum$outboundSchema: z.ZodType<Rum$Outbound, z.ZodTypeDef, Rum> = z
-  .object({
-    apdexTimeInSeconds: z.number().int().optional(),
-    spa: z.boolean(),
-  });
+export const WebsiteRum$outboundSchema: z.ZodType<
+  WebsiteRum$Outbound,
+  z.ZodTypeDef,
+  WebsiteRum
+> = z.object({
+  apdexTimeInSeconds: z.number().int().optional(),
+  spa: z.boolean(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Rum$ {
-  /** @deprecated use `Rum$inboundSchema` instead. */
-  export const inboundSchema = Rum$inboundSchema;
-  /** @deprecated use `Rum$outboundSchema` instead. */
-  export const outboundSchema = Rum$outboundSchema;
-  /** @deprecated use `Rum$Outbound` instead. */
-  export type Outbound = Rum$Outbound;
+export namespace WebsiteRum$ {
+  /** @deprecated use `WebsiteRum$inboundSchema` instead. */
+  export const inboundSchema = WebsiteRum$inboundSchema;
+  /** @deprecated use `WebsiteRum$outboundSchema` instead. */
+  export const outboundSchema = WebsiteRum$outboundSchema;
+  /** @deprecated use `WebsiteRum$Outbound` instead. */
+  export type Outbound = WebsiteRum$Outbound;
 }
 
-export function rumToJSON(rum: Rum): string {
-  return JSON.stringify(Rum$outboundSchema.parse(rum));
+export function websiteRumToJSON(websiteRum: WebsiteRum): string {
+  return JSON.stringify(WebsiteRum$outboundSchema.parse(websiteRum));
 }
 
-export function rumFromJSON(
+export function websiteRumFromJSON(
   jsonString: string,
-): SafeParseResult<Rum, SDKValidationError> {
+): SafeParseResult<WebsiteRum, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Rum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Rum' from JSON`,
+    (x) => WebsiteRum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'WebsiteRum' from JSON`,
   );
 }
 
@@ -636,10 +685,10 @@ export const Website$inboundSchema: z.ZodType<Website, z.ZodTypeDef, unknown> =
     name: z.string(),
     url: z.string(),
     availabilityCheckSettings: z.nullable(
-      z.lazy(() => AvailabilityCheckSettings$inboundSchema),
+      z.lazy(() => WebsiteAvailabilityCheckSettings$inboundSchema),
     ).optional(),
     tags: z.array(Tag$inboundSchema).optional(),
-    rum: z.lazy(() => Rum$inboundSchema).optional(),
+    rum: z.lazy(() => WebsiteRum$inboundSchema).optional(),
   });
 
 /** @internal */
@@ -647,11 +696,11 @@ export type Website$Outbound = {
   name: string;
   url: string;
   availabilityCheckSettings?:
-    | AvailabilityCheckSettings$Outbound
+    | WebsiteAvailabilityCheckSettings$Outbound
     | null
     | undefined;
   tags?: Array<Tag$Outbound> | undefined;
-  rum?: Rum$Outbound | undefined;
+  rum?: WebsiteRum$Outbound | undefined;
 };
 
 /** @internal */
@@ -663,10 +712,10 @@ export const Website$outboundSchema: z.ZodType<
   name: z.string(),
   url: z.string(),
   availabilityCheckSettings: z.nullable(
-    z.lazy(() => AvailabilityCheckSettings$outboundSchema),
+    z.lazy(() => WebsiteAvailabilityCheckSettings$outboundSchema),
   ).optional(),
   tags: z.array(Tag$outboundSchema).optional(),
-  rum: z.lazy(() => Rum$outboundSchema).optional(),
+  rum: z.lazy(() => WebsiteRum$outboundSchema).optional(),
 });
 
 /**

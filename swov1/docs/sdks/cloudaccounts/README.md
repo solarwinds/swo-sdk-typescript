@@ -27,7 +27,7 @@ async function run() {
   await swo.cloudAccounts.activateAwsIntegration({
     managementAccountId: "<id>",
     accountId: "<id>",
-    enable: false,
+    enable: true,
   });
 
 
@@ -54,16 +54,14 @@ async function run() {
   const res = await cloudAccountsActivateAwsIntegration(swo, {
     managementAccountId: "<id>",
     accountId: "<id>",
-    enable: false,
+    enable: true,
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("cloudAccountsActivateAwsIntegration failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();
@@ -108,20 +106,7 @@ const swo = new Swo({
 async function run() {
   await swo.cloudAccounts.createOrgStructure({
     mgmtAccountId: "<id>",
-    structure: [
-      {
-        childId: "<id>",
-        childName: "<value>",
-      },
-      {
-        childId: "<id>",
-        childName: "<value>",
-      },
-      {
-        childId: "<id>",
-        childName: "<value>",
-      },
-    ],
+    structure: [],
   });
 
 
@@ -147,29 +132,14 @@ const swo = new SwoCore({
 async function run() {
   const res = await cloudAccountsCreateOrgStructure(swo, {
     mgmtAccountId: "<id>",
-    structure: [
-      {
-        childId: "<id>",
-        childName: "<value>",
-      },
-      {
-        childId: "<id>",
-        childName: "<value>",
-      },
-      {
-        childId: "<id>",
-        childName: "<value>",
-      },
-    ],
+    structure: [],
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("cloudAccountsCreateOrgStructure failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();
@@ -219,7 +189,6 @@ async function run() {
     roleArn: "<value>",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -247,15 +216,12 @@ async function run() {
     accountName: "<value>",
     roleArn: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("cloudAccountsUpdateAwsIntegration failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -303,7 +269,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -330,15 +295,12 @@ async function run() {
       managementAccountId: "<id>",
     },
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("cloudAccountsValidateMgmtAccountOnboarding failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();

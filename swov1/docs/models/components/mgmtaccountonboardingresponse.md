@@ -6,7 +6,7 @@
 import { MgmtAccountOnboardingResponse } from "@solarwinds/swo-sdk-typescript/models/components";
 
 let value: MgmtAccountOnboardingResponse = {
-  isOnboarded: false,
+  isOnboarded: true,
 };
 ```
 

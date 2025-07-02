@@ -4,7 +4,6 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
-import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
@@ -13,77 +12,12 @@ import {
   CommonKeyValuePair$Outbound,
   CommonKeyValuePair$outboundSchema,
 } from "./commonkeyvaluepair.js";
-
-/**
- * SSL mode such as require, verify-ca, verify-full as applicable
- */
-export const UpdateDatabaseRequestSslMode = {
-  Require: "require",
-  VerfifyCa: "verfify-ca",
-  VerifyFull: "verify-full",
-} as const;
-/**
- * SSL mode such as require, verify-ca, verify-full as applicable
- */
-export type UpdateDatabaseRequestSslMode = ClosedEnum<
-  typeof UpdateDatabaseRequestSslMode
->;
-
-/**
- * SSL connection options, when sslEnabled is true
- */
-export type UpdateDatabaseRequestSslOptions = {
-  /**
-   * SSL mode such as require, verify-ca, verify-full as applicable
-   */
-  sslMode?: UpdateDatabaseRequestSslMode | undefined;
-  /**
-   * CA file path
-   */
-  sslCAPath?: string | undefined;
-  /**
-   * SSL key file path
-   */
-  sslKeyPath?: string | undefined;
-  /**
-   * SSL cert file path
-   */
-  sslCertPath?: string | undefined;
-};
-
-/**
- * Options specifying how plugins connect to database server, authentication method change is not supported
- */
-export type DbConnOptions = {
-  /**
-   * Database server host
-   */
-  host?: string | undefined;
-  /**
-   * Database server port
-   */
-  port?: string | null | undefined;
-  /**
-   * Encrypted credentials for connecting to database server when using basic auth method (username, password)
-   */
-  encryptedCredentials?: string | undefined;
-  /**
-   * Username for connecting to database server needed only for auth methods other than basic auth
-   */
-  user?: string | undefined;
-  /**
-   * Enable ssl when agent connects to database server
-   */
-  sslEnabled?: boolean | undefined;
-  /**
-   * SSL connection options, when sslEnabled is true
-   */
-  sslOptions?: UpdateDatabaseRequestSslOptions | null | undefined;
-  /**
-   * Cloud region in case of database managed by cloud provider, required for IAM authentication
-   */
-  cloudRegion?: string | undefined;
-};
+import {
+  DatabaseConnectionOptionsUpdate,
+  DatabaseConnectionOptionsUpdate$inboundSchema,
+  DatabaseConnectionOptionsUpdate$Outbound,
+  DatabaseConnectionOptionsUpdate$outboundSchema,
+} from "./databaseconnectionoptionsupdate.js";
 
 export type UpdateDatabaseRequest = {
   /**
@@ -91,176 +25,22 @@ export type UpdateDatabaseRequest = {
    */
   name?: string | undefined;
   /**
-   * Optional advanced configuration options for plugins, e.g. disable-sampling
+   * Optional advanced configuration options for plugins, e.g. disable-sampling set to true
    */
-  configOptions?: Array<CommonKeyValuePair> | null | undefined;
+  configOptions?: Array<CommonKeyValuePair> | undefined;
   /**
    * Options specifying how plugins connect to database server, authentication method change is not supported
    */
-  dbConnOptions?: DbConnOptions | null | undefined;
+  dbConnOptions?: DatabaseConnectionOptionsUpdate | undefined;
   /**
    * Tags for observed database entity
    */
-  tags?: Array<CommonKeyValuePair> | null | undefined;
+  tags?: Array<CommonKeyValuePair> | undefined;
+  /**
+   * Host entity/entities where database server is deployed on
+   */
+  deployedOn?: Array<string> | undefined;
 };
-
-/** @internal */
-export const UpdateDatabaseRequestSslMode$inboundSchema: z.ZodNativeEnum<
-  typeof UpdateDatabaseRequestSslMode
-> = z.nativeEnum(UpdateDatabaseRequestSslMode);
-
-/** @internal */
-export const UpdateDatabaseRequestSslMode$outboundSchema: z.ZodNativeEnum<
-  typeof UpdateDatabaseRequestSslMode
-> = UpdateDatabaseRequestSslMode$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateDatabaseRequestSslMode$ {
-  /** @deprecated use `UpdateDatabaseRequestSslMode$inboundSchema` instead. */
-  export const inboundSchema = UpdateDatabaseRequestSslMode$inboundSchema;
-  /** @deprecated use `UpdateDatabaseRequestSslMode$outboundSchema` instead. */
-  export const outboundSchema = UpdateDatabaseRequestSslMode$outboundSchema;
-}
-
-/** @internal */
-export const UpdateDatabaseRequestSslOptions$inboundSchema: z.ZodType<
-  UpdateDatabaseRequestSslOptions,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sslMode: UpdateDatabaseRequestSslMode$inboundSchema.default("require"),
-  sslCAPath: z.string().default(""),
-  sslKeyPath: z.string().default(""),
-  sslCertPath: z.string().default(""),
-});
-
-/** @internal */
-export type UpdateDatabaseRequestSslOptions$Outbound = {
-  sslMode: string;
-  sslCAPath: string;
-  sslKeyPath: string;
-  sslCertPath: string;
-};
-
-/** @internal */
-export const UpdateDatabaseRequestSslOptions$outboundSchema: z.ZodType<
-  UpdateDatabaseRequestSslOptions$Outbound,
-  z.ZodTypeDef,
-  UpdateDatabaseRequestSslOptions
-> = z.object({
-  sslMode: UpdateDatabaseRequestSslMode$outboundSchema.default("require"),
-  sslCAPath: z.string().default(""),
-  sslKeyPath: z.string().default(""),
-  sslCertPath: z.string().default(""),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateDatabaseRequestSslOptions$ {
-  /** @deprecated use `UpdateDatabaseRequestSslOptions$inboundSchema` instead. */
-  export const inboundSchema = UpdateDatabaseRequestSslOptions$inboundSchema;
-  /** @deprecated use `UpdateDatabaseRequestSslOptions$outboundSchema` instead. */
-  export const outboundSchema = UpdateDatabaseRequestSslOptions$outboundSchema;
-  /** @deprecated use `UpdateDatabaseRequestSslOptions$Outbound` instead. */
-  export type Outbound = UpdateDatabaseRequestSslOptions$Outbound;
-}
-
-export function updateDatabaseRequestSslOptionsToJSON(
-  updateDatabaseRequestSslOptions: UpdateDatabaseRequestSslOptions,
-): string {
-  return JSON.stringify(
-    UpdateDatabaseRequestSslOptions$outboundSchema.parse(
-      updateDatabaseRequestSslOptions,
-    ),
-  );
-}
-
-export function updateDatabaseRequestSslOptionsFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateDatabaseRequestSslOptions, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateDatabaseRequestSslOptions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateDatabaseRequestSslOptions' from JSON`,
-  );
-}
-
-/** @internal */
-export const DbConnOptions$inboundSchema: z.ZodType<
-  DbConnOptions,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: z.string().optional(),
-  port: z.nullable(z.string()).optional(),
-  encryptedCredentials: z.string().default(""),
-  user: z.string().default(""),
-  sslEnabled: z.boolean().default(false),
-  sslOptions: z.nullable(
-    z.lazy(() => UpdateDatabaseRequestSslOptions$inboundSchema),
-  ).optional(),
-  cloudRegion: z.string().default(""),
-});
-
-/** @internal */
-export type DbConnOptions$Outbound = {
-  host?: string | undefined;
-  port?: string | null | undefined;
-  encryptedCredentials: string;
-  user: string;
-  sslEnabled: boolean;
-  sslOptions?: UpdateDatabaseRequestSslOptions$Outbound | null | undefined;
-  cloudRegion: string;
-};
-
-/** @internal */
-export const DbConnOptions$outboundSchema: z.ZodType<
-  DbConnOptions$Outbound,
-  z.ZodTypeDef,
-  DbConnOptions
-> = z.object({
-  host: z.string().optional(),
-  port: z.nullable(z.string()).optional(),
-  encryptedCredentials: z.string().default(""),
-  user: z.string().default(""),
-  sslEnabled: z.boolean().default(false),
-  sslOptions: z.nullable(
-    z.lazy(() => UpdateDatabaseRequestSslOptions$outboundSchema),
-  ).optional(),
-  cloudRegion: z.string().default(""),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DbConnOptions$ {
-  /** @deprecated use `DbConnOptions$inboundSchema` instead. */
-  export const inboundSchema = DbConnOptions$inboundSchema;
-  /** @deprecated use `DbConnOptions$outboundSchema` instead. */
-  export const outboundSchema = DbConnOptions$outboundSchema;
-  /** @deprecated use `DbConnOptions$Outbound` instead. */
-  export type Outbound = DbConnOptions$Outbound;
-}
-
-export function dbConnOptionsToJSON(dbConnOptions: DbConnOptions): string {
-  return JSON.stringify(DbConnOptions$outboundSchema.parse(dbConnOptions));
-}
-
-export function dbConnOptionsFromJSON(
-  jsonString: string,
-): SafeParseResult<DbConnOptions, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DbConnOptions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DbConnOptions' from JSON`,
-  );
-}
 
 /** @internal */
 export const UpdateDatabaseRequest$inboundSchema: z.ZodType<
@@ -269,19 +49,19 @@ export const UpdateDatabaseRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string().default(""),
-  configOptions: z.nullable(z.array(CommonKeyValuePair$inboundSchema))
-    .optional(),
-  dbConnOptions: z.nullable(z.lazy(() => DbConnOptions$inboundSchema))
-    .optional(),
-  tags: z.nullable(z.array(CommonKeyValuePair$inboundSchema)).optional(),
+  configOptions: z.array(CommonKeyValuePair$inboundSchema).optional(),
+  dbConnOptions: DatabaseConnectionOptionsUpdate$inboundSchema.optional(),
+  tags: z.array(CommonKeyValuePair$inboundSchema).optional(),
+  deployedOn: z.array(z.string()).optional(),
 });
 
 /** @internal */
 export type UpdateDatabaseRequest$Outbound = {
   name: string;
-  configOptions?: Array<CommonKeyValuePair$Outbound> | null | undefined;
-  dbConnOptions?: DbConnOptions$Outbound | null | undefined;
-  tags?: Array<CommonKeyValuePair$Outbound> | null | undefined;
+  configOptions?: Array<CommonKeyValuePair$Outbound> | undefined;
+  dbConnOptions?: DatabaseConnectionOptionsUpdate$Outbound | undefined;
+  tags?: Array<CommonKeyValuePair$Outbound> | undefined;
+  deployedOn?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -291,11 +71,10 @@ export const UpdateDatabaseRequest$outboundSchema: z.ZodType<
   UpdateDatabaseRequest
 > = z.object({
   name: z.string().default(""),
-  configOptions: z.nullable(z.array(CommonKeyValuePair$outboundSchema))
-    .optional(),
-  dbConnOptions: z.nullable(z.lazy(() => DbConnOptions$outboundSchema))
-    .optional(),
-  tags: z.nullable(z.array(CommonKeyValuePair$outboundSchema)).optional(),
+  configOptions: z.array(CommonKeyValuePair$outboundSchema).optional(),
+  dbConnOptions: DatabaseConnectionOptionsUpdate$outboundSchema.optional(),
+  tags: z.array(CommonKeyValuePair$outboundSchema).optional(),
+  deployedOn: z.array(z.string()).optional(),
 });
 
 /**

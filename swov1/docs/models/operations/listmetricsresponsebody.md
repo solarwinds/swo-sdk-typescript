@@ -8,16 +8,7 @@ The request has succeeded.
 import { ListMetricsResponseBody } from "@solarwinds/swo-sdk-typescript/models/operations";
 
 let value: ListMetricsResponseBody = {
-  metricsInfo: [
-    {
-      name: "composite.custom.system.disk.io.rate",
-      displayName: "Disk IO rate",
-      description: "Disk bytes transferred per second",
-      units: "bytes/s",
-      formula: "rate(system.disk.io[5m]",
-      lastReportedTime: new Date("2024-11-25T16:38:24Z"),
-    },
-  ],
+  metricsInfo: [],
   pageInfo: {
     prevPage: "<value>",
     nextPage: "<value>",

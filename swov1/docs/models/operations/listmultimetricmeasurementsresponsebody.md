@@ -12,22 +12,7 @@ let value: ListMultiMetricMeasurementsResponseBody = {
     {
       id: "throughput-series",
       name: "dbo.host.queries.tput",
-      groupings: [
-        {
-          attributes: [
-            {
-              key: "<key>",
-              value: "<value>",
-            },
-          ],
-          measurements: [
-            {
-              time: new Date("2025-10-29T03:45:37.462Z"),
-              value: 2221.64,
-            },
-          ],
-        },
-      ],
+      groupings: [],
       bucketSizeInSeconds: 1,
     },
   ],

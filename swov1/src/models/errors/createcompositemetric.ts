@@ -3,46 +3,54 @@
  */
 
 import * as z from "zod";
+import * as components from "../components/index.js";
+import { SwoError } from "./swoerror.js";
 
 /**
- * Access is forbidden.
+ * The request conflicts with the current state of the server.
  */
-export type CreateCompositeMetricForbiddenErrorData = {
+export type ConflictErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.MetricErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
- * Access is forbidden.
+ * The request conflicts with the current state of the server.
  */
-export class CreateCompositeMetricForbiddenError extends Error {
+export class ConflictError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.MetricErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
-  data$: CreateCompositeMetricForbiddenErrorData;
+  data$: ConflictErrorData;
 
-  constructor(err: CreateCompositeMetricForbiddenErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: ConflictErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
-    this.name = "CreateCompositeMetricForbiddenError";
+    this.name = "ConflictError";
   }
 }
 
@@ -51,37 +59,43 @@ export class CreateCompositeMetricForbiddenError extends Error {
  */
 export type CreateCompositeMetricBadRequestErrorData = {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
   /**
    * Supporting description of the error
    */
   message: string;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 };
 
 /**
  * The server could not understand the request due to invalid syntax.
  */
-export class CreateCompositeMetricBadRequestError extends Error {
+export class CreateCompositeMetricBadRequestError extends SwoError {
   /**
-   * HTTP status code as defined in RFC 2817
+   * Uniquely identifies an error condition.
    */
-  code: number;
+  code?: components.CommonDefaultErrorCode | undefined;
+  /**
+   * Indicates the invalid field
+   */
   target?: string | undefined;
 
   /** The original data that was passed to this error instance. */
   data$: CreateCompositeMetricBadRequestErrorData;
 
-  constructor(err: CreateCompositeMetricBadRequestErrorData) {
-    const message = "message" in err && typeof err.message === "string"
-      ? err.message
-      : `API error occurred: ${JSON.stringify(err)}`;
-    super(message);
+  constructor(
+    err: CreateCompositeMetricBadRequestErrorData,
+    httpMeta: { response: Response; request: Request; body: string },
+  ) {
+    const message = err.message || `API error occurred: ${JSON.stringify(err)}`;
+    super(message, httpMeta);
     this.data$ = err;
-
-    this.code = err.code;
+    if (err.code != null) this.code = err.code;
     if (err.target != null) this.target = err.target;
 
     this.name = "CreateCompositeMetricBadRequestError";
@@ -89,35 +103,42 @@ export class CreateCompositeMetricBadRequestError extends Error {
 }
 
 /** @internal */
-export const CreateCompositeMetricForbiddenError$inboundSchema: z.ZodType<
-  CreateCompositeMetricForbiddenError,
+export const ConflictError$inboundSchema: z.ZodType<
+  ConflictError,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.MetricErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new CreateCompositeMetricForbiddenError(v);
+    return new ConflictError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
-export type CreateCompositeMetricForbiddenError$Outbound = {
-  code: number;
+export type ConflictError$Outbound = {
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
 
 /** @internal */
-export const CreateCompositeMetricForbiddenError$outboundSchema: z.ZodType<
-  CreateCompositeMetricForbiddenError$Outbound,
+export const ConflictError$outboundSchema: z.ZodType<
+  ConflictError$Outbound,
   z.ZodTypeDef,
-  CreateCompositeMetricForbiddenError
-> = z.instanceof(CreateCompositeMetricForbiddenError)
+  ConflictError
+> = z.instanceof(ConflictError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.MetricErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));
@@ -126,15 +147,13 @@ export const CreateCompositeMetricForbiddenError$outboundSchema: z.ZodType<
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace CreateCompositeMetricForbiddenError$ {
-  /** @deprecated use `CreateCompositeMetricForbiddenError$inboundSchema` instead. */
-  export const inboundSchema =
-    CreateCompositeMetricForbiddenError$inboundSchema;
-  /** @deprecated use `CreateCompositeMetricForbiddenError$outboundSchema` instead. */
-  export const outboundSchema =
-    CreateCompositeMetricForbiddenError$outboundSchema;
-  /** @deprecated use `CreateCompositeMetricForbiddenError$Outbound` instead. */
-  export type Outbound = CreateCompositeMetricForbiddenError$Outbound;
+export namespace ConflictError$ {
+  /** @deprecated use `ConflictError$inboundSchema` instead. */
+  export const inboundSchema = ConflictError$inboundSchema;
+  /** @deprecated use `ConflictError$outboundSchema` instead. */
+  export const outboundSchema = ConflictError$outboundSchema;
+  /** @deprecated use `ConflictError$Outbound` instead. */
+  export type Outbound = ConflictError$Outbound;
 }
 
 /** @internal */
@@ -143,17 +162,24 @@ export const CreateCompositeMetricBadRequestError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: z.number().int(),
+  code: components.CommonDefaultErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
+  request$: z.instanceof(Request),
+  response$: z.instanceof(Response),
+  body$: z.string(),
 })
   .transform((v) => {
-    return new CreateCompositeMetricBadRequestError(v);
+    return new CreateCompositeMetricBadRequestError(v, {
+      request: v.request$,
+      response: v.response$,
+      body: v.body$,
+    });
   });
 
 /** @internal */
 export type CreateCompositeMetricBadRequestError$Outbound = {
-  code: number;
+  code?: string | undefined;
   message: string;
   target?: string | undefined;
 };
@@ -166,7 +192,7 @@ export const CreateCompositeMetricBadRequestError$outboundSchema: z.ZodType<
 > = z.instanceof(CreateCompositeMetricBadRequestError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: z.number().int(),
+    code: components.CommonDefaultErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));

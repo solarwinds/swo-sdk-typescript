@@ -21,7 +21,11 @@ export type DatabasePluginConfig = {
   /**
    * Configuration of plugin observing database server
    */
-  config: Array<CommonKeyValuePair>;
+  configOptions: Array<CommonKeyValuePair>;
+  /**
+   * Database connection options of plugin observing database server
+   */
+  dbConnOptions: Array<CommonKeyValuePair>;
 };
 
 /** @internal */
@@ -31,13 +35,15 @@ export const DatabasePluginConfig$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   pluginName: z.string(),
-  config: z.array(CommonKeyValuePair$inboundSchema),
+  configOptions: z.array(CommonKeyValuePair$inboundSchema),
+  dbConnOptions: z.array(CommonKeyValuePair$inboundSchema),
 });
 
 /** @internal */
 export type DatabasePluginConfig$Outbound = {
   pluginName: string;
-  config: Array<CommonKeyValuePair$Outbound>;
+  configOptions: Array<CommonKeyValuePair$Outbound>;
+  dbConnOptions: Array<CommonKeyValuePair$Outbound>;
 };
 
 /** @internal */
@@ -47,7 +53,8 @@ export const DatabasePluginConfig$outboundSchema: z.ZodType<
   DatabasePluginConfig
 > = z.object({
   pluginName: z.string(),
-  config: z.array(CommonKeyValuePair$outboundSchema),
+  configOptions: z.array(CommonKeyValuePair$outboundSchema),
+  dbConnOptions: z.array(CommonKeyValuePair$outboundSchema),
 });
 
 /**

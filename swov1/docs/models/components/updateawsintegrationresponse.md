@@ -7,7 +7,7 @@ import { UpdateAwsIntegrationResponse } from "@solarwinds/swo-sdk-typescript/mod
 
 let value: UpdateAwsIntegrationResponse = {
   selectedRegions: [
-    "<value>",
+    "<value 1>",
   ],
   externalId: "<id>",
   integrationId: "<id>",

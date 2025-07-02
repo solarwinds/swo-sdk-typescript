@@ -10,7 +10,7 @@ import { ListMetricAttributeValuesResponseBody } from "@solarwinds/swo-sdk-types
 let value: ListMetricAttributeValuesResponseBody = {
   name: "<value>",
   values: [
-    "<value>",
+    "<value 1>",
   ],
   pageInfo: {
     prevPage: "<value>",

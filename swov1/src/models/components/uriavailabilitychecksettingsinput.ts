@@ -81,7 +81,7 @@ export type UriAvailabilityCheckSettingsInputOutageConfiguration = {
  * @remarks
  *   One test type (ping or TCP) must be enabled for a URI.
  */
-export type Ping = {
+export type UriAvailabilityCheckSettingsInputPing = {
   /**
    * Use this field to configure ping tests for the URI. If omitted or set to false, ping tests will be disabled.
    *
@@ -97,7 +97,7 @@ export type Ping = {
  * @remarks
  *   One test type (ping or TCP) must be enabled for a URI.
  */
-export type Tcp = {
+export type UriAvailabilityCheckSettingsInputTcp = {
   /**
    * Use this field to configure TCP tests for the URI. If omitted or set to false, TCP tests will be disabled.
    *
@@ -154,14 +154,14 @@ export type UriAvailabilityCheckSettingsInput = {
    * @remarks
    *   One test type (ping or TCP) must be enabled for a URI.
    */
-  ping?: Ping | null | undefined;
+  ping?: UriAvailabilityCheckSettingsInputPing | null | undefined;
   /**
    *   Use this field to configure TCP tests for the URI. If omitted or set to null, TCP tests will be disabled.
    *
    * @remarks
    *   One test type (ping or TCP) must be enabled for a URI.
    */
-  tcp?: Tcp | null | undefined;
+  tcp?: UriAvailabilityCheckSettingsInputTcp | null | undefined;
 };
 
 /** @internal */
@@ -334,60 +334,78 @@ export function uriAvailabilityCheckSettingsInputOutageConfigurationFromJSON(
 }
 
 /** @internal */
-export const Ping$inboundSchema: z.ZodType<Ping, z.ZodTypeDef, unknown> = z
-  .object({
-    enabled: z.boolean(),
-  });
+export const UriAvailabilityCheckSettingsInputPing$inboundSchema: z.ZodType<
+  UriAvailabilityCheckSettingsInputPing,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean(),
+});
 
 /** @internal */
-export type Ping$Outbound = {
+export type UriAvailabilityCheckSettingsInputPing$Outbound = {
   enabled: boolean;
 };
 
 /** @internal */
-export const Ping$outboundSchema: z.ZodType<Ping$Outbound, z.ZodTypeDef, Ping> =
-  z.object({
-    enabled: z.boolean(),
-  });
+export const UriAvailabilityCheckSettingsInputPing$outboundSchema: z.ZodType<
+  UriAvailabilityCheckSettingsInputPing$Outbound,
+  z.ZodTypeDef,
+  UriAvailabilityCheckSettingsInputPing
+> = z.object({
+  enabled: z.boolean(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Ping$ {
-  /** @deprecated use `Ping$inboundSchema` instead. */
-  export const inboundSchema = Ping$inboundSchema;
-  /** @deprecated use `Ping$outboundSchema` instead. */
-  export const outboundSchema = Ping$outboundSchema;
-  /** @deprecated use `Ping$Outbound` instead. */
-  export type Outbound = Ping$Outbound;
+export namespace UriAvailabilityCheckSettingsInputPing$ {
+  /** @deprecated use `UriAvailabilityCheckSettingsInputPing$inboundSchema` instead. */
+  export const inboundSchema =
+    UriAvailabilityCheckSettingsInputPing$inboundSchema;
+  /** @deprecated use `UriAvailabilityCheckSettingsInputPing$outboundSchema` instead. */
+  export const outboundSchema =
+    UriAvailabilityCheckSettingsInputPing$outboundSchema;
+  /** @deprecated use `UriAvailabilityCheckSettingsInputPing$Outbound` instead. */
+  export type Outbound = UriAvailabilityCheckSettingsInputPing$Outbound;
 }
 
-export function pingToJSON(ping: Ping): string {
-  return JSON.stringify(Ping$outboundSchema.parse(ping));
+export function uriAvailabilityCheckSettingsInputPingToJSON(
+  uriAvailabilityCheckSettingsInputPing: UriAvailabilityCheckSettingsInputPing,
+): string {
+  return JSON.stringify(
+    UriAvailabilityCheckSettingsInputPing$outboundSchema.parse(
+      uriAvailabilityCheckSettingsInputPing,
+    ),
+  );
 }
 
-export function pingFromJSON(
+export function uriAvailabilityCheckSettingsInputPingFromJSON(
   jsonString: string,
-): SafeParseResult<Ping, SDKValidationError> {
+): SafeParseResult<UriAvailabilityCheckSettingsInputPing, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Ping$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Ping' from JSON`,
+    (x) =>
+      UriAvailabilityCheckSettingsInputPing$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UriAvailabilityCheckSettingsInputPing' from JSON`,
   );
 }
 
 /** @internal */
-export const Tcp$inboundSchema: z.ZodType<Tcp, z.ZodTypeDef, unknown> = z
-  .object({
-    enabled: z.boolean(),
-    port: z.number().int(),
-    stringToSend: z.nullable(z.string()).optional(),
-    stringToExpect: z.nullable(z.string()).optional(),
-  });
+export const UriAvailabilityCheckSettingsInputTcp$inboundSchema: z.ZodType<
+  UriAvailabilityCheckSettingsInputTcp,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean(),
+  port: z.number().int(),
+  stringToSend: z.nullable(z.string()).optional(),
+  stringToExpect: z.nullable(z.string()).optional(),
+});
 
 /** @internal */
-export type Tcp$Outbound = {
+export type UriAvailabilityCheckSettingsInputTcp$Outbound = {
   enabled: boolean;
   port: number;
   stringToSend?: string | null | undefined;
@@ -395,38 +413,50 @@ export type Tcp$Outbound = {
 };
 
 /** @internal */
-export const Tcp$outboundSchema: z.ZodType<Tcp$Outbound, z.ZodTypeDef, Tcp> = z
-  .object({
-    enabled: z.boolean(),
-    port: z.number().int(),
-    stringToSend: z.nullable(z.string()).optional(),
-    stringToExpect: z.nullable(z.string()).optional(),
-  });
+export const UriAvailabilityCheckSettingsInputTcp$outboundSchema: z.ZodType<
+  UriAvailabilityCheckSettingsInputTcp$Outbound,
+  z.ZodTypeDef,
+  UriAvailabilityCheckSettingsInputTcp
+> = z.object({
+  enabled: z.boolean(),
+  port: z.number().int(),
+  stringToSend: z.nullable(z.string()).optional(),
+  stringToExpect: z.nullable(z.string()).optional(),
+});
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Tcp$ {
-  /** @deprecated use `Tcp$inboundSchema` instead. */
-  export const inboundSchema = Tcp$inboundSchema;
-  /** @deprecated use `Tcp$outboundSchema` instead. */
-  export const outboundSchema = Tcp$outboundSchema;
-  /** @deprecated use `Tcp$Outbound` instead. */
-  export type Outbound = Tcp$Outbound;
+export namespace UriAvailabilityCheckSettingsInputTcp$ {
+  /** @deprecated use `UriAvailabilityCheckSettingsInputTcp$inboundSchema` instead. */
+  export const inboundSchema =
+    UriAvailabilityCheckSettingsInputTcp$inboundSchema;
+  /** @deprecated use `UriAvailabilityCheckSettingsInputTcp$outboundSchema` instead. */
+  export const outboundSchema =
+    UriAvailabilityCheckSettingsInputTcp$outboundSchema;
+  /** @deprecated use `UriAvailabilityCheckSettingsInputTcp$Outbound` instead. */
+  export type Outbound = UriAvailabilityCheckSettingsInputTcp$Outbound;
 }
 
-export function tcpToJSON(tcp: Tcp): string {
-  return JSON.stringify(Tcp$outboundSchema.parse(tcp));
+export function uriAvailabilityCheckSettingsInputTcpToJSON(
+  uriAvailabilityCheckSettingsInputTcp: UriAvailabilityCheckSettingsInputTcp,
+): string {
+  return JSON.stringify(
+    UriAvailabilityCheckSettingsInputTcp$outboundSchema.parse(
+      uriAvailabilityCheckSettingsInputTcp,
+    ),
+  );
 }
 
-export function tcpFromJSON(
+export function uriAvailabilityCheckSettingsInputTcpFromJSON(
   jsonString: string,
-): SafeParseResult<Tcp, SDKValidationError> {
+): SafeParseResult<UriAvailabilityCheckSettingsInputTcp, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Tcp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Tcp' from JSON`,
+    (x) =>
+      UriAvailabilityCheckSettingsInputTcp$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UriAvailabilityCheckSettingsInputTcp' from JSON`,
   );
 }
 
@@ -448,8 +478,12 @@ export const UriAvailabilityCheckSettingsInput$inboundSchema: z.ZodType<
       UriAvailabilityCheckSettingsInputOutageConfiguration$inboundSchema
     ),
   ).optional(),
-  ping: z.nullable(z.lazy(() => Ping$inboundSchema)).optional(),
-  tcp: z.nullable(z.lazy(() => Tcp$inboundSchema)).optional(),
+  ping: z.nullable(
+    z.lazy(() => UriAvailabilityCheckSettingsInputPing$inboundSchema),
+  ).optional(),
+  tcp: z.nullable(
+    z.lazy(() => UriAvailabilityCheckSettingsInputTcp$inboundSchema),
+  ).optional(),
 });
 
 /** @internal */
@@ -464,8 +498,8 @@ export type UriAvailabilityCheckSettingsInput$Outbound = {
     | UriAvailabilityCheckSettingsInputOutageConfiguration$Outbound
     | null
     | undefined;
-  ping?: Ping$Outbound | null | undefined;
-  tcp?: Tcp$Outbound | null | undefined;
+  ping?: UriAvailabilityCheckSettingsInputPing$Outbound | null | undefined;
+  tcp?: UriAvailabilityCheckSettingsInputTcp$Outbound | null | undefined;
 };
 
 /** @internal */
@@ -486,8 +520,12 @@ export const UriAvailabilityCheckSettingsInput$outboundSchema: z.ZodType<
       UriAvailabilityCheckSettingsInputOutageConfiguration$outboundSchema
     ),
   ).optional(),
-  ping: z.nullable(z.lazy(() => Ping$outboundSchema)).optional(),
-  tcp: z.nullable(z.lazy(() => Tcp$outboundSchema)).optional(),
+  ping: z.nullable(
+    z.lazy(() => UriAvailabilityCheckSettingsInputPing$outboundSchema),
+  ).optional(),
+  tcp: z.nullable(
+    z.lazy(() => UriAvailabilityCheckSettingsInputTcp$outboundSchema),
+  ).optional(),
 });
 
 /**

@@ -4,19 +4,28 @@
 
 import * as z from "zod";
 import { safeParse } from "../../lib/schemas.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import {
-  ProbeLocationType,
-  ProbeLocationType$inboundSchema,
-  ProbeLocationType$outboundSchema,
-} from "./probelocationtype.js";
+
+/**
+ * Specificity for location of synthetic probes to be used for availability tests.
+ */
+export const TestFromType = {
+  Region: "REGION",
+  Country: "COUNTRY",
+  City: "CITY",
+} as const;
+/**
+ * Specificity for location of synthetic probes to be used for availability tests.
+ */
+export type TestFromType = ClosedEnum<typeof TestFromType>;
 
 export type TestFrom = {
   /**
    * Specificity for location of synthetic probes to be used for availability tests.
    */
-  type: ProbeLocationType;
+  type: TestFromType;
   /**
    * A list of probe location values of the selected type. At least one value matching an existing probe must be provided.
    */
@@ -24,12 +33,31 @@ export type TestFrom = {
 };
 
 /** @internal */
+export const TestFromType$inboundSchema: z.ZodNativeEnum<typeof TestFromType> =
+  z.nativeEnum(TestFromType);
+
+/** @internal */
+export const TestFromType$outboundSchema: z.ZodNativeEnum<typeof TestFromType> =
+  TestFromType$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace TestFromType$ {
+  /** @deprecated use `TestFromType$inboundSchema` instead. */
+  export const inboundSchema = TestFromType$inboundSchema;
+  /** @deprecated use `TestFromType$outboundSchema` instead. */
+  export const outboundSchema = TestFromType$outboundSchema;
+}
+
+/** @internal */
 export const TestFrom$inboundSchema: z.ZodType<
   TestFrom,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: ProbeLocationType$inboundSchema,
+  type: TestFromType$inboundSchema,
   values: z.array(z.string()),
 });
 
@@ -45,7 +73,7 @@ export const TestFrom$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   TestFrom
 > = z.object({
-  type: ProbeLocationType$outboundSchema,
+  type: TestFromType$outboundSchema,
   values: z.array(z.string()),
 });
 

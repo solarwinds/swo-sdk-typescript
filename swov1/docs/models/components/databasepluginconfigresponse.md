@@ -6,17 +6,7 @@
 import { DatabasePluginConfigResponse } from "@solarwinds/swo-sdk-typescript/models/components";
 
 let value: DatabasePluginConfigResponse = {
-  pluginConfig: [
-    {
-      pluginName: "<value>",
-      config: [
-        {
-          key: "<key>",
-          value: "<value>",
-        },
-      ],
-    },
-  ],
+  pluginConfig: [],
 };
 ```
 

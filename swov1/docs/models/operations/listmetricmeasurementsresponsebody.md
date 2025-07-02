@@ -8,23 +8,8 @@ The request has succeeded.
 import { ListMetricMeasurementsResponseBody } from "@solarwinds/swo-sdk-typescript/models/operations";
 
 let value: ListMetricMeasurementsResponseBody = {
-  groupings: [
-    {
-      attributes: [
-        {
-          key: "<key>",
-          value: "<value>",
-        },
-      ],
-      measurements: [
-        {
-          time: new Date("2024-04-22T08:27:29.790Z"),
-          value: 5467.36,
-        },
-      ],
-    },
-  ],
-  bucketSizeInSeconds: 394183,
+  groupings: [],
+  bucketSizeInSeconds: 546736,
   pageInfo: {
     prevPage: "<value>",
     nextPage: "<value>",

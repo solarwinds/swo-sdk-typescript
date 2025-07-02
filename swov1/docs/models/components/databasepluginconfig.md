@@ -7,12 +7,8 @@ import { DatabasePluginConfig } from "@solarwinds/swo-sdk-typescript/models/comp
 
 let value: DatabasePluginConfig = {
   pluginName: "<value>",
-  config: [
-    {
-      key: "<key>",
-      value: "<value>",
-    },
-  ],
+  configOptions: [],
+  dbConnOptions: [],
 };
 ```
 
@@ -21,4 +17,5 @@ let value: DatabasePluginConfig = {
 | Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
 | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | `pluginName`                                                                     | *string*                                                                         | :heavy_check_mark:                                                               | Name of plugin observing database server                                         |
-| `config`                                                                         | [components.CommonKeyValuePair](../../models/components/commonkeyvaluepair.md)[] | :heavy_check_mark:                                                               | Configuration of plugin observing database server                                |
+| `configOptions`                                                                  | [components.CommonKeyValuePair](../../models/components/commonkeyvaluepair.md)[] | :heavy_check_mark:                                                               | Configuration of plugin observing database server                                |
+| `dbConnOptions`                                                                  | [components.CommonKeyValuePair](../../models/components/commonkeyvaluepair.md)[] | :heavy_check_mark:                                                               | Database connection options of plugin observing database server                  |

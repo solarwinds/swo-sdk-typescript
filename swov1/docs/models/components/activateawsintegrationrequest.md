@@ -8,7 +8,7 @@ import { ActivateAwsIntegrationRequest } from "@solarwinds/swo-sdk-typescript/mo
 let value: ActivateAwsIntegrationRequest = {
   managementAccountId: "<id>",
   accountId: "<id>",
-  enable: false,
+  enable: true,
 };
 ```
 

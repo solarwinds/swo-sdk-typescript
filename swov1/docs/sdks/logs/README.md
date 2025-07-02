@@ -25,7 +25,6 @@ async function run() {
   const result = await swo.logs.searchLogs({});
 
   for await (const page of result) {
-    // Handle the page
     console.log(page);
   }
 }
@@ -49,16 +48,13 @@ const swo = new SwoCore({
 
 async function run() {
   const res = await logsSearchLogs(swo, {});
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
     console.log(page);
+  }
+  } else {
+    console.log("logsSearchLogs failed:", res.error);
   }
 }
 
@@ -104,7 +100,6 @@ async function run() {
   });
 
   for await (const page of result) {
-    // Handle the page
     console.log(page);
   }
 }
@@ -131,16 +126,13 @@ async function run() {
     startTime: "<value>",
     endTime: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
     console.log(page);
+  }
+  } else {
+    console.log("logsListLogArchives failed:", res.error);
   }
 }
 

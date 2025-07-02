@@ -11,5 +11,5 @@ let value: DatabaseAuthMethod = "basic";
 ## Values
 
 ```typescript
-"basic" | "awsiam" | "windows" | "entraclientcert" | "entraclientsecret" | "cert"
+"basic" | "awsiam" | "windows" | "entraclientsecret" | "entraclientcert" | "cert"
 ```

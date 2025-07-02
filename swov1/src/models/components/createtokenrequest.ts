@@ -14,15 +14,15 @@ export type Tags = {
   tagWithoutValue: string;
 };
 
-export const Type = {
+export const CreateTokenRequestType = {
   Ingestion: "ingestion",
 } as const;
-export type Type = ClosedEnum<typeof Type>;
+export type CreateTokenRequestType = ClosedEnum<typeof CreateTokenRequestType>;
 
 export type CreateTokenRequest = {
   name: string;
   tags: Tags;
-  type: Type;
+  type: CreateTokenRequestType;
 };
 
 /** @internal */
@@ -81,23 +81,24 @@ export function tagsFromJSON(
 }
 
 /** @internal */
-export const Type$inboundSchema: z.ZodNativeEnum<typeof Type> = z.nativeEnum(
-  Type,
-);
+export const CreateTokenRequestType$inboundSchema: z.ZodNativeEnum<
+  typeof CreateTokenRequestType
+> = z.nativeEnum(CreateTokenRequestType);
 
 /** @internal */
-export const Type$outboundSchema: z.ZodNativeEnum<typeof Type> =
-  Type$inboundSchema;
+export const CreateTokenRequestType$outboundSchema: z.ZodNativeEnum<
+  typeof CreateTokenRequestType
+> = CreateTokenRequestType$inboundSchema;
 
 /**
  * @internal
  * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
  */
-export namespace Type$ {
-  /** @deprecated use `Type$inboundSchema` instead. */
-  export const inboundSchema = Type$inboundSchema;
-  /** @deprecated use `Type$outboundSchema` instead. */
-  export const outboundSchema = Type$outboundSchema;
+export namespace CreateTokenRequestType$ {
+  /** @deprecated use `CreateTokenRequestType$inboundSchema` instead. */
+  export const inboundSchema = CreateTokenRequestType$inboundSchema;
+  /** @deprecated use `CreateTokenRequestType$outboundSchema` instead. */
+  export const outboundSchema = CreateTokenRequestType$outboundSchema;
 }
 
 /** @internal */
@@ -108,7 +109,7 @@ export const CreateTokenRequest$inboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   tags: z.lazy(() => Tags$inboundSchema),
-  type: Type$inboundSchema,
+  type: CreateTokenRequestType$inboundSchema,
 });
 
 /** @internal */
@@ -126,7 +127,7 @@ export const CreateTokenRequest$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   tags: z.lazy(() => Tags$outboundSchema),
-  type: Type$outboundSchema,
+  type: CreateTokenRequestType$outboundSchema,
 });
 
 /**

@@ -32,7 +32,6 @@ async function run() {
   const result = await swo.metrics.listMetrics({});
 
   for await (const page of result) {
-    // Handle the page
     console.log(page);
   }
 }
@@ -56,16 +55,13 @@ const swo = new SwoCore({
 
 async function run() {
   const res = await metricsListMetrics(swo, {});
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
     console.log(page);
+  }
+  } else {
+    console.log("metricsListMetrics failed:", res.error);
   }
 }
 
@@ -113,7 +109,6 @@ async function run() {
     units: "bytes/s",
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -142,15 +137,12 @@ async function run() {
     formula: "rate(system.disk.io[5m])",
     units: "bytes/s",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("metricsCreateCompositeMetric failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -174,7 +166,7 @@ run();
 | Error Type                                  | Status Code                                 | Content Type                                |
 | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
 | errors.CreateCompositeMetricBadRequestError | 400                                         | application/json                            |
-| errors.CreateCompositeMetricForbiddenError  | 403                                         | application/json                            |
+| errors.ConflictError                        | 409                                         | application/json                            |
 | errors.APIError                             | 4XX, 5XX                                    | \*/\*                                       |
 
 ## listMultiMetricMeasurements
@@ -214,37 +206,11 @@ const swo = new Swo({
 async function run() {
   const result = await swo.metrics.listMultiMetricMeasurements({
     requestBody: {
-      metrics: [
-        {
-          id: "throughput-series",
-          name: "dbo.host.queries.tput",
-          filter: "id:[id1,id2] category:moderate",
-          groupBy: [
-            "query",
-          ],
-          preGroupBy: [
-            "host",
-          ],
-          preGroupByMethod: "SUM",
-        },
-        {
-          id: "throughput-series",
-          name: "dbo.host.queries.tput",
-          filter: "id:[id1,id2] category:moderate",
-          groupBy: [
-            "query",
-          ],
-          preGroupBy: [
-            "host",
-          ],
-          preGroupByMethod: "SUM",
-        },
-      ],
+      metrics: [],
     },
   });
 
   for await (const page of result) {
-    // Handle the page
     console.log(page);
   }
 }
@@ -269,44 +235,16 @@ const swo = new SwoCore({
 async function run() {
   const res = await metricsListMultiMetricMeasurements(swo, {
     requestBody: {
-      metrics: [
-        {
-          id: "throughput-series",
-          name: "dbo.host.queries.tput",
-          filter: "id:[id1,id2] category:moderate",
-          groupBy: [
-            "query",
-          ],
-          preGroupBy: [
-            "host",
-          ],
-          preGroupByMethod: "SUM",
-        },
-        {
-          id: "throughput-series",
-          name: "dbo.host.queries.tput",
-          filter: "id:[id1,id2] category:moderate",
-          groupBy: [
-            "query",
-          ],
-          preGroupBy: [
-            "host",
-          ],
-          preGroupByMethod: "SUM",
-        },
-      ],
+      metrics: [],
     },
   });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
     console.log(page);
+  }
+  } else {
+    console.log("metricsListMultiMetricMeasurements failed:", res.error);
   }
 }
 
@@ -357,7 +295,6 @@ async function run() {
     },
   });
 
-  // Handle the result
   console.log(result);
 }
 
@@ -388,15 +325,12 @@ async function run() {
       units: "bytes/s",
     },
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("metricsUpdateCompositeMetric failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  // Handle the result
-  console.log(result);
 }
 
 run();
@@ -466,14 +400,12 @@ async function run() {
   const res = await metricsDeleteCompositeMetric(swo, {
     name: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("metricsDeleteCompositeMetric failed:", res.error);
   }
-
-  const { value: result } = res;
-
-  
 }
 
 run();
@@ -519,7 +451,6 @@ async function run() {
   });
 
   for await (const page of result) {
-    // Handle the page
     console.log(page);
   }
 }
@@ -545,16 +476,13 @@ async function run() {
   const res = await metricsGetMetricByName(swo, {
     name: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
     console.log(page);
+  }
+  } else {
+    console.log("metricsGetMetricByName failed:", res.error);
   }
 }
 
@@ -600,7 +528,6 @@ async function run() {
   });
 
   for await (const page of result) {
-    // Handle the page
     console.log(page);
   }
 }
@@ -626,16 +553,13 @@ async function run() {
   const res = await metricsListMetricAttributes(swo, {
     name: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
     console.log(page);
+  }
+  } else {
+    console.log("metricsListMetricAttributes failed:", res.error);
   }
 }
 
@@ -682,7 +606,6 @@ async function run() {
   });
 
   for await (const page of result) {
-    // Handle the page
     console.log(page);
   }
 }
@@ -709,16 +632,13 @@ async function run() {
     name: "<value>",
     attributeName: "<value>",
   });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
     console.log(page);
+  }
+  } else {
+    console.log("metricsListMetricAttributeValues failed:", res.error);
   }
 }
 
@@ -761,11 +681,10 @@ const swo = new Swo({
 async function run() {
   const result = await swo.metrics.listMetricMeasurements({
     name: "<value>",
-    seriesType: "SCALAR",
+    seriesType: "TIMESERIES",
   });
 
   for await (const page of result) {
-    // Handle the page
     console.log(page);
   }
 }
@@ -790,18 +709,15 @@ const swo = new SwoCore({
 async function run() {
   const res = await metricsListMetricMeasurements(swo, {
     name: "<value>",
-    seriesType: "SCALAR",
+    seriesType: "TIMESERIES",
   });
-
-  if (!res.ok) {
-    throw res.error;
-  }
-
-  const { value: result } = res;
-
-  for await (const page of result) {
-    // Handle the page
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
     console.log(page);
+  }
+  } else {
+    console.log("metricsListMetricMeasurements failed:", res.error);
   }
 }
 

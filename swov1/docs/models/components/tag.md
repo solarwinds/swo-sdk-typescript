@@ -13,7 +13,7 @@ let value: Tag = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `key`              | *string*           | :heavy_check_mark: | N/A                |
-| `value`            | *string*           | :heavy_check_mark: | N/A                |
+| Field              | Type               | Required           | Description        | Example            |
+| ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
+| `key`              | *string*           | :heavy_check_mark: | N/A                | environment        |
+| `value`            | *string*           | :heavy_check_mark: | N/A                | production         |

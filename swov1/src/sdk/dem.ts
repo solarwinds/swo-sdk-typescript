@@ -28,7 +28,7 @@ export class Dem extends ClientSDK {
    */
   async listProbes(
     options?: RequestOptions,
-  ): Promise<operations.ListProbesResponse> {
+  ): Promise<components.ListProbesResponse> {
     return unwrapAsync(demListProbes(
       this,
       options,
@@ -81,7 +81,7 @@ export class Dem extends ClientSDK {
   async getUri(
     request: operations.GetUriRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetUriResponse> {
+  ): Promise<components.GetUriResponse> {
     return unwrapAsync(demGetUri(
       this,
       request,
@@ -165,7 +165,7 @@ export class Dem extends ClientSDK {
   async getWebsite(
     request: operations.GetWebsiteRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetWebsiteResponse> {
+  ): Promise<components.GetWebsiteResponse> {
     return unwrapAsync(demGetWebsite(
       this,
       request,

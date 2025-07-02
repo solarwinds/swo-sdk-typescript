@@ -5,24 +5,7 @@
 ```typescript
 import { ListMultiMetricMeasurementsRequest } from "@solarwinds/swo-sdk-typescript/models/operations";
 
-let value: ListMultiMetricMeasurementsRequest = {
-  requestBody: {
-    metrics: [
-      {
-        id: "throughput-series",
-        name: "dbo.host.queries.tput",
-        filter: "id:[id1,id2] category:moderate",
-        groupBy: [
-          "query",
-        ],
-        preGroupBy: [
-          "host",
-        ],
-        preGroupByMethod: "SUM",
-      },
-    ],
-  },
-};
+let value: ListMultiMetricMeasurementsRequest = {};
 ```
 
 ## Fields
