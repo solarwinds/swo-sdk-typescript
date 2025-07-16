@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.ActivateAwsIntegrationRequest$inboundSchema,
+  request: components.CloudAccountsAwsActivateIntegrationRequest$inboundSchema,
 };
 
 export const tool$cloudAccountsActivateAwsIntegration: ToolDefinition<

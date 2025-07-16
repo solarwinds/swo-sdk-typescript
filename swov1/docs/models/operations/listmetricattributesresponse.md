@@ -5,7 +5,18 @@
 ```typescript
 import { ListMetricAttributesResponse } from "@solarwinds/swo-sdk-typescript/models/operations";
 
-let value: ListMetricAttributesResponse = {};
+let value: ListMetricAttributesResponse = {
+  result: {
+    names: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    pageInfo: {
+      prevPage: "<value>",
+      nextPage: "<value>",
+    },
+  },
+};
 ```
 
 ## Fields

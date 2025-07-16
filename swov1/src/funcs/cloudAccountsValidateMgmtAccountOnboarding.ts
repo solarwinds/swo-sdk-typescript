@@ -38,7 +38,7 @@ export function cloudAccountsValidateMgmtAccountOnboarding(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.MgmtAccountOnboardingResponse,
+    components.CloudAccountsAwsMgmtAccountOnboardingResponse,
     | errors.ValidateMgmtAccountOnboardingBadRequestError
     | errors.ValidateMgmtAccountOnboardingUnauthorizedError
     | errors.ValidateMgmtAccountOnboardingInternalServerError
@@ -66,7 +66,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.MgmtAccountOnboardingResponse,
+      components.CloudAccountsAwsMgmtAccountOnboardingResponse,
       | errors.ValidateMgmtAccountOnboardingBadRequestError
       | errors.ValidateMgmtAccountOnboardingUnauthorizedError
       | errors.ValidateMgmtAccountOnboardingInternalServerError
@@ -167,7 +167,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.MgmtAccountOnboardingResponse,
+    components.CloudAccountsAwsMgmtAccountOnboardingResponse,
     | errors.ValidateMgmtAccountOnboardingBadRequestError
     | errors.ValidateMgmtAccountOnboardingUnauthorizedError
     | errors.ValidateMgmtAccountOnboardingInternalServerError
@@ -180,7 +180,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.MgmtAccountOnboardingResponse$inboundSchema),
+    M.json(
+      200,
+      components.CloudAccountsAwsMgmtAccountOnboardingResponse$inboundSchema,
+    ),
     M.jsonErr(
       400,
       errors.ValidateMgmtAccountOnboardingBadRequestError$inboundSchema,

@@ -151,7 +151,7 @@ run();
 
 ### Response
 
-**Promise\<[components.Entity](../../models/components/entity.md)\>**
+**Promise\<[components.EntitiesEntity](../../models/components/entitiesentity.md)\>**
 
 ### Errors
 
@@ -178,7 +178,7 @@ const swo = new Swo({
 async function run() {
   await swo.entities.updateEntityById({
     id: "<id>",
-    entity: {
+    entitiesEntity: {
       displayName: "SyslogTest",
       tags: {
         "gg.tk.token": "test",
@@ -210,7 +210,7 @@ const swo = new SwoCore({
 async function run() {
   const res = await entitiesUpdateEntityById(swo, {
     id: "<id>",
-    entity: {
+    entitiesEntity: {
       displayName: "SyslogTest",
       tags: {
         "gg.tk.token": "test",

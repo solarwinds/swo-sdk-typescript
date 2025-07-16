@@ -5,7 +5,16 @@
 ```typescript
 import { GetMetricByNameResponse } from "@solarwinds/swo-sdk-typescript/models/operations";
 
-let value: GetMetricByNameResponse = {};
+let value: GetMetricByNameResponse = {
+  result: {
+    name: "composite.custom.system.disk.io.rate",
+    displayName: "Disk IO rate",
+    description: "Disk bytes transferred per second",
+    units: "bytes/s",
+    formula: "rate(system.disk.io[5m]",
+    lastReportedTime: new Date("2024-11-25T16:38:24Z"),
+  },
+};
 ```
 
 ## Fields

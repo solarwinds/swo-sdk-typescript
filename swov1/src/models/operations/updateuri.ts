@@ -14,7 +14,7 @@ export type UpdateUriRequest = {
   /**
    * The updated URI monitoring configuration
    */
-  uri: components.Uri;
+  demUri: components.DemUri;
 };
 
 /** @internal */
@@ -24,17 +24,17 @@ export const UpdateUriRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   entityId: z.string(),
-  Uri: components.Uri$inboundSchema,
+  "Dem.Uri": components.DemUri$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "Uri": "uri",
+    "Dem.Uri": "demUri",
   });
 });
 
 /** @internal */
 export type UpdateUriRequest$Outbound = {
   entityId: string;
-  Uri: components.Uri$Outbound;
+  "Dem.Uri": components.DemUri$Outbound;
 };
 
 /** @internal */
@@ -44,10 +44,10 @@ export const UpdateUriRequest$outboundSchema: z.ZodType<
   UpdateUriRequest
 > = z.object({
   entityId: z.string(),
-  uri: components.Uri$outboundSchema,
+  demUri: components.DemUri$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    uri: "Uri",
+    demUri: "Dem.Uri",
   });
 });
 

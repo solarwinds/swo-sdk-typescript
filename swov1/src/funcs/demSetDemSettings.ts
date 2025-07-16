@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  */
 export function demSetDemSettings(
   client: SwoCore,
-  request: components.OutageConfiguration,
+  request: components.DemOutageConfiguration,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,7 +54,7 @@ export function demSetDemSettings(
 
 async function $do(
   client: SwoCore,
-  request: components.OutageConfiguration,
+  request: components.DemOutageConfiguration,
   options?: RequestOptions,
 ): Promise<
   [
@@ -74,7 +74,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.OutageConfiguration$outboundSchema.parse(value),
+    (value) => components.DemOutageConfiguration$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {

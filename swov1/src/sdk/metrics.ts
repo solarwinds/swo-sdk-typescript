@@ -42,9 +42,9 @@ export class Metrics extends ClientSDK {
    * Create a composite metric given a PromQL query.
    */
   async createCompositeMetric(
-    request: components.CompositeMetric,
+    request: components.MetricsCompositeMetric,
     options?: RequestOptions,
-  ): Promise<components.CompositeMetric> {
+  ): Promise<components.MetricsCompositeMetric> {
     return unwrapAsync(metricsCreateCompositeMetric(
       this,
       request,
@@ -104,7 +104,7 @@ export class Metrics extends ClientSDK {
   async updateCompositeMetric(
     request: operations.UpdateCompositeMetricRequest,
     options?: RequestOptions,
-  ): Promise<components.CompositeMetric | undefined> {
+  ): Promise<components.MetricsCompositeMetric | undefined> {
     return unwrapAsync(metricsUpdateCompositeMetric(
       this,
       request,

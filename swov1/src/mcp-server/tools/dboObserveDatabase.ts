@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.ObserveDatabaseRequest$inboundSchema,
+  request: components.DboObserveDatabaseRequest$inboundSchema,
 };
 
 export const tool$dboObserveDatabase: ToolDefinition<typeof args> = {

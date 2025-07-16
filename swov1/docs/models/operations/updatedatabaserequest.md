@@ -7,12 +7,13 @@ import { UpdateDatabaseRequest } from "@solarwinds/swo-sdk-typescript/models/ope
 
 let value: UpdateDatabaseRequest = {
   entityId: "<id>",
+  dboUpdateDatabaseRequest: {},
 };
 ```
 
 ## Fields
 
-| Field                                                                                | Type                                                                                 | Required                                                                             | Description                                                                          |
-| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
-| `entityId`                                                                           | *string*                                                                             | :heavy_check_mark:                                                                   | N/A                                                                                  |
-| `updateDatabaseRequest`                                                              | [components.UpdateDatabaseRequest](../../models/components/updatedatabaserequest.md) | :heavy_check_mark:                                                                   | N/A                                                                                  |
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `entityId`                                                                                 | *string*                                                                                   | :heavy_check_mark:                                                                         | N/A                                                                                        |
+| `dboUpdateDatabaseRequest`                                                                 | [components.DboUpdateDatabaseRequest](../../models/components/dboupdatedatabaserequest.md) | :heavy_check_mark:                                                                         | N/A                                                                                        |

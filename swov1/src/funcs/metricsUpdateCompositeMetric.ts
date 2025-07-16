@@ -38,7 +38,7 @@ export function metricsUpdateCompositeMetric(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.CompositeMetric | undefined,
+    components.MetricsCompositeMetric | undefined,
     | errors.UpdateCompositeMetricBadRequestError
     | errors.UpdateCompositeMetricForbiddenError
     | errors.UpdateCompositeMetricNotFoundError
@@ -66,7 +66,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.CompositeMetric | undefined,
+      components.MetricsCompositeMetric | undefined,
       | errors.UpdateCompositeMetricBadRequestError
       | errors.UpdateCompositeMetricForbiddenError
       | errors.UpdateCompositeMetricNotFoundError
@@ -92,9 +92,11 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.UpdateCompositeMetric, {
-    explode: true,
-  });
+  const body = encodeJSON(
+    "body",
+    payload["Metrics.UpdateCompositeMetricRequest"],
+    { explode: true },
+  );
 
   const pathParams = {
     name: encodeSimple("name", payload.name, {
@@ -170,7 +172,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.CompositeMetric | undefined,
+    components.MetricsCompositeMetric | undefined,
     | errors.UpdateCompositeMetricBadRequestError
     | errors.UpdateCompositeMetricForbiddenError
     | errors.UpdateCompositeMetricNotFoundError
@@ -183,8 +185,8 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.CompositeMetric$inboundSchema.optional()),
-    M.nil(202, components.CompositeMetric$inboundSchema.optional()),
+    M.json(200, components.MetricsCompositeMetric$inboundSchema.optional()),
+    M.nil(202, components.MetricsCompositeMetric$inboundSchema.optional()),
     M.jsonErr(400, errors.UpdateCompositeMetricBadRequestError$inboundSchema),
     M.jsonErr(403, errors.UpdateCompositeMetricForbiddenError$inboundSchema),
     M.jsonErr(404, errors.UpdateCompositeMetricNotFoundError$inboundSchema),

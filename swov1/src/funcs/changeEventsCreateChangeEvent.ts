@@ -30,7 +30,7 @@ import { Result } from "../types/fp.js";
  */
 export function changeEventsCreateChangeEvent(
   client: SwoCore,
-  request: components.ChangeEvent,
+  request: components.ChangeEventsChangeEvent,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -54,7 +54,7 @@ export function changeEventsCreateChangeEvent(
 
 async function $do(
   client: SwoCore,
-  request: components.ChangeEvent,
+  request: components.ChangeEventsChangeEvent,
   options?: RequestOptions,
 ): Promise<
   [
@@ -74,7 +74,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.ChangeEvent$outboundSchema.parse(value),
+    (value) => components.ChangeEventsChangeEvent$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -156,7 +156,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateChangeEventResponse$inboundSchema),
+    M.json(202, operations.CreateChangeEventResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req);

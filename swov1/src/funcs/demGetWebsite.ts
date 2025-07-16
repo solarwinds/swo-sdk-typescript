@@ -35,7 +35,7 @@ export function demGetWebsite(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.GetWebsiteResponse,
+    components.DemGetWebsiteResponse,
     | errors.GetWebsiteNotFoundError
     | SwoError
     | ResponseValidationError
@@ -61,7 +61,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.GetWebsiteResponse,
+      components.DemGetWebsiteResponse,
       | errors.GetWebsiteNotFoundError
       | SwoError
       | ResponseValidationError
@@ -159,7 +159,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.GetWebsiteResponse,
+    components.DemGetWebsiteResponse,
     | errors.GetWebsiteNotFoundError
     | SwoError
     | ResponseValidationError
@@ -170,7 +170,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.GetWebsiteResponse$inboundSchema),
+    M.json(200, components.DemGetWebsiteResponse$inboundSchema),
     M.jsonErr(404, errors.GetWebsiteNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

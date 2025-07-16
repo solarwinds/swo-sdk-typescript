@@ -5,7 +5,22 @@
 ```typescript
 import { ListMultiMetricMeasurementsResponse } from "@solarwinds/swo-sdk-typescript/models/operations";
 
-let value: ListMultiMetricMeasurementsResponse = {};
+let value: ListMultiMetricMeasurementsResponse = {
+  result: {
+    metrics: [
+      {
+        id: "throughput-series",
+        name: "dbo.host.queries.tput",
+        groupings: [],
+        bucketSizeInSeconds: 1,
+      },
+    ],
+    pageInfo: {
+      prevPage: "<value>",
+      nextPage: "<value>",
+    },
+  },
+};
 ```
 
 ## Fields

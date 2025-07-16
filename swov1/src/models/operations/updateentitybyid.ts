@@ -17,7 +17,7 @@ export type UpdateEntityByIdRequest = {
   /**
    * Entity properties to update. The entire representation of the entity as to be stored must be provided in the request.
    */
-  entity: components.EntityInput;
+  entitiesEntity: components.EntitiesEntityInput;
 };
 
 /** @internal */
@@ -27,17 +27,17 @@ export const UpdateEntityByIdRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  Entity: components.EntityInput$inboundSchema,
+  "Entities.Entity": components.EntitiesEntityInput$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "Entity": "entity",
+    "Entities.Entity": "entitiesEntity",
   });
 });
 
 /** @internal */
 export type UpdateEntityByIdRequest$Outbound = {
   id: string;
-  Entity: components.EntityInput$Outbound;
+  "Entities.Entity": components.EntitiesEntityInput$Outbound;
 };
 
 /** @internal */
@@ -47,10 +47,10 @@ export const UpdateEntityByIdRequest$outboundSchema: z.ZodType<
   UpdateEntityByIdRequest
 > = z.object({
   id: z.string(),
-  entity: components.EntityInput$outboundSchema,
+  entitiesEntity: components.EntitiesEntityInput$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    entity: "Entity",
+    entitiesEntity: "Entities.Entity",
   });
 });
 

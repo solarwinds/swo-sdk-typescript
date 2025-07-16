@@ -35,7 +35,7 @@ export function dboGetPlugins(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.DatabasePluginStatusResponse,
+    components.DboDatabasePluginStatusResponse,
     | errors.GetPluginsBadRequestError
     | errors.GetPluginsNotFoundError
     | SwoError
@@ -62,7 +62,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.DatabasePluginStatusResponse,
+      components.DboDatabasePluginStatusResponse,
       | errors.GetPluginsBadRequestError
       | errors.GetPluginsNotFoundError
       | SwoError
@@ -161,7 +161,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.DatabasePluginStatusResponse,
+    components.DboDatabasePluginStatusResponse,
     | errors.GetPluginsBadRequestError
     | errors.GetPluginsNotFoundError
     | SwoError
@@ -173,7 +173,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.DatabasePluginStatusResponse$inboundSchema),
+    M.json(200, components.DboDatabasePluginStatusResponse$inboundSchema),
     M.jsonErr(400, errors.GetPluginsBadRequestError$inboundSchema),
     M.jsonErr(404, errors.GetPluginsNotFoundError$inboundSchema),
     M.fail("4XX"),

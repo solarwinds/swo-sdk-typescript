@@ -29,11 +29,11 @@ import { Result } from "../types/fp.js";
  */
 export function tokensCreateToken(
   client: SwoCore,
-  request: components.CreateTokenRequest,
+  request: components.TokensCreateTokenRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.CreateTokenResponse,
+    components.TokensCreateTokenResponse,
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -53,12 +53,12 @@ export function tokensCreateToken(
 
 async function $do(
   client: SwoCore,
-  request: components.CreateTokenRequest,
+  request: components.TokensCreateTokenRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      components.CreateTokenResponse,
+      components.TokensCreateTokenResponse,
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -73,7 +73,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.CreateTokenRequest$outboundSchema.parse(value),
+    (value) => components.TokensCreateTokenRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -145,7 +145,7 @@ async function $do(
   const response = doResult.value;
 
   const [result] = await M.match<
-    components.CreateTokenResponse,
+    components.TokensCreateTokenResponse,
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -155,7 +155,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.CreateTokenResponse$inboundSchema),
+    M.json(200, components.TokensCreateTokenResponse$inboundSchema),
     M.fail([401, 403, "4XX"]),
     M.fail([500, 503, "5XX"]),
   )(response, req);

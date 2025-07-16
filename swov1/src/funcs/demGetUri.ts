@@ -35,7 +35,7 @@ export function demGetUri(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.GetUriResponse,
+    components.DemGetUriResponse,
     | errors.GetUriNotFoundError
     | SwoError
     | ResponseValidationError
@@ -61,7 +61,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.GetUriResponse,
+      components.DemGetUriResponse,
       | errors.GetUriNotFoundError
       | SwoError
       | ResponseValidationError
@@ -159,7 +159,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.GetUriResponse,
+    components.DemGetUriResponse,
     | errors.GetUriNotFoundError
     | SwoError
     | ResponseValidationError
@@ -170,7 +170,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.GetUriResponse$inboundSchema),
+    M.json(200, components.DemGetUriResponse$inboundSchema),
     M.jsonErr(404, errors.GetUriNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

@@ -9,7 +9,7 @@ import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ValidateMgmtAccountOnboardingRequest = {
-  request: components.MgmtAccountOnboardingRequest;
+  request: components.CloudAccountsAwsMgmtAccountOnboardingRequest;
 };
 
 /** @internal */
@@ -18,12 +18,13 @@ export const ValidateMgmtAccountOnboardingRequest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  request: components.MgmtAccountOnboardingRequest$inboundSchema,
+  request:
+    components.CloudAccountsAwsMgmtAccountOnboardingRequest$inboundSchema,
 });
 
 /** @internal */
 export type ValidateMgmtAccountOnboardingRequest$Outbound = {
-  request: components.MgmtAccountOnboardingRequest$Outbound;
+  request: components.CloudAccountsAwsMgmtAccountOnboardingRequest$Outbound;
 };
 
 /** @internal */
@@ -32,7 +33,8 @@ export const ValidateMgmtAccountOnboardingRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ValidateMgmtAccountOnboardingRequest
 > = z.object({
-  request: components.MgmtAccountOnboardingRequest$outboundSchema,
+  request:
+    components.CloudAccountsAwsMgmtAccountOnboardingRequest$outboundSchema,
 });
 
 /**

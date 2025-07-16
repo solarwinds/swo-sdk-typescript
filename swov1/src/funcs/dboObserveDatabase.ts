@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  */
 export function dboObserveDatabase(
   client: SwoCore,
-  request: components.ObserveDatabaseRequest,
+  request: components.DboObserveDatabaseRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,7 +56,7 @@ export function dboObserveDatabase(
 
 async function $do(
   client: SwoCore,
-  request: components.ObserveDatabaseRequest,
+  request: components.DboObserveDatabaseRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -77,7 +77,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.ObserveDatabaseRequest$outboundSchema.parse(value),
+    (value) => components.DboObserveDatabaseRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
