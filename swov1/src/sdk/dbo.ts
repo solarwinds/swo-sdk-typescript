@@ -19,7 +19,7 @@ export class Dbo extends ClientSDK {
    * Add database observability to a database
    */
   async observeDatabase(
-    request: components.ObserveDatabaseRequest,
+    request: components.DboObserveDatabaseRequest,
     options?: RequestOptions,
   ): Promise<operations.ObserveDatabaseResponse> {
     return unwrapAsync(dboObserveDatabase(
@@ -34,7 +34,7 @@ export class Dbo extends ClientSDK {
    */
   async getPublicKey(
     options?: RequestOptions,
-  ): Promise<components.DatabaseCredentialsPublicKeyResponse> {
+  ): Promise<components.DboDatabaseCredentialsPublicKeyResponse> {
     return unwrapAsync(dboGetPublicKey(
       this,
       options,
@@ -75,7 +75,7 @@ export class Dbo extends ClientSDK {
   async getPluginConfig(
     request: operations.GetPluginConfigRequest,
     options?: RequestOptions,
-  ): Promise<components.DatabasePluginConfigResponse> {
+  ): Promise<components.DboDatabasePluginConfigResponse> {
     return unwrapAsync(dboGetPluginConfig(
       this,
       request,
@@ -89,7 +89,7 @@ export class Dbo extends ClientSDK {
   async getPlugins(
     request: operations.GetPluginsRequest,
     options?: RequestOptions,
-  ): Promise<components.DatabasePluginStatusResponse> {
+  ): Promise<components.DboDatabasePluginStatusResponse> {
     return unwrapAsync(dboGetPlugins(
       this,
       request,

@@ -33,11 +33,11 @@ import { Result } from "../types/fp.js";
  */
 export function metricsCreateCompositeMetric(
   client: SwoCore,
-  request: components.CompositeMetric,
+  request: components.MetricsCompositeMetric,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.CompositeMetric,
+    components.MetricsCompositeMetric,
     | errors.CreateCompositeMetricBadRequestError
     | errors.ConflictError
     | SwoError
@@ -59,12 +59,12 @@ export function metricsCreateCompositeMetric(
 
 async function $do(
   client: SwoCore,
-  request: components.CompositeMetric,
+  request: components.MetricsCompositeMetric,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      components.CompositeMetric,
+      components.MetricsCompositeMetric,
       | errors.CreateCompositeMetricBadRequestError
       | errors.ConflictError
       | SwoError
@@ -81,7 +81,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.CompositeMetric$outboundSchema.parse(value),
+    (value) => components.MetricsCompositeMetric$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -157,7 +157,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.CompositeMetric,
+    components.MetricsCompositeMetric,
     | errors.CreateCompositeMetricBadRequestError
     | errors.ConflictError
     | SwoError
@@ -169,7 +169,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, components.CompositeMetric$inboundSchema),
+    M.json(201, components.MetricsCompositeMetric$inboundSchema),
     M.jsonErr(400, errors.CreateCompositeMetricBadRequestError$inboundSchema),
     M.jsonErr(409, errors.ConflictError$inboundSchema),
     M.fail("4XX"),

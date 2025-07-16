@@ -28,7 +28,7 @@ export class Dem extends ClientSDK {
    */
   async listProbes(
     options?: RequestOptions,
-  ): Promise<components.ListProbesResponse> {
+  ): Promise<components.DemListProbesResponse> {
     return unwrapAsync(demListProbes(
       this,
       options,
@@ -40,7 +40,7 @@ export class Dem extends ClientSDK {
    */
   async getDemSettings(
     options?: RequestOptions,
-  ): Promise<components.OutageConfiguration> {
+  ): Promise<components.DemOutageConfiguration> {
     return unwrapAsync(demGetDemSettings(
       this,
       options,
@@ -51,7 +51,7 @@ export class Dem extends ClientSDK {
    * Set DEM settings
    */
   async setDemSettings(
-    request: components.OutageConfiguration,
+    request: components.DemOutageConfiguration,
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(demSetDemSettings(
@@ -65,9 +65,9 @@ export class Dem extends ClientSDK {
    * Create URI monitoring configuration
    */
   async createUri(
-    request: components.Uri,
+    request: components.DemUri,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demCreateUri(
       this,
       request,
@@ -81,7 +81,7 @@ export class Dem extends ClientSDK {
   async getUri(
     request: operations.GetUriRequest,
     options?: RequestOptions,
-  ): Promise<components.GetUriResponse> {
+  ): Promise<components.DemGetUriResponse> {
     return unwrapAsync(demGetUri(
       this,
       request,
@@ -95,7 +95,7 @@ export class Dem extends ClientSDK {
   async updateUri(
     request: operations.UpdateUriRequest,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demUpdateUri(
       this,
       request,
@@ -109,7 +109,7 @@ export class Dem extends ClientSDK {
   async deleteUri(
     request: operations.DeleteUriRequest,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demDeleteUri(
       this,
       request,
@@ -123,7 +123,7 @@ export class Dem extends ClientSDK {
   async pauseUriMonitoring(
     request: operations.PauseUriMonitoringRequest,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demPauseUriMonitoring(
       this,
       request,
@@ -137,7 +137,7 @@ export class Dem extends ClientSDK {
   async unpauseUriMonitoring(
     request: operations.UnpauseUriMonitoringRequest,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demUnpauseUriMonitoring(
       this,
       request,
@@ -149,9 +149,9 @@ export class Dem extends ClientSDK {
    * Create website monitoring configuration
    */
   async createWebsite(
-    request: components.Website,
+    request: components.DemWebsite,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demCreateWebsite(
       this,
       request,
@@ -165,7 +165,7 @@ export class Dem extends ClientSDK {
   async getWebsite(
     request: operations.GetWebsiteRequest,
     options?: RequestOptions,
-  ): Promise<components.GetWebsiteResponse> {
+  ): Promise<components.DemGetWebsiteResponse> {
     return unwrapAsync(demGetWebsite(
       this,
       request,
@@ -179,7 +179,7 @@ export class Dem extends ClientSDK {
   async updateWebsite(
     request: operations.UpdateWebsiteRequest,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demUpdateWebsite(
       this,
       request,
@@ -193,7 +193,7 @@ export class Dem extends ClientSDK {
   async deleteWebsite(
     request: operations.DeleteWebsiteRequest,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demDeleteWebsite(
       this,
       request,
@@ -207,7 +207,7 @@ export class Dem extends ClientSDK {
   async pauseWebsiteMonitoring(
     request: operations.PauseWebsiteMonitoringRequest,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demPauseWebsiteMonitoring(
       this,
       request,
@@ -221,7 +221,7 @@ export class Dem extends ClientSDK {
   async unpauseWebsiteMonitoring(
     request: operations.UnpauseWebsiteMonitoringRequest,
     options?: RequestOptions,
-  ): Promise<components.EntityId> {
+  ): Promise<components.CommonEntityId> {
     return unwrapAsync(demUnpauseWebsiteMonitoring(
       this,
       request,

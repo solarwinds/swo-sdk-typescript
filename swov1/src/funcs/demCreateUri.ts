@@ -30,11 +30,11 @@ import { Result } from "../types/fp.js";
  */
 export function demCreateUri(
   client: SwoCore,
-  request: components.Uri,
+  request: components.DemUri,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.EntityId,
+    components.CommonEntityId,
     | errors.CreateUriBadRequestError
     | SwoError
     | ResponseValidationError
@@ -55,12 +55,12 @@ export function demCreateUri(
 
 async function $do(
   client: SwoCore,
-  request: components.Uri,
+  request: components.DemUri,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      components.EntityId,
+      components.CommonEntityId,
       | errors.CreateUriBadRequestError
       | SwoError
       | ResponseValidationError
@@ -76,7 +76,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => components.Uri$outboundSchema.parse(value),
+    (value) => components.DemUri$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -152,7 +152,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.EntityId,
+    components.CommonEntityId,
     | errors.CreateUriBadRequestError
     | SwoError
     | ResponseValidationError
@@ -163,7 +163,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(201, components.EntityId$inboundSchema),
+    M.json(201, components.CommonEntityId$inboundSchema),
     M.jsonErr(400, errors.CreateUriBadRequestError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

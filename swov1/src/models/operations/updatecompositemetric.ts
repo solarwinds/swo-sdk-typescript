@@ -17,7 +17,8 @@ export type UpdateCompositeMetricRequest = {
   /**
    * Metric properties to update
    */
-  updateCompositeMetric: components.UpdateCompositeMetric;
+  metricsUpdateCompositeMetricRequest:
+    components.MetricsUpdateCompositeMetricRequest;
 };
 
 /** @internal */
@@ -27,17 +28,20 @@ export const UpdateCompositeMetricRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   name: z.string(),
-  UpdateCompositeMetric: components.UpdateCompositeMetric$inboundSchema,
+  "Metrics.UpdateCompositeMetricRequest":
+    components.MetricsUpdateCompositeMetricRequest$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "UpdateCompositeMetric": "updateCompositeMetric",
+    "Metrics.UpdateCompositeMetricRequest":
+      "metricsUpdateCompositeMetricRequest",
   });
 });
 
 /** @internal */
 export type UpdateCompositeMetricRequest$Outbound = {
   name: string;
-  UpdateCompositeMetric: components.UpdateCompositeMetric$Outbound;
+  "Metrics.UpdateCompositeMetricRequest":
+    components.MetricsUpdateCompositeMetricRequest$Outbound;
 };
 
 /** @internal */
@@ -47,10 +51,11 @@ export const UpdateCompositeMetricRequest$outboundSchema: z.ZodType<
   UpdateCompositeMetricRequest
 > = z.object({
   name: z.string(),
-  updateCompositeMetric: components.UpdateCompositeMetric$outboundSchema,
+  metricsUpdateCompositeMetricRequest:
+    components.MetricsUpdateCompositeMetricRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    updateCompositeMetric: "UpdateCompositeMetric",
+    metricsUpdateCompositeMetricRequest: "Metrics.UpdateCompositeMetricRequest",
   });
 });
 

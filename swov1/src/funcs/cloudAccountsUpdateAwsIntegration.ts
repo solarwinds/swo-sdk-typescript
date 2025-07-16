@@ -33,11 +33,11 @@ import { Result } from "../types/fp.js";
  */
 export function cloudAccountsUpdateAwsIntegration(
   client: SwoCore,
-  request: components.UpdateAwsIntegrationRequest,
+  request: components.CloudAccountsAwsUpdateIntegrationRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.UpdateAwsIntegrationResponse,
+    components.CloudAccountsAwsUpdateIntegrationResponse,
     | errors.UpdateAwsIntegrationBadRequestError
     | errors.UpdateAwsIntegrationUnauthorizedError
     | errors.UpdateAwsIntegrationInternalServerError
@@ -60,12 +60,12 @@ export function cloudAccountsUpdateAwsIntegration(
 
 async function $do(
   client: SwoCore,
-  request: components.UpdateAwsIntegrationRequest,
+  request: components.CloudAccountsAwsUpdateIntegrationRequest,
   options?: RequestOptions,
 ): Promise<
   [
     Result<
-      components.UpdateAwsIntegrationResponse,
+      components.CloudAccountsAwsUpdateIntegrationResponse,
       | errors.UpdateAwsIntegrationBadRequestError
       | errors.UpdateAwsIntegrationUnauthorizedError
       | errors.UpdateAwsIntegrationInternalServerError
@@ -84,7 +84,9 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      components.UpdateAwsIntegrationRequest$outboundSchema.parse(value),
+      components.CloudAccountsAwsUpdateIntegrationRequest$outboundSchema.parse(
+        value,
+      ),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -160,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.UpdateAwsIntegrationResponse,
+    components.CloudAccountsAwsUpdateIntegrationResponse,
     | errors.UpdateAwsIntegrationBadRequestError
     | errors.UpdateAwsIntegrationUnauthorizedError
     | errors.UpdateAwsIntegrationInternalServerError
@@ -173,7 +175,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.UpdateAwsIntegrationResponse$inboundSchema),
+    M.json(
+      200,
+      components.CloudAccountsAwsUpdateIntegrationResponse$inboundSchema,
+    ),
     M.jsonErr(400, errors.UpdateAwsIntegrationBadRequestError$inboundSchema),
     M.jsonErr(401, errors.UpdateAwsIntegrationUnauthorizedError$inboundSchema),
     M.jsonErr(

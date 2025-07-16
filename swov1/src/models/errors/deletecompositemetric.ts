@@ -61,7 +61,7 @@ export type DeleteCompositeMetricForbiddenErrorData = {
   /**
    * Uniquely identifies an error condition.
    */
-  code?: components.MetricErrorCode | undefined;
+  code?: components.MetricsMetricErrorCode | undefined;
   /**
    * Supporting description of the error
    */
@@ -79,7 +79,7 @@ export class DeleteCompositeMetricForbiddenError extends SwoError {
   /**
    * Uniquely identifies an error condition.
    */
-  code?: components.MetricErrorCode | undefined;
+  code?: components.MetricsMetricErrorCode | undefined;
   /**
    * Indicates the invalid field
    */
@@ -163,7 +163,7 @@ export const DeleteCompositeMetricForbiddenError$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  code: components.MetricErrorCode$inboundSchema.optional(),
+  code: components.MetricsMetricErrorCode$inboundSchema.optional(),
   message: z.string(),
   target: z.string().optional(),
   request$: z.instanceof(Request),
@@ -193,7 +193,7 @@ export const DeleteCompositeMetricForbiddenError$outboundSchema: z.ZodType<
 > = z.instanceof(DeleteCompositeMetricForbiddenError)
   .transform(v => v.data$)
   .pipe(z.object({
-    code: components.MetricErrorCode$outboundSchema.optional(),
+    code: components.MetricsMetricErrorCode$outboundSchema.optional(),
     message: z.string(),
     target: z.string().optional(),
   }));

@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.ChangeEvent$inboundSchema,
+  request: components.ChangeEventsChangeEvent$inboundSchema,
 };
 
 export const tool$changeEventsCreateChangeEvent: ToolDefinition<typeof args> = {

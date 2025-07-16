@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.CompositeMetric$inboundSchema,
+  request: components.MetricsCompositeMetric$inboundSchema,
 };
 
 export const tool$metricsCreateCompositeMetric: ToolDefinition<typeof args> = {

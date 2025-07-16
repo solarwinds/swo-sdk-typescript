@@ -34,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function cloudAccountsActivateAwsIntegration(
   client: SwoCore,
-  request: components.ActivateAwsIntegrationRequest,
+  request: components.CloudAccountsAwsActivateIntegrationRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -62,7 +62,7 @@ export function cloudAccountsActivateAwsIntegration(
 
 async function $do(
   client: SwoCore,
-  request: components.ActivateAwsIntegrationRequest,
+  request: components.CloudAccountsAwsActivateIntegrationRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -87,7 +87,8 @@ async function $do(
   const parsed = safeParse(
     request,
     (value) =>
-      components.ActivateAwsIntegrationRequest$outboundSchema.parse(value),
+      components.CloudAccountsAwsActivateIntegrationRequest$outboundSchema
+        .parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {

@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.AwsOrganisationalUnitRequest$inboundSchema,
+  request: components.CloudAccountsAwsOrganisationalUnitRequest$inboundSchema,
 };
 
 export const tool$cloudAccountsCreateOrgStructure: ToolDefinition<typeof args> =

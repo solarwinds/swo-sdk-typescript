@@ -32,7 +32,7 @@ export class Entities extends ClientSDK {
   async getEntityById(
     request: operations.GetEntityByIdRequest,
     options?: RequestOptions,
-  ): Promise<components.Entity> {
+  ): Promise<components.EntitiesEntity> {
     return unwrapAsync(entitiesGetEntityById(
       this,
       request,

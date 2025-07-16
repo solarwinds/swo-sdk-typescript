@@ -19,7 +19,7 @@ export class CloudAccounts extends ClientSDK {
    * Activate AWS Integration.
    */
   async activateAwsIntegration(
-    request: components.ActivateAwsIntegrationRequest,
+    request: components.CloudAccountsAwsActivateIntegrationRequest,
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(cloudAccountsActivateAwsIntegration(
@@ -36,7 +36,7 @@ export class CloudAccounts extends ClientSDK {
    * Create AWS Organizational Structure.
    */
   async createOrgStructure(
-    request: components.AwsOrganisationalUnitRequest,
+    request: components.CloudAccountsAwsOrganisationalUnitRequest,
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(cloudAccountsCreateOrgStructure(
@@ -53,9 +53,9 @@ export class CloudAccounts extends ClientSDK {
    * Update AWS Integration details.
    */
   async updateAwsIntegration(
-    request: components.UpdateAwsIntegrationRequest,
+    request: components.CloudAccountsAwsUpdateIntegrationRequest,
     options?: RequestOptions,
-  ): Promise<components.UpdateAwsIntegrationResponse> {
+  ): Promise<components.CloudAccountsAwsUpdateIntegrationResponse> {
     return unwrapAsync(cloudAccountsUpdateAwsIntegration(
       this,
       request,
@@ -72,7 +72,7 @@ export class CloudAccounts extends ClientSDK {
   async validateMgmtAccountOnboarding(
     request: operations.ValidateMgmtAccountOnboardingRequest,
     options?: RequestOptions,
-  ): Promise<components.MgmtAccountOnboardingResponse> {
+  ): Promise<components.CloudAccountsAwsMgmtAccountOnboardingResponse> {
     return unwrapAsync(cloudAccountsValidateMgmtAccountOnboarding(
       this,
       request,

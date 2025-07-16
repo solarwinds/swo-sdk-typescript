@@ -43,7 +43,7 @@ export type ListMetricMeasurementsRequest = {
   /**
    * Indicates what type of data to return.
    */
-  seriesType: components.MetricSeriesType;
+  seriesType: components.MetricsMetricSeriesType;
   /**
    * Timestamp in ISO 8601 format in UTC timezone: yyyy-MM-ddTHH:mm:ssZ
    */
@@ -88,7 +88,7 @@ export const ListMetricMeasurementsRequest$inboundSchema: z.ZodType<
   bucketSizeInSeconds: z.number().int().optional(),
   preGroupBy: z.string().optional(),
   preGroupByMethod: z.string().optional(),
-  seriesType: components.MetricSeriesType$inboundSchema,
+  seriesType: components.MetricsMetricSeriesType$inboundSchema,
   startTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
   endTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
@@ -126,7 +126,7 @@ export const ListMetricMeasurementsRequest$outboundSchema: z.ZodType<
   bucketSizeInSeconds: z.number().int().optional(),
   preGroupBy: z.string().optional(),
   preGroupByMethod: z.string().optional(),
-  seriesType: components.MetricSeriesType$outboundSchema,
+  seriesType: components.MetricsMetricSeriesType$outboundSchema,
   startTime: z.date().transform(v => v.toISOString()).optional(),
   endTime: z.date().transform(v => v.toISOString()).optional(),
   pageSize: z.number().int().optional(),

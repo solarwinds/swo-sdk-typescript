@@ -82,7 +82,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.ObserveDatabaseRequest](../../models/components/observedatabaserequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [components.DboObserveDatabaseRequest](../../models/components/dboobservedatabaserequest.md)                                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -157,7 +157,7 @@ run();
 
 ### Response
 
-**Promise\<[components.DatabaseCredentialsPublicKeyResponse](../../models/components/databasecredentialspublickeyresponse.md)\>**
+**Promise\<[components.DboDatabaseCredentialsPublicKeyResponse](../../models/components/dbodatabasecredentialspublickeyresponse.md)\>**
 
 ### Errors
 
@@ -183,7 +183,7 @@ const swo = new Swo({
 async function run() {
   await swo.dbo.updateDatabase({
     entityId: "<id>",
-    updateDatabaseRequest: {},
+    dboUpdateDatabaseRequest: {},
   });
 
 
@@ -209,7 +209,7 @@ const swo = new SwoCore({
 async function run() {
   const res = await dboUpdateDatabase(swo, {
     entityId: "<id>",
-    updateDatabaseRequest: {},
+    dboUpdateDatabaseRequest: {},
   });
   if (res.ok) {
     const { value: result } = res;
@@ -381,7 +381,7 @@ run();
 
 ### Response
 
-**Promise\<[components.DatabasePluginConfigResponse](../../models/components/databasepluginconfigresponse.md)\>**
+**Promise\<[components.DboDatabasePluginConfigResponse](../../models/components/dbodatabasepluginconfigresponse.md)\>**
 
 ### Errors
 
@@ -455,7 +455,7 @@ run();
 
 ### Response
 
-**Promise\<[components.DatabasePluginStatusResponse](../../models/components/databasepluginstatusresponse.md)\>**
+**Promise\<[components.DboDatabasePluginStatusResponse](../../models/components/dbodatabasepluginstatusresponse.md)\>**
 
 ### Errors
 

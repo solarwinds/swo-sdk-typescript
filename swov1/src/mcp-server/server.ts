@@ -69,7 +69,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Swo",
-    version: "0.3.0",
+    version: "0.4.0",
   });
 
   const client = new SwoCore({

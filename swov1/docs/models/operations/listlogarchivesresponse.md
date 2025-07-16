@@ -5,7 +5,15 @@
 ```typescript
 import { ListLogArchivesResponse } from "@solarwinds/swo-sdk-typescript/models/operations";
 
-let value: ListLogArchivesResponse = {};
+let value: ListLogArchivesResponse = {
+  result: {
+    logArchives: [],
+    pageInfo: {
+      prevPage: "<value>",
+      nextPage: "<value>",
+    },
+  },
+};
 ```
 
 ## Fields

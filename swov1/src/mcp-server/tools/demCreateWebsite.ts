@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.Website$inboundSchema,
+  request: components.DemWebsite$inboundSchema,
 };
 
 export const tool$demCreateWebsite: ToolDefinition<typeof args> = {

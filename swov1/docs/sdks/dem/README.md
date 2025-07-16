@@ -80,7 +80,7 @@ run();
 
 ### Response
 
-**Promise\<[components.ListProbesResponse](../../models/components/listprobesresponse.md)\>**
+**Promise\<[components.DemListProbesResponse](../../models/components/demlistprobesresponse.md)\>**
 
 ### Errors
 
@@ -148,7 +148,7 @@ run();
 
 ### Response
 
-**Promise\<[components.OutageConfiguration](../../models/components/outageconfiguration.md)\>**
+**Promise\<[components.DemOutageConfiguration](../../models/components/demoutageconfiguration.md)\>**
 
 ### Errors
 
@@ -215,7 +215,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.OutageConfiguration](../../models/components/outageconfiguration.md)                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [components.DemOutageConfiguration](../../models/components/demoutageconfiguration.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -359,14 +359,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.Uri](../../models/components/uri.md)                                                                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [components.DemUri](../../models/components/demuri.md)                                                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -439,7 +439,7 @@ run();
 
 ### Response
 
-**Promise\<[components.GetUriResponse](../../models/components/geturiresponse.md)\>**
+**Promise\<[components.DemGetUriResponse](../../models/components/demgeturiresponse.md)\>**
 
 ### Errors
 
@@ -464,7 +464,7 @@ const swo = new Swo({
 async function run() {
   const result = await swo.dem.updateUri({
     entityId: "<id>",
-    uri: {
+    demUri: {
       name: "solarwinds.com",
       ipOrDomain: "solarwinds.com",
       availabilityCheckSettings: {
@@ -531,7 +531,7 @@ const swo = new SwoCore({
 async function run() {
   const res = await demUpdateUri(swo, {
     entityId: "<id>",
-    uri: {
+    demUri: {
       name: "solarwinds.com",
       ipOrDomain: "solarwinds.com",
       availabilityCheckSettings: {
@@ -596,7 +596,7 @@ run();
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -670,7 +670,7 @@ run();
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -743,7 +743,7 @@ run();
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -816,7 +816,7 @@ run();
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -984,14 +984,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.Website](../../models/components/website.md)                                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [components.DemWebsite](../../models/components/demwebsite.md)                                                                                                                 | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -1064,7 +1064,7 @@ run();
 
 ### Response
 
-**Promise\<[components.GetWebsiteResponse](../../models/components/getwebsiteresponse.md)\>**
+**Promise\<[components.DemGetWebsiteResponse](../../models/components/demgetwebsiteresponse.md)\>**
 
 ### Errors
 
@@ -1089,7 +1089,7 @@ const swo = new Swo({
 async function run() {
   const result = await swo.dem.updateWebsite({
     entityId: "<id>",
-    website: {
+    demWebsite: {
       name: "solarwinds.com",
       url: "https://www.solarwinds.com",
       availabilityCheckSettings: {
@@ -1168,7 +1168,7 @@ const swo = new SwoCore({
 async function run() {
   const res = await demUpdateWebsite(swo, {
     entityId: "<id>",
-    website: {
+    demWebsite: {
       name: "solarwinds.com",
       url: "https://www.solarwinds.com",
       availabilityCheckSettings: {
@@ -1245,7 +1245,7 @@ run();
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -1319,7 +1319,7 @@ run();
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -1392,7 +1392,7 @@ run();
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 
@@ -1465,7 +1465,7 @@ run();
 
 ### Response
 
-**Promise\<[components.EntityId](../../models/components/entityid.md)\>**
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
 
 ### Errors
 

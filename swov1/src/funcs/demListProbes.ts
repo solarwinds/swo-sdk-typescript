@@ -31,7 +31,7 @@ export function demListProbes(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.ListProbesResponse,
+    components.DemListProbesResponse,
     | errors.ListProbesInternalServerError
     | SwoError
     | ResponseValidationError
@@ -55,7 +55,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.ListProbesResponse,
+      components.DemListProbesResponse,
       | errors.ListProbesInternalServerError
       | SwoError
       | ResponseValidationError
@@ -134,7 +134,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.ListProbesResponse,
+    components.DemListProbesResponse,
     | errors.ListProbesInternalServerError
     | SwoError
     | ResponseValidationError
@@ -145,7 +145,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.ListProbesResponse$inboundSchema),
+    M.json(200, components.DemListProbesResponse$inboundSchema),
     M.jsonErr(500, errors.ListProbesInternalServerError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

@@ -13,7 +13,7 @@ export class ChangeEvents extends ClientSDK {
    * Create an event
    */
   async createChangeEvent(
-    request: components.ChangeEvent,
+    request: components.ChangeEventsChangeEvent,
     options?: RequestOptions,
   ): Promise<operations.CreateChangeEventResponse> {
     return unwrapAsync(changeEventsCreateChangeEvent(

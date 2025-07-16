@@ -32,7 +32,7 @@ export type ListEntitiesRequest = {
  * The request has succeeded.
  */
 export type ListEntitiesResponseBody = {
-  entities: Array<components.Entity>;
+  entities: Array<components.EntitiesEntity>;
   pageInfo: components.CommonPageInfo;
 };
 
@@ -109,13 +109,13 @@ export const ListEntitiesResponseBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  entities: z.array(components.Entity$inboundSchema),
+  entities: z.array(components.EntitiesEntity$inboundSchema),
   pageInfo: components.CommonPageInfo$inboundSchema,
 });
 
 /** @internal */
 export type ListEntitiesResponseBody$Outbound = {
-  entities: Array<components.Entity$Outbound>;
+  entities: Array<components.EntitiesEntity$Outbound>;
   pageInfo: components.CommonPageInfo$Outbound;
 };
 
@@ -125,7 +125,7 @@ export const ListEntitiesResponseBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListEntitiesResponseBody
 > = z.object({
-  entities: z.array(components.Entity$outboundSchema),
+  entities: z.array(components.EntitiesEntity$outboundSchema),
   pageInfo: components.CommonPageInfo$outboundSchema,
 });
 

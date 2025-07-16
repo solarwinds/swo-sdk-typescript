@@ -35,7 +35,7 @@ export function entitiesGetEntityById(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.Entity,
+    components.EntitiesEntity,
     | errors.GetEntityByIdBadRequestError
     | errors.GetEntityByIdUnauthorizedError
     | errors.GetEntityByIdNotFoundError
@@ -63,7 +63,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.Entity,
+      components.EntitiesEntity,
       | errors.GetEntityByIdBadRequestError
       | errors.GetEntityByIdUnauthorizedError
       | errors.GetEntityByIdNotFoundError
@@ -163,7 +163,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.Entity,
+    components.EntitiesEntity,
     | errors.GetEntityByIdBadRequestError
     | errors.GetEntityByIdUnauthorizedError
     | errors.GetEntityByIdNotFoundError
@@ -176,7 +176,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.Entity$inboundSchema),
+    M.json(200, components.EntitiesEntity$inboundSchema),
     M.jsonErr(400, errors.GetEntityByIdBadRequestError$inboundSchema),
     M.jsonErr(401, errors.GetEntityByIdUnauthorizedError$inboundSchema),
     M.jsonErr(404, errors.GetEntityByIdNotFoundError$inboundSchema),

@@ -5,7 +5,15 @@
 ```typescript
 import { SearchLogsResponse } from "@solarwinds/swo-sdk-typescript/models/operations";
 
-let value: SearchLogsResponse = {};
+let value: SearchLogsResponse = {
+  result: {
+    logs: [],
+    pageInfo: {
+      prevPage: "<value>",
+      nextPage: "<value>",
+    },
+  },
+};
 ```
 
 ## Fields

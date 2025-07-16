@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.CreateTokenRequest$inboundSchema,
+  request: components.TokensCreateTokenRequest$inboundSchema,
 };
 
 export const tool$tokensCreateToken: ToolDefinition<typeof args> = {

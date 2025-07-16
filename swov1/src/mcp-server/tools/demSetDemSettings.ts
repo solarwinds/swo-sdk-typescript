@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.OutageConfiguration$inboundSchema,
+  request: components.DemOutageConfiguration$inboundSchema,
 };
 
 export const tool$demSetDemSettings: ToolDefinition<typeof args> = {

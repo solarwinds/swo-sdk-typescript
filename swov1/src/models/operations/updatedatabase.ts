@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateDatabaseRequest = {
   entityId: string;
-  updateDatabaseRequest: components.UpdateDatabaseRequest;
+  dboUpdateDatabaseRequest: components.DboUpdateDatabaseRequest;
 };
 
 /** @internal */
@@ -21,17 +21,18 @@ export const UpdateDatabaseRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   entityId: z.string(),
-  UpdateDatabaseRequest: components.UpdateDatabaseRequest$inboundSchema,
+  "Dbo.UpdateDatabaseRequest":
+    components.DboUpdateDatabaseRequest$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "UpdateDatabaseRequest": "updateDatabaseRequest",
+    "Dbo.UpdateDatabaseRequest": "dboUpdateDatabaseRequest",
   });
 });
 
 /** @internal */
 export type UpdateDatabaseRequest$Outbound = {
   entityId: string;
-  UpdateDatabaseRequest: components.UpdateDatabaseRequest$Outbound;
+  "Dbo.UpdateDatabaseRequest": components.DboUpdateDatabaseRequest$Outbound;
 };
 
 /** @internal */
@@ -41,10 +42,10 @@ export const UpdateDatabaseRequest$outboundSchema: z.ZodType<
   UpdateDatabaseRequest
 > = z.object({
   entityId: z.string(),
-  updateDatabaseRequest: components.UpdateDatabaseRequest$outboundSchema,
+  dboUpdateDatabaseRequest: components.DboUpdateDatabaseRequest$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    updateDatabaseRequest: "UpdateDatabaseRequest",
+    dboUpdateDatabaseRequest: "Dbo.UpdateDatabaseRequest",
   });
 });
 

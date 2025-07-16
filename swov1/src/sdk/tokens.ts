@@ -12,9 +12,9 @@ export class Tokens extends ClientSDK {
    * Create ingestion token
    */
   async createToken(
-    request: components.CreateTokenRequest,
+    request: components.TokensCreateTokenRequest,
     options?: RequestOptions,
-  ): Promise<components.CreateTokenResponse> {
+  ): Promise<components.TokensCreateTokenResponse> {
     return unwrapAsync(tokensCreateToken(
       this,
       request,

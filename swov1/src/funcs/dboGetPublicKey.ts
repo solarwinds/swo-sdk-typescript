@@ -31,7 +31,7 @@ export function dboGetPublicKey(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.DatabaseCredentialsPublicKeyResponse,
+    components.DboDatabaseCredentialsPublicKeyResponse,
     | errors.GetPublicKeyBadRequestError
     | errors.GetPublicKeyNotFoundError
     | SwoError
@@ -56,7 +56,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.DatabaseCredentialsPublicKeyResponse,
+      components.DboDatabaseCredentialsPublicKeyResponse,
       | errors.GetPublicKeyBadRequestError
       | errors.GetPublicKeyNotFoundError
       | SwoError
@@ -136,7 +136,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.DatabaseCredentialsPublicKeyResponse,
+    components.DboDatabaseCredentialsPublicKeyResponse,
     | errors.GetPublicKeyBadRequestError
     | errors.GetPublicKeyNotFoundError
     | SwoError
@@ -148,7 +148,10 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.DatabaseCredentialsPublicKeyResponse$inboundSchema),
+    M.json(
+      200,
+      components.DboDatabaseCredentialsPublicKeyResponse$inboundSchema,
+    ),
     M.jsonErr(400, errors.GetPublicKeyBadRequestError$inboundSchema),
     M.jsonErr(404, errors.GetPublicKeyNotFoundError$inboundSchema),
     M.fail("4XX"),

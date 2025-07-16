@@ -35,7 +35,7 @@ export function demUnpauseUriMonitoring(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.EntityId,
+    components.CommonEntityId,
     | errors.UnpauseUriMonitoringNotFoundError
     | SwoError
     | ResponseValidationError
@@ -61,7 +61,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.EntityId,
+      components.CommonEntityId,
       | errors.UnpauseUriMonitoringNotFoundError
       | SwoError
       | ResponseValidationError
@@ -162,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.EntityId,
+    components.CommonEntityId,
     | errors.UnpauseUriMonitoringNotFoundError
     | SwoError
     | ResponseValidationError
@@ -173,7 +173,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.EntityId$inboundSchema),
+    M.json(200, components.CommonEntityId$inboundSchema),
     M.jsonErr(404, errors.UnpauseUriMonitoringNotFoundError$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

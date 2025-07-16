@@ -152,14 +152,14 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.CompositeMetric](../../models/components/compositemetric.md)                                                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [components.MetricsCompositeMetric](../../models/components/metricscompositemetric.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
 
 ### Response
 
-**Promise\<[components.CompositeMetric](../../models/components/compositemetric.md)\>**
+**Promise\<[components.MetricsCompositeMetric](../../models/components/metricscompositemetric.md)\>**
 
 ### Errors
 
@@ -287,7 +287,7 @@ const swo = new Swo({
 async function run() {
   const result = await swo.metrics.updateCompositeMetric({
     name: "<value>",
-    updateCompositeMetric: {
+    metricsUpdateCompositeMetricRequest: {
       displayName: "Disk IO rate",
       description: "Disk bytes transferred per second",
       formula: "rate(system.disk.io[5m])",
@@ -318,7 +318,7 @@ const swo = new SwoCore({
 async function run() {
   const res = await metricsUpdateCompositeMetric(swo, {
     name: "<value>",
-    updateCompositeMetric: {
+    metricsUpdateCompositeMetricRequest: {
       displayName: "Disk IO rate",
       description: "Disk bytes transferred per second",
       formula: "rate(system.disk.io[5m])",
@@ -347,7 +347,7 @@ run();
 
 ### Response
 
-**Promise\<[components.CompositeMetric](../../models/components/compositemetric.md)\>**
+**Promise\<[components.MetricsCompositeMetric](../../models/components/metricscompositemetric.md)\>**
 
 ### Errors
 

@@ -35,7 +35,7 @@ export function demUpdateUri(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.EntityId,
+    components.CommonEntityId,
     | errors.UpdateUriBadRequestError
     | errors.UpdateUriNotFoundError
     | SwoError
@@ -62,7 +62,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.EntityId,
+      components.CommonEntityId,
       | errors.UpdateUriBadRequestError
       | errors.UpdateUriNotFoundError
       | SwoError
@@ -86,7 +86,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.Uri, { explode: true });
+  const body = encodeJSON("body", payload["Dem.Uri"], { explode: true });
 
   const pathParams = {
     entityId: encodeSimple("entityId", payload.entityId, {
@@ -162,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.EntityId,
+    components.CommonEntityId,
     | errors.UpdateUriBadRequestError
     | errors.UpdateUriNotFoundError
     | SwoError
@@ -174,7 +174,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.EntityId$inboundSchema),
+    M.json(200, components.CommonEntityId$inboundSchema),
     M.jsonErr(400, errors.UpdateUriBadRequestError$inboundSchema),
     M.jsonErr(404, errors.UpdateUriNotFoundError$inboundSchema),
     M.fail("4XX"),

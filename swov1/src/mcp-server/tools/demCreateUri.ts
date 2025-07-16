@@ -7,7 +7,7 @@ import * as components from "../../models/components/index.js";
 import { formatResult, ToolDefinition } from "../tools.js";
 
 const args = {
-  request: components.Uri$inboundSchema,
+  request: components.DemUri$inboundSchema,
 };
 
 export const tool$demCreateUri: ToolDefinition<typeof args> = {

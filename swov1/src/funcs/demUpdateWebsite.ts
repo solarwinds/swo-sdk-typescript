@@ -35,7 +35,7 @@ export function demUpdateWebsite(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.EntityId,
+    components.CommonEntityId,
     | errors.UpdateWebsiteBadRequestError
     | errors.UpdateWebsiteNotFoundError
     | SwoError
@@ -62,7 +62,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.EntityId,
+      components.CommonEntityId,
       | errors.UpdateWebsiteBadRequestError
       | errors.UpdateWebsiteNotFoundError
       | SwoError
@@ -86,7 +86,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.Website, { explode: true });
+  const body = encodeJSON("body", payload["Dem.Website"], { explode: true });
 
   const pathParams = {
     entityId: encodeSimple("entityId", payload.entityId, {
@@ -162,7 +162,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.EntityId,
+    components.CommonEntityId,
     | errors.UpdateWebsiteBadRequestError
     | errors.UpdateWebsiteNotFoundError
     | SwoError
@@ -174,7 +174,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.EntityId$inboundSchema),
+    M.json(200, components.CommonEntityId$inboundSchema),
     M.jsonErr(400, errors.UpdateWebsiteBadRequestError$inboundSchema),
     M.jsonErr(404, errors.UpdateWebsiteNotFoundError$inboundSchema),
     M.fail("4XX"),

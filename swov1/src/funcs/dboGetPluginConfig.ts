@@ -35,7 +35,7 @@ export function dboGetPluginConfig(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.DatabasePluginConfigResponse,
+    components.DboDatabasePluginConfigResponse,
     | errors.GetPluginConfigBadRequestError
     | errors.GetPluginConfigNotFoundError
     | SwoError
@@ -62,7 +62,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.DatabasePluginConfigResponse,
+      components.DboDatabasePluginConfigResponse,
       | errors.GetPluginConfigBadRequestError
       | errors.GetPluginConfigNotFoundError
       | SwoError
@@ -163,7 +163,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.DatabasePluginConfigResponse,
+    components.DboDatabasePluginConfigResponse,
     | errors.GetPluginConfigBadRequestError
     | errors.GetPluginConfigNotFoundError
     | SwoError
@@ -175,7 +175,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.DatabasePluginConfigResponse$inboundSchema),
+    M.json(200, components.DboDatabasePluginConfigResponse$inboundSchema),
     M.jsonErr(400, errors.GetPluginConfigBadRequestError$inboundSchema),
     M.jsonErr(404, errors.GetPluginConfigNotFoundError$inboundSchema),
     M.fail("4XX"),

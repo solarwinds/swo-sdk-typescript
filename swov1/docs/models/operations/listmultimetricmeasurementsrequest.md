@@ -5,7 +5,11 @@
 ```typescript
 import { ListMultiMetricMeasurementsRequest } from "@solarwinds/swo-sdk-typescript/models/operations";
 
-let value: ListMultiMetricMeasurementsRequest = {};
+let value: ListMultiMetricMeasurementsRequest = {
+  requestBody: {
+    metrics: [],
+  },
+};
 ```
 
 ## Fields

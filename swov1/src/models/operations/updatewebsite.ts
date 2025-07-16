@@ -14,7 +14,7 @@ export type UpdateWebsiteRequest = {
   /**
    * The updated website monitoring configuration
    */
-  website: components.Website;
+  demWebsite: components.DemWebsite;
 };
 
 /** @internal */
@@ -24,17 +24,17 @@ export const UpdateWebsiteRequest$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   entityId: z.string(),
-  Website: components.Website$inboundSchema,
+  "Dem.Website": components.DemWebsite$inboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    "Website": "website",
+    "Dem.Website": "demWebsite",
   });
 });
 
 /** @internal */
 export type UpdateWebsiteRequest$Outbound = {
   entityId: string;
-  Website: components.Website$Outbound;
+  "Dem.Website": components.DemWebsite$Outbound;
 };
 
 /** @internal */
@@ -44,10 +44,10 @@ export const UpdateWebsiteRequest$outboundSchema: z.ZodType<
   UpdateWebsiteRequest
 > = z.object({
   entityId: z.string(),
-  website: components.Website$outboundSchema,
+  demWebsite: components.DemWebsite$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
-    website: "Website",
+    demWebsite: "Dem.Website",
   });
 });
 

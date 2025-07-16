@@ -10,7 +10,7 @@ import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ListMultiMetricMeasurementsRequestBody = {
-  metrics: Array<components.MetricMeasurementsRequest>;
+  metrics: Array<components.MetricsMeasurementsRequest>;
   /**
    * Timestamp in ISO 8601 format in UTC timezone: yyyy-MM-ddTHH:mm:ssZ
    */
@@ -74,7 +74,7 @@ export const ListMultiMetricMeasurementsRequestBody$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  metrics: z.array(components.MetricMeasurementsRequest$inboundSchema),
+  metrics: z.array(components.MetricsMeasurementsRequest$inboundSchema),
   startTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
   endTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
@@ -83,7 +83,7 @@ export const ListMultiMetricMeasurementsRequestBody$inboundSchema: z.ZodType<
 
 /** @internal */
 export type ListMultiMetricMeasurementsRequestBody$Outbound = {
-  metrics: Array<components.MetricMeasurementsRequest$Outbound>;
+  metrics: Array<components.MetricsMeasurementsRequest$Outbound>;
   startTime?: string | undefined;
   endTime?: string | undefined;
 };
@@ -94,7 +94,7 @@ export const ListMultiMetricMeasurementsRequestBody$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListMultiMetricMeasurementsRequestBody
 > = z.object({
-  metrics: z.array(components.MetricMeasurementsRequest$outboundSchema),
+  metrics: z.array(components.MetricsMeasurementsRequest$outboundSchema),
   startTime: z.date().transform(v => v.toISOString()).optional(),
   endTime: z.date().transform(v => v.toISOString()).optional(),
 });
