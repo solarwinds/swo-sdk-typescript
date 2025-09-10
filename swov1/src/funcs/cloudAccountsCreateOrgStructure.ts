@@ -39,10 +39,10 @@ export function cloudAccountsCreateOrgStructure(
 ): APIPromise<
   Result<
     void,
-    | errors.CreateOrgStructureBadRequestError
-    | errors.CreateOrgStructureUnauthorizedError
-    | errors.CreateOrgStructureNotFoundError
-    | errors.CreateOrgStructureInternalServerError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -68,10 +68,10 @@ async function $do(
   [
     Result<
       void,
-      | errors.CreateOrgStructureBadRequestError
-      | errors.CreateOrgStructureUnauthorizedError
-      | errors.CreateOrgStructureNotFoundError
-      | errors.CreateOrgStructureInternalServerError
+      | errors.CommonBadRequestErrorResponse
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonNotFoundErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -166,10 +166,10 @@ async function $do(
 
   const [result] = await M.match<
     void,
-    | errors.CreateOrgStructureBadRequestError
-    | errors.CreateOrgStructureUnauthorizedError
-    | errors.CreateOrgStructureNotFoundError
-    | errors.CreateOrgStructureInternalServerError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -180,10 +180,10 @@ async function $do(
     | SDKValidationError
   >(
     M.nil(200, z.void()),
-    M.jsonErr(400, errors.CreateOrgStructureBadRequestError$inboundSchema),
-    M.jsonErr(401, errors.CreateOrgStructureUnauthorizedError$inboundSchema),
-    M.jsonErr(404, errors.CreateOrgStructureNotFoundError$inboundSchema),
-    M.jsonErr(500, errors.CreateOrgStructureInternalServerError$inboundSchema),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

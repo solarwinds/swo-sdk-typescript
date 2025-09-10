@@ -7,7 +7,7 @@ Indicates what type of data to return.
 ```typescript
 import { SeriesType } from "@solarwinds/swo-sdk-typescript/models/components";
 
-let value: SeriesType = "SCALAR";
+let value: SeriesType = "TIMESERIES";
 ```
 
 ## Values

@@ -39,10 +39,10 @@ export function cloudAccountsActivateAwsIntegration(
 ): APIPromise<
   Result<
     void,
-    | errors.ActivateAwsIntegrationBadRequestError
-    | errors.ActivateAwsIntegrationUnauthorizedError
-    | errors.ActivateAwsIntegrationNotFoundError
-    | errors.ActivateAwsIntegrationInternalServerError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -68,10 +68,10 @@ async function $do(
   [
     Result<
       void,
-      | errors.ActivateAwsIntegrationBadRequestError
-      | errors.ActivateAwsIntegrationUnauthorizedError
-      | errors.ActivateAwsIntegrationNotFoundError
-      | errors.ActivateAwsIntegrationInternalServerError
+      | errors.CommonBadRequestErrorResponse
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonNotFoundErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -165,10 +165,10 @@ async function $do(
 
   const [result] = await M.match<
     void,
-    | errors.ActivateAwsIntegrationBadRequestError
-    | errors.ActivateAwsIntegrationUnauthorizedError
-    | errors.ActivateAwsIntegrationNotFoundError
-    | errors.ActivateAwsIntegrationInternalServerError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -179,16 +179,10 @@ async function $do(
     | SDKValidationError
   >(
     M.nil(200, z.void()),
-    M.jsonErr(400, errors.ActivateAwsIntegrationBadRequestError$inboundSchema),
-    M.jsonErr(
-      401,
-      errors.ActivateAwsIntegrationUnauthorizedError$inboundSchema,
-    ),
-    M.jsonErr(404, errors.ActivateAwsIntegrationNotFoundError$inboundSchema),
-    M.jsonErr(
-      500,
-      errors.ActivateAwsIntegrationInternalServerError$inboundSchema,
-    ),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

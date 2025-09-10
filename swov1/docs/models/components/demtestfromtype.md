@@ -1,6 +1,6 @@
 # DemTestFromType
 
-Specificity for location of synthetic probes to be used for availability tests.
+Geographic scope for selecting synthetic probe locations.
 
 ## Example Usage
 

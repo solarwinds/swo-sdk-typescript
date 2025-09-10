@@ -9,7 +9,7 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Specificity for location of synthetic probes to be used for availability tests.
+ * Geographic scope for selecting synthetic probe locations.
  */
 export const DemTestFromType = {
   Region: "REGION",
@@ -17,13 +17,13 @@ export const DemTestFromType = {
   City: "CITY",
 } as const;
 /**
- * Specificity for location of synthetic probes to be used for availability tests.
+ * Geographic scope for selecting synthetic probe locations.
  */
 export type DemTestFromType = ClosedEnum<typeof DemTestFromType>;
 
 export type DemTestFrom = {
   /**
-   * Specificity for location of synthetic probes to be used for availability tests.
+   * Geographic scope for selecting synthetic probe locations.
    */
   type: DemTestFromType;
   /**

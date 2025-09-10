@@ -36,8 +36,10 @@ export function dboDeleteDatabase(
 ): APIPromise<
   Result<
     void,
-    | errors.DeleteDatabaseBadRequestError
-    | errors.DeleteDatabaseNotFoundError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -63,8 +65,10 @@ async function $do(
   [
     Result<
       void,
-      | errors.DeleteDatabaseBadRequestError
-      | errors.DeleteDatabaseNotFoundError
+      | errors.CommonBadRequestErrorResponse
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonNotFoundErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -147,7 +151,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "4XX", "5XX"],
+    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -162,8 +166,10 @@ async function $do(
 
   const [result] = await M.match<
     void,
-    | errors.DeleteDatabaseBadRequestError
-    | errors.DeleteDatabaseNotFoundError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -174,8 +180,10 @@ async function $do(
     | SDKValidationError
   >(
     M.nil(204, z.void()),
-    M.jsonErr(400, errors.DeleteDatabaseBadRequestError$inboundSchema),
-    M.jsonErr(404, errors.DeleteDatabaseNotFoundError$inboundSchema),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

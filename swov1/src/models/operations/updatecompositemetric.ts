@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateCompositeMetricRequest = {
   /**
-   * The metric name
+   * Metric name.
    */
   name: string;
   /**

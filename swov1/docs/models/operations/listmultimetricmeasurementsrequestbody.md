@@ -14,6 +14,7 @@ let value: ListMultiMetricMeasurementsRequestBody = {
       groupBy: [
         "query",
       ],
+      aggregateBy: "AVG",
       preGroupBy: [
         "host",
       ],

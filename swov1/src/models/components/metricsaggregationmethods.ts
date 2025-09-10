@@ -6,10 +6,10 @@ import * as z from "zod";
 import { ClosedEnum } from "../../types/enums.js";
 
 export const MetricsAggregationMethods = {
+  Avg: "AVG",
   Count: "COUNT",
   Min: "MIN",
   Max: "MAX",
-  Avg: "AVG",
   Sum: "SUM",
   Last: "LAST",
 } as const;

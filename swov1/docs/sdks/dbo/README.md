@@ -19,6 +19,7 @@ Add database observability to a database
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="observeDatabase" method="post" path="/v1/dbo/databases" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -93,10 +94,12 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.ObserveDatabaseBadRequestError | 400                                   | application/json                      |
-| errors.APIError                       | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## getPublicKey
 
@@ -104,6 +107,7 @@ Get public key for encrypting database credentials locally
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getPublicKey" method="get" path="/v1/dbo/databases/credentials/public-key" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -161,11 +165,13 @@ run();
 
 ### Errors
 
-| Error Type                         | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetPublicKeyBadRequestError | 400                                | application/json                   |
-| errors.GetPublicKeyNotFoundError   | 404                                | application/json                   |
-| errors.APIError                    | 4XX, 5XX                           | \*/\*                              |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## updateDatabase
 
@@ -173,6 +179,7 @@ Update an observed database
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateDatabase" method="patch" path="/v1/dbo/databases/{entityId}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -237,11 +244,13 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.UpdateDatabaseBadRequestError | 400                                  | application/json                     |
-| errors.UpdateDatabaseNotFoundError   | 404                                  | application/json                     |
-| errors.APIError                      | 4XX, 5XX                             | \*/\*                                |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## deleteDatabase
 
@@ -249,6 +258,7 @@ Delete an observed database
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteDatabase" method="delete" path="/v1/dbo/databases/{entityId}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -311,11 +321,13 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.DeleteDatabaseBadRequestError | 400                                  | application/json                     |
-| errors.DeleteDatabaseNotFoundError   | 404                                  | application/json                     |
-| errors.APIError                      | 4XX, 5XX                             | \*/\*                                |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## getPluginConfig
 
@@ -323,6 +335,7 @@ Get configuration of plugins observing a database
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getPluginConfig" method="get" path="/v1/dbo/databases/{entityId}/pluginConfig" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -385,11 +398,13 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.GetPluginConfigBadRequestError | 400                                   | application/json                      |
-| errors.GetPluginConfigNotFoundError   | 404                                   | application/json                      |
-| errors.APIError                       | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## getPlugins
 
@@ -397,6 +412,7 @@ Get status of plugins observing a database
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getPlugins" method="get" path="/v1/dbo/databases/{entityId}/plugins" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -459,11 +475,13 @@ run();
 
 ### Errors
 
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.GetPluginsBadRequestError | 400                              | application/json                 |
-| errors.GetPluginsNotFoundError   | 404                              | application/json                 |
-| errors.APIError                  | 4XX, 5XX                         | \*/\*                            |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## pluginOperation
 
@@ -471,6 +489,7 @@ Apply an operation on a database observability plugin
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="pluginOperation" method="post" path="/v1/dbo/databases/{entityId}/plugins/operation/{operation}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -535,8 +554,10 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.PluginOperationBadRequestError | 400                                   | application/json                      |
-| errors.PluginOperationNotFoundError   | 404                                   | application/json                      |
-| errors.APIError                       | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |

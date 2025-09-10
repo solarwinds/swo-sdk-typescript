@@ -7,20 +7,31 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import {
-  MetricsAggregationMethods,
-  MetricsAggregationMethods$inboundSchema,
-  MetricsAggregationMethods$outboundSchema,
-} from "./metricsaggregationmethods.js";
+
+/**
+ * Aggregation method used to group measurements.
+ */
+export const AggregateBy = {
+  Avg: "AVG",
+  Count: "COUNT",
+  Min: "MIN",
+  Max: "MAX",
+  Sum: "SUM",
+  Last: "LAST",
+} as const;
+/**
+ * Aggregation method used to group measurements.
+ */
+export type AggregateBy = ClosedEnum<typeof AggregateBy>;
 
 /**
  * Aggregation method for secondary grouping, inside individual buckets. Has to be set together with `preGroupBy`.
  */
 export const PreGroupByMethod = {
+  Avg: "AVG",
   Count: "COUNT",
   Min: "MIN",
   Max: "MAX",
-  Avg: "AVG",
   Sum: "SUM",
   Last: "LAST",
 } as const;
@@ -75,7 +86,7 @@ export type MetricsMeasurementsRequest = {
   /**
    * Aggregation method used to group measurements.
    */
-  aggregateBy?: MetricsAggregationMethods | undefined;
+  aggregateBy?: AggregateBy | undefined;
   /**
    * Secondary grouping, allowing aggregation inside individual buckets. Has to be set together with `preGroupByMethod`.
    */
@@ -97,6 +108,25 @@ export type MetricsMeasurementsRequest = {
    */
   fillIfEmpty?: boolean | undefined;
 };
+
+/** @internal */
+export const AggregateBy$inboundSchema: z.ZodNativeEnum<typeof AggregateBy> = z
+  .nativeEnum(AggregateBy);
+
+/** @internal */
+export const AggregateBy$outboundSchema: z.ZodNativeEnum<typeof AggregateBy> =
+  AggregateBy$inboundSchema;
+
+/**
+ * @internal
+ * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ */
+export namespace AggregateBy$ {
+  /** @deprecated use `AggregateBy$inboundSchema` instead. */
+  export const inboundSchema = AggregateBy$inboundSchema;
+  /** @deprecated use `AggregateBy$outboundSchema` instead. */
+  export const outboundSchema = AggregateBy$outboundSchema;
+}
 
 /** @internal */
 export const PreGroupByMethod$inboundSchema: z.ZodNativeEnum<
@@ -167,7 +197,7 @@ export const MetricsMeasurementsRequest$inboundSchema: z.ZodType<
   name: z.string(),
   filter: z.string().optional(),
   groupBy: z.array(z.string()).optional(),
-  aggregateBy: MetricsAggregationMethods$inboundSchema.optional(),
+  aggregateBy: AggregateBy$inboundSchema.optional(),
   preGroupBy: z.array(z.string()).optional(),
   preGroupByMethod: PreGroupByMethod$inboundSchema.optional(),
   seriesType: SeriesType$inboundSchema.default("TIMESERIES"),
@@ -199,7 +229,7 @@ export const MetricsMeasurementsRequest$outboundSchema: z.ZodType<
   name: z.string(),
   filter: z.string().optional(),
   groupBy: z.array(z.string()).optional(),
-  aggregateBy: MetricsAggregationMethods$outboundSchema.optional(),
+  aggregateBy: AggregateBy$outboundSchema.optional(),
   preGroupBy: z.array(z.string()).optional(),
   preGroupByMethod: PreGroupByMethod$outboundSchema.optional(),
   seriesType: SeriesType$outboundSchema.default("TIMESERIES"),

@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ListMetricsRequest = {
   /**
-   * metric name
+   * Metric name.
    */
   name?: string | undefined;
   /**

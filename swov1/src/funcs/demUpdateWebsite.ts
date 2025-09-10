@@ -36,8 +36,10 @@ export function demUpdateWebsite(
 ): APIPromise<
   Result<
     components.CommonEntityId,
-    | errors.UpdateWebsiteBadRequestError
-    | errors.UpdateWebsiteNotFoundError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -63,8 +65,10 @@ async function $do(
   [
     Result<
       components.CommonEntityId,
-      | errors.UpdateWebsiteBadRequestError
-      | errors.UpdateWebsiteNotFoundError
+      | errors.CommonBadRequestErrorResponse
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonNotFoundErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -148,7 +152,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "404", "4XX", "5XX"],
+    errorCodes: ["400", "401", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -163,8 +167,10 @@ async function $do(
 
   const [result] = await M.match<
     components.CommonEntityId,
-    | errors.UpdateWebsiteBadRequestError
-    | errors.UpdateWebsiteNotFoundError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -175,8 +181,10 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, components.CommonEntityId$inboundSchema),
-    M.jsonErr(400, errors.UpdateWebsiteBadRequestError$inboundSchema),
-    M.jsonErr(404, errors.UpdateWebsiteNotFoundError$inboundSchema),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

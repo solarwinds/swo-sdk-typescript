@@ -15,6 +15,7 @@ Get a list of entities by type. A returned empty list indicates no entities matc
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listEntities" method="get" path="/v1/entities" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -81,11 +82,12 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ListEntitiesBadRequestError   | 400                                  | application/json                     |
-| errors.ListEntitiesUnauthorizedError | 401                                  | application/json                     |
-| errors.APIError                      | 4XX, 5XX                             | \*/\*                                |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## getEntityById
 
@@ -93,6 +95,7 @@ Get an entity by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getEntityById" method="get" path="/v1/entities/{id}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -155,12 +158,13 @@ run();
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.GetEntityByIdBadRequestError   | 400                                   | application/json                      |
-| errors.GetEntityByIdUnauthorizedError | 401                                   | application/json                      |
-| errors.GetEntityByIdNotFoundError     | 404                                   | application/json                      |
-| errors.APIError                       | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## updateEntityById
 
@@ -168,6 +172,7 @@ Update an entity by ID
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateEntityById" method="put" path="/v1/entities/{id}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -244,9 +249,10 @@ run();
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.UpdateEntityByIdBadRequestError   | 400                                      | application/json                         |
-| errors.UpdateEntityByIdUnauthorizedError | 401                                      | application/json                         |
-| errors.UpdateEntityByIdNotFoundError     | 404                                      | application/json                         |
-| errors.APIError                          | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |

@@ -21,6 +21,7 @@ List metrics available within a time period.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listMetrics" method="get" path="/v1/metrics" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -83,9 +84,11 @@ run();
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## createCompositeMetric
 
@@ -93,6 +96,7 @@ Create a composite metric given a PromQL query.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createCompositeMetric" method="post" path="/v1/metrics" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -163,11 +167,13 @@ run();
 
 ### Errors
 
-| Error Type                                  | Status Code                                 | Content Type                                |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| errors.CreateCompositeMetricBadRequestError | 400                                         | application/json                            |
-| errors.ConflictError                        | 409                                         | application/json                            |
-| errors.APIError                             | 4XX, 5XX                                    | \*/\*                                       |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonConflictErrorResponse     | 409                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## listMultiMetricMeasurements
 
@@ -196,6 +202,7 @@ run();
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listMultiMetricMeasurements" method="post" path="/v1/metrics/measurements" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -266,10 +273,12 @@ run();
 
 ### Errors
 
-| Error Type                                        | Status Code                                       | Content Type                                      |
-| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| errors.ListMultiMetricMeasurementsBadRequestError | 400                                               | application/json                                  |
-| errors.APIError                                   | 4XX, 5XX                                          | \*/\*                                             |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## updateCompositeMetric
 
@@ -277,6 +286,7 @@ Update a composite metric given a metric name.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateCompositeMetric" method="put" path="/v1/metrics/{name}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -351,12 +361,14 @@ run();
 
 ### Errors
 
-| Error Type                                  | Status Code                                 | Content Type                                |
-| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
-| errors.UpdateCompositeMetricBadRequestError | 400                                         | application/json                            |
-| errors.UpdateCompositeMetricForbiddenError  | 403                                         | application/json                            |
-| errors.UpdateCompositeMetricNotFoundError   | 404                                         | application/json                            |
-| errors.APIError                             | 4XX, 5XX                                    | \*/\*                                       |
+| Error Type                                 | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.CommonBadRequestErrorResponse       | 400                                        | application/json                           |
+| errors.CommonUnauthorizedErrorResponse     | 401                                        | application/json                           |
+| errors.MetricsMetricForbiddenErrorResponse | 403                                        | application/json                           |
+| errors.CommonNotFoundErrorResponse         | 404                                        | application/json                           |
+| errors.CommonInternalErrorResponse         | 500                                        | application/json                           |
+| errors.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
 
 ## deleteCompositeMetric
 
@@ -364,6 +376,7 @@ Delete a composite metric given a metric name.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteCompositeMetric" method="delete" path="/v1/metrics/{name}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -428,8 +441,10 @@ run();
 
 | Error Type                                 | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.DeleteCompositeMetricForbiddenError | 403                                        | application/json                           |
-| errors.DeleteCompositeMetricNotFoundError  | 404                                        | application/json                           |
+| errors.CommonUnauthorizedErrorResponse     | 401                                        | application/json                           |
+| errors.MetricsMetricForbiddenErrorResponse | 403                                        | application/json                           |
+| errors.CommonNotFoundErrorResponse         | 404                                        | application/json                           |
+| errors.CommonInternalErrorResponse         | 500                                        | application/json                           |
 | errors.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
 
 ## getMetricByName
@@ -438,6 +453,7 @@ Get information about a given metric.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getMetricByName" method="get" path="/v1/metrics/{name}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -504,10 +520,12 @@ run();
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.GetMetricByNameNotFoundError | 404                                 | application/json                    |
-| errors.APIError                     | 4XX, 5XX                            | \*/\*                               |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## listMetricAttributes
 
@@ -515,6 +533,7 @@ List attribute names for a given metric.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listMetricAttributes" method="get" path="/v1/metrics/{name}/attributes" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -581,10 +600,12 @@ run();
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.ListMetricAttributesNotFoundError | 404                                      | application/json                         |
-| errors.APIError                          | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## listMetricAttributeValues
 
@@ -592,6 +613,7 @@ List the values of a given metric's attribute.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listMetricAttributeValues" method="get" path="/v1/metrics/{name}/attributes/{attributeName}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -660,10 +682,12 @@ run();
 
 ### Errors
 
-| Error Type                                    | Status Code                                   | Content Type                                  |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| errors.ListMetricAttributeValuesNotFoundError | 404                                           | application/json                              |
-| errors.APIError                               | 4XX, 5XX                                      | \*/\*                                         |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## listMetricMeasurements
 
@@ -671,6 +695,7 @@ List metric measurement values, grouped by attributes, filtered by the filter. A
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listMetricMeasurements" method="get" path="/v1/metrics/{name}/measurements" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -739,7 +764,9 @@ run();
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.ListMetricMeasurementsNotFoundError | 404                                        | application/json                           |
-| errors.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
