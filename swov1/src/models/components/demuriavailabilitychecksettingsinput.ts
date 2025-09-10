@@ -20,7 +20,7 @@ import {
 } from "./demtestfrom.js";
 
 /**
- * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, no particular cloud platform will be enforced.
+ * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, any available cloud platform may be chosen.
  */
 export type DemUriAvailabilityCheckSettingsInputPlatformOptions = {
   /**
@@ -121,7 +121,7 @@ export type DemUriAvailabilityCheckSettingsInputTcp = {
 
 export type DemUriAvailabilityCheckSettingsInput = {
   /**
-   * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, no particular cloud platform will be enforced.
+   * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, any available cloud platform may be chosen.
    */
   platformOptions?:
     | DemUriAvailabilityCheckSettingsInputPlatformOptions

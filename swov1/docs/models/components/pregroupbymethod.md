@@ -13,5 +13,5 @@ let value: PreGroupByMethod = "SUM";
 ## Values
 
 ```typescript
-"COUNT" | "MIN" | "MAX" | "AVG" | "SUM" | "LAST"
+"AVG" | "COUNT" | "MIN" | "MAX" | "SUM" | "LAST"
 ```

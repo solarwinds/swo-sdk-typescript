@@ -27,6 +27,7 @@ Get a list of existing synthetic probes
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="listProbes" method="get" path="/v1/dem/probes" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -84,10 +85,11 @@ run();
 
 ### Errors
 
-| Error Type                           | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.ListProbesInternalServerError | 500                                  | application/json                     |
-| errors.APIError                      | 4XX, 5XX                             | \*/\*                                |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## getDemSettings
 
@@ -95,6 +97,7 @@ Get DEM settings
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getDemSettings" method="get" path="/v1/dem/settings" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -152,9 +155,11 @@ run();
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## setDemSettings
 
@@ -162,6 +167,7 @@ Set DEM settings
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="setDemSettings" method="put" path="/v1/dem/settings" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -226,9 +232,12 @@ run();
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## createUri
 
@@ -236,6 +245,7 @@ Create URI monitoring configuration
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createUri" method="post" path="/v1/dem/uris" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -370,10 +380,12 @@ run();
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.CreateUriBadRequestError | 400                             | application/json                |
-| errors.APIError                 | 4XX, 5XX                        | \*/\*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## getUri
 
@@ -381,6 +393,7 @@ Get URI monitoring configuration
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getUri" method="get" path="/v1/dem/uris/{entityId}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -443,10 +456,12 @@ run();
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.GetUriNotFoundError | 404                        | application/json           |
-| errors.APIError            | 4XX, 5XX                   | \*/\*                      |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## updateUri
 
@@ -454,6 +469,7 @@ Update URI monitoring configuration
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateUri" method="put" path="/v1/dem/uris/{entityId}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -600,11 +616,13 @@ run();
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.UpdateUriBadRequestError | 400                             | application/json                |
-| errors.UpdateUriNotFoundError   | 404                             | application/json                |
-| errors.APIError                 | 4XX, 5XX                        | \*/\*                           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## deleteUri
 
@@ -612,6 +630,7 @@ Delete URI
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteUri" method="delete" path="/v1/dem/uris/{entityId}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -674,10 +693,12 @@ run();
 
 ### Errors
 
-| Error Type                    | Status Code                   | Content Type                  |
-| ----------------------------- | ----------------------------- | ----------------------------- |
-| errors.DeleteUriNotFoundError | 404                           | application/json              |
-| errors.APIError               | 4XX, 5XX                      | \*/\*                         |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## pauseUriMonitoring
 
@@ -685,6 +706,7 @@ Pause monitoring of the URI
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="pauseUriMonitoring" method="put" path="/v1/dem/uris/{entityId}/pauseMonitoring" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -749,7 +771,9 @@ run();
 
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.PauseUriMonitoringNotFoundError | 404                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## unpauseUriMonitoring
@@ -758,6 +782,7 @@ Unpause monitoring of the URI
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="unpauseUriMonitoring" method="put" path="/v1/dem/uris/{entityId}/unpauseMonitoring" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -820,10 +845,12 @@ run();
 
 ### Errors
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.UnpauseUriMonitoringNotFoundError | 404                                      | application/json                         |
-| errors.APIError                          | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## createWebsite
 
@@ -831,6 +858,7 @@ Create website monitoring configuration
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createWebsite" method="post" path="/v1/dem/websites" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -995,10 +1023,12 @@ run();
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.CreateWebsiteBadRequestError | 400                                 | application/json                    |
-| errors.APIError                     | 4XX, 5XX                            | \*/\*                               |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## getWebsite
 
@@ -1006,6 +1036,7 @@ Get website monitoring configuration
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="getWebsite" method="get" path="/v1/dem/websites/{entityId}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -1068,10 +1099,12 @@ run();
 
 ### Errors
 
-| Error Type                     | Status Code                    | Content Type                   |
-| ------------------------------ | ------------------------------ | ------------------------------ |
-| errors.GetWebsiteNotFoundError | 404                            | application/json               |
-| errors.APIError                | 4XX, 5XX                       | \*/\*                          |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## updateWebsite
 
@@ -1079,6 +1112,7 @@ Update website monitoring configuration
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateWebsite" method="put" path="/v1/dem/websites/{entityId}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -1249,11 +1283,13 @@ run();
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.UpdateWebsiteBadRequestError | 400                                 | application/json                    |
-| errors.UpdateWebsiteNotFoundError   | 404                                 | application/json                    |
-| errors.APIError                     | 4XX, 5XX                            | \*/\*                               |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## deleteWebsite
 
@@ -1261,6 +1297,7 @@ Delete website
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="deleteWebsite" method="delete" path="/v1/dem/websites/{entityId}" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -1323,10 +1360,12 @@ run();
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.DeleteWebsiteNotFoundError | 404                               | application/json                  |
-| errors.APIError                   | 4XX, 5XX                          | \*/\*                             |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## pauseWebsiteMonitoring
 
@@ -1334,6 +1373,7 @@ Pause monitoring of a website
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="pauseWebsiteMonitoring" method="put" path="/v1/dem/websites/{entityId}/pauseMonitoring" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -1396,10 +1436,12 @@ run();
 
 ### Errors
 
-| Error Type                                 | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.PauseWebsiteMonitoringNotFoundError | 404                                        | application/json                           |
-| errors.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## unpauseWebsiteMonitoring
 
@@ -1407,6 +1449,7 @@ Unpause monitoring of a website
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="unpauseWebsiteMonitoring" method="put" path="/v1/dem/websites/{entityId}/unpauseMonitoring" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -1469,7 +1512,9 @@ run();
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.UnpauseWebsiteMonitoringNotFoundError | 404                                          | application/json                             |
-| errors.APIError                              | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |

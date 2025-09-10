@@ -13,6 +13,7 @@ Create an event
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createChangeEvent" method="post" path="/v1/changeevents" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -103,6 +104,9 @@ run();
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |

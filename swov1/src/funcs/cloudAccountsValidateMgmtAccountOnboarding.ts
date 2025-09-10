@@ -39,9 +39,9 @@ export function cloudAccountsValidateMgmtAccountOnboarding(
 ): APIPromise<
   Result<
     components.CloudAccountsAwsMgmtAccountOnboardingResponse,
-    | errors.ValidateMgmtAccountOnboardingBadRequestError
-    | errors.ValidateMgmtAccountOnboardingUnauthorizedError
-    | errors.ValidateMgmtAccountOnboardingInternalServerError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -67,9 +67,9 @@ async function $do(
   [
     Result<
       components.CloudAccountsAwsMgmtAccountOnboardingResponse,
-      | errors.ValidateMgmtAccountOnboardingBadRequestError
-      | errors.ValidateMgmtAccountOnboardingUnauthorizedError
-      | errors.ValidateMgmtAccountOnboardingInternalServerError
+      | errors.CommonBadRequestErrorResponse
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -168,9 +168,9 @@ async function $do(
 
   const [result] = await M.match<
     components.CloudAccountsAwsMgmtAccountOnboardingResponse,
-    | errors.ValidateMgmtAccountOnboardingBadRequestError
-    | errors.ValidateMgmtAccountOnboardingUnauthorizedError
-    | errors.ValidateMgmtAccountOnboardingInternalServerError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -184,18 +184,9 @@ async function $do(
       200,
       components.CloudAccountsAwsMgmtAccountOnboardingResponse$inboundSchema,
     ),
-    M.jsonErr(
-      400,
-      errors.ValidateMgmtAccountOnboardingBadRequestError$inboundSchema,
-    ),
-    M.jsonErr(
-      401,
-      errors.ValidateMgmtAccountOnboardingUnauthorizedError$inboundSchema,
-    ),
-    M.jsonErr(
-      500,
-      errors.ValidateMgmtAccountOnboardingInternalServerError$inboundSchema,
-    ),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

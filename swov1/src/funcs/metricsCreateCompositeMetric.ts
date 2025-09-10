@@ -38,8 +38,10 @@ export function metricsCreateCompositeMetric(
 ): APIPromise<
   Result<
     components.MetricsCompositeMetric,
-    | errors.CreateCompositeMetricBadRequestError
-    | errors.ConflictError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonConflictErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -65,8 +67,10 @@ async function $do(
   [
     Result<
       components.MetricsCompositeMetric,
-      | errors.CreateCompositeMetricBadRequestError
-      | errors.ConflictError
+      | errors.CommonBadRequestErrorResponse
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonConflictErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -143,7 +147,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["400", "409", "4XX", "5XX"],
+    errorCodes: ["400", "401", "409", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -158,8 +162,10 @@ async function $do(
 
   const [result] = await M.match<
     components.MetricsCompositeMetric,
-    | errors.CreateCompositeMetricBadRequestError
-    | errors.ConflictError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonConflictErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -170,8 +176,10 @@ async function $do(
     | SDKValidationError
   >(
     M.json(201, components.MetricsCompositeMetric$inboundSchema),
-    M.jsonErr(400, errors.CreateCompositeMetricBadRequestError$inboundSchema),
-    M.jsonErr(409, errors.ConflictError$inboundSchema),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(409, errors.CommonConflictErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

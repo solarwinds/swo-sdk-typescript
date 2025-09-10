@@ -104,7 +104,7 @@ export class Metrics extends ClientSDK {
   async updateCompositeMetric(
     request: operations.UpdateCompositeMetricRequest,
     options?: RequestOptions,
-  ): Promise<components.MetricsCompositeMetric | undefined> {
+  ): Promise<components.MetricsCompositeMetric> {
     return unwrapAsync(metricsUpdateCompositeMetric(
       this,
       request,

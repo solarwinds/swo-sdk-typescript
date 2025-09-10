@@ -38,9 +38,9 @@ export function cloudAccountsUpdateAwsIntegration(
 ): APIPromise<
   Result<
     components.CloudAccountsAwsUpdateIntegrationResponse,
-    | errors.UpdateAwsIntegrationBadRequestError
-    | errors.UpdateAwsIntegrationUnauthorizedError
-    | errors.UpdateAwsIntegrationInternalServerError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -66,9 +66,9 @@ async function $do(
   [
     Result<
       components.CloudAccountsAwsUpdateIntegrationResponse,
-      | errors.UpdateAwsIntegrationBadRequestError
-      | errors.UpdateAwsIntegrationUnauthorizedError
-      | errors.UpdateAwsIntegrationInternalServerError
+      | errors.CommonBadRequestErrorResponse
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -163,9 +163,9 @@ async function $do(
 
   const [result] = await M.match<
     components.CloudAccountsAwsUpdateIntegrationResponse,
-    | errors.UpdateAwsIntegrationBadRequestError
-    | errors.UpdateAwsIntegrationUnauthorizedError
-    | errors.UpdateAwsIntegrationInternalServerError
+    | errors.CommonBadRequestErrorResponse
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -179,12 +179,9 @@ async function $do(
       200,
       components.CloudAccountsAwsUpdateIntegrationResponse$inboundSchema,
     ),
-    M.jsonErr(400, errors.UpdateAwsIntegrationBadRequestError$inboundSchema),
-    M.jsonErr(401, errors.UpdateAwsIntegrationUnauthorizedError$inboundSchema),
-    M.jsonErr(
-      500,
-      errors.UpdateAwsIntegrationInternalServerError$inboundSchema,
-    ),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

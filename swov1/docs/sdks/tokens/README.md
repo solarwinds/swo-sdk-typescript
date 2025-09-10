@@ -13,6 +13,7 @@ Create ingestion token
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createToken" method="post" path="/v1/tokens" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -85,6 +86,10 @@ run();
 
 ### Errors
 
-| Error Type      | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.APIError | 4XX, 5XX        | \*/\*           |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.CommonUnavailableErrorResponse  | 503                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |

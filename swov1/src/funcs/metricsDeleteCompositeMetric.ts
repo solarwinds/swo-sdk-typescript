@@ -39,8 +39,10 @@ export function metricsDeleteCompositeMetric(
 ): APIPromise<
   Result<
     void,
-    | errors.DeleteCompositeMetricForbiddenError
-    | errors.DeleteCompositeMetricNotFoundError
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.MetricsMetricForbiddenErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -66,8 +68,10 @@ async function $do(
   [
     Result<
       void,
-      | errors.DeleteCompositeMetricForbiddenError
-      | errors.DeleteCompositeMetricNotFoundError
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.MetricsMetricForbiddenErrorResponse
+      | errors.CommonNotFoundErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -151,7 +155,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["403", "404", "4XX", "5XX"],
+    errorCodes: ["401", "403", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -166,8 +170,10 @@ async function $do(
 
   const [result] = await M.match<
     void,
-    | errors.DeleteCompositeMetricForbiddenError
-    | errors.DeleteCompositeMetricNotFoundError
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.MetricsMetricForbiddenErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -178,8 +184,10 @@ async function $do(
     | SDKValidationError
   >(
     M.nil(204, z.void()),
-    M.jsonErr(403, errors.DeleteCompositeMetricForbiddenError$inboundSchema),
-    M.jsonErr(404, errors.DeleteCompositeMetricNotFoundError$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(403, errors.MetricsMetricForbiddenErrorResponse$inboundSchema),
+    M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

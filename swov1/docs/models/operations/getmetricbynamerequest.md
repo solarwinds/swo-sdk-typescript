@@ -14,4 +14,4 @@ let value: GetMetricByNameRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *string*           | :heavy_check_mark: | metric name        |
+| `name`             | *string*           | :heavy_check_mark: | Metric name.       |

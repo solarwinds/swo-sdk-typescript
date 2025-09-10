@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ListMetricMeasurementsRequest = {
   /**
-   * metric name
+   * Metric name.
    */
   name: string;
   /**
@@ -23,7 +23,7 @@ export type ListMetricMeasurementsRequest = {
    */
   groupBy?: string | undefined;
   /**
-   * Aggregation method used to group measurements.
+   * Aggregation method used to group measurements. Defaults to AVG.
    */
   aggregateBy?: components.MetricsAggregationMethods | undefined;
   /**
@@ -41,7 +41,7 @@ export type ListMetricMeasurementsRequest = {
    */
   preGroupByMethod?: string | undefined;
   /**
-   * Indicates what type of data to return.
+   * Indicates what type of data to return. Defaults to TIMESERIES.
    */
   seriesType: components.MetricsMetricSeriesType;
   /**

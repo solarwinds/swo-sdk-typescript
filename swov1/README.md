@@ -552,11 +552,25 @@ const swo = new Swo({
 
 async function run() {
   try {
-    await swo.cloudAccounts.activateAwsIntegration({
-      managementAccountId: "<id>",
-      accountId: "<id>",
-      enable: true,
+    const result = await swo.changeEvents.createChangeEvent({
+      id: 1731676626,
+      name: "app-deploys",
+      title: "deployed v45",
+      timestamp: 1731676626,
+      source: "foo3.example.com",
+      tags: {
+        "app": "foo",
+        "environment": "production",
+      },
+      links: [
+        {
+          rel: "self",
+          href: "https://example.com",
+        },
+      ],
     });
+
+    console.log(result);
   } catch (error) {
     // The base class for HTTP error responses
     if (error instanceof errors.SwoError) {
@@ -566,10 +580,10 @@ async function run() {
       console.log(error.headers);
 
       // Depending on the method different errors may be thrown
-      if (error instanceof errors.ActivateAwsIntegrationBadRequestError) {
-        console.log(error.data$.code); // components.CommonDefaultErrorCode
+      if (error instanceof errors.CommonBadRequestErrorResponse) {
         console.log(error.data$.message); // string
         console.log(error.data$.target); // string
+        console.log(error.data$.code); // errors.CommonBadRequestErrorResponseCode
       }
     }
   }
@@ -580,10 +594,12 @@ run();
 ```
 
 ### Error Classes
-**Primary error:**
+**Primary errors:**
 * [`SwoError`](./src/models/errors/swoerror.ts): The base class for HTTP error responses.
+  * [`CommonUnauthorizedErrorResponse`](./src/models/errors/commonunauthorizederrorresponse.ts): Access is unauthorized. Status code `401`.
+  * [`CommonInternalErrorResponse`](./src/models/errors/commoninternalerrorresponse.ts): Server error. Status code `500`.
 
-<details><summary>Less common errors (69)</summary>
+<details><summary>Less common errors (12)</summary>
 
 <br />
 
@@ -596,69 +612,12 @@ run();
 
 
 **Inherit from [`SwoError`](./src/models/errors/swoerror.ts)**:
-* [`ActivateAwsIntegrationBadRequestError`](./src/models/errors/activateawsintegrationbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`CreateOrgStructureBadRequestError`](./src/models/errors/createorgstructurebadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`UpdateAwsIntegrationBadRequestError`](./src/models/errors/updateawsintegrationbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`ValidateMgmtAccountOnboardingBadRequestError`](./src/models/errors/validatemgmtaccountonboardingbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`ObserveDatabaseBadRequestError`](./src/models/errors/observedatabasebadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`GetPublicKeyBadRequestError`](./src/models/errors/getpublickeybadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`UpdateDatabaseBadRequestError`](./src/models/errors/updatedatabasebadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`DeleteDatabaseBadRequestError`](./src/models/errors/deletedatabasebadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`GetPluginConfigBadRequestError`](./src/models/errors/getpluginconfigbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`GetPluginsBadRequestError`](./src/models/errors/getpluginsbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`PluginOperationBadRequestError`](./src/models/errors/pluginoperationbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`CreateUriBadRequestError`](./src/models/errors/createuribadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`UpdateUriBadRequestError`](./src/models/errors/updateuribadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`CreateWebsiteBadRequestError`](./src/models/errors/createwebsitebadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`UpdateWebsiteBadRequestError`](./src/models/errors/updatewebsitebadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`ListEntitiesBadRequestError`](./src/models/errors/listentitiesbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`GetEntityByIdBadRequestError`](./src/models/errors/getentitybyidbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`UpdateEntityByIdBadRequestError`](./src/models/errors/updateentitybyidbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`CreateCompositeMetricBadRequestError`](./src/models/errors/createcompositemetricbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`ListMultiMetricMeasurementsBadRequestError`](./src/models/errors/listmultimetricmeasurementsbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`UpdateCompositeMetricBadRequestError`](./src/models/errors/updatecompositemetricbadrequesterror.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 1 of 44 methods.*
-* [`ActivateAwsIntegrationUnauthorizedError`](./src/models/errors/activateawsintegrationunauthorizederror.ts): Access is unauthorized. Status code `401`. Applicable to 1 of 44 methods.*
-* [`CreateOrgStructureUnauthorizedError`](./src/models/errors/createorgstructureunauthorizederror.ts): Access is unauthorized. Status code `401`. Applicable to 1 of 44 methods.*
-* [`UpdateAwsIntegrationUnauthorizedError`](./src/models/errors/updateawsintegrationunauthorizederror.ts): Access is unauthorized. Status code `401`. Applicable to 1 of 44 methods.*
-* [`ValidateMgmtAccountOnboardingUnauthorizedError`](./src/models/errors/validatemgmtaccountonboardingunauthorizederror.ts): Access is unauthorized. Status code `401`. Applicable to 1 of 44 methods.*
-* [`ListEntitiesUnauthorizedError`](./src/models/errors/listentitiesunauthorizederror.ts): Access is unauthorized. Status code `401`. Applicable to 1 of 44 methods.*
-* [`GetEntityByIdUnauthorizedError`](./src/models/errors/getentitybyidunauthorizederror.ts): Access is unauthorized. Status code `401`. Applicable to 1 of 44 methods.*
-* [`UpdateEntityByIdUnauthorizedError`](./src/models/errors/updateentitybyidunauthorizederror.ts): Access is unauthorized. Status code `401`. Applicable to 1 of 44 methods.*
-* [`UpdateCompositeMetricForbiddenError`](./src/models/errors/updatecompositemetricforbiddenerror.ts): Access is forbidden. Status code `403`. Applicable to 1 of 44 methods.*
-* [`DeleteCompositeMetricForbiddenError`](./src/models/errors/deletecompositemetricforbiddenerror.ts): Access is forbidden. Status code `403`. Applicable to 1 of 44 methods.*
-* [`ActivateAwsIntegrationNotFoundError`](./src/models/errors/activateawsintegrationnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`CreateOrgStructureNotFoundError`](./src/models/errors/createorgstructurenotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`GetPublicKeyNotFoundError`](./src/models/errors/getpublickeynotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`UpdateDatabaseNotFoundError`](./src/models/errors/updatedatabasenotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`DeleteDatabaseNotFoundError`](./src/models/errors/deletedatabasenotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`GetPluginConfigNotFoundError`](./src/models/errors/getpluginconfignotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`GetPluginsNotFoundError`](./src/models/errors/getpluginsnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`PluginOperationNotFoundError`](./src/models/errors/pluginoperationnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`GetUriNotFoundError`](./src/models/errors/geturinotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`UpdateUriNotFoundError`](./src/models/errors/updateurinotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`DeleteUriNotFoundError`](./src/models/errors/deleteurinotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`PauseUriMonitoringNotFoundError`](./src/models/errors/pauseurimonitoringnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`UnpauseUriMonitoringNotFoundError`](./src/models/errors/unpauseurimonitoringnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`GetWebsiteNotFoundError`](./src/models/errors/getwebsitenotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`UpdateWebsiteNotFoundError`](./src/models/errors/updatewebsitenotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`DeleteWebsiteNotFoundError`](./src/models/errors/deletewebsitenotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`PauseWebsiteMonitoringNotFoundError`](./src/models/errors/pausewebsitemonitoringnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`UnpauseWebsiteMonitoringNotFoundError`](./src/models/errors/unpausewebsitemonitoringnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`GetEntityByIdNotFoundError`](./src/models/errors/getentitybyidnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`UpdateEntityByIdNotFoundError`](./src/models/errors/updateentitybyidnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`ListMetricsForEntityTypeNotFoundError`](./src/models/errors/listmetricsforentitytypenotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`UpdateCompositeMetricNotFoundError`](./src/models/errors/updatecompositemetricnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`DeleteCompositeMetricNotFoundError`](./src/models/errors/deletecompositemetricnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`GetMetricByNameNotFoundError`](./src/models/errors/getmetricbynamenotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`ListMetricAttributesNotFoundError`](./src/models/errors/listmetricattributesnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`ListMetricAttributeValuesNotFoundError`](./src/models/errors/listmetricattributevaluesnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`ListMetricMeasurementsNotFoundError`](./src/models/errors/listmetricmeasurementsnotfounderror.ts): The server cannot find the requested resource. Status code `404`. Applicable to 1 of 44 methods.*
-* [`ConflictError`](./src/models/errors/conflicterror.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 44 methods.*
-* [`ActivateAwsIntegrationInternalServerError`](./src/models/errors/activateawsintegrationinternalservererror.ts): Server error. Status code `500`. Applicable to 1 of 44 methods.*
-* [`CreateOrgStructureInternalServerError`](./src/models/errors/createorgstructureinternalservererror.ts): Server error. Status code `500`. Applicable to 1 of 44 methods.*
-* [`UpdateAwsIntegrationInternalServerError`](./src/models/errors/updateawsintegrationinternalservererror.ts): Server error. Status code `500`. Applicable to 1 of 44 methods.*
-* [`ValidateMgmtAccountOnboardingInternalServerError`](./src/models/errors/validatemgmtaccountonboardinginternalservererror.ts): Server error. Status code `500`. Applicable to 1 of 44 methods.*
-* [`ListProbesInternalServerError`](./src/models/errors/listprobesinternalservererror.ts): Server error. Status code `500`. Applicable to 1 of 44 methods.*
+* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 27 of 44 methods.*
+* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 25 of 44 methods.*
+* [`MetricsMetricForbiddenErrorResponse`](./src/models/errors/metricsmetricforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 2 of 44 methods.*
+* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 1 of 44 methods.*
+* [`CommonConflictErrorResponse`](./src/models/errors/commonconflicterrorresponse.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 44 methods.*
+* [`CommonUnavailableErrorResponse`](./src/models/errors/commonunavailableerrorresponse.ts): Service unavailable. Status code `503`. Applicable to 1 of 44 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

@@ -36,7 +36,9 @@ export function demGetWebsite(
 ): APIPromise<
   Result<
     components.DemGetWebsiteResponse,
-    | errors.GetWebsiteNotFoundError
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -62,7 +64,9 @@ async function $do(
   [
     Result<
       components.DemGetWebsiteResponse,
-      | errors.GetWebsiteNotFoundError
+      | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonNotFoundErrorResponse
+      | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
       | ConnectionError
@@ -145,7 +149,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["404", "4XX", "5XX"],
+    errorCodes: ["401", "404", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -160,7 +164,9 @@ async function $do(
 
   const [result] = await M.match<
     components.DemGetWebsiteResponse,
-    | errors.GetWebsiteNotFoundError
+    | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonNotFoundErrorResponse
+    | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
     | ConnectionError
@@ -171,7 +177,9 @@ async function $do(
     | SDKValidationError
   >(
     M.json(200, components.DemGetWebsiteResponse$inboundSchema),
-    M.jsonErr(404, errors.GetWebsiteNotFoundError$inboundSchema),
+    M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
+    M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
   )(response, req, { extraFields: responseFields });

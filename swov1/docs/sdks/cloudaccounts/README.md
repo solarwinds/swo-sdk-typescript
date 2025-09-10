@@ -16,6 +16,7 @@ Activate AWS Integration.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="activateAwsIntegration" method="post" path="/v1/cloud/aws/controlTower/activate" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -82,13 +83,13 @@ run();
 
 ### Errors
 
-| Error Type                                       | Status Code                                      | Content Type                                     |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| errors.ActivateAwsIntegrationBadRequestError     | 400                                              | application/json                                 |
-| errors.ActivateAwsIntegrationUnauthorizedError   | 401                                              | application/json                                 |
-| errors.ActivateAwsIntegrationNotFoundError       | 404                                              | application/json                                 |
-| errors.ActivateAwsIntegrationInternalServerError | 500                                              | application/json                                 |
-| errors.APIError                                  | 4XX, 5XX                                         | \*/\*                                            |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## createOrgStructure
 
@@ -96,6 +97,7 @@ Create AWS Organizational Structure.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="createOrgStructure" method="post" path="/v1/cloud/aws/controlTower/createOrgStructure" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -160,13 +162,13 @@ run();
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.CreateOrgStructureBadRequestError     | 400                                          | application/json                             |
-| errors.CreateOrgStructureUnauthorizedError   | 401                                          | application/json                             |
-| errors.CreateOrgStructureNotFoundError       | 404                                          | application/json                             |
-| errors.CreateOrgStructureInternalServerError | 500                                          | application/json                             |
-| errors.APIError                              | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## updateAwsIntegration
 
@@ -174,6 +176,7 @@ Update AWS Integration details.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="updateAwsIntegration" method="post" path="/v1/cloud/aws/controlTower/update" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -242,12 +245,12 @@ run();
 
 ### Errors
 
-| Error Type                                     | Status Code                                    | Content Type                                   |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| errors.UpdateAwsIntegrationBadRequestError     | 400                                            | application/json                               |
-| errors.UpdateAwsIntegrationUnauthorizedError   | 401                                            | application/json                               |
-| errors.UpdateAwsIntegrationInternalServerError | 500                                            | application/json                               |
-| errors.APIError                                | 4XX, 5XX                                       | \*/\*                                          |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## validateMgmtAccountOnboarding
 
@@ -255,6 +258,7 @@ Validate if the management account is onboarded.
 
 ### Example Usage
 
+<!-- UsageSnippet language="typescript" operationID="validateMgmtAccountOnboarding" method="get" path="/v1/cloud/aws/controlTower/validateOnboarding" -->
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
@@ -321,9 +325,9 @@ run();
 
 ### Errors
 
-| Error Type                                              | Status Code                                             | Content Type                                            |
-| ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| errors.ValidateMgmtAccountOnboardingBadRequestError     | 400                                                     | application/json                                        |
-| errors.ValidateMgmtAccountOnboardingUnauthorizedError   | 401                                                     | application/json                                        |
-| errors.ValidateMgmtAccountOnboardingInternalServerError | 500                                                     | application/json                                        |
-| errors.APIError                                         | 4XX, 5XX                                                | \*/\*                                                   |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |

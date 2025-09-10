@@ -14,4 +14,4 @@ let value: DeleteCompositeMetricRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `name`             | *string*           | :heavy_check_mark: | The metric name    |
+| `name`             | *string*           | :heavy_check_mark: | Metric name.       |
