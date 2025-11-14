@@ -15,5 +15,5 @@ let value: Healthscore = {
 
 | Field                                                      | Type                                                       | Required                                                   | Description                                                |
 | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `score`                                                    | *number*                                                   | :heavy_check_mark:                                         | Health score value from 0 to 100.                          |
-| `category`                                                 | [components.Category](../../models/components/category.md) | :heavy_check_mark:                                         | Health Score category label.                               |
+| `score`                                                    | *number*                                                   | :heavy_minus_sign:                                         | Health score value from 0 to 100.                          |
+| `category`                                                 | [components.Category](../../models/components/category.md) | :heavy_minus_sign:                                         | Health Score category label.                               |

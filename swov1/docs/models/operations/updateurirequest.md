@@ -28,12 +28,28 @@ let value: UpdateUriRequest = {
         failingTestLocations: "all",
         consecutiveForDown: 2,
       },
+      dns: {
+        enabled: false,
+        nameserver: "8.8.8.8",
+        port: 53,
+        ipToExpect: "1.2.3.4",
+      },
       ping: {
-        enabled: true,
+        enabled: false,
       },
       tcp: {
         enabled: true,
         port: 443,
+        stringToSend: "GET / HTTP/1.1\r\n"
+          + "Host: solarwinds.com\r\n"
+          + "Connection: close\r\n"
+          + "\r\n"
+          + "",
+        stringToExpect: "HTTP/1.1 200 OK",
+      },
+      udp: {
+        enabled: false,
+        port: 8888,
         stringToSend: "GET / HTTP/1.1\r\n"
           + "Host: solarwinds.com\r\n"
           + "Connection: close\r\n"

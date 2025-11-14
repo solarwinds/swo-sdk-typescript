@@ -1,7 +1,6 @@
 # DemUriAvailabilityCheckSettingsInputPing
 
-  Use this field to configure ping tests for the URI. If omitted or set to null, ping tests will be disabled.
-  One test type (ping or TCP) must be enabled for a URI.
+Ping tests configuration for the URI. If omitted or set to null, ping tests are disabled.
 
 ## Example Usage
 
@@ -9,12 +8,12 @@
 import { DemUriAvailabilityCheckSettingsInputPing } from "@solarwinds/swo-sdk-typescript/models/components";
 
 let value: DemUriAvailabilityCheckSettingsInputPing = {
-  enabled: true,
+  enabled: false,
 };
 ```
 
 ## Fields
 
-| Field                                                                                                                                                               | Type                                                                                                                                                                | Required                                                                                                                                                            | Description                                                                                                                                                         | Example                                                                                                                                                             |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enabled`                                                                                                                                                           | *boolean*                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                  | Use this field to configure ping tests for the URI. If omitted or set to false, ping tests will be disabled.<br/>One test type (ping or TCP) must be enabled for a URI. | true                                                                                                                                                                |
+| Field                                                                                                                 | Type                                                                                                                  | Required                                                                                                              | Description                                                                                                           | Example                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `enabled`                                                                                                             | *boolean*                                                                                                             | :heavy_check_mark:                                                                                                    | Enables or disables ping tests for the URI.<br/>Exactly one test type (DNS, ping, TCP, or UDP) must be enabled for a URI. | false                                                                                                                 |
