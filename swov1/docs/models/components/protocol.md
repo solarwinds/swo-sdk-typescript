@@ -13,5 +13,5 @@ let value: Protocol = "PING";
 ## Values
 
 ```typescript
-"PING" | "TCP"
+"DNS" | "PING" | "TCP" | "UDP"
 ```

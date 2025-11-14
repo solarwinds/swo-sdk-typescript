@@ -69,10 +69,7 @@ bun add @solarwinds/swo-sdk-typescript
 ### Yarn
 
 ```bash
-yarn add @solarwinds/swo-sdk-typescript zod
-
-# Note that Yarn does not install peer dependencies automatically. You will need
-# to install zod as shown above.
+yarn add @solarwinds/swo-sdk-typescript
 ```
 
 > [!NOTE]
@@ -274,6 +271,8 @@ run();
 ### [dbo](docs/sdks/dbo/README.md)
 
 * [observeDatabase](docs/sdks/dbo/README.md#observedatabase) - Add database observability to a database
+* [getConfig](docs/sdks/dbo/README.md#getconfig) - Get organization-level configuration for database observability agents/plugins
+* [setConfig](docs/sdks/dbo/README.md#setconfig) - Set organization-level configuration for database observability agents/plugins
 * [getPublicKey](docs/sdks/dbo/README.md#getpublickey) - Get public key for encrypting database credentials locally
 * [updateDatabase](docs/sdks/dbo/README.md#updatedatabase) - Update an observed database
 * [deleteDatabase](docs/sdks/dbo/README.md#deletedatabase) - Delete an observed database
@@ -286,6 +285,12 @@ run();
 * [listProbes](docs/sdks/dem/README.md#listprobes) - Get a list of existing synthetic probes
 * [getDemSettings](docs/sdks/dem/README.md#getdemsettings) - Get DEM settings
 * [setDemSettings](docs/sdks/dem/README.md#setdemsettings) - Set DEM settings
+* [createTransaction](docs/sdks/dem/README.md#createtransaction) - Create transaction monitoring configuration
+* [getTransaction](docs/sdks/dem/README.md#gettransaction) - Get transaction monitoring configuration
+* [updateTransaction](docs/sdks/dem/README.md#updatetransaction) - Update transaction monitoring configuration
+* [deleteTransaction](docs/sdks/dem/README.md#deletetransaction) - Delete transaction
+* [pauseTransactionMonitoring](docs/sdks/dem/README.md#pausetransactionmonitoring) - Pause monitoring of the transaction
+* [unpauseTransactionMonitoring](docs/sdks/dem/README.md#unpausetransactionmonitoring) - Unpause monitoring of the transaction
 * [createUri](docs/sdks/dem/README.md#createuri) - Create URI monitoring configuration
 * [getUri](docs/sdks/dem/README.md#geturi) - Get URI monitoring configuration
 * [updateUri](docs/sdks/dem/README.md#updateuri) - Update URI monitoring configuration
@@ -327,7 +332,6 @@ run();
 * [listMetricAttributeValues](docs/sdks/metrics/README.md#listmetricattributevalues) - List metric attribute values
 * [listMetricMeasurements](docs/sdks/metrics/README.md#listmetricmeasurements) - List metric measurement values, grouped by attributes, filtered by the filter. An empty list indicates no data points are available for the given parameters.
 
-
 ### [tokens](docs/sdks/tokens/README.md)
 
 * [createToken](docs/sdks/tokens/README.md#createtoken) - Create ingestion token
@@ -356,25 +360,33 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`cloudAccountsUpdateAwsIntegration`](docs/sdks/cloudaccounts/README.md#updateawsintegration) - Update AWS Integration
 - [`cloudAccountsValidateMgmtAccountOnboarding`](docs/sdks/cloudaccounts/README.md#validatemgmtaccountonboarding) - Validate Management Account Onboarding
 - [`dboDeleteDatabase`](docs/sdks/dbo/README.md#deletedatabase) - Delete an observed database
+- [`dboGetConfig`](docs/sdks/dbo/README.md#getconfig) - Get organization-level configuration for database observability agents/plugins
 - [`dboGetPluginConfig`](docs/sdks/dbo/README.md#getpluginconfig) - Get configuration of plugins observing a database
 - [`dboGetPlugins`](docs/sdks/dbo/README.md#getplugins) - Get status of plugins observing a database
 - [`dboGetPublicKey`](docs/sdks/dbo/README.md#getpublickey) - Get public key for encrypting database credentials locally
 - [`dboObserveDatabase`](docs/sdks/dbo/README.md#observedatabase) - Add database observability to a database
 - [`dboPluginOperation`](docs/sdks/dbo/README.md#pluginoperation) - Apply an operation on a database observability plugin
+- [`dboSetConfig`](docs/sdks/dbo/README.md#setconfig) - Set organization-level configuration for database observability agents/plugins
 - [`dboUpdateDatabase`](docs/sdks/dbo/README.md#updatedatabase) - Update an observed database
+- [`demCreateTransaction`](docs/sdks/dem/README.md#createtransaction) - Create transaction monitoring configuration
 - [`demCreateUri`](docs/sdks/dem/README.md#createuri) - Create URI monitoring configuration
 - [`demCreateWebsite`](docs/sdks/dem/README.md#createwebsite) - Create website monitoring configuration
+- [`demDeleteTransaction`](docs/sdks/dem/README.md#deletetransaction) - Delete transaction
 - [`demDeleteUri`](docs/sdks/dem/README.md#deleteuri) - Delete URI
 - [`demDeleteWebsite`](docs/sdks/dem/README.md#deletewebsite) - Delete website
 - [`demGetDemSettings`](docs/sdks/dem/README.md#getdemsettings) - Get DEM settings
+- [`demGetTransaction`](docs/sdks/dem/README.md#gettransaction) - Get transaction monitoring configuration
 - [`demGetUri`](docs/sdks/dem/README.md#geturi) - Get URI monitoring configuration
 - [`demGetWebsite`](docs/sdks/dem/README.md#getwebsite) - Get website monitoring configuration
 - [`demListProbes`](docs/sdks/dem/README.md#listprobes) - Get a list of existing synthetic probes
+- [`demPauseTransactionMonitoring`](docs/sdks/dem/README.md#pausetransactionmonitoring) - Pause monitoring of the transaction
 - [`demPauseUriMonitoring`](docs/sdks/dem/README.md#pauseurimonitoring) - Pause monitoring of the URI
 - [`demPauseWebsiteMonitoring`](docs/sdks/dem/README.md#pausewebsitemonitoring) - Pause monitoring of a website
 - [`demSetDemSettings`](docs/sdks/dem/README.md#setdemsettings) - Set DEM settings
+- [`demUnpauseTransactionMonitoring`](docs/sdks/dem/README.md#unpausetransactionmonitoring) - Unpause monitoring of the transaction
 - [`demUnpauseUriMonitoring`](docs/sdks/dem/README.md#unpauseurimonitoring) - Unpause monitoring of the URI
 - [`demUnpauseWebsiteMonitoring`](docs/sdks/dem/README.md#unpausewebsitemonitoring) - Unpause monitoring of a website
+- [`demUpdateTransaction`](docs/sdks/dem/README.md#updatetransaction) - Update transaction monitoring configuration
 - [`demUpdateUri`](docs/sdks/dem/README.md#updateuri) - Update URI monitoring configuration
 - [`demUpdateWebsite`](docs/sdks/dem/README.md#updatewebsite) - Update website monitoring configuration
 - [`entitiesGetEntityById`](docs/sdks/entities/README.md#getentitybyid) - Get an entity by ID
@@ -612,12 +624,12 @@ run();
 
 
 **Inherit from [`SwoError`](./src/models/errors/swoerror.ts)**:
-* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 27 of 44 methods.*
-* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 25 of 44 methods.*
-* [`MetricsMetricForbiddenErrorResponse`](./src/models/errors/metricsmetricforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 2 of 44 methods.*
-* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 1 of 44 methods.*
-* [`CommonConflictErrorResponse`](./src/models/errors/commonconflicterrorresponse.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 44 methods.*
-* [`CommonUnavailableErrorResponse`](./src/models/errors/commonunavailableerrorresponse.ts): Service unavailable. Status code `503`. Applicable to 1 of 44 methods.*
+* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 32 of 52 methods.*
+* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 28 of 52 methods.*
+* [`MetricsMetricForbiddenErrorResponse`](./src/models/errors/metricsmetricforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 2 of 52 methods.*
+* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 1 of 52 methods.*
+* [`CommonConflictErrorResponse`](./src/models/errors/commonconflicterrorresponse.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 52 methods.*
+* [`CommonUnavailableErrorResponse`](./src/models/errors/commonunavailableerrorresponse.ts): Service unavailable. Status code `503`. Applicable to 1 of 52 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -642,7 +654,8 @@ The default server `https://api.na-01.cloud.solarwinds.com` contains variables a
 import { Swo } from "@solarwinds/swo-sdk-typescript";
 
 const swo = new Swo({
-  region: "<value>",
+  serverIdx: 0,
+  region: "na-01",
   apiToken: process.env["SWO_API_TOKEN"] ?? "",
 });
 
@@ -755,7 +768,7 @@ httpClient.addHook("requestError", (error, request) => {
   console.groupEnd();
 });
 
-const sdk = new Swo({ httpClient });
+const sdk = new Swo({ httpClient: httpClient });
 ```
 <!-- End Custom HTTP Client [http-client] -->
 

@@ -31,7 +31,7 @@ export function demGetDemSettings(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    components.DemOutageConfiguration,
+    components.DemOrganizationSettings,
     | errors.CommonUnauthorizedErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
@@ -56,7 +56,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      components.DemOutageConfiguration,
+      components.DemOrganizationSettings,
       | errors.CommonUnauthorizedErrorResponse
       | errors.CommonInternalErrorResponse
       | SwoError
@@ -85,7 +85,7 @@ async function $do(
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
     operationID: "getDemSettings",
-    oAuth2Scopes: [],
+    oAuth2Scopes: null,
 
     resolvedSecurity: requestSecurity,
 
@@ -136,7 +136,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    components.DemOutageConfiguration,
+    components.DemOrganizationSettings,
     | errors.CommonUnauthorizedErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
@@ -148,7 +148,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, components.DemOutageConfiguration$inboundSchema),
+    M.json(200, components.DemOrganizationSettings$inboundSchema),
     M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
     M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),

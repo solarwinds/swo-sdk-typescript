@@ -8,6 +8,12 @@
 * [listProbes](#listprobes) - Get a list of existing synthetic probes
 * [getDemSettings](#getdemsettings) - Get DEM settings
 * [setDemSettings](#setdemsettings) - Set DEM settings
+* [createTransaction](#createtransaction) - Create transaction monitoring configuration
+* [getTransaction](#gettransaction) - Get transaction monitoring configuration
+* [updateTransaction](#updatetransaction) - Update transaction monitoring configuration
+* [deleteTransaction](#deletetransaction) - Delete transaction
+* [pauseTransactionMonitoring](#pausetransactionmonitoring) - Pause monitoring of the transaction
+* [unpauseTransactionMonitoring](#unpausetransactionmonitoring) - Unpause monitoring of the transaction
 * [createUri](#createuri) - Create URI monitoring configuration
 * [getUri](#geturi) - Get URI monitoring configuration
 * [updateUri](#updateuri) - Update URI monitoring configuration
@@ -151,7 +157,7 @@ run();
 
 ### Response
 
-**Promise\<[components.DemOutageConfiguration](../../models/components/demoutageconfiguration.md)\>**
+**Promise\<[components.DemOrganizationSettings](../../models/components/demorganizationsettings.md)\>**
 
 ### Errors
 
@@ -177,8 +183,14 @@ const swo = new Swo({
 
 async function run() {
   await swo.dem.setDemSettings({
-    failingTestLocations: "all",
-    consecutiveForDown: 2,
+    availabilityOutageConfiguration: {
+      failingTestLocations: "all",
+      consecutiveForDown: 2,
+    },
+    transactionOutageConfiguration: {
+      failingTestLocations: "all",
+      consecutiveForDown: 2,
+    },
   });
 
 
@@ -203,8 +215,14 @@ const swo = new SwoCore({
 
 async function run() {
   const res = await demSetDemSettings(swo, {
-    failingTestLocations: "all",
-    consecutiveForDown: 2,
+    availabilityOutageConfiguration: {
+      failingTestLocations: "all",
+      consecutiveForDown: 2,
+    },
+    transactionOutageConfiguration: {
+      failingTestLocations: "all",
+      consecutiveForDown: 2,
+    },
   });
   if (res.ok) {
     const { value: result } = res;
@@ -221,7 +239,7 @@ run();
 
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [components.DemOutageConfiguration](../../models/components/demoutageconfiguration.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `request`                                                                                                                                                                      | [components.DemOrganizationSettingsInput](../../models/components/demorganizationsettingsinput.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -236,6 +254,607 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## createTransaction
+
+Create transaction monitoring configuration
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="createTransaction" method="post" path="/v1/dem/transactions" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.createTransaction({
+    name: "Solarwinds",
+    description: "Opens Solarwinds homepage",
+    testDefinition: {
+      testFrom: {
+        type: "REGION",
+        values: [
+          "NA",
+        ],
+      },
+      platformOptions: {
+        probePlatforms: [
+          "AWS",
+        ],
+        testFromAll: true,
+      },
+      outageConfiguration: {
+        failingTestLocations: "all",
+        consecutiveForDown: 2,
+      },
+      testIntervalInSeconds: 14400,
+      windowSize: {
+        width: 28965,
+        height: 156492,
+      },
+      commands: [
+        {
+          command: "OPEN",
+          target: "https://example.com",
+        },
+      ],
+    },
+    tags: [
+      {
+        key: "environment",
+        value: "production",
+      },
+    ],
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demCreateTransaction } from "@solarwinds/swo-sdk-typescript/funcs/demCreateTransaction.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demCreateTransaction(swo, {
+    name: "Solarwinds",
+    description: "Opens Solarwinds homepage",
+    testDefinition: {
+      testFrom: {
+        type: "REGION",
+        values: [
+          "NA",
+        ],
+      },
+      platformOptions: {
+        probePlatforms: [
+          "AWS",
+        ],
+        testFromAll: true,
+      },
+      outageConfiguration: {
+        failingTestLocations: "all",
+        consecutiveForDown: 2,
+      },
+      testIntervalInSeconds: 14400,
+      windowSize: {
+        width: 28965,
+        height: 156492,
+      },
+      commands: [
+        {
+          command: "OPEN",
+          target: "https://example.com",
+        },
+      ],
+    },
+    tags: [
+      {
+        key: "environment",
+        value: "production",
+      },
+    ],
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demCreateTransaction failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [components.DemTransaction](../../models/components/demtransaction.md)                                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## getTransaction
+
+Get transaction monitoring configuration
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getTransaction" method="get" path="/v1/dem/transactions/{entityId}" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.getTransaction({
+    entityId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demGetTransaction } from "@solarwinds/swo-sdk-typescript/funcs/demGetTransaction.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demGetTransaction(swo, {
+    entityId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demGetTransaction failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetTransactionRequest](../../models/operations/gettransactionrequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[components.DemGetTransactionResponse](../../models/components/demgettransactionresponse.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## updateTransaction
+
+Update transaction monitoring configuration
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="updateTransaction" method="put" path="/v1/dem/transactions/{entityId}" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.updateTransaction({
+    entityId: "<id>",
+    demTransaction: {
+      name: "Solarwinds",
+      description: "Opens Solarwinds homepage",
+      testDefinition: {
+        testFrom: {
+          type: "REGION",
+          values: [
+            "NA",
+          ],
+        },
+        platformOptions: {
+          probePlatforms: [
+            "AWS",
+          ],
+          testFromAll: true,
+        },
+        outageConfiguration: null,
+        testIntervalInSeconds: 14400,
+        windowSize: {
+          width: 750299,
+          height: 72607,
+        },
+        commands: [
+          {
+            command: "OPEN",
+            target: "https://example.com",
+          },
+        ],
+      },
+      tags: [
+        {
+          key: "environment",
+          value: "production",
+        },
+      ],
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demUpdateTransaction } from "@solarwinds/swo-sdk-typescript/funcs/demUpdateTransaction.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demUpdateTransaction(swo, {
+    entityId: "<id>",
+    demTransaction: {
+      name: "Solarwinds",
+      description: "Opens Solarwinds homepage",
+      testDefinition: {
+        testFrom: {
+          type: "REGION",
+          values: [
+            "NA",
+          ],
+        },
+        platformOptions: {
+          probePlatforms: [
+            "AWS",
+          ],
+          testFromAll: true,
+        },
+        outageConfiguration: null,
+        testIntervalInSeconds: 14400,
+        windowSize: {
+          width: 750299,
+          height: 72607,
+        },
+        commands: [
+          {
+            command: "OPEN",
+            target: "https://example.com",
+          },
+        ],
+      },
+      tags: [
+        {
+          key: "environment",
+          value: "production",
+        },
+      ],
+    },
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demUpdateTransaction failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.UpdateTransactionRequest](../../models/operations/updatetransactionrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## deleteTransaction
+
+Delete transaction
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deleteTransaction" method="delete" path="/v1/dem/transactions/{entityId}" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.deleteTransaction({
+    entityId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demDeleteTransaction } from "@solarwinds/swo-sdk-typescript/funcs/demDeleteTransaction.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demDeleteTransaction(swo, {
+    entityId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demDeleteTransaction failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteTransactionRequest](../../models/operations/deletetransactionrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## pauseTransactionMonitoring
+
+Pause monitoring of the transaction
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="pauseTransactionMonitoring" method="put" path="/v1/dem/transactions/{entityId}/pauseMonitoring" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.pauseTransactionMonitoring({
+    entityId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demPauseTransactionMonitoring } from "@solarwinds/swo-sdk-typescript/funcs/demPauseTransactionMonitoring.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demPauseTransactionMonitoring(swo, {
+    entityId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demPauseTransactionMonitoring failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.PauseTransactionMonitoringRequest](../../models/operations/pausetransactionmonitoringrequest.md)                                                                   | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## unpauseTransactionMonitoring
+
+Unpause monitoring of the transaction
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="unpauseTransactionMonitoring" method="put" path="/v1/dem/transactions/{entityId}/unpauseMonitoring" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.unpauseTransactionMonitoring({
+    entityId: "<id>",
+  });
+
+  console.log(result);
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demUnpauseTransactionMonitoring } from "@solarwinds/swo-sdk-typescript/funcs/demUnpauseTransactionMonitoring.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demUnpauseTransactionMonitoring(swo, {
+    entityId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    console.log(result);
+  } else {
+    console.log("demUnpauseTransactionMonitoring failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.UnpauseTransactionMonitoringRequest](../../models/operations/unpausetransactionmonitoringrequest.md)                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
@@ -272,8 +891,14 @@ async function run() {
       },
       testIntervalInSeconds: 14400,
       outageConfiguration: null,
+      dns: {
+        enabled: false,
+        nameserver: "8.8.8.8",
+        port: 53,
+        ipToExpect: "1.2.3.4",
+      },
       ping: {
-        enabled: true,
+        enabled: false,
       },
       tcp: {
         enabled: true,
@@ -285,6 +910,7 @@ async function run() {
         "",
         stringToExpect: "HTTP/1.1 200 OK",
       },
+      udp: null,
     },
     tags: [
       {
@@ -333,8 +959,14 @@ async function run() {
       },
       testIntervalInSeconds: 14400,
       outageConfiguration: null,
+      dns: {
+        enabled: false,
+        nameserver: "8.8.8.8",
+        port: 53,
+        ipToExpect: "1.2.3.4",
+      },
       ping: {
-        enabled: true,
+        enabled: false,
       },
       tcp: {
         enabled: true,
@@ -346,6 +978,7 @@ async function run() {
         "",
         stringToExpect: "HTTP/1.1 200 OK",
       },
+      udp: null,
     },
     tags: [
       {
@@ -501,12 +1134,28 @@ async function run() {
           failingTestLocations: "all",
           consecutiveForDown: 2,
         },
+        dns: {
+          enabled: false,
+          nameserver: "8.8.8.8",
+          port: 53,
+          ipToExpect: "1.2.3.4",
+        },
         ping: {
-          enabled: true,
+          enabled: false,
         },
         tcp: {
           enabled: true,
           port: 443,
+          stringToSend: "GET / HTTP/1.1\r\n" +
+          "Host: solarwinds.com\r\n" +
+          "Connection: close\r\n" +
+          "\r\n" +
+          "",
+          stringToExpect: "HTTP/1.1 200 OK",
+        },
+        udp: {
+          enabled: false,
+          port: 8888,
           stringToSend: "GET / HTTP/1.1\r\n" +
           "Host: solarwinds.com\r\n" +
           "Connection: close\r\n" +
@@ -568,12 +1217,28 @@ async function run() {
           failingTestLocations: "all",
           consecutiveForDown: 2,
         },
+        dns: {
+          enabled: false,
+          nameserver: "8.8.8.8",
+          port: 53,
+          ipToExpect: "1.2.3.4",
+        },
         ping: {
-          enabled: true,
+          enabled: false,
         },
         tcp: {
           enabled: true,
           port: 443,
+          stringToSend: "GET / HTTP/1.1\r\n" +
+          "Host: solarwinds.com\r\n" +
+          "Connection: close\r\n" +
+          "\r\n" +
+          "",
+          stringToExpect: "HTTP/1.1 200 OK",
+        },
+        udp: {
+          enabled: false,
+          port: 8888,
           stringToSend: "GET / HTTP/1.1\r\n" +
           "Host: solarwinds.com\r\n" +
           "Connection: close\r\n" +

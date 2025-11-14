@@ -19,25 +19,33 @@ import { tool$cloudAccountsCreateOrgStructure } from "./tools/cloudAccountsCreat
 import { tool$cloudAccountsUpdateAwsIntegration } from "./tools/cloudAccountsUpdateAwsIntegration.js";
 import { tool$cloudAccountsValidateMgmtAccountOnboarding } from "./tools/cloudAccountsValidateMgmtAccountOnboarding.js";
 import { tool$dboDeleteDatabase } from "./tools/dboDeleteDatabase.js";
+import { tool$dboGetConfig } from "./tools/dboGetConfig.js";
 import { tool$dboGetPluginConfig } from "./tools/dboGetPluginConfig.js";
 import { tool$dboGetPlugins } from "./tools/dboGetPlugins.js";
 import { tool$dboGetPublicKey } from "./tools/dboGetPublicKey.js";
 import { tool$dboObserveDatabase } from "./tools/dboObserveDatabase.js";
 import { tool$dboPluginOperation } from "./tools/dboPluginOperation.js";
+import { tool$dboSetConfig } from "./tools/dboSetConfig.js";
 import { tool$dboUpdateDatabase } from "./tools/dboUpdateDatabase.js";
+import { tool$demCreateTransaction } from "./tools/demCreateTransaction.js";
 import { tool$demCreateUri } from "./tools/demCreateUri.js";
 import { tool$demCreateWebsite } from "./tools/demCreateWebsite.js";
+import { tool$demDeleteTransaction } from "./tools/demDeleteTransaction.js";
 import { tool$demDeleteUri } from "./tools/demDeleteUri.js";
 import { tool$demDeleteWebsite } from "./tools/demDeleteWebsite.js";
 import { tool$demGetDemSettings } from "./tools/demGetDemSettings.js";
+import { tool$demGetTransaction } from "./tools/demGetTransaction.js";
 import { tool$demGetUri } from "./tools/demGetUri.js";
 import { tool$demGetWebsite } from "./tools/demGetWebsite.js";
 import { tool$demListProbes } from "./tools/demListProbes.js";
+import { tool$demPauseTransactionMonitoring } from "./tools/demPauseTransactionMonitoring.js";
 import { tool$demPauseUriMonitoring } from "./tools/demPauseUriMonitoring.js";
 import { tool$demPauseWebsiteMonitoring } from "./tools/demPauseWebsiteMonitoring.js";
 import { tool$demSetDemSettings } from "./tools/demSetDemSettings.js";
+import { tool$demUnpauseTransactionMonitoring } from "./tools/demUnpauseTransactionMonitoring.js";
 import { tool$demUnpauseUriMonitoring } from "./tools/demUnpauseUriMonitoring.js";
 import { tool$demUnpauseWebsiteMonitoring } from "./tools/demUnpauseWebsiteMonitoring.js";
+import { tool$demUpdateTransaction } from "./tools/demUpdateTransaction.js";
 import { tool$demUpdateUri } from "./tools/demUpdateUri.js";
 import { tool$demUpdateWebsite } from "./tools/demUpdateWebsite.js";
 import { tool$entitiesGetEntityById } from "./tools/entitiesGetEntityById.js";
@@ -69,7 +77,7 @@ export function createMCPServer(deps: {
 }) {
   const server = new McpServer({
     name: "Swo",
-    version: "0.5.0",
+    version: "0.6.0",
   });
 
   const client = new SwoCore({
@@ -106,6 +114,8 @@ export function createMCPServer(deps: {
   tool(tool$cloudAccountsUpdateAwsIntegration);
   tool(tool$cloudAccountsValidateMgmtAccountOnboarding);
   tool(tool$dboObserveDatabase);
+  tool(tool$dboGetConfig);
+  tool(tool$dboSetConfig);
   tool(tool$dboGetPublicKey);
   tool(tool$dboUpdateDatabase);
   tool(tool$dboDeleteDatabase);
@@ -115,6 +125,12 @@ export function createMCPServer(deps: {
   tool(tool$demListProbes);
   tool(tool$demGetDemSettings);
   tool(tool$demSetDemSettings);
+  tool(tool$demCreateTransaction);
+  tool(tool$demGetTransaction);
+  tool(tool$demUpdateTransaction);
+  tool(tool$demDeleteTransaction);
+  tool(tool$demPauseTransactionMonitoring);
+  tool(tool$demUnpauseTransactionMonitoring);
   tool(tool$demCreateUri);
   tool(tool$demGetUri);
   tool(tool$demUpdateUri);

@@ -3,11 +3,13 @@
  */
 
 import { dboDeleteDatabase } from "../funcs/dboDeleteDatabase.js";
+import { dboGetConfig } from "../funcs/dboGetConfig.js";
 import { dboGetPluginConfig } from "../funcs/dboGetPluginConfig.js";
 import { dboGetPlugins } from "../funcs/dboGetPlugins.js";
 import { dboGetPublicKey } from "../funcs/dboGetPublicKey.js";
 import { dboObserveDatabase } from "../funcs/dboObserveDatabase.js";
 import { dboPluginOperation } from "../funcs/dboPluginOperation.js";
+import { dboSetConfig } from "../funcs/dboSetConfig.js";
 import { dboUpdateDatabase } from "../funcs/dboUpdateDatabase.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
@@ -23,6 +25,42 @@ export class Dbo extends ClientSDK {
     options?: RequestOptions,
   ): Promise<operations.ObserveDatabaseResponse> {
     return unwrapAsync(dboObserveDatabase(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get organization-level configuration for database observability agents/plugins
+   */
+  async getConfig(
+    options?: RequestOptions,
+  ): Promise<components.DboConfig> {
+    return unwrapAsync(dboGetConfig(
+      this,
+      options,
+    ));
+  }
+
+  /**
+   * Set organization-level configuration for database observability agents/plugins
+   *
+   * @remarks
+   * Sets organization-level configuration for database observability agents/plugins.
+   * They are overriden by any configuration options set at the individual database level.
+   *
+   * Example configuration option:
+   * * `disable-sampling`: true or false (default: false). If true, sampling is disabled for all databases observed by the organization.
+   *
+   * Passing an empty value clears the organization-level configuration for that option.
+   * [Database configuration files documentation](https://documentation.solarwinds.com/en/success_center/observability/content/intro/database/database-configuration-files.htm)
+   */
+  async setConfig(
+    request: Array<components.CommonKeyValuePair>,
+    options?: RequestOptions,
+  ): Promise<void> {
+    return unwrapAsync(dboSetConfig(
       this,
       request,
       options,

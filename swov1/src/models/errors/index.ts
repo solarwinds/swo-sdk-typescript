@@ -14,3 +14,4 @@ export * from "./httpclienterrors.js";
 export * from "./metricsmetricforbiddenerrorresponse.js";
 export * from "./responsevalidationerror.js";
 export * from "./sdkvalidationerror.js";
+export * from "./swoerror.js";

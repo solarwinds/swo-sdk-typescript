@@ -26,12 +26,28 @@ let value: DemUri = {
       failingTestLocations: "all",
       consecutiveForDown: 2,
     },
+    dns: {
+      enabled: false,
+      nameserver: "8.8.8.8",
+      port: 53,
+      ipToExpect: "1.2.3.4",
+    },
     ping: {
-      enabled: true,
+      enabled: false,
     },
     tcp: {
       enabled: true,
       port: 443,
+      stringToSend: "GET / HTTP/1.1\r\n"
+        + "Host: solarwinds.com\r\n"
+        + "Connection: close\r\n"
+        + "\r\n"
+        + "",
+      stringToExpect: "HTTP/1.1 200 OK",
+    },
+    udp: {
+      enabled: false,
+      port: 8888,
       stringToSend: "GET / HTTP/1.1\r\n"
         + "Host: solarwinds.com\r\n"
         + "Connection: close\r\n"
@@ -55,5 +71,5 @@ let value: DemUri = {
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `name`                                                                                                                                                                                                           | *string*                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                               | Name of the URI, which must be unique within the organization. The name must also not contain any control characters, any white space other than space (U+0020), or any consecutive, leading or trailing spaces. | solarwinds.com                                                                                                                                                                                                   |
 | `ipOrDomain`                                                                                                                                                                                                     | *string*                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                               | IP/domain of the URI.                                                                                                                                                                                            | solarwinds.com                                                                                                                                                                                                   |
-| `availabilityCheckSettings`                                                                                                                                                                                      | [components.DemUriAvailabilityCheckSettingsInput](../../models/components/demuriavailabilitychecksettingsinput.md)                                                                                               | :heavy_check_mark:                                                                                                                                                                                               | Use this field to configure availability tests for the URI.                                                                                                                                                      |                                                                                                                                                                                                                  |
+| `availabilityCheckSettings`                                                                                                                                                                                      | [components.DemUriAvailabilityCheckSettingsInput](../../models/components/demuriavailabilitychecksettingsinput.md)                                                                                               | :heavy_check_mark:                                                                                                                                                                                               | Availability tests configuration for the URI.                                                                                                                                                                    |                                                                                                                                                                                                                  |
 | `tags`                                                                                                                                                                                                           | [components.CommonTag](../../models/components/commontag.md)[]                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                               | Tags associated with the URI for categorization.                                                                                                                                                                 |                                                                                                                                                                                                                  |
