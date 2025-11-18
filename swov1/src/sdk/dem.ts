@@ -199,7 +199,7 @@ export class Dem extends ClientSDK {
   async deleteUri(
     request: operations.DeleteUriRequest,
     options?: RequestOptions,
-  ): Promise<components.CommonEntityId> {
+  ): Promise<void> {
     return unwrapAsync(demDeleteUri(
       this,
       request,
@@ -283,7 +283,7 @@ export class Dem extends ClientSDK {
   async deleteWebsite(
     request: operations.DeleteWebsiteRequest,
     options?: RequestOptions,
-  ): Promise<components.CommonEntityId> {
+  ): Promise<void> {
     return unwrapAsync(demDeleteWebsite(
       this,
       request,
