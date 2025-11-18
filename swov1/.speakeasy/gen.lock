@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 07bd7da1-2b9c-45f1-ab2f-485c7af5c2f1
 management:
-  docChecksum: 0de649dacda81533c60905efa66bc6e5
-  docVersion: 1.0.11
-  speakeasyVersion: 1.656.2
-  generationVersion: 2.753.6
-  releaseVersion: 0.6.0
-  configChecksum: fd87d4ff5ec26dce3a564c7da6f26176
+  docChecksum: d75e426ea971dbb4885d779b2a4105c3
+  docVersion: 1.0.12
+  speakeasyVersion: 1.658.2
+  generationVersion: 2.755.9
+  releaseVersion: 0.6.1
+  configChecksum: 40bb8290b2e56cede675811d8f23f258
   repoURL: https://github.com/solarwinds/swo-sdk-typescript.git
   repoSubDirectory: swov1
   installationURL: https://gitpkg.now.sh/solarwinds/swo-sdk-typescript/swov1
@@ -15,7 +15,7 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.26.6
+    core: 3.26.7
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -1259,4 +1259,7 @@ examples:
           application/json: {"message": "Error has occurred", "code": "InternalError"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: "## Typescript SDK Changes Detected:\n* `swo.dem.getDemSettings()`:  `response` **Changed** **Breaking** :warning:\n* `swo.logs.listLogArchives()`:  `response.logarchives.[].archiveSize` **Changed** **Breaking** :warning:\n* `swo.dem.setDemSettings()`:  `request` **Changed** **Breaking** :warning:\n* `swo.dbo.updateDatabase()`: \n  *  `request.dbo.updateDatabaseRequest.name` **Changed**\n* `swo.dem.createTransaction()`: **Added**\n* `swo.dem.deleteTransaction()`: **Added**\n* `swo.dem.pauseTransactionMonitoring()`: **Added**\n* `swo.dem.unpauseTransactionMonitoring()`: **Added**\n* `swo.dbo.getConfig()`: **Added**\n* `swo.dem.getTransaction()`: **Added**\n* `swo.dem.updateTransaction()`: **Added**\n* `swo.dem.createUri()`: \n  *  `request.availabilityCheckSettings` **Changed**\n* `swo.dem.getUri()`:  `response.availabilitychecksettings` **Changed**\n* `swo.dem.updateUri()`: \n  *  `request.dem.uri.availabilityCheckSettings` **Changed**\n* `swo.entities.listEntities()`:  `response.entities.[].healthscore` **Changed**\n* `swo.entities.getEntityById()`:  `response.healthscore` **Changed**\n* `swo.dbo.setConfig()`: **Added**\n"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `swo.dem.deleteUri()`:  `response` **Changed** **Breaking** :warning:
+  * `swo.dem.deleteWebsite()`:  `response` **Changed** **Breaking** :warning:

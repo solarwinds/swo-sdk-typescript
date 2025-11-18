@@ -1304,11 +1304,11 @@ const swo = new Swo({
 });
 
 async function run() {
-  const result = await swo.dem.deleteUri({
+  await swo.dem.deleteUri({
     entityId: "<id>",
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -1334,7 +1334,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("demDeleteUri failed:", res.error);
   }
@@ -1354,7 +1354,7 @@ run();
 
 ### Response
 
-**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
+**Promise\<void\>**
 
 ### Errors
 
@@ -1971,11 +1971,11 @@ const swo = new Swo({
 });
 
 async function run() {
-  const result = await swo.dem.deleteWebsite({
+  await swo.dem.deleteWebsite({
     entityId: "<id>",
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -2001,7 +2001,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("demDeleteWebsite failed:", res.error);
   }
@@ -2021,7 +2021,7 @@ run();
 
 ### Response
 
-**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
+**Promise\<void\>**
 
 ### Errors
 
