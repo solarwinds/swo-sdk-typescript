@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 07bd7da1-2b9c-45f1-ab2f-485c7af5c2f1
 management:
-  docChecksum: d75e426ea971dbb4885d779b2a4105c3
+  docChecksum: c2a040035c1089ffa2b81d94b51617a6
   docVersion: 1.0.12
-  speakeasyVersion: 1.658.2
-  generationVersion: 2.755.9
-  releaseVersion: 0.6.1
-  configChecksum: 40bb8290b2e56cede675811d8f23f258
+  speakeasyVersion: 1.665.1
+  generationVersion: 2.767.2
+  releaseVersion: 0.7.0
+  configChecksum: c8cdb01a92f4d729fd46775d5f55f634
   repoURL: https://github.com/solarwinds/swo-sdk-typescript.git
   repoSubDirectory: swov1
   installationURL: https://gitpkg.now.sh/solarwinds/swo-sdk-typescript/swov1
@@ -15,7 +15,7 @@ features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.12
-    core: 3.26.7
+    core: 3.26.13
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -32,7 +32,7 @@ features:
     pagination: 2.83.0
     responseFormat: 0.2.3
     retries: 2.83.0
-    sdkHooks: 0.3.0
+    sdkHooks: 0.4.0
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
@@ -526,6 +526,7 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - src/types/streams.ts
+  - src/types/unrecognized.ts
   - tsconfig.json
 examples:
   createChangeEvent:
@@ -1259,7 +1260,4 @@ examples:
           application/json: {"message": "Error has occurred", "code": "InternalError"}
 examplesVersion: 1.0.2
 generatedTests: {}
-releaseNotes: |
-  ## Typescript SDK Changes Detected:
-  * `swo.dem.deleteUri()`:  `response` **Changed** **Breaking** :warning:
-  * `swo.dem.deleteWebsite()`:  `response` **Changed** **Breaking** :warning:
+releaseNotes: "## Typescript SDK Changes:\n* `swo.metrics.listMetricMeasurements()`: \n  *  `request.preGroupByMethod` **Changed** **Breaking** :warning:\n"

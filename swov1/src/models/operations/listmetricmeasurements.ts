@@ -39,7 +39,7 @@ export type ListMetricMeasurementsRequest = {
   /**
    * Secondary aggregation to allow aggregating data points inside individual buckets. Has to be set together with `preGroupBy`.
    */
-  preGroupByMethod?: string | undefined;
+  preGroupByMethod?: components.MetricsAggregationMethods | undefined;
   /**
    * Indicates what type of data to return. Defaults to TIMESERIES.
    */
@@ -87,7 +87,8 @@ export const ListMetricMeasurementsRequest$inboundSchema: z.ZodType<
   aggregateBy: components.MetricsAggregationMethods$inboundSchema.optional(),
   bucketSizeInSeconds: z.number().int().optional(),
   preGroupBy: z.string().optional(),
-  preGroupByMethod: z.string().optional(),
+  preGroupByMethod: components.MetricsAggregationMethods$inboundSchema
+    .optional(),
   seriesType: components.MetricsMetricSeriesType$inboundSchema,
   startTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
     .optional(),
@@ -124,7 +125,8 @@ export const ListMetricMeasurementsRequest$outboundSchema: z.ZodType<
   aggregateBy: components.MetricsAggregationMethods$outboundSchema.optional(),
   bucketSizeInSeconds: z.number().int().optional(),
   preGroupBy: z.string().optional(),
-  preGroupByMethod: z.string().optional(),
+  preGroupByMethod: components.MetricsAggregationMethods$outboundSchema
+    .optional(),
   seriesType: components.MetricsMetricSeriesType$outboundSchema,
   startTime: z.date().transform(v => v.toISOString()).optional(),
   endTime: z.date().transform(v => v.toISOString()).optional(),
