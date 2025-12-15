@@ -62,10 +62,6 @@ export class CommonNotFoundErrorResponse extends SwoError {
 export const CommonNotFoundErrorResponseCode$inboundSchema: z.ZodNativeEnum<
   typeof CommonNotFoundErrorResponseCode
 > = z.nativeEnum(CommonNotFoundErrorResponseCode);
-/** @internal */
-export const CommonNotFoundErrorResponseCode$outboundSchema: z.ZodNativeEnum<
-  typeof CommonNotFoundErrorResponseCode
-> = CommonNotFoundErrorResponseCode$inboundSchema;
 
 /** @internal */
 export const CommonNotFoundErrorResponse$inboundSchema: z.ZodType<
@@ -86,21 +82,3 @@ export const CommonNotFoundErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type CommonNotFoundErrorResponse$Outbound = {
-  message: string;
-  code?: string | undefined;
-};
-
-/** @internal */
-export const CommonNotFoundErrorResponse$outboundSchema: z.ZodType<
-  CommonNotFoundErrorResponse$Outbound,
-  z.ZodTypeDef,
-  CommonNotFoundErrorResponse
-> = z.instanceof(CommonNotFoundErrorResponse)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string(),
-    code: CommonNotFoundErrorResponseCode$outboundSchema.optional(),
-  }));

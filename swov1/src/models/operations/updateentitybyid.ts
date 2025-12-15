@@ -4,10 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateEntityByIdRequest = {
   /**
@@ -20,19 +17,6 @@ export type UpdateEntityByIdRequest = {
   entitiesEntity: components.EntitiesEntityInput;
 };
 
-/** @internal */
-export const UpdateEntityByIdRequest$inboundSchema: z.ZodType<
-  UpdateEntityByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  "Entities.Entity": components.EntitiesEntityInput$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Entities.Entity": "entitiesEntity",
-  });
-});
 /** @internal */
 export type UpdateEntityByIdRequest$Outbound = {
   id: string;
@@ -58,14 +42,5 @@ export function updateEntityByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateEntityByIdRequest$outboundSchema.parse(updateEntityByIdRequest),
-  );
-}
-export function updateEntityByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateEntityByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateEntityByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateEntityByIdRequest' from JSON`,
   );
 }

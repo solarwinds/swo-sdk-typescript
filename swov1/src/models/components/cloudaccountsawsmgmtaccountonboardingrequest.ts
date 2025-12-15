@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CloudAccountsAwsMgmtAccountOnboardingRequest = {
   /**
@@ -14,15 +11,6 @@ export type CloudAccountsAwsMgmtAccountOnboardingRequest = {
   managementAccountId: string;
 };
 
-/** @internal */
-export const CloudAccountsAwsMgmtAccountOnboardingRequest$inboundSchema:
-  z.ZodType<
-    CloudAccountsAwsMgmtAccountOnboardingRequest,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    managementAccountId: z.string(),
-  });
 /** @internal */
 export type CloudAccountsAwsMgmtAccountOnboardingRequest$Outbound = {
   managementAccountId: string;
@@ -46,20 +34,5 @@ export function cloudAccountsAwsMgmtAccountOnboardingRequestToJSON(
     CloudAccountsAwsMgmtAccountOnboardingRequest$outboundSchema.parse(
       cloudAccountsAwsMgmtAccountOnboardingRequest,
     ),
-  );
-}
-export function cloudAccountsAwsMgmtAccountOnboardingRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CloudAccountsAwsMgmtAccountOnboardingRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CloudAccountsAwsMgmtAccountOnboardingRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CloudAccountsAwsMgmtAccountOnboardingRequest' from JSON`,
   );
 }

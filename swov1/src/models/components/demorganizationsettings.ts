@@ -9,8 +9,6 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   DemOutageConfiguration,
   DemOutageConfiguration$inboundSchema,
-  DemOutageConfiguration$Outbound,
-  DemOutageConfiguration$outboundSchema,
 } from "./demoutageconfiguration.js";
 
 export type DemOrganizationSettings = {
@@ -33,29 +31,7 @@ export const DemOrganizationSettings$inboundSchema: z.ZodType<
   availabilityOutageConfiguration: DemOutageConfiguration$inboundSchema,
   transactionOutageConfiguration: DemOutageConfiguration$inboundSchema,
 });
-/** @internal */
-export type DemOrganizationSettings$Outbound = {
-  availabilityOutageConfiguration: DemOutageConfiguration$Outbound;
-  transactionOutageConfiguration: DemOutageConfiguration$Outbound;
-};
 
-/** @internal */
-export const DemOrganizationSettings$outboundSchema: z.ZodType<
-  DemOrganizationSettings$Outbound,
-  z.ZodTypeDef,
-  DemOrganizationSettings
-> = z.object({
-  availabilityOutageConfiguration: DemOutageConfiguration$outboundSchema,
-  transactionOutageConfiguration: DemOutageConfiguration$outboundSchema,
-});
-
-export function demOrganizationSettingsToJSON(
-  demOrganizationSettings: DemOrganizationSettings,
-): string {
-  return JSON.stringify(
-    DemOrganizationSettings$outboundSchema.parse(demOrganizationSettings),
-  );
-}
 export function demOrganizationSettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<DemOrganizationSettings, SDKValidationError> {

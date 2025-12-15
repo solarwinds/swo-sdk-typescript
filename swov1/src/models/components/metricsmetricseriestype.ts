@@ -14,10 +14,6 @@ export type MetricsMetricSeriesType = ClosedEnum<
 >;
 
 /** @internal */
-export const MetricsMetricSeriesType$inboundSchema: z.ZodNativeEnum<
-  typeof MetricsMetricSeriesType
-> = z.nativeEnum(MetricsMetricSeriesType);
-/** @internal */
 export const MetricsMetricSeriesType$outboundSchema: z.ZodNativeEnum<
   typeof MetricsMetricSeriesType
-> = MetricsMetricSeriesType$inboundSchema;
+> = z.nativeEnum(MetricsMetricSeriesType);

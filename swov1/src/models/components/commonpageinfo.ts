@@ -21,25 +21,7 @@ export const CommonPageInfo$inboundSchema: z.ZodType<
   prevPage: z.string(),
   nextPage: z.string(),
 });
-/** @internal */
-export type CommonPageInfo$Outbound = {
-  prevPage: string;
-  nextPage: string;
-};
 
-/** @internal */
-export const CommonPageInfo$outboundSchema: z.ZodType<
-  CommonPageInfo$Outbound,
-  z.ZodTypeDef,
-  CommonPageInfo
-> = z.object({
-  prevPage: z.string(),
-  nextPage: z.string(),
-});
-
-export function commonPageInfoToJSON(commonPageInfo: CommonPageInfo): string {
-  return JSON.stringify(CommonPageInfo$outboundSchema.parse(commonPageInfo));
-}
 export function commonPageInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<CommonPageInfo, SDKValidationError> {

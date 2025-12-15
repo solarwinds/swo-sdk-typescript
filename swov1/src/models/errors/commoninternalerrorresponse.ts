@@ -62,10 +62,6 @@ export class CommonInternalErrorResponse extends SwoError {
 export const CommonInternalErrorResponseCode$inboundSchema: z.ZodNativeEnum<
   typeof CommonInternalErrorResponseCode
 > = z.nativeEnum(CommonInternalErrorResponseCode);
-/** @internal */
-export const CommonInternalErrorResponseCode$outboundSchema: z.ZodNativeEnum<
-  typeof CommonInternalErrorResponseCode
-> = CommonInternalErrorResponseCode$inboundSchema;
 
 /** @internal */
 export const CommonInternalErrorResponse$inboundSchema: z.ZodType<
@@ -86,21 +82,3 @@ export const CommonInternalErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type CommonInternalErrorResponse$Outbound = {
-  message: string;
-  code?: string | undefined;
-};
-
-/** @internal */
-export const CommonInternalErrorResponse$outboundSchema: z.ZodType<
-  CommonInternalErrorResponse$Outbound,
-  z.ZodTypeDef,
-  CommonInternalErrorResponse
-> = z.instanceof(CommonInternalErrorResponse)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string(),
-    code: CommonInternalErrorResponseCode$outboundSchema.optional(),
-  }));

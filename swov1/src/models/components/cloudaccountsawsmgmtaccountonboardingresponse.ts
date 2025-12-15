@@ -23,31 +23,7 @@ export const CloudAccountsAwsMgmtAccountOnboardingResponse$inboundSchema:
   > = z.object({
     isOnboarded: z.boolean(),
   });
-/** @internal */
-export type CloudAccountsAwsMgmtAccountOnboardingResponse$Outbound = {
-  isOnboarded: boolean;
-};
 
-/** @internal */
-export const CloudAccountsAwsMgmtAccountOnboardingResponse$outboundSchema:
-  z.ZodType<
-    CloudAccountsAwsMgmtAccountOnboardingResponse$Outbound,
-    z.ZodTypeDef,
-    CloudAccountsAwsMgmtAccountOnboardingResponse
-  > = z.object({
-    isOnboarded: z.boolean(),
-  });
-
-export function cloudAccountsAwsMgmtAccountOnboardingResponseToJSON(
-  cloudAccountsAwsMgmtAccountOnboardingResponse:
-    CloudAccountsAwsMgmtAccountOnboardingResponse,
-): string {
-  return JSON.stringify(
-    CloudAccountsAwsMgmtAccountOnboardingResponse$outboundSchema.parse(
-      cloudAccountsAwsMgmtAccountOnboardingResponse,
-    ),
-  );
-}
 export function cloudAccountsAwsMgmtAccountOnboardingResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<

@@ -4,10 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateTransactionRequest = {
   entityId: string;
@@ -17,19 +14,6 @@ export type UpdateTransactionRequest = {
   demTransaction: components.DemTransaction;
 };
 
-/** @internal */
-export const UpdateTransactionRequest$inboundSchema: z.ZodType<
-  UpdateTransactionRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-  "Dem.Transaction": components.DemTransaction$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Dem.Transaction": "demTransaction",
-  });
-});
 /** @internal */
 export type UpdateTransactionRequest$Outbound = {
   entityId: string;
@@ -55,14 +39,5 @@ export function updateTransactionRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateTransactionRequest$outboundSchema.parse(updateTransactionRequest),
-  );
-}
-export function updateTransactionRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateTransactionRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateTransactionRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateTransactionRequest' from JSON`,
   );
 }

@@ -50,21 +50,6 @@ export type ListMetricAttributeValuesResponse = {
 };
 
 /** @internal */
-export const ListMetricAttributeValuesRequest$inboundSchema: z.ZodType<
-  ListMetricAttributeValuesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  attributeName: z.string(),
-  startTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  endTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  pageSize: z.number().int().optional(),
-  skipToken: z.string().optional(),
-});
-/** @internal */
 export type ListMetricAttributeValuesRequest$Outbound = {
   name: string;
   attributeName: string;
@@ -97,15 +82,6 @@ export function listMetricAttributeValuesRequestToJSON(
     ),
   );
 }
-export function listMetricAttributeValuesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMetricAttributeValuesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMetricAttributeValuesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMetricAttributeValuesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListMetricAttributeValuesResponseBody$inboundSchema: z.ZodType<
@@ -117,33 +93,7 @@ export const ListMetricAttributeValuesResponseBody$inboundSchema: z.ZodType<
   values: z.array(z.string()),
   pageInfo: components.CommonPageInfo$inboundSchema,
 });
-/** @internal */
-export type ListMetricAttributeValuesResponseBody$Outbound = {
-  name: string;
-  values: Array<string>;
-  pageInfo: components.CommonPageInfo$Outbound;
-};
 
-/** @internal */
-export const ListMetricAttributeValuesResponseBody$outboundSchema: z.ZodType<
-  ListMetricAttributeValuesResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListMetricAttributeValuesResponseBody
-> = z.object({
-  name: z.string(),
-  values: z.array(z.string()),
-  pageInfo: components.CommonPageInfo$outboundSchema,
-});
-
-export function listMetricAttributeValuesResponseBodyToJSON(
-  listMetricAttributeValuesResponseBody: ListMetricAttributeValuesResponseBody,
-): string {
-  return JSON.stringify(
-    ListMetricAttributeValuesResponseBody$outboundSchema.parse(
-      listMetricAttributeValuesResponseBody,
-    ),
-  );
-}
 export function listMetricAttributeValuesResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMetricAttributeValuesResponseBody, SDKValidationError> {
@@ -167,33 +117,7 @@ export const ListMetricAttributeValuesResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListMetricAttributeValuesResponse$Outbound = {
-  Result: ListMetricAttributeValuesResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListMetricAttributeValuesResponse$outboundSchema: z.ZodType<
-  ListMetricAttributeValuesResponse$Outbound,
-  z.ZodTypeDef,
-  ListMetricAttributeValuesResponse
-> = z.object({
-  result: z.lazy(() => ListMetricAttributeValuesResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listMetricAttributeValuesResponseToJSON(
-  listMetricAttributeValuesResponse: ListMetricAttributeValuesResponse,
-): string {
-  return JSON.stringify(
-    ListMetricAttributeValuesResponse$outboundSchema.parse(
-      listMetricAttributeValuesResponse,
-    ),
-  );
-}
 export function listMetricAttributeValuesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMetricAttributeValuesResponse, SDKValidationError> {

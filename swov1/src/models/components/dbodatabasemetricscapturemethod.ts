@@ -16,10 +16,6 @@ export type DboDatabaseMetricsCaptureMethod = ClosedEnum<
 >;
 
 /** @internal */
-export const DboDatabaseMetricsCaptureMethod$inboundSchema: z.ZodNativeEnum<
-  typeof DboDatabaseMetricsCaptureMethod
-> = z.nativeEnum(DboDatabaseMetricsCaptureMethod);
-/** @internal */
 export const DboDatabaseMetricsCaptureMethod$outboundSchema: z.ZodNativeEnum<
   typeof DboDatabaseMetricsCaptureMethod
-> = DboDatabaseMetricsCaptureMethod$inboundSchema;
+> = z.nativeEnum(DboDatabaseMetricsCaptureMethod);

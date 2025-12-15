@@ -45,20 +45,6 @@ export type ListMetricsResponse = {
 };
 
 /** @internal */
-export const ListMetricsRequest$inboundSchema: z.ZodType<
-  ListMetricsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  startTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  endTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  pageSize: z.number().int().optional(),
-  skipToken: z.string().optional(),
-});
-/** @internal */
 export type ListMetricsRequest$Outbound = {
   name?: string | undefined;
   startTime?: string | undefined;
@@ -87,15 +73,6 @@ export function listMetricsRequestToJSON(
     ListMetricsRequest$outboundSchema.parse(listMetricsRequest),
   );
 }
-export function listMetricsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMetricsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMetricsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMetricsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListMetricsResponseBody$inboundSchema: z.ZodType<
@@ -106,29 +83,7 @@ export const ListMetricsResponseBody$inboundSchema: z.ZodType<
   metricsInfo: z.array(components.CommonMetricInfo$inboundSchema),
   pageInfo: components.CommonPageInfo$inboundSchema,
 });
-/** @internal */
-export type ListMetricsResponseBody$Outbound = {
-  metricsInfo: Array<components.CommonMetricInfo$Outbound>;
-  pageInfo: components.CommonPageInfo$Outbound;
-};
 
-/** @internal */
-export const ListMetricsResponseBody$outboundSchema: z.ZodType<
-  ListMetricsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListMetricsResponseBody
-> = z.object({
-  metricsInfo: z.array(components.CommonMetricInfo$outboundSchema),
-  pageInfo: components.CommonPageInfo$outboundSchema,
-});
-
-export function listMetricsResponseBodyToJSON(
-  listMetricsResponseBody: ListMetricsResponseBody,
-): string {
-  return JSON.stringify(
-    ListMetricsResponseBody$outboundSchema.parse(listMetricsResponseBody),
-  );
-}
 export function listMetricsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMetricsResponseBody, SDKValidationError> {
@@ -151,31 +106,7 @@ export const ListMetricsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListMetricsResponse$Outbound = {
-  Result: ListMetricsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListMetricsResponse$outboundSchema: z.ZodType<
-  ListMetricsResponse$Outbound,
-  z.ZodTypeDef,
-  ListMetricsResponse
-> = z.object({
-  result: z.lazy(() => ListMetricsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listMetricsResponseToJSON(
-  listMetricsResponse: ListMetricsResponse,
-): string {
-  return JSON.stringify(
-    ListMetricsResponse$outboundSchema.parse(listMetricsResponse),
-  );
-}
 export function listMetricsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMetricsResponse, SDKValidationError> {

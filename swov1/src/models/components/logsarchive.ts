@@ -42,31 +42,7 @@ export const LogsArchive$inboundSchema: z.ZodType<
   archivedTimestamp: z.string(),
   archiveSize: z.number(),
 });
-/** @internal */
-export type LogsArchive$Outbound = {
-  id: string;
-  name: string;
-  downloadUrl: string;
-  archivedTimestamp: string;
-  archiveSize: number;
-};
 
-/** @internal */
-export const LogsArchive$outboundSchema: z.ZodType<
-  LogsArchive$Outbound,
-  z.ZodTypeDef,
-  LogsArchive
-> = z.object({
-  id: z.string(),
-  name: z.string(),
-  downloadUrl: z.string(),
-  archivedTimestamp: z.string(),
-  archiveSize: z.number(),
-});
-
-export function logsArchiveToJSON(logsArchive: LogsArchive): string {
-  return JSON.stringify(LogsArchive$outboundSchema.parse(logsArchive));
-}
 export function logsArchiveFromJSON(
   jsonString: string,
 ): SafeParseResult<LogsArchive, SDKValidationError> {

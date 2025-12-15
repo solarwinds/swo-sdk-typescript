@@ -4,10 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type Tags = {
   server: string;
@@ -28,16 +25,6 @@ export type TokensCreateTokenRequest = {
 };
 
 /** @internal */
-export const Tags$inboundSchema: z.ZodType<Tags, z.ZodTypeDef, unknown> = z
-  .object({
-    server: z.string(),
-    tag_without_value: z.string(),
-  }).transform((v) => {
-    return remap$(v, {
-      "tag_without_value": "tagWithoutValue",
-    });
-  });
-/** @internal */
 export type Tags$Outbound = {
   server: string;
   tag_without_value: string;
@@ -57,35 +44,12 @@ export const Tags$outboundSchema: z.ZodType<Tags$Outbound, z.ZodTypeDef, Tags> =
 export function tagsToJSON(tags: Tags): string {
   return JSON.stringify(Tags$outboundSchema.parse(tags));
 }
-export function tagsFromJSON(
-  jsonString: string,
-): SafeParseResult<Tags, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Tags$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Tags' from JSON`,
-  );
-}
 
-/** @internal */
-export const TokensCreateTokenRequestType$inboundSchema: z.ZodNativeEnum<
-  typeof TokensCreateTokenRequestType
-> = z.nativeEnum(TokensCreateTokenRequestType);
 /** @internal */
 export const TokensCreateTokenRequestType$outboundSchema: z.ZodNativeEnum<
   typeof TokensCreateTokenRequestType
-> = TokensCreateTokenRequestType$inboundSchema;
+> = z.nativeEnum(TokensCreateTokenRequestType);
 
-/** @internal */
-export const TokensCreateTokenRequest$inboundSchema: z.ZodType<
-  TokensCreateTokenRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  tags: z.lazy(() => Tags$inboundSchema),
-  type: TokensCreateTokenRequestType$inboundSchema,
-});
 /** @internal */
 export type TokensCreateTokenRequest$Outbound = {
   name: string;
@@ -109,14 +73,5 @@ export function tokensCreateTokenRequestToJSON(
 ): string {
   return JSON.stringify(
     TokensCreateTokenRequest$outboundSchema.parse(tokensCreateTokenRequest),
-  );
-}
-export function tokensCreateTokenRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<TokensCreateTokenRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TokensCreateTokenRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TokensCreateTokenRequest' from JSON`,
   );
 }

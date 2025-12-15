@@ -62,10 +62,6 @@ export class CommonForbiddenErrorResponse extends SwoError {
 export const CommonForbiddenErrorResponseCode$inboundSchema: z.ZodNativeEnum<
   typeof CommonForbiddenErrorResponseCode
 > = z.nativeEnum(CommonForbiddenErrorResponseCode);
-/** @internal */
-export const CommonForbiddenErrorResponseCode$outboundSchema: z.ZodNativeEnum<
-  typeof CommonForbiddenErrorResponseCode
-> = CommonForbiddenErrorResponseCode$inboundSchema;
 
 /** @internal */
 export const CommonForbiddenErrorResponse$inboundSchema: z.ZodType<
@@ -86,21 +82,3 @@ export const CommonForbiddenErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type CommonForbiddenErrorResponse$Outbound = {
-  message: string;
-  code?: string | undefined;
-};
-
-/** @internal */
-export const CommonForbiddenErrorResponse$outboundSchema: z.ZodType<
-  CommonForbiddenErrorResponse$Outbound,
-  z.ZodTypeDef,
-  CommonForbiddenErrorResponse
-> = z.instanceof(CommonForbiddenErrorResponse)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string(),
-    code: CommonForbiddenErrorResponseCode$outboundSchema.optional(),
-  }));

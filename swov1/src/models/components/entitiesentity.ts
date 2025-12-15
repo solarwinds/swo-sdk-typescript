@@ -79,9 +79,6 @@ export type EntitiesEntity = {
 /** @internal */
 export const Category$inboundSchema: z.ZodNativeEnum<typeof Category> = z
   .nativeEnum(Category);
-/** @internal */
-export const Category$outboundSchema: z.ZodNativeEnum<typeof Category> =
-  Category$inboundSchema;
 
 /** @internal */
 export const Healthscore$inboundSchema: z.ZodType<
@@ -92,25 +89,7 @@ export const Healthscore$inboundSchema: z.ZodType<
   score: z.number().int().optional(),
   category: Category$inboundSchema.optional(),
 });
-/** @internal */
-export type Healthscore$Outbound = {
-  score?: number | undefined;
-  category?: string | undefined;
-};
 
-/** @internal */
-export const Healthscore$outboundSchema: z.ZodType<
-  Healthscore$Outbound,
-  z.ZodTypeDef,
-  Healthscore
-> = z.object({
-  score: z.number().int().optional(),
-  category: Category$outboundSchema.optional(),
-});
-
-export function healthscoreToJSON(healthscore: Healthscore): string {
-  return JSON.stringify(Healthscore$outboundSchema.parse(healthscore));
-}
 export function healthscoreFromJSON(
   jsonString: string,
 ): SafeParseResult<Healthscore, SDKValidationError> {
@@ -143,43 +122,7 @@ export const EntitiesEntity$inboundSchema: z.ZodType<
   tags: z.record(z.nullable(z.string())),
   attributes: z.record(z.any()).optional(),
 });
-/** @internal */
-export type EntitiesEntity$Outbound = {
-  id: string;
-  type: string;
-  name?: string | undefined;
-  displayName?: string | null | undefined;
-  createdTime?: string | undefined;
-  updatedTime?: string | undefined;
-  lastSeenTime: string;
-  inMaintenance: boolean;
-  healthscore?: Healthscore$Outbound | undefined;
-  tags: { [k: string]: string | null };
-  attributes?: { [k: string]: any } | undefined;
-};
 
-/** @internal */
-export const EntitiesEntity$outboundSchema: z.ZodType<
-  EntitiesEntity$Outbound,
-  z.ZodTypeDef,
-  EntitiesEntity
-> = z.object({
-  id: z.string(),
-  type: z.string(),
-  name: z.string().optional(),
-  displayName: z.nullable(z.string()).optional(),
-  createdTime: z.date().transform(v => v.toISOString()).optional(),
-  updatedTime: z.date().transform(v => v.toISOString()).optional(),
-  lastSeenTime: z.date().transform(v => v.toISOString()),
-  inMaintenance: z.boolean(),
-  healthscore: z.lazy(() => Healthscore$outboundSchema).optional(),
-  tags: z.record(z.nullable(z.string())),
-  attributes: z.record(z.any()).optional(),
-});
-
-export function entitiesEntityToJSON(entitiesEntity: EntitiesEntity): string {
-  return JSON.stringify(EntitiesEntity$outboundSchema.parse(entitiesEntity));
-}
 export function entitiesEntityFromJSON(
   jsonString: string,
 ): SafeParseResult<EntitiesEntity, SDKValidationError> {

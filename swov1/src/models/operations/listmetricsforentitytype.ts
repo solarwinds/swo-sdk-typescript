@@ -32,18 +32,6 @@ export type ListMetricsForEntityTypeResponse = {
 };
 
 /** @internal */
-export const ListMetricsForEntityTypeRequest$inboundSchema: z.ZodType<
-  ListMetricsForEntityTypeRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.string(),
-  startTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  endTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-});
-/** @internal */
 export type ListMetricsForEntityTypeRequest$Outbound = {
   type: string;
   startTime?: string | undefined;
@@ -70,15 +58,6 @@ export function listMetricsForEntityTypeRequestToJSON(
     ),
   );
 }
-export function listMetricsForEntityTypeRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMetricsForEntityTypeRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMetricsForEntityTypeRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMetricsForEntityTypeRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListMetricsForEntityTypeResponse$inboundSchema: z.ZodType<
@@ -89,31 +68,7 @@ export const ListMetricsForEntityTypeResponse$inboundSchema: z.ZodType<
   type: z.string(),
   metrics: z.array(components.CommonMetricInfo$inboundSchema),
 });
-/** @internal */
-export type ListMetricsForEntityTypeResponse$Outbound = {
-  type: string;
-  metrics: Array<components.CommonMetricInfo$Outbound>;
-};
 
-/** @internal */
-export const ListMetricsForEntityTypeResponse$outboundSchema: z.ZodType<
-  ListMetricsForEntityTypeResponse$Outbound,
-  z.ZodTypeDef,
-  ListMetricsForEntityTypeResponse
-> = z.object({
-  type: z.string(),
-  metrics: z.array(components.CommonMetricInfo$outboundSchema),
-});
-
-export function listMetricsForEntityTypeResponseToJSON(
-  listMetricsForEntityTypeResponse: ListMetricsForEntityTypeResponse,
-): string {
-  return JSON.stringify(
-    ListMetricsForEntityTypeResponse$outboundSchema.parse(
-      listMetricsForEntityTypeResponse,
-    ),
-  );
-}
 export function listMetricsForEntityTypeResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMetricsForEntityTypeResponse, SDKValidationError> {

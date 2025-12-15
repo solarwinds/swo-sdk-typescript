@@ -3,22 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetPluginConfigRequest = {
   entityId: string;
 };
 
-/** @internal */
-export const GetPluginConfigRequest$inboundSchema: z.ZodType<
-  GetPluginConfigRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-});
 /** @internal */
 export type GetPluginConfigRequest$Outbound = {
   entityId: string;
@@ -38,14 +27,5 @@ export function getPluginConfigRequestToJSON(
 ): string {
   return JSON.stringify(
     GetPluginConfigRequest$outboundSchema.parse(getPluginConfigRequest),
-  );
-}
-export function getPluginConfigRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPluginConfigRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPluginConfigRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPluginConfigRequest' from JSON`,
   );
 }

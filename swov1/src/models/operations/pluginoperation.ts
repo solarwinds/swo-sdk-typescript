@@ -3,24 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type PluginOperationRequest = {
   entityId: string;
   operation: string;
 };
 
-/** @internal */
-export const PluginOperationRequest$inboundSchema: z.ZodType<
-  PluginOperationRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-  operation: z.string(),
-});
 /** @internal */
 export type PluginOperationRequest$Outbound = {
   entityId: string;
@@ -42,14 +30,5 @@ export function pluginOperationRequestToJSON(
 ): string {
   return JSON.stringify(
     PluginOperationRequest$outboundSchema.parse(pluginOperationRequest),
-  );
-}
-export function pluginOperationRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<PluginOperationRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PluginOperationRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PluginOperationRequest' from JSON`,
   );
 }

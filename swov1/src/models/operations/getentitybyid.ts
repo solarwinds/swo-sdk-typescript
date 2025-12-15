@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetEntityByIdRequest = {
   /**
@@ -14,14 +11,6 @@ export type GetEntityByIdRequest = {
   id: string;
 };
 
-/** @internal */
-export const GetEntityByIdRequest$inboundSchema: z.ZodType<
-  GetEntityByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
 /** @internal */
 export type GetEntityByIdRequest$Outbound = {
   id: string;
@@ -41,14 +30,5 @@ export function getEntityByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     GetEntityByIdRequest$outboundSchema.parse(getEntityByIdRequest),
-  );
-}
-export function getEntityByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetEntityByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetEntityByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetEntityByIdRequest' from JSON`,
   );
 }

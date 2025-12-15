@@ -3,22 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetWebsiteRequest = {
   entityId: string;
 };
 
-/** @internal */
-export const GetWebsiteRequest$inboundSchema: z.ZodType<
-  GetWebsiteRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-});
 /** @internal */
 export type GetWebsiteRequest$Outbound = {
   entityId: string;
@@ -38,14 +27,5 @@ export function getWebsiteRequestToJSON(
 ): string {
   return JSON.stringify(
     GetWebsiteRequest$outboundSchema.parse(getWebsiteRequest),
-  );
-}
-export function getWebsiteRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetWebsiteRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetWebsiteRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetWebsiteRequest' from JSON`,
   );
 }

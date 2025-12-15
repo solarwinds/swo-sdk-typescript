@@ -3,10 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * SSL mode such as require, verify-ca, verify-full as applicable
@@ -43,25 +40,10 @@ export type DboDatabaseSslOptionsUpdate = {
 };
 
 /** @internal */
-export const DboDatabaseSslOptionsUpdateSslMode$inboundSchema: z.ZodNativeEnum<
-  typeof DboDatabaseSslOptionsUpdateSslMode
-> = z.nativeEnum(DboDatabaseSslOptionsUpdateSslMode);
-/** @internal */
 export const DboDatabaseSslOptionsUpdateSslMode$outboundSchema: z.ZodNativeEnum<
   typeof DboDatabaseSslOptionsUpdateSslMode
-> = DboDatabaseSslOptionsUpdateSslMode$inboundSchema;
+> = z.nativeEnum(DboDatabaseSslOptionsUpdateSslMode);
 
-/** @internal */
-export const DboDatabaseSslOptionsUpdate$inboundSchema: z.ZodType<
-  DboDatabaseSslOptionsUpdate,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sslMode: DboDatabaseSslOptionsUpdateSslMode$inboundSchema.default("require"),
-  sslCAPath: z.string().default(""),
-  sslKeyPath: z.string().default(""),
-  sslCertPath: z.string().default(""),
-});
 /** @internal */
 export type DboDatabaseSslOptionsUpdate$Outbound = {
   sslMode: string;
@@ -89,14 +71,5 @@ export function dboDatabaseSslOptionsUpdateToJSON(
     DboDatabaseSslOptionsUpdate$outboundSchema.parse(
       dboDatabaseSslOptionsUpdate,
     ),
-  );
-}
-export function dboDatabaseSslOptionsUpdateFromJSON(
-  jsonString: string,
-): SafeParseResult<DboDatabaseSslOptionsUpdate, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DboDatabaseSslOptionsUpdate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DboDatabaseSslOptionsUpdate' from JSON`,
   );
 }

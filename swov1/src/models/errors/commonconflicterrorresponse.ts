@@ -71,10 +71,6 @@ export class CommonConflictErrorResponse extends SwoError {
 export const CommonConflictErrorResponseCode$inboundSchema: z.ZodNativeEnum<
   typeof CommonConflictErrorResponseCode
 > = z.nativeEnum(CommonConflictErrorResponseCode);
-/** @internal */
-export const CommonConflictErrorResponseCode$outboundSchema: z.ZodNativeEnum<
-  typeof CommonConflictErrorResponseCode
-> = CommonConflictErrorResponseCode$inboundSchema;
 
 /** @internal */
 export const CommonConflictErrorResponse$inboundSchema: z.ZodType<
@@ -96,23 +92,3 @@ export const CommonConflictErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type CommonConflictErrorResponse$Outbound = {
-  message: string;
-  target?: string | undefined;
-  code?: string | undefined;
-};
-
-/** @internal */
-export const CommonConflictErrorResponse$outboundSchema: z.ZodType<
-  CommonConflictErrorResponse$Outbound,
-  z.ZodTypeDef,
-  CommonConflictErrorResponse
-> = z.instanceof(CommonConflictErrorResponse)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string(),
-    target: z.string().optional(),
-    code: CommonConflictErrorResponseCode$outboundSchema.optional(),
-  }));

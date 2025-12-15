@@ -7,33 +7,19 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import {
-  CommonTag,
-  CommonTag$inboundSchema,
-  CommonTag$Outbound,
-  CommonTag$outboundSchema,
-} from "./commontag.js";
+import { CommonTag, CommonTag$inboundSchema } from "./commontag.js";
 import {
   DemCustomHeaders,
   DemCustomHeaders$inboundSchema,
-  DemCustomHeaders$Outbound,
-  DemCustomHeaders$outboundSchema,
 } from "./demcustomheaders.js";
 import {
   DemProbePlatform,
   DemProbePlatform$inboundSchema,
-  DemProbePlatform$outboundSchema,
 } from "./demprobeplatform.js";
-import {
-  DemTestFrom,
-  DemTestFrom$inboundSchema,
-  DemTestFrom$Outbound,
-  DemTestFrom$outboundSchema,
-} from "./demtestfrom.js";
+import { DemTestFrom, DemTestFrom$inboundSchema } from "./demtestfrom.js";
 import {
   DemWebsiteProtocol,
   DemWebsiteProtocol$inboundSchema,
-  DemWebsiteProtocol$outboundSchema,
 } from "./demwebsiteprotocol.js";
 
 export const DemGetWebsiteResponseStatus = {
@@ -339,10 +325,6 @@ export type DemGetWebsiteResponse = {
 export const DemGetWebsiteResponseStatus$inboundSchema: z.ZodNativeEnum<
   typeof DemGetWebsiteResponseStatus
 > = z.nativeEnum(DemGetWebsiteResponseStatus);
-/** @internal */
-export const DemGetWebsiteResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof DemGetWebsiteResponseStatus
-> = DemGetWebsiteResponseStatus$inboundSchema;
 
 /** @internal */
 export const MonitoringOptions$inboundSchema: z.ZodType<
@@ -353,29 +335,7 @@ export const MonitoringOptions$inboundSchema: z.ZodType<
   isAvailabilityActive: z.boolean(),
   isRumActive: z.boolean(),
 });
-/** @internal */
-export type MonitoringOptions$Outbound = {
-  isAvailabilityActive: boolean;
-  isRumActive: boolean;
-};
 
-/** @internal */
-export const MonitoringOptions$outboundSchema: z.ZodType<
-  MonitoringOptions$Outbound,
-  z.ZodTypeDef,
-  MonitoringOptions
-> = z.object({
-  isAvailabilityActive: z.boolean(),
-  isRumActive: z.boolean(),
-});
-
-export function monitoringOptionsToJSON(
-  monitoringOptions: MonitoringOptions,
-): string {
-  return JSON.stringify(
-    MonitoringOptions$outboundSchema.parse(monitoringOptions),
-  );
-}
 export function monitoringOptionsFromJSON(
   jsonString: string,
 ): SafeParseResult<MonitoringOptions, SDKValidationError> {
@@ -395,31 +355,7 @@ export const DemGetWebsiteResponsePlatformOptions$inboundSchema: z.ZodType<
   probePlatforms: z.array(DemProbePlatform$inboundSchema),
   testFromAll: z.boolean().optional(),
 });
-/** @internal */
-export type DemGetWebsiteResponsePlatformOptions$Outbound = {
-  probePlatforms: Array<string>;
-  testFromAll?: boolean | undefined;
-};
 
-/** @internal */
-export const DemGetWebsiteResponsePlatformOptions$outboundSchema: z.ZodType<
-  DemGetWebsiteResponsePlatformOptions$Outbound,
-  z.ZodTypeDef,
-  DemGetWebsiteResponsePlatformOptions
-> = z.object({
-  probePlatforms: z.array(DemProbePlatform$outboundSchema),
-  testFromAll: z.boolean().optional(),
-});
-
-export function demGetWebsiteResponsePlatformOptionsToJSON(
-  demGetWebsiteResponsePlatformOptions: DemGetWebsiteResponsePlatformOptions,
-): string {
-  return JSON.stringify(
-    DemGetWebsiteResponsePlatformOptions$outboundSchema.parse(
-      demGetWebsiteResponsePlatformOptions,
-    ),
-  );
-}
 export function demGetWebsiteResponsePlatformOptionsFromJSON(
   jsonString: string,
 ): SafeParseResult<DemGetWebsiteResponsePlatformOptions, SDKValidationError> {
@@ -435,10 +371,6 @@ export function demGetWebsiteResponsePlatformOptionsFromJSON(
 export const DemGetWebsiteResponseFailingTestLocations$inboundSchema:
   z.ZodNativeEnum<typeof DemGetWebsiteResponseFailingTestLocations> = z
     .nativeEnum(DemGetWebsiteResponseFailingTestLocations);
-/** @internal */
-export const DemGetWebsiteResponseFailingTestLocations$outboundSchema:
-  z.ZodNativeEnum<typeof DemGetWebsiteResponseFailingTestLocations> =
-    DemGetWebsiteResponseFailingTestLocations$inboundSchema;
 
 /** @internal */
 export const DemGetWebsiteResponseOutageConfiguration$inboundSchema: z.ZodType<
@@ -449,33 +381,7 @@ export const DemGetWebsiteResponseOutageConfiguration$inboundSchema: z.ZodType<
   failingTestLocations: DemGetWebsiteResponseFailingTestLocations$inboundSchema,
   consecutiveForDown: z.number().int(),
 });
-/** @internal */
-export type DemGetWebsiteResponseOutageConfiguration$Outbound = {
-  failingTestLocations: string;
-  consecutiveForDown: number;
-};
 
-/** @internal */
-export const DemGetWebsiteResponseOutageConfiguration$outboundSchema: z.ZodType<
-  DemGetWebsiteResponseOutageConfiguration$Outbound,
-  z.ZodTypeDef,
-  DemGetWebsiteResponseOutageConfiguration
-> = z.object({
-  failingTestLocations:
-    DemGetWebsiteResponseFailingTestLocations$outboundSchema,
-  consecutiveForDown: z.number().int(),
-});
-
-export function demGetWebsiteResponseOutageConfigurationToJSON(
-  demGetWebsiteResponseOutageConfiguration:
-    DemGetWebsiteResponseOutageConfiguration,
-): string {
-  return JSON.stringify(
-    DemGetWebsiteResponseOutageConfiguration$outboundSchema.parse(
-      demGetWebsiteResponseOutageConfiguration,
-    ),
-  );
-}
 export function demGetWebsiteResponseOutageConfigurationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -496,10 +402,6 @@ export function demGetWebsiteResponseOutageConfigurationFromJSON(
 export const DemGetWebsiteResponseOperator$inboundSchema: z.ZodNativeEnum<
   typeof DemGetWebsiteResponseOperator
 > = z.nativeEnum(DemGetWebsiteResponseOperator);
-/** @internal */
-export const DemGetWebsiteResponseOperator$outboundSchema: z.ZodNativeEnum<
-  typeof DemGetWebsiteResponseOperator
-> = DemGetWebsiteResponseOperator$inboundSchema;
 
 /** @internal */
 export const DemGetWebsiteResponseCheckForString$inboundSchema: z.ZodType<
@@ -510,31 +412,7 @@ export const DemGetWebsiteResponseCheckForString$inboundSchema: z.ZodType<
   operator: DemGetWebsiteResponseOperator$inboundSchema,
   value: z.string(),
 });
-/** @internal */
-export type DemGetWebsiteResponseCheckForString$Outbound = {
-  operator: string;
-  value: string;
-};
 
-/** @internal */
-export const DemGetWebsiteResponseCheckForString$outboundSchema: z.ZodType<
-  DemGetWebsiteResponseCheckForString$Outbound,
-  z.ZodTypeDef,
-  DemGetWebsiteResponseCheckForString
-> = z.object({
-  operator: DemGetWebsiteResponseOperator$outboundSchema,
-  value: z.string(),
-});
-
-export function demGetWebsiteResponseCheckForStringToJSON(
-  demGetWebsiteResponseCheckForString: DemGetWebsiteResponseCheckForString,
-): string {
-  return JSON.stringify(
-    DemGetWebsiteResponseCheckForString$outboundSchema.parse(
-      demGetWebsiteResponseCheckForString,
-    ),
-  );
-}
 export function demGetWebsiteResponseCheckForStringFromJSON(
   jsonString: string,
 ): SafeParseResult<DemGetWebsiteResponseCheckForString, SDKValidationError> {
@@ -556,31 +434,7 @@ export const DemGetWebsiteResponseSsl$inboundSchema: z.ZodType<
   daysPriorToExpiration: z.nullable(z.number().int()).optional(),
   ignoreIntermediateCertificates: z.nullable(z.boolean()).optional(),
 });
-/** @internal */
-export type DemGetWebsiteResponseSsl$Outbound = {
-  enabled?: boolean | null | undefined;
-  daysPriorToExpiration?: number | null | undefined;
-  ignoreIntermediateCertificates?: boolean | null | undefined;
-};
 
-/** @internal */
-export const DemGetWebsiteResponseSsl$outboundSchema: z.ZodType<
-  DemGetWebsiteResponseSsl$Outbound,
-  z.ZodTypeDef,
-  DemGetWebsiteResponseSsl
-> = z.object({
-  enabled: z.nullable(z.boolean()).optional(),
-  daysPriorToExpiration: z.nullable(z.number().int()).optional(),
-  ignoreIntermediateCertificates: z.nullable(z.boolean()).optional(),
-});
-
-export function demGetWebsiteResponseSslToJSON(
-  demGetWebsiteResponseSsl: DemGetWebsiteResponseSsl,
-): string {
-  return JSON.stringify(
-    DemGetWebsiteResponseSsl$outboundSchema.parse(demGetWebsiteResponseSsl),
-  );
-}
 export function demGetWebsiteResponseSslFromJSON(
   jsonString: string,
 ): SafeParseResult<DemGetWebsiteResponseSsl, SDKValidationError> {
@@ -617,66 +471,7 @@ export const DemGetWebsiteResponseAvailabilityCheckSettings$inboundSchema:
     allowInsecureRenegotiation: z.boolean().optional(),
     postData: z.nullable(z.string()).optional(),
   });
-/** @internal */
-export type DemGetWebsiteResponseAvailabilityCheckSettings$Outbound = {
-  platformOptions?:
-    | DemGetWebsiteResponsePlatformOptions$Outbound
-    | null
-    | undefined;
-  testFrom: DemTestFrom$Outbound;
-  testIntervalInSeconds: number;
-  outageConfiguration?:
-    | DemGetWebsiteResponseOutageConfiguration$Outbound
-    | null
-    | undefined;
-  checkForString?:
-    | DemGetWebsiteResponseCheckForString$Outbound
-    | null
-    | undefined;
-  protocols: Array<string>;
-  ssl?: DemGetWebsiteResponseSsl$Outbound | null | undefined;
-  customHeaders?: Array<DemCustomHeaders$Outbound> | null | undefined;
-  allowInsecureRenegotiation?: boolean | undefined;
-  postData?: string | null | undefined;
-};
 
-/** @internal */
-export const DemGetWebsiteResponseAvailabilityCheckSettings$outboundSchema:
-  z.ZodType<
-    DemGetWebsiteResponseAvailabilityCheckSettings$Outbound,
-    z.ZodTypeDef,
-    DemGetWebsiteResponseAvailabilityCheckSettings
-  > = z.object({
-    platformOptions: z.nullable(
-      z.lazy(() => DemGetWebsiteResponsePlatformOptions$outboundSchema),
-    ).optional(),
-    testFrom: DemTestFrom$outboundSchema,
-    testIntervalInSeconds: z.number(),
-    outageConfiguration: z.nullable(
-      z.lazy(() => DemGetWebsiteResponseOutageConfiguration$outboundSchema),
-    ).optional(),
-    checkForString: z.nullable(
-      z.lazy(() => DemGetWebsiteResponseCheckForString$outboundSchema),
-    ).optional(),
-    protocols: z.array(DemWebsiteProtocol$outboundSchema),
-    ssl: z.nullable(z.lazy(() => DemGetWebsiteResponseSsl$outboundSchema))
-      .optional(),
-    customHeaders: z.nullable(z.array(DemCustomHeaders$outboundSchema))
-      .optional(),
-    allowInsecureRenegotiation: z.boolean().optional(),
-    postData: z.nullable(z.string()).optional(),
-  });
-
-export function demGetWebsiteResponseAvailabilityCheckSettingsToJSON(
-  demGetWebsiteResponseAvailabilityCheckSettings:
-    DemGetWebsiteResponseAvailabilityCheckSettings,
-): string {
-  return JSON.stringify(
-    DemGetWebsiteResponseAvailabilityCheckSettings$outboundSchema.parse(
-      demGetWebsiteResponseAvailabilityCheckSettings,
-    ),
-  );
-}
 export function demGetWebsiteResponseAvailabilityCheckSettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -703,31 +498,7 @@ export const DemGetWebsiteResponseRum$inboundSchema: z.ZodType<
   snippet: z.string().optional(),
   spa: z.boolean(),
 });
-/** @internal */
-export type DemGetWebsiteResponseRum$Outbound = {
-  apdexTimeInSeconds?: number | undefined;
-  snippet?: string | undefined;
-  spa: boolean;
-};
 
-/** @internal */
-export const DemGetWebsiteResponseRum$outboundSchema: z.ZodType<
-  DemGetWebsiteResponseRum$Outbound,
-  z.ZodTypeDef,
-  DemGetWebsiteResponseRum
-> = z.object({
-  apdexTimeInSeconds: z.number().int().optional(),
-  snippet: z.string().optional(),
-  spa: z.boolean(),
-});
-
-export function demGetWebsiteResponseRumToJSON(
-  demGetWebsiteResponseRum: DemGetWebsiteResponseRum,
-): string {
-  return JSON.stringify(
-    DemGetWebsiteResponseRum$outboundSchema.parse(demGetWebsiteResponseRum),
-  );
-}
 export function demGetWebsiteResponseRumFromJSON(
   jsonString: string,
 ): SafeParseResult<DemGetWebsiteResponseRum, SDKValidationError> {
@@ -770,63 +541,7 @@ export const DemGetWebsiteResponse$inboundSchema: z.ZodType<
   lastResponseTime: z.nullable(z.number().int()).optional(),
   nextOnDemandAvailabilityTime: z.number().int().optional(),
 });
-/** @internal */
-export type DemGetWebsiteResponse$Outbound = {
-  id: string;
-  type: string;
-  status: string;
-  name: string;
-  url: string;
-  monitoringOptions: MonitoringOptions$Outbound;
-  availabilityCheckSettings?:
-    | DemGetWebsiteResponseAvailabilityCheckSettings$Outbound
-    | null
-    | undefined;
-  tags?: Array<CommonTag$Outbound> | undefined;
-  rum?: DemGetWebsiteResponseRum$Outbound | undefined;
-  lastOutageStartTime?: string | null | undefined;
-  lastOutageEndTime?: string | null | undefined;
-  lastTestTime?: string | null | undefined;
-  lastErrorTime?: string | null | undefined;
-  lastResponseTime?: number | null | undefined;
-  nextOnDemandAvailabilityTime?: number | undefined;
-};
 
-/** @internal */
-export const DemGetWebsiteResponse$outboundSchema: z.ZodType<
-  DemGetWebsiteResponse$Outbound,
-  z.ZodTypeDef,
-  DemGetWebsiteResponse
-> = z.object({
-  id: z.string(),
-  type: z.string(),
-  status: DemGetWebsiteResponseStatus$outboundSchema,
-  name: z.string(),
-  url: z.string(),
-  monitoringOptions: z.lazy(() => MonitoringOptions$outboundSchema),
-  availabilityCheckSettings: z.nullable(
-    z.lazy(() => DemGetWebsiteResponseAvailabilityCheckSettings$outboundSchema),
-  ).optional(),
-  tags: z.array(CommonTag$outboundSchema).optional(),
-  rum: z.lazy(() => DemGetWebsiteResponseRum$outboundSchema).optional(),
-  lastOutageStartTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-  lastOutageEndTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-  lastTestTime: z.nullable(z.date().transform(v => v.toISOString())).optional(),
-  lastErrorTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-  lastResponseTime: z.nullable(z.number().int()).optional(),
-  nextOnDemandAvailabilityTime: z.number().int().optional(),
-});
-
-export function demGetWebsiteResponseToJSON(
-  demGetWebsiteResponse: DemGetWebsiteResponse,
-): string {
-  return JSON.stringify(
-    DemGetWebsiteResponse$outboundSchema.parse(demGetWebsiteResponse),
-  );
-}
 export function demGetWebsiteResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<DemGetWebsiteResponse, SDKValidationError> {

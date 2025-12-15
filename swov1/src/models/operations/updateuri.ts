@@ -4,10 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateUriRequest = {
   entityId: string;
@@ -17,19 +14,6 @@ export type UpdateUriRequest = {
   demUri: components.DemUri;
 };
 
-/** @internal */
-export const UpdateUriRequest$inboundSchema: z.ZodType<
-  UpdateUriRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-  "Dem.Uri": components.DemUri$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Dem.Uri": "demUri",
-  });
-});
 /** @internal */
 export type UpdateUriRequest$Outbound = {
   entityId: string;
@@ -55,14 +39,5 @@ export function updateUriRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateUriRequest$outboundSchema.parse(updateUriRequest),
-  );
-}
-export function updateUriRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateUriRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateUriRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateUriRequest' from JSON`,
   );
 }

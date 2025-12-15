@@ -20,16 +20,17 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: true
     hoistGlobalSecurity: true
+  sdkHooksConfigAccess: true
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
-  sdkHooksConfigAccess: true
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
+  persistentEdits: {}
 typescript:
-  version: 0.7.0
+  version: 0.8.0
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -41,7 +42,7 @@ typescript:
   author: Speakeasy
   baseErrorName: SwoError
   clientServerStatusCodesAsErrors: true
-  constFieldsAlwaysOptional: true
+  constFieldsAlwaysOptional: false
   defaultErrorName: APIError
   enableCustomCodeRegions: false
   enableMCPServer: false
@@ -74,6 +75,7 @@ typescript:
   multipartArrayFormat: legacy
   outputModelSuffix: output
   packageName: '@solarwinds/swo-sdk-typescript'
+  preApplyUnionDiscriminators: true
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2

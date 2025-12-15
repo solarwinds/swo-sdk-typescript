@@ -18,10 +18,6 @@ export type MetricsAggregationMethods = ClosedEnum<
 >;
 
 /** @internal */
-export const MetricsAggregationMethods$inboundSchema: z.ZodNativeEnum<
-  typeof MetricsAggregationMethods
-> = z.nativeEnum(MetricsAggregationMethods);
-/** @internal */
 export const MetricsAggregationMethods$outboundSchema: z.ZodNativeEnum<
   typeof MetricsAggregationMethods
-> = MetricsAggregationMethods$inboundSchema;
+> = z.nativeEnum(MetricsAggregationMethods);

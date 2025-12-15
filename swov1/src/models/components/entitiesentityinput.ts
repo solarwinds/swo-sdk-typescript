@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type EntitiesEntityInput = {
   /**
@@ -18,15 +15,6 @@ export type EntitiesEntityInput = {
   tags: { [k: string]: string | null };
 };
 
-/** @internal */
-export const EntitiesEntityInput$inboundSchema: z.ZodType<
-  EntitiesEntityInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  displayName: z.nullable(z.string()).optional(),
-  tags: z.record(z.nullable(z.string())),
-});
 /** @internal */
 export type EntitiesEntityInput$Outbound = {
   displayName?: string | null | undefined;
@@ -48,14 +36,5 @@ export function entitiesEntityInputToJSON(
 ): string {
   return JSON.stringify(
     EntitiesEntityInput$outboundSchema.parse(entitiesEntityInput),
-  );
-}
-export function entitiesEntityInputFromJSON(
-  jsonString: string,
-): SafeParseResult<EntitiesEntityInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EntitiesEntityInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EntitiesEntityInput' from JSON`,
   );
 }

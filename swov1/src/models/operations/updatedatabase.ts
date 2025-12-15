@@ -4,30 +4,13 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateDatabaseRequest = {
   entityId: string;
   dboUpdateDatabaseRequest: components.DboUpdateDatabaseRequest;
 };
 
-/** @internal */
-export const UpdateDatabaseRequest$inboundSchema: z.ZodType<
-  UpdateDatabaseRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-  "Dbo.UpdateDatabaseRequest":
-    components.DboUpdateDatabaseRequest$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Dbo.UpdateDatabaseRequest": "dboUpdateDatabaseRequest",
-  });
-});
 /** @internal */
 export type UpdateDatabaseRequest$Outbound = {
   entityId: string;
@@ -53,14 +36,5 @@ export function updateDatabaseRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateDatabaseRequest$outboundSchema.parse(updateDatabaseRequest),
-  );
-}
-export function updateDatabaseRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateDatabaseRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateDatabaseRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateDatabaseRequest' from JSON`,
   );
 }

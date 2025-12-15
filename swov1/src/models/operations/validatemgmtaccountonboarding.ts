@@ -3,24 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ValidateMgmtAccountOnboardingRequest = {
   request: components.CloudAccountsAwsMgmtAccountOnboardingRequest;
 };
 
-/** @internal */
-export const ValidateMgmtAccountOnboardingRequest$inboundSchema: z.ZodType<
-  ValidateMgmtAccountOnboardingRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  request:
-    components.CloudAccountsAwsMgmtAccountOnboardingRequest$inboundSchema,
-});
 /** @internal */
 export type ValidateMgmtAccountOnboardingRequest$Outbound = {
   request: components.CloudAccountsAwsMgmtAccountOnboardingRequest$Outbound;
@@ -43,15 +31,5 @@ export function validateMgmtAccountOnboardingRequestToJSON(
     ValidateMgmtAccountOnboardingRequest$outboundSchema.parse(
       validateMgmtAccountOnboardingRequest,
     ),
-  );
-}
-export function validateMgmtAccountOnboardingRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ValidateMgmtAccountOnboardingRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ValidateMgmtAccountOnboardingRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ValidateMgmtAccountOnboardingRequest' from JSON`,
   );
 }

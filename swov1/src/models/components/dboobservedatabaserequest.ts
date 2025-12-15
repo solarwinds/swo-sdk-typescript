@@ -3,34 +3,26 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonKeyValuePair,
-  CommonKeyValuePair$inboundSchema,
   CommonKeyValuePair$Outbound,
   CommonKeyValuePair$outboundSchema,
 } from "./commonkeyvaluepair.js";
 import {
   DboDatabaseAuthMethod,
-  DboDatabaseAuthMethod$inboundSchema,
   DboDatabaseAuthMethod$outboundSchema,
 } from "./dbodatabaseauthmethod.js";
 import {
   DboDatabaseConnectionOptions,
-  DboDatabaseConnectionOptions$inboundSchema,
   DboDatabaseConnectionOptions$Outbound,
   DboDatabaseConnectionOptions$outboundSchema,
 } from "./dbodatabaseconnectionoptions.js";
 import {
   DboDatabaseMetricsCaptureMethod,
-  DboDatabaseMetricsCaptureMethod$inboundSchema,
   DboDatabaseMetricsCaptureMethod$outboundSchema,
 } from "./dbodatabasemetricscapturemethod.js";
 import {
   DboDatabaseType,
-  DboDatabaseType$inboundSchema,
   DboDatabaseType$outboundSchema,
 } from "./dbodatabasetype.js";
 
@@ -75,21 +67,6 @@ export type DboObserveDatabaseRequest = {
 };
 
 /** @internal */
-export const DboObserveDatabaseRequest$inboundSchema: z.ZodType<
-  DboObserveDatabaseRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  agentId: z.string(),
-  dbType: DboDatabaseType$inboundSchema,
-  authMethod: DboDatabaseAuthMethod$inboundSchema,
-  captureMethod: DboDatabaseMetricsCaptureMethod$inboundSchema.optional(),
-  configOptions: z.array(CommonKeyValuePair$inboundSchema).optional(),
-  dbConnOptions: DboDatabaseConnectionOptions$inboundSchema,
-  tags: z.array(CommonKeyValuePair$inboundSchema).optional(),
-});
-/** @internal */
 export type DboObserveDatabaseRequest$Outbound = {
   name: string;
   agentId: string;
@@ -122,14 +99,5 @@ export function dboObserveDatabaseRequestToJSON(
 ): string {
   return JSON.stringify(
     DboObserveDatabaseRequest$outboundSchema.parse(dboObserveDatabaseRequest),
-  );
-}
-export function dboObserveDatabaseRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DboObserveDatabaseRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DboObserveDatabaseRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DboObserveDatabaseRequest' from JSON`,
   );
 }

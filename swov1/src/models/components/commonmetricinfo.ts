@@ -49,38 +49,7 @@ export const CommonMetricInfo$inboundSchema: z.ZodType<
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ).optional(),
 });
-/** @internal */
-export type CommonMetricInfo$Outbound = {
-  name: string;
-  displayName?: string | null | undefined;
-  description?: string | null | undefined;
-  units?: string | null | undefined;
-  formula?: string | null | undefined;
-  lastReportedTime?: string | null | undefined;
-};
 
-/** @internal */
-export const CommonMetricInfo$outboundSchema: z.ZodType<
-  CommonMetricInfo$Outbound,
-  z.ZodTypeDef,
-  CommonMetricInfo
-> = z.object({
-  name: z.string(),
-  displayName: z.nullable(z.string()).optional(),
-  description: z.nullable(z.string()).optional(),
-  units: z.nullable(z.string()).optional(),
-  formula: z.nullable(z.string()).optional(),
-  lastReportedTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-});
-
-export function commonMetricInfoToJSON(
-  commonMetricInfo: CommonMetricInfo,
-): string {
-  return JSON.stringify(
-    CommonMetricInfo$outboundSchema.parse(commonMetricInfo),
-  );
-}
 export function commonMetricInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<CommonMetricInfo, SDKValidationError> {

@@ -47,10 +47,6 @@ export type CloudAccountsAwsUpdateIntegrationResponse = {
 export const IntegrationType$inboundSchema: z.ZodNativeEnum<
   typeof IntegrationType
 > = z.nativeEnum(IntegrationType);
-/** @internal */
-export const IntegrationType$outboundSchema: z.ZodNativeEnum<
-  typeof IntegrationType
-> = IntegrationType$inboundSchema;
 
 /** @internal */
 export const CloudAccountsAwsUpdateIntegrationResponse$inboundSchema: z.ZodType<
@@ -64,39 +60,7 @@ export const CloudAccountsAwsUpdateIntegrationResponse$inboundSchema: z.ZodType<
   integrationType: IntegrationType$inboundSchema,
   isNewAccount: z.boolean(),
 });
-/** @internal */
-export type CloudAccountsAwsUpdateIntegrationResponse$Outbound = {
-  selectedRegions: Array<string>;
-  externalId: string;
-  integrationId: string;
-  integrationType: string;
-  isNewAccount: boolean;
-};
 
-/** @internal */
-export const CloudAccountsAwsUpdateIntegrationResponse$outboundSchema:
-  z.ZodType<
-    CloudAccountsAwsUpdateIntegrationResponse$Outbound,
-    z.ZodTypeDef,
-    CloudAccountsAwsUpdateIntegrationResponse
-  > = z.object({
-    selectedRegions: z.array(z.string()),
-    externalId: z.string(),
-    integrationId: z.string(),
-    integrationType: IntegrationType$outboundSchema,
-    isNewAccount: z.boolean(),
-  });
-
-export function cloudAccountsAwsUpdateIntegrationResponseToJSON(
-  cloudAccountsAwsUpdateIntegrationResponse:
-    CloudAccountsAwsUpdateIntegrationResponse,
-): string {
-  return JSON.stringify(
-    CloudAccountsAwsUpdateIntegrationResponse$outboundSchema.parse(
-      cloudAccountsAwsUpdateIntegrationResponse,
-    ),
-  );
-}
 export function cloudAccountsAwsUpdateIntegrationResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<

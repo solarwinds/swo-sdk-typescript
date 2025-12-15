@@ -57,23 +57,6 @@ export type SearchLogsResponse = {
 };
 
 /** @internal */
-export const SearchLogsRequest$inboundSchema: z.ZodType<
-  SearchLogsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: z.string().optional(),
-  group: z.string().optional(),
-  entityId: z.string().optional(),
-  startTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  endTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  direction: z.string().default("backward"),
-  pageSize: z.number().int().optional(),
-  skipToken: z.string().optional(),
-});
-/** @internal */
 export type SearchLogsRequest$Outbound = {
   filter?: string | undefined;
   group?: string | undefined;
@@ -108,15 +91,6 @@ export function searchLogsRequestToJSON(
     SearchLogsRequest$outboundSchema.parse(searchLogsRequest),
   );
 }
-export function searchLogsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<SearchLogsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SearchLogsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SearchLogsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const SearchLogsResponseBody$inboundSchema: z.ZodType<
@@ -127,29 +101,7 @@ export const SearchLogsResponseBody$inboundSchema: z.ZodType<
   logs: z.array(components.LogsEvent$inboundSchema),
   pageInfo: components.CommonPageInfo$inboundSchema,
 });
-/** @internal */
-export type SearchLogsResponseBody$Outbound = {
-  logs: Array<components.LogsEvent$Outbound>;
-  pageInfo: components.CommonPageInfo$Outbound;
-};
 
-/** @internal */
-export const SearchLogsResponseBody$outboundSchema: z.ZodType<
-  SearchLogsResponseBody$Outbound,
-  z.ZodTypeDef,
-  SearchLogsResponseBody
-> = z.object({
-  logs: z.array(components.LogsEvent$outboundSchema),
-  pageInfo: components.CommonPageInfo$outboundSchema,
-});
-
-export function searchLogsResponseBodyToJSON(
-  searchLogsResponseBody: SearchLogsResponseBody,
-): string {
-  return JSON.stringify(
-    SearchLogsResponseBody$outboundSchema.parse(searchLogsResponseBody),
-  );
-}
 export function searchLogsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<SearchLogsResponseBody, SDKValidationError> {
@@ -172,31 +124,7 @@ export const SearchLogsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type SearchLogsResponse$Outbound = {
-  Result: SearchLogsResponseBody$Outbound;
-};
 
-/** @internal */
-export const SearchLogsResponse$outboundSchema: z.ZodType<
-  SearchLogsResponse$Outbound,
-  z.ZodTypeDef,
-  SearchLogsResponse
-> = z.object({
-  result: z.lazy(() => SearchLogsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function searchLogsResponseToJSON(
-  searchLogsResponse: SearchLogsResponse,
-): string {
-  return JSON.stringify(
-    SearchLogsResponse$outboundSchema.parse(searchLogsResponse),
-  );
-}
 export function searchLogsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<SearchLogsResponse, SDKValidationError> {

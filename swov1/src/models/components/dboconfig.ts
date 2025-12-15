@@ -9,8 +9,6 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonKeyValuePair,
   CommonKeyValuePair$inboundSchema,
-  CommonKeyValuePair$Outbound,
-  CommonKeyValuePair$outboundSchema,
 } from "./commonkeyvaluepair.js";
 
 export type DboConfig = {
@@ -28,23 +26,7 @@ export const DboConfig$inboundSchema: z.ZodType<
 > = z.object({
   configOptions: z.array(CommonKeyValuePair$inboundSchema),
 });
-/** @internal */
-export type DboConfig$Outbound = {
-  configOptions: Array<CommonKeyValuePair$Outbound>;
-};
 
-/** @internal */
-export const DboConfig$outboundSchema: z.ZodType<
-  DboConfig$Outbound,
-  z.ZodTypeDef,
-  DboConfig
-> = z.object({
-  configOptions: z.array(CommonKeyValuePair$outboundSchema),
-});
-
-export function dboConfigToJSON(dboConfig: DboConfig): string {
-  return JSON.stringify(DboConfig$outboundSchema.parse(dboConfig));
-}
 export function dboConfigFromJSON(
   jsonString: string,
 ): SafeParseResult<DboConfig, SDKValidationError> {

@@ -3,12 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   DemOutageConfiguration,
-  DemOutageConfiguration$inboundSchema,
   DemOutageConfiguration$Outbound,
   DemOutageConfiguration$outboundSchema,
 } from "./demoutageconfiguration.js";
@@ -24,17 +20,6 @@ export type DemOrganizationSettingsInput = {
   transactionOutageConfiguration?: DemOutageConfiguration | undefined;
 };
 
-/** @internal */
-export const DemOrganizationSettingsInput$inboundSchema: z.ZodType<
-  DemOrganizationSettingsInput,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  availabilityOutageConfiguration: DemOutageConfiguration$inboundSchema
-    .optional(),
-  transactionOutageConfiguration: DemOutageConfiguration$inboundSchema
-    .optional(),
-});
 /** @internal */
 export type DemOrganizationSettingsInput$Outbound = {
   availabilityOutageConfiguration?: DemOutageConfiguration$Outbound | undefined;
@@ -60,14 +45,5 @@ export function demOrganizationSettingsInputToJSON(
     DemOrganizationSettingsInput$outboundSchema.parse(
       demOrganizationSettingsInput,
     ),
-  );
-}
-export function demOrganizationSettingsInputFromJSON(
-  jsonString: string,
-): SafeParseResult<DemOrganizationSettingsInput, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemOrganizationSettingsInput$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemOrganizationSettingsInput' from JSON`,
   );
 }

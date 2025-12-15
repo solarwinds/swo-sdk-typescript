@@ -3,12 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   DboDatabaseSslOptionsUpdate,
-  DboDatabaseSslOptionsUpdate$inboundSchema,
   DboDatabaseSslOptionsUpdate$Outbound,
   DboDatabaseSslOptionsUpdate$outboundSchema,
 } from "./dbodatabasessloptionsupdate.js";
@@ -59,22 +55,6 @@ export type DboDatabaseConnectionOptionsUpdate = {
 };
 
 /** @internal */
-export const DboDatabaseConnectionOptionsUpdate$inboundSchema: z.ZodType<
-  DboDatabaseConnectionOptionsUpdate,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  host: z.string().optional(),
-  port: z.string().default(""),
-  dbname: z.string().default(""),
-  encryptedCredentials: z.string().default(""),
-  user: z.string().default(""),
-  sslEnabled: z.boolean().default(false),
-  sslOptions: DboDatabaseSslOptionsUpdate$inboundSchema.optional(),
-  cloudRegion: z.string().default(""),
-  bindings: z.string().default(""),
-});
-/** @internal */
 export type DboDatabaseConnectionOptionsUpdate$Outbound = {
   host?: string | undefined;
   port: string;
@@ -111,15 +91,5 @@ export function dboDatabaseConnectionOptionsUpdateToJSON(
     DboDatabaseConnectionOptionsUpdate$outboundSchema.parse(
       dboDatabaseConnectionOptionsUpdate,
     ),
-  );
-}
-export function dboDatabaseConnectionOptionsUpdateFromJSON(
-  jsonString: string,
-): SafeParseResult<DboDatabaseConnectionOptionsUpdate, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DboDatabaseConnectionOptionsUpdate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DboDatabaseConnectionOptionsUpdate' from JSON`,
   );
 }

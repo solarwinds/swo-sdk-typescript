@@ -3,36 +3,28 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonTag,
-  CommonTag$inboundSchema,
   CommonTag$Outbound,
   CommonTag$outboundSchema,
 } from "./commontag.js";
 import {
   DemCustomHeaders,
-  DemCustomHeaders$inboundSchema,
   DemCustomHeaders$Outbound,
   DemCustomHeaders$outboundSchema,
 } from "./demcustomheaders.js";
 import {
   DemProbePlatform,
-  DemProbePlatform$inboundSchema,
   DemProbePlatform$outboundSchema,
 } from "./demprobeplatform.js";
 import {
   DemTestFrom,
-  DemTestFrom$inboundSchema,
   DemTestFrom$Outbound,
   DemTestFrom$outboundSchema,
 } from "./demtestfrom.js";
 import {
   DemWebsiteProtocol,
-  DemWebsiteProtocol$inboundSchema,
   DemWebsiteProtocol$outboundSchema,
 } from "./demwebsiteprotocol.js";
 
@@ -265,15 +257,6 @@ export type DemWebsite = {
 };
 
 /** @internal */
-export const DemWebsitePlatformOptions$inboundSchema: z.ZodType<
-  DemWebsitePlatformOptions,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  probePlatforms: z.array(DemProbePlatform$inboundSchema),
-  testFromAll: z.boolean().optional(),
-});
-/** @internal */
 export type DemWebsitePlatformOptions$Outbound = {
   probePlatforms: Array<string>;
   testFromAll?: boolean | undefined;
@@ -296,34 +279,12 @@ export function demWebsitePlatformOptionsToJSON(
     DemWebsitePlatformOptions$outboundSchema.parse(demWebsitePlatformOptions),
   );
 }
-export function demWebsitePlatformOptionsFromJSON(
-  jsonString: string,
-): SafeParseResult<DemWebsitePlatformOptions, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemWebsitePlatformOptions$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemWebsitePlatformOptions' from JSON`,
-  );
-}
 
-/** @internal */
-export const DemWebsiteFailingTestLocations$inboundSchema: z.ZodNativeEnum<
-  typeof DemWebsiteFailingTestLocations
-> = z.nativeEnum(DemWebsiteFailingTestLocations);
 /** @internal */
 export const DemWebsiteFailingTestLocations$outboundSchema: z.ZodNativeEnum<
   typeof DemWebsiteFailingTestLocations
-> = DemWebsiteFailingTestLocations$inboundSchema;
+> = z.nativeEnum(DemWebsiteFailingTestLocations);
 
-/** @internal */
-export const DemWebsiteOutageConfiguration$inboundSchema: z.ZodType<
-  DemWebsiteOutageConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  failingTestLocations: DemWebsiteFailingTestLocations$inboundSchema,
-  consecutiveForDown: z.number().int(),
-});
 /** @internal */
 export type DemWebsiteOutageConfiguration$Outbound = {
   failingTestLocations: string;
@@ -349,34 +310,12 @@ export function demWebsiteOutageConfigurationToJSON(
     ),
   );
 }
-export function demWebsiteOutageConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<DemWebsiteOutageConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemWebsiteOutageConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemWebsiteOutageConfiguration' from JSON`,
-  );
-}
 
-/** @internal */
-export const DemWebsiteOperator$inboundSchema: z.ZodNativeEnum<
-  typeof DemWebsiteOperator
-> = z.nativeEnum(DemWebsiteOperator);
 /** @internal */
 export const DemWebsiteOperator$outboundSchema: z.ZodNativeEnum<
   typeof DemWebsiteOperator
-> = DemWebsiteOperator$inboundSchema;
+> = z.nativeEnum(DemWebsiteOperator);
 
-/** @internal */
-export const DemWebsiteCheckForString$inboundSchema: z.ZodType<
-  DemWebsiteCheckForString,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  operator: DemWebsiteOperator$inboundSchema,
-  value: z.string(),
-});
 /** @internal */
 export type DemWebsiteCheckForString$Outbound = {
   operator: string;
@@ -400,26 +339,7 @@ export function demWebsiteCheckForStringToJSON(
     DemWebsiteCheckForString$outboundSchema.parse(demWebsiteCheckForString),
   );
 }
-export function demWebsiteCheckForStringFromJSON(
-  jsonString: string,
-): SafeParseResult<DemWebsiteCheckForString, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemWebsiteCheckForString$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemWebsiteCheckForString' from JSON`,
-  );
-}
 
-/** @internal */
-export const DemWebsiteSsl$inboundSchema: z.ZodType<
-  DemWebsiteSsl,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.nullable(z.boolean()).optional(),
-  daysPriorToExpiration: z.nullable(z.number().int()).optional(),
-  ignoreIntermediateCertificates: z.nullable(z.boolean()).optional(),
-});
 /** @internal */
 export type DemWebsiteSsl$Outbound = {
   enabled?: boolean | null | undefined;
@@ -441,39 +361,7 @@ export const DemWebsiteSsl$outboundSchema: z.ZodType<
 export function demWebsiteSslToJSON(demWebsiteSsl: DemWebsiteSsl): string {
   return JSON.stringify(DemWebsiteSsl$outboundSchema.parse(demWebsiteSsl));
 }
-export function demWebsiteSslFromJSON(
-  jsonString: string,
-): SafeParseResult<DemWebsiteSsl, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemWebsiteSsl$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemWebsiteSsl' from JSON`,
-  );
-}
 
-/** @internal */
-export const DemWebsiteAvailabilityCheckSettings$inboundSchema: z.ZodType<
-  DemWebsiteAvailabilityCheckSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  platformOptions: z.nullable(
-    z.lazy(() => DemWebsitePlatformOptions$inboundSchema),
-  ).optional(),
-  testFrom: DemTestFrom$inboundSchema,
-  testIntervalInSeconds: z.number(),
-  outageConfiguration: z.nullable(
-    z.lazy(() => DemWebsiteOutageConfiguration$inboundSchema),
-  ).optional(),
-  checkForString: z.nullable(
-    z.lazy(() => DemWebsiteCheckForString$inboundSchema),
-  ).optional(),
-  protocols: z.array(DemWebsiteProtocol$inboundSchema),
-  ssl: z.nullable(z.lazy(() => DemWebsiteSsl$inboundSchema)).optional(),
-  customHeaders: z.nullable(z.array(DemCustomHeaders$inboundSchema)).optional(),
-  allowInsecureRenegotiation: z.boolean().optional(),
-  postData: z.nullable(z.string()).optional(),
-});
 /** @internal */
 export type DemWebsiteAvailabilityCheckSettings$Outbound = {
   platformOptions?: DemWebsitePlatformOptions$Outbound | null | undefined;
@@ -525,26 +413,7 @@ export function demWebsiteAvailabilityCheckSettingsToJSON(
     ),
   );
 }
-export function demWebsiteAvailabilityCheckSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<DemWebsiteAvailabilityCheckSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DemWebsiteAvailabilityCheckSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemWebsiteAvailabilityCheckSettings' from JSON`,
-  );
-}
 
-/** @internal */
-export const DemWebsiteRum$inboundSchema: z.ZodType<
-  DemWebsiteRum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  apdexTimeInSeconds: z.number().int().optional(),
-  spa: z.boolean(),
-});
 /** @internal */
 export type DemWebsiteRum$Outbound = {
   apdexTimeInSeconds?: number | undefined;
@@ -564,30 +433,7 @@ export const DemWebsiteRum$outboundSchema: z.ZodType<
 export function demWebsiteRumToJSON(demWebsiteRum: DemWebsiteRum): string {
   return JSON.stringify(DemWebsiteRum$outboundSchema.parse(demWebsiteRum));
 }
-export function demWebsiteRumFromJSON(
-  jsonString: string,
-): SafeParseResult<DemWebsiteRum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemWebsiteRum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemWebsiteRum' from JSON`,
-  );
-}
 
-/** @internal */
-export const DemWebsite$inboundSchema: z.ZodType<
-  DemWebsite,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  url: z.string(),
-  availabilityCheckSettings: z.nullable(
-    z.lazy(() => DemWebsiteAvailabilityCheckSettings$inboundSchema),
-  ).optional(),
-  tags: z.array(CommonTag$inboundSchema).optional(),
-  rum: z.lazy(() => DemWebsiteRum$inboundSchema).optional(),
-});
 /** @internal */
 export type DemWebsite$Outbound = {
   name: string;
@@ -617,13 +463,4 @@ export const DemWebsite$outboundSchema: z.ZodType<
 
 export function demWebsiteToJSON(demWebsite: DemWebsite): string {
   return JSON.stringify(DemWebsite$outboundSchema.parse(demWebsite));
-}
-export function demWebsiteFromJSON(
-  jsonString: string,
-): SafeParseResult<DemWebsite, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemWebsite$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemWebsite' from JSON`,
-  );
 }

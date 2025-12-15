@@ -3,18 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonKeyValuePair,
-  CommonKeyValuePair$inboundSchema,
   CommonKeyValuePair$Outbound,
   CommonKeyValuePair$outboundSchema,
 } from "./commonkeyvaluepair.js";
 import {
   DboDatabaseConnectionOptionsUpdate,
-  DboDatabaseConnectionOptionsUpdate$inboundSchema,
   DboDatabaseConnectionOptionsUpdate$Outbound,
   DboDatabaseConnectionOptionsUpdate$outboundSchema,
 } from "./dbodatabaseconnectionoptionsupdate.js";
@@ -49,18 +44,6 @@ export type DboUpdateDatabaseRequest = {
 };
 
 /** @internal */
-export const DboUpdateDatabaseRequest$inboundSchema: z.ZodType<
-  DboUpdateDatabaseRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  configOptions: z.array(CommonKeyValuePair$inboundSchema).optional(),
-  dbConnOptions: DboDatabaseConnectionOptionsUpdate$inboundSchema.optional(),
-  tags: z.array(CommonKeyValuePair$inboundSchema).optional(),
-  deployedOn: z.array(z.string()).optional(),
-});
-/** @internal */
 export type DboUpdateDatabaseRequest$Outbound = {
   name?: string | undefined;
   configOptions?: Array<CommonKeyValuePair$Outbound> | undefined;
@@ -87,14 +70,5 @@ export function dboUpdateDatabaseRequestToJSON(
 ): string {
   return JSON.stringify(
     DboUpdateDatabaseRequest$outboundSchema.parse(dboUpdateDatabaseRequest),
-  );
-}
-export function dboUpdateDatabaseRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DboUpdateDatabaseRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DboUpdateDatabaseRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DboUpdateDatabaseRequest' from JSON`,
   );
 }

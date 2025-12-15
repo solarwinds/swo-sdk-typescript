@@ -27,29 +27,7 @@ export const MetricsMeasurement$inboundSchema: z.ZodType<
   time: z.string().datetime({ offset: true }).transform(v => new Date(v)),
   value: z.number(),
 });
-/** @internal */
-export type MetricsMeasurement$Outbound = {
-  time: string;
-  value: number;
-};
 
-/** @internal */
-export const MetricsMeasurement$outboundSchema: z.ZodType<
-  MetricsMeasurement$Outbound,
-  z.ZodTypeDef,
-  MetricsMeasurement
-> = z.object({
-  time: z.date().transform(v => v.toISOString()),
-  value: z.number(),
-});
-
-export function metricsMeasurementToJSON(
-  metricsMeasurement: MetricsMeasurement,
-): string {
-  return JSON.stringify(
-    MetricsMeasurement$outboundSchema.parse(metricsMeasurement),
-  );
-}
 export function metricsMeasurementFromJSON(
   jsonString: string,
 ): SafeParseResult<MetricsMeasurement, SDKValidationError> {

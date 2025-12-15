@@ -22,27 +22,7 @@ export const ListEntityTypesResponse$inboundSchema: z.ZodType<
 > = z.object({
   types: z.array(z.string()),
 });
-/** @internal */
-export type ListEntityTypesResponse$Outbound = {
-  types: Array<string>;
-};
 
-/** @internal */
-export const ListEntityTypesResponse$outboundSchema: z.ZodType<
-  ListEntityTypesResponse$Outbound,
-  z.ZodTypeDef,
-  ListEntityTypesResponse
-> = z.object({
-  types: z.array(z.string()),
-});
-
-export function listEntityTypesResponseToJSON(
-  listEntityTypesResponse: ListEntityTypesResponse,
-): string {
-  return JSON.stringify(
-    ListEntityTypesResponse$outboundSchema.parse(listEntityTypesResponse),
-  );
-}
 export function listEntityTypesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntityTypesResponse, SDKValidationError> {

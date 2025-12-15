@@ -4,10 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateWebsiteRequest = {
   entityId: string;
@@ -17,19 +14,6 @@ export type UpdateWebsiteRequest = {
   demWebsite: components.DemWebsite;
 };
 
-/** @internal */
-export const UpdateWebsiteRequest$inboundSchema: z.ZodType<
-  UpdateWebsiteRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-  "Dem.Website": components.DemWebsite$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Dem.Website": "demWebsite",
-  });
-});
 /** @internal */
 export type UpdateWebsiteRequest$Outbound = {
   entityId: string;
@@ -55,14 +39,5 @@ export function updateWebsiteRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateWebsiteRequest$outboundSchema.parse(updateWebsiteRequest),
-  );
-}
-export function updateWebsiteRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateWebsiteRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateWebsiteRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateWebsiteRequest' from JSON`,
   );
 }

@@ -3,22 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetUriRequest = {
   entityId: string;
 };
 
-/** @internal */
-export const GetUriRequest$inboundSchema: z.ZodType<
-  GetUriRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-});
 /** @internal */
 export type GetUriRequest$Outbound = {
   entityId: string;
@@ -35,13 +24,4 @@ export const GetUriRequest$outboundSchema: z.ZodType<
 
 export function getUriRequestToJSON(getUriRequest: GetUriRequest): string {
   return JSON.stringify(GetUriRequest$outboundSchema.parse(getUriRequest));
-}
-export function getUriRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetUriRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetUriRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetUriRequest' from JSON`,
-  );
 }

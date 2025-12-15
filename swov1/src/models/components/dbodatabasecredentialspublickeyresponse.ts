@@ -25,30 +25,7 @@ export const DboDatabaseCredentialsPublicKeyResponse$inboundSchema: z.ZodType<
 > = z.object({
   publicKey: z.string(),
 });
-/** @internal */
-export type DboDatabaseCredentialsPublicKeyResponse$Outbound = {
-  publicKey: string;
-};
 
-/** @internal */
-export const DboDatabaseCredentialsPublicKeyResponse$outboundSchema: z.ZodType<
-  DboDatabaseCredentialsPublicKeyResponse$Outbound,
-  z.ZodTypeDef,
-  DboDatabaseCredentialsPublicKeyResponse
-> = z.object({
-  publicKey: z.string(),
-});
-
-export function dboDatabaseCredentialsPublicKeyResponseToJSON(
-  dboDatabaseCredentialsPublicKeyResponse:
-    DboDatabaseCredentialsPublicKeyResponse,
-): string {
-  return JSON.stringify(
-    DboDatabaseCredentialsPublicKeyResponse$outboundSchema.parse(
-      dboDatabaseCredentialsPublicKeyResponse,
-    ),
-  );
-}
 export function dboDatabaseCredentialsPublicKeyResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<

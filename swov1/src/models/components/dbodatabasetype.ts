@@ -15,10 +15,6 @@ export const DboDatabaseType = {
 export type DboDatabaseType = ClosedEnum<typeof DboDatabaseType>;
 
 /** @internal */
-export const DboDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof DboDatabaseType
-> = z.nativeEnum(DboDatabaseType);
-/** @internal */
 export const DboDatabaseType$outboundSchema: z.ZodNativeEnum<
   typeof DboDatabaseType
-> = DboDatabaseType$inboundSchema;
+> = z.nativeEnum(DboDatabaseType);
