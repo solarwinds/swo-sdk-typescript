@@ -1,5 +1,4 @@
 # CloudAccounts
-(*cloudAccounts*)
 
 ## Overview
 

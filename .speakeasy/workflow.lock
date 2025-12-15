@@ -1,4 +1,4 @@
-speakeasyVersion: 1.665.1
+speakeasyVersion: 1.676.1
 sources:
     SolarWinds Observability:
         sourceNamespace: solar-winds-observability
@@ -13,7 +13,7 @@ sources:
         sourceBlobDigest: sha256:4ff3735eee64b0d34f248bebde6f5d209562e8179dd2123dded1fe354d3adabc
         tags:
             - latest
-            - speakeasy-sdk-regen-1765825647
+            - speakeasy-sdk-regen-1765834556
             - 1.0.12
 targets:
     swo:
@@ -29,7 +29,7 @@ targets:
         sourceRevisionDigest: sha256:de6afda19affda265893909b74b7116343054502f5674cd296dd7a5278ca42f8
         sourceBlobDigest: sha256:4ff3735eee64b0d34f248bebde6f5d209562e8179dd2123dded1fe354d3adabc
         codeSamplesNamespace: solar-winds-observability-typescript-code-samples
-        codeSamplesRevisionDigest: sha256:c10163e717a224c8ac854396f4b9acf65d0c3f9e703ef5c230a60ae1c3a8dcd9
+        codeSamplesRevisionDigest: sha256:72b905c69afffb298301fde87cbe8546872d98c1e399c7ff29ef1cb76ae95b07
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
