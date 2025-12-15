@@ -3,18 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonTag,
-  CommonTag$inboundSchema,
   CommonTag$Outbound,
   CommonTag$outboundSchema,
 } from "./commontag.js";
 import {
   DemUriAvailabilityCheckSettingsInput,
-  DemUriAvailabilityCheckSettingsInput$inboundSchema,
   DemUriAvailabilityCheckSettingsInput$Outbound,
   DemUriAvailabilityCheckSettingsInput$outboundSchema,
 } from "./demuriavailabilitychecksettingsinput.js";
@@ -39,15 +34,6 @@ export type DemUri = {
 };
 
 /** @internal */
-export const DemUri$inboundSchema: z.ZodType<DemUri, z.ZodTypeDef, unknown> = z
-  .object({
-    name: z.string(),
-    ipOrDomain: z.string(),
-    availabilityCheckSettings:
-      DemUriAvailabilityCheckSettingsInput$inboundSchema,
-    tags: z.array(CommonTag$inboundSchema).optional(),
-  });
-/** @internal */
 export type DemUri$Outbound = {
   name: string;
   ipOrDomain: string;
@@ -70,13 +56,4 @@ export const DemUri$outboundSchema: z.ZodType<
 
 export function demUriToJSON(demUri: DemUri): string {
   return JSON.stringify(DemUri$outboundSchema.parse(demUri));
-}
-export function demUriFromJSON(
-  jsonString: string,
-): SafeParseResult<DemUri, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemUri$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemUri' from JSON`,
-  );
 }

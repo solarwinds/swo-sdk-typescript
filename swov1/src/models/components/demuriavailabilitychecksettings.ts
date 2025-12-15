@@ -10,14 +10,8 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   DemProbePlatform,
   DemProbePlatform$inboundSchema,
-  DemProbePlatform$outboundSchema,
 } from "./demprobeplatform.js";
-import {
-  DemTestFrom,
-  DemTestFrom$inboundSchema,
-  DemTestFrom$Outbound,
-  DemTestFrom$outboundSchema,
-} from "./demtestfrom.js";
+import { DemTestFrom, DemTestFrom$inboundSchema } from "./demtestfrom.js";
 
 /**
  * Configure cloud platforms of the synthetic availability test probes. If omitted or set to null, any available cloud platform may be chosen.
@@ -238,33 +232,7 @@ export const DemUriAvailabilityCheckSettingsPlatformOptions$inboundSchema:
     probePlatforms: z.array(DemProbePlatform$inboundSchema),
     testFromAll: z.boolean().optional(),
   });
-/** @internal */
-export type DemUriAvailabilityCheckSettingsPlatformOptions$Outbound = {
-  probePlatforms: Array<string>;
-  testFromAll?: boolean | undefined;
-};
 
-/** @internal */
-export const DemUriAvailabilityCheckSettingsPlatformOptions$outboundSchema:
-  z.ZodType<
-    DemUriAvailabilityCheckSettingsPlatformOptions$Outbound,
-    z.ZodTypeDef,
-    DemUriAvailabilityCheckSettingsPlatformOptions
-  > = z.object({
-    probePlatforms: z.array(DemProbePlatform$outboundSchema),
-    testFromAll: z.boolean().optional(),
-  });
-
-export function demUriAvailabilityCheckSettingsPlatformOptionsToJSON(
-  demUriAvailabilityCheckSettingsPlatformOptions:
-    DemUriAvailabilityCheckSettingsPlatformOptions,
-): string {
-  return JSON.stringify(
-    DemUriAvailabilityCheckSettingsPlatformOptions$outboundSchema.parse(
-      demUriAvailabilityCheckSettingsPlatformOptions,
-    ),
-  );
-}
 export function demUriAvailabilityCheckSettingsPlatformOptionsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -285,10 +253,6 @@ export function demUriAvailabilityCheckSettingsPlatformOptionsFromJSON(
 export const DemUriAvailabilityCheckSettingsFailingTestLocations$inboundSchema:
   z.ZodNativeEnum<typeof DemUriAvailabilityCheckSettingsFailingTestLocations> =
     z.nativeEnum(DemUriAvailabilityCheckSettingsFailingTestLocations);
-/** @internal */
-export const DemUriAvailabilityCheckSettingsFailingTestLocations$outboundSchema:
-  z.ZodNativeEnum<typeof DemUriAvailabilityCheckSettingsFailingTestLocations> =
-    DemUriAvailabilityCheckSettingsFailingTestLocations$inboundSchema;
 
 /** @internal */
 export const DemUriAvailabilityCheckSettingsOutageConfiguration$inboundSchema:
@@ -301,34 +265,7 @@ export const DemUriAvailabilityCheckSettingsOutageConfiguration$inboundSchema:
       DemUriAvailabilityCheckSettingsFailingTestLocations$inboundSchema,
     consecutiveForDown: z.number().int(),
   });
-/** @internal */
-export type DemUriAvailabilityCheckSettingsOutageConfiguration$Outbound = {
-  failingTestLocations: string;
-  consecutiveForDown: number;
-};
 
-/** @internal */
-export const DemUriAvailabilityCheckSettingsOutageConfiguration$outboundSchema:
-  z.ZodType<
-    DemUriAvailabilityCheckSettingsOutageConfiguration$Outbound,
-    z.ZodTypeDef,
-    DemUriAvailabilityCheckSettingsOutageConfiguration
-  > = z.object({
-    failingTestLocations:
-      DemUriAvailabilityCheckSettingsFailingTestLocations$outboundSchema,
-    consecutiveForDown: z.number().int(),
-  });
-
-export function demUriAvailabilityCheckSettingsOutageConfigurationToJSON(
-  demUriAvailabilityCheckSettingsOutageConfiguration:
-    DemUriAvailabilityCheckSettingsOutageConfiguration,
-): string {
-  return JSON.stringify(
-    DemUriAvailabilityCheckSettingsOutageConfiguration$outboundSchema.parse(
-      demUriAvailabilityCheckSettingsOutageConfiguration,
-    ),
-  );
-}
 export function demUriAvailabilityCheckSettingsOutageConfigurationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -356,35 +293,7 @@ export const DemUriAvailabilityCheckSettingsDns$inboundSchema: z.ZodType<
   port: z.nullable(z.number().int()).optional(),
   ipToExpect: z.string(),
 });
-/** @internal */
-export type DemUriAvailabilityCheckSettingsDns$Outbound = {
-  enabled: boolean;
-  nameserver: string;
-  port?: number | null | undefined;
-  ipToExpect: string;
-};
 
-/** @internal */
-export const DemUriAvailabilityCheckSettingsDns$outboundSchema: z.ZodType<
-  DemUriAvailabilityCheckSettingsDns$Outbound,
-  z.ZodTypeDef,
-  DemUriAvailabilityCheckSettingsDns
-> = z.object({
-  enabled: z.boolean(),
-  nameserver: z.string(),
-  port: z.nullable(z.number().int()).optional(),
-  ipToExpect: z.string(),
-});
-
-export function demUriAvailabilityCheckSettingsDnsToJSON(
-  demUriAvailabilityCheckSettingsDns: DemUriAvailabilityCheckSettingsDns,
-): string {
-  return JSON.stringify(
-    DemUriAvailabilityCheckSettingsDns$outboundSchema.parse(
-      demUriAvailabilityCheckSettingsDns,
-    ),
-  );
-}
 export function demUriAvailabilityCheckSettingsDnsFromJSON(
   jsonString: string,
 ): SafeParseResult<DemUriAvailabilityCheckSettingsDns, SDKValidationError> {
@@ -404,29 +313,7 @@ export const DemUriAvailabilityCheckSettingsPing$inboundSchema: z.ZodType<
 > = z.object({
   enabled: z.boolean(),
 });
-/** @internal */
-export type DemUriAvailabilityCheckSettingsPing$Outbound = {
-  enabled: boolean;
-};
 
-/** @internal */
-export const DemUriAvailabilityCheckSettingsPing$outboundSchema: z.ZodType<
-  DemUriAvailabilityCheckSettingsPing$Outbound,
-  z.ZodTypeDef,
-  DemUriAvailabilityCheckSettingsPing
-> = z.object({
-  enabled: z.boolean(),
-});
-
-export function demUriAvailabilityCheckSettingsPingToJSON(
-  demUriAvailabilityCheckSettingsPing: DemUriAvailabilityCheckSettingsPing,
-): string {
-  return JSON.stringify(
-    DemUriAvailabilityCheckSettingsPing$outboundSchema.parse(
-      demUriAvailabilityCheckSettingsPing,
-    ),
-  );
-}
 export function demUriAvailabilityCheckSettingsPingFromJSON(
   jsonString: string,
 ): SafeParseResult<DemUriAvailabilityCheckSettingsPing, SDKValidationError> {
@@ -449,35 +336,7 @@ export const DemUriAvailabilityCheckSettingsTcp$inboundSchema: z.ZodType<
   stringToSend: z.nullable(z.string()).optional(),
   stringToExpect: z.nullable(z.string()).optional(),
 });
-/** @internal */
-export type DemUriAvailabilityCheckSettingsTcp$Outbound = {
-  enabled: boolean;
-  port: number;
-  stringToSend?: string | null | undefined;
-  stringToExpect?: string | null | undefined;
-};
 
-/** @internal */
-export const DemUriAvailabilityCheckSettingsTcp$outboundSchema: z.ZodType<
-  DemUriAvailabilityCheckSettingsTcp$Outbound,
-  z.ZodTypeDef,
-  DemUriAvailabilityCheckSettingsTcp
-> = z.object({
-  enabled: z.boolean(),
-  port: z.number().int(),
-  stringToSend: z.nullable(z.string()).optional(),
-  stringToExpect: z.nullable(z.string()).optional(),
-});
-
-export function demUriAvailabilityCheckSettingsTcpToJSON(
-  demUriAvailabilityCheckSettingsTcp: DemUriAvailabilityCheckSettingsTcp,
-): string {
-  return JSON.stringify(
-    DemUriAvailabilityCheckSettingsTcp$outboundSchema.parse(
-      demUriAvailabilityCheckSettingsTcp,
-    ),
-  );
-}
 export function demUriAvailabilityCheckSettingsTcpFromJSON(
   jsonString: string,
 ): SafeParseResult<DemUriAvailabilityCheckSettingsTcp, SDKValidationError> {
@@ -500,35 +359,7 @@ export const DemUriAvailabilityCheckSettingsUdp$inboundSchema: z.ZodType<
   stringToSend: z.string(),
   stringToExpect: z.string(),
 });
-/** @internal */
-export type DemUriAvailabilityCheckSettingsUdp$Outbound = {
-  enabled: boolean;
-  port: number;
-  stringToSend: string;
-  stringToExpect: string;
-};
 
-/** @internal */
-export const DemUriAvailabilityCheckSettingsUdp$outboundSchema: z.ZodType<
-  DemUriAvailabilityCheckSettingsUdp$Outbound,
-  z.ZodTypeDef,
-  DemUriAvailabilityCheckSettingsUdp
-> = z.object({
-  enabled: z.boolean(),
-  port: z.number().int(),
-  stringToSend: z.string(),
-  stringToExpect: z.string(),
-});
-
-export function demUriAvailabilityCheckSettingsUdpToJSON(
-  demUriAvailabilityCheckSettingsUdp: DemUriAvailabilityCheckSettingsUdp,
-): string {
-  return JSON.stringify(
-    DemUriAvailabilityCheckSettingsUdp$outboundSchema.parse(
-      demUriAvailabilityCheckSettingsUdp,
-    ),
-  );
-}
 export function demUriAvailabilityCheckSettingsUdpFromJSON(
   jsonString: string,
 ): SafeParseResult<DemUriAvailabilityCheckSettingsUdp, SDKValidationError> {
@@ -543,9 +374,6 @@ export function demUriAvailabilityCheckSettingsUdpFromJSON(
 /** @internal */
 export const Protocol$inboundSchema: z.ZodNativeEnum<typeof Protocol> = z
   .nativeEnum(Protocol);
-/** @internal */
-export const Protocol$outboundSchema: z.ZodNativeEnum<typeof Protocol> =
-  Protocol$inboundSchema;
 
 /** @internal */
 export const DemUriAvailabilityCheckSettings$inboundSchema: z.ZodType<
@@ -577,65 +405,7 @@ export const DemUriAvailabilityCheckSettings$inboundSchema: z.ZodType<
   ).optional(),
   protocol: Protocol$inboundSchema,
 });
-/** @internal */
-export type DemUriAvailabilityCheckSettings$Outbound = {
-  platformOptions?:
-    | DemUriAvailabilityCheckSettingsPlatformOptions$Outbound
-    | null
-    | undefined;
-  testFrom: DemTestFrom$Outbound;
-  testIntervalInSeconds: number;
-  outageConfiguration?:
-    | DemUriAvailabilityCheckSettingsOutageConfiguration$Outbound
-    | null
-    | undefined;
-  dns?: DemUriAvailabilityCheckSettingsDns$Outbound | null | undefined;
-  ping?: DemUriAvailabilityCheckSettingsPing$Outbound | null | undefined;
-  tcp?: DemUriAvailabilityCheckSettingsTcp$Outbound | null | undefined;
-  udp?: DemUriAvailabilityCheckSettingsUdp$Outbound | null | undefined;
-  protocol: string;
-};
 
-/** @internal */
-export const DemUriAvailabilityCheckSettings$outboundSchema: z.ZodType<
-  DemUriAvailabilityCheckSettings$Outbound,
-  z.ZodTypeDef,
-  DemUriAvailabilityCheckSettings
-> = z.object({
-  platformOptions: z.nullable(
-    z.lazy(() => DemUriAvailabilityCheckSettingsPlatformOptions$outboundSchema),
-  ).optional(),
-  testFrom: DemTestFrom$outboundSchema,
-  testIntervalInSeconds: z.number(),
-  outageConfiguration: z.nullable(
-    z.lazy(() =>
-      DemUriAvailabilityCheckSettingsOutageConfiguration$outboundSchema
-    ),
-  ).optional(),
-  dns: z.nullable(
-    z.lazy(() => DemUriAvailabilityCheckSettingsDns$outboundSchema),
-  ).optional(),
-  ping: z.nullable(
-    z.lazy(() => DemUriAvailabilityCheckSettingsPing$outboundSchema),
-  ).optional(),
-  tcp: z.nullable(
-    z.lazy(() => DemUriAvailabilityCheckSettingsTcp$outboundSchema),
-  ).optional(),
-  udp: z.nullable(
-    z.lazy(() => DemUriAvailabilityCheckSettingsUdp$outboundSchema),
-  ).optional(),
-  protocol: Protocol$outboundSchema,
-});
-
-export function demUriAvailabilityCheckSettingsToJSON(
-  demUriAvailabilityCheckSettings: DemUriAvailabilityCheckSettings,
-): string {
-  return JSON.stringify(
-    DemUriAvailabilityCheckSettings$outboundSchema.parse(
-      demUriAvailabilityCheckSettings,
-    ),
-  );
-}
 export function demUriAvailabilityCheckSettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<DemUriAvailabilityCheckSettings, SDKValidationError> {

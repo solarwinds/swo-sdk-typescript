@@ -16,10 +16,6 @@ export const DboDatabaseAuthMethod = {
 export type DboDatabaseAuthMethod = ClosedEnum<typeof DboDatabaseAuthMethod>;
 
 /** @internal */
-export const DboDatabaseAuthMethod$inboundSchema: z.ZodNativeEnum<
-  typeof DboDatabaseAuthMethod
-> = z.nativeEnum(DboDatabaseAuthMethod);
-/** @internal */
 export const DboDatabaseAuthMethod$outboundSchema: z.ZodNativeEnum<
   typeof DboDatabaseAuthMethod
-> = DboDatabaseAuthMethod$inboundSchema;
+> = z.nativeEnum(DboDatabaseAuthMethod);

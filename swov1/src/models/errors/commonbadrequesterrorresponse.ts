@@ -71,10 +71,6 @@ export class CommonBadRequestErrorResponse extends SwoError {
 export const CommonBadRequestErrorResponseCode$inboundSchema: z.ZodNativeEnum<
   typeof CommonBadRequestErrorResponseCode
 > = z.nativeEnum(CommonBadRequestErrorResponseCode);
-/** @internal */
-export const CommonBadRequestErrorResponseCode$outboundSchema: z.ZodNativeEnum<
-  typeof CommonBadRequestErrorResponseCode
-> = CommonBadRequestErrorResponseCode$inboundSchema;
 
 /** @internal */
 export const CommonBadRequestErrorResponse$inboundSchema: z.ZodType<
@@ -96,23 +92,3 @@ export const CommonBadRequestErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type CommonBadRequestErrorResponse$Outbound = {
-  message: string;
-  target?: string | undefined;
-  code?: string | undefined;
-};
-
-/** @internal */
-export const CommonBadRequestErrorResponse$outboundSchema: z.ZodType<
-  CommonBadRequestErrorResponse$Outbound,
-  z.ZodTypeDef,
-  CommonBadRequestErrorResponse
-> = z.instanceof(CommonBadRequestErrorResponse)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string(),
-    target: z.string().optional(),
-    code: CommonBadRequestErrorResponseCode$outboundSchema.optional(),
-  }));

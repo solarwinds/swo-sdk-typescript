@@ -21,14 +21,6 @@ export type GetMetricByNameResponse = {
 };
 
 /** @internal */
-export const GetMetricByNameRequest$inboundSchema: z.ZodType<
-  GetMetricByNameRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-});
-/** @internal */
 export type GetMetricByNameRequest$Outbound = {
   name: string;
 };
@@ -49,15 +41,6 @@ export function getMetricByNameRequestToJSON(
     GetMetricByNameRequest$outboundSchema.parse(getMetricByNameRequest),
   );
 }
-export function getMetricByNameRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetMetricByNameRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetMetricByNameRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMetricByNameRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const GetMetricByNameResponse$inboundSchema: z.ZodType<
@@ -71,31 +54,7 @@ export const GetMetricByNameResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type GetMetricByNameResponse$Outbound = {
-  Result: components.CommonMetricInfo$Outbound;
-};
 
-/** @internal */
-export const GetMetricByNameResponse$outboundSchema: z.ZodType<
-  GetMetricByNameResponse$Outbound,
-  z.ZodTypeDef,
-  GetMetricByNameResponse
-> = z.object({
-  result: components.CommonMetricInfo$outboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function getMetricByNameResponseToJSON(
-  getMetricByNameResponse: GetMetricByNameResponse,
-): string {
-  return JSON.stringify(
-    GetMetricByNameResponse$outboundSchema.parse(getMetricByNameResponse),
-  );
-}
 export function getMetricByNameResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetMetricByNameResponse, SDKValidationError> {

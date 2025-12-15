@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CloudAccountsAwsActivateIntegrationRequest = {
   /**
@@ -22,14 +19,6 @@ export type CloudAccountsAwsActivateIntegrationRequest = {
   enable: boolean;
 };
 
-/** @internal */
-export const CloudAccountsAwsActivateIntegrationRequest$inboundSchema:
-  z.ZodType<CloudAccountsAwsActivateIntegrationRequest, z.ZodTypeDef, unknown> =
-    z.object({
-      managementAccountId: z.string(),
-      accountId: z.string(),
-      enable: z.boolean(),
-    });
 /** @internal */
 export type CloudAccountsAwsActivateIntegrationRequest$Outbound = {
   managementAccountId: string;
@@ -57,20 +46,5 @@ export function cloudAccountsAwsActivateIntegrationRequestToJSON(
     CloudAccountsAwsActivateIntegrationRequest$outboundSchema.parse(
       cloudAccountsAwsActivateIntegrationRequest,
     ),
-  );
-}
-export function cloudAccountsAwsActivateIntegrationRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CloudAccountsAwsActivateIntegrationRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CloudAccountsAwsActivateIntegrationRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CloudAccountsAwsActivateIntegrationRequest' from JSON`,
   );
 }

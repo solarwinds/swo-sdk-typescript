@@ -7,17 +7,10 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import {
-  CommonTag,
-  CommonTag$inboundSchema,
-  CommonTag$Outbound,
-  CommonTag$outboundSchema,
-} from "./commontag.js";
+import { CommonTag, CommonTag$inboundSchema } from "./commontag.js";
 import {
   DemUriAvailabilityCheckSettings,
   DemUriAvailabilityCheckSettings$inboundSchema,
-  DemUriAvailabilityCheckSettings$Outbound,
-  DemUriAvailabilityCheckSettings$outboundSchema,
 } from "./demuriavailabilitychecksettings.js";
 
 export const DemGetUriResponseStatus = {
@@ -80,10 +73,6 @@ export type DemGetUriResponse = {
 export const DemGetUriResponseStatus$inboundSchema: z.ZodNativeEnum<
   typeof DemGetUriResponseStatus
 > = z.nativeEnum(DemGetUriResponseStatus);
-/** @internal */
-export const DemGetUriResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof DemGetUriResponseStatus
-> = DemGetUriResponseStatus$inboundSchema;
 
 /** @internal */
 export const DemGetUriResponse$inboundSchema: z.ZodType<
@@ -112,52 +101,7 @@ export const DemGetUriResponse$inboundSchema: z.ZodType<
   ).optional(),
   lastResponseTime: z.nullable(z.number().int()).optional(),
 });
-/** @internal */
-export type DemGetUriResponse$Outbound = {
-  id: string;
-  type: string;
-  status: string;
-  name: string;
-  ipOrDomain: string;
-  availabilityCheckSettings: DemUriAvailabilityCheckSettings$Outbound;
-  tags?: Array<CommonTag$Outbound> | undefined;
-  lastOutageStartTime?: string | null | undefined;
-  lastOutageEndTime?: string | null | undefined;
-  lastTestTime?: string | null | undefined;
-  lastErrorTime?: string | null | undefined;
-  lastResponseTime?: number | null | undefined;
-};
 
-/** @internal */
-export const DemGetUriResponse$outboundSchema: z.ZodType<
-  DemGetUriResponse$Outbound,
-  z.ZodTypeDef,
-  DemGetUriResponse
-> = z.object({
-  id: z.string(),
-  type: z.string(),
-  status: DemGetUriResponseStatus$outboundSchema,
-  name: z.string(),
-  ipOrDomain: z.string(),
-  availabilityCheckSettings: DemUriAvailabilityCheckSettings$outboundSchema,
-  tags: z.array(CommonTag$outboundSchema).optional(),
-  lastOutageStartTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-  lastOutageEndTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-  lastTestTime: z.nullable(z.date().transform(v => v.toISOString())).optional(),
-  lastErrorTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-  lastResponseTime: z.nullable(z.number().int()).optional(),
-});
-
-export function demGetUriResponseToJSON(
-  demGetUriResponse: DemGetUriResponse,
-): string {
-  return JSON.stringify(
-    DemGetUriResponse$outboundSchema.parse(demGetUriResponse),
-  );
-}
 export function demGetUriResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<DemGetUriResponse, SDKValidationError> {

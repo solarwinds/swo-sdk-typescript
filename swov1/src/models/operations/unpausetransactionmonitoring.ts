@@ -3,22 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UnpauseTransactionMonitoringRequest = {
   entityId: string;
 };
 
-/** @internal */
-export const UnpauseTransactionMonitoringRequest$inboundSchema: z.ZodType<
-  UnpauseTransactionMonitoringRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-});
 /** @internal */
 export type UnpauseTransactionMonitoringRequest$Outbound = {
   entityId: string;
@@ -40,15 +29,5 @@ export function unpauseTransactionMonitoringRequestToJSON(
     UnpauseTransactionMonitoringRequest$outboundSchema.parse(
       unpauseTransactionMonitoringRequest,
     ),
-  );
-}
-export function unpauseTransactionMonitoringRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UnpauseTransactionMonitoringRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UnpauseTransactionMonitoringRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UnpauseTransactionMonitoringRequest' from JSON`,
   );
 }

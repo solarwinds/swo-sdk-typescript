@@ -22,27 +22,7 @@ export const CreateChangeEventResponse$inboundSchema: z.ZodType<
 > = z.object({
   id: z.number().int(),
 });
-/** @internal */
-export type CreateChangeEventResponse$Outbound = {
-  id: number;
-};
 
-/** @internal */
-export const CreateChangeEventResponse$outboundSchema: z.ZodType<
-  CreateChangeEventResponse$Outbound,
-  z.ZodTypeDef,
-  CreateChangeEventResponse
-> = z.object({
-  id: z.number().int(),
-});
-
-export function createChangeEventResponseToJSON(
-  createChangeEventResponse: CreateChangeEventResponse,
-): string {
-  return JSON.stringify(
-    CreateChangeEventResponse$outboundSchema.parse(createChangeEventResponse),
-  );
-}
 export function createChangeEventResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateChangeEventResponse, SDKValidationError> {

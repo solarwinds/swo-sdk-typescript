@@ -22,27 +22,7 @@ export const ObserveDatabaseResponse$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
 });
-/** @internal */
-export type ObserveDatabaseResponse$Outbound = {
-  id: string;
-};
 
-/** @internal */
-export const ObserveDatabaseResponse$outboundSchema: z.ZodType<
-  ObserveDatabaseResponse$Outbound,
-  z.ZodTypeDef,
-  ObserveDatabaseResponse
-> = z.object({
-  id: z.string(),
-});
-
-export function observeDatabaseResponseToJSON(
-  observeDatabaseResponse: ObserveDatabaseResponse,
-): string {
-  return JSON.stringify(
-    ObserveDatabaseResponse$outboundSchema.parse(observeDatabaseResponse),
-  );
-}
 export function observeDatabaseResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ObserveDatabaseResponse, SDKValidationError> {

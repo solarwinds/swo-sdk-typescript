@@ -22,27 +22,7 @@ export const TokensCreateTokenResponse$inboundSchema: z.ZodType<
 > = z.object({
   token: z.string(),
 });
-/** @internal */
-export type TokensCreateTokenResponse$Outbound = {
-  token: string;
-};
 
-/** @internal */
-export const TokensCreateTokenResponse$outboundSchema: z.ZodType<
-  TokensCreateTokenResponse$Outbound,
-  z.ZodTypeDef,
-  TokensCreateTokenResponse
-> = z.object({
-  token: z.string(),
-});
-
-export function tokensCreateTokenResponseToJSON(
-  tokensCreateTokenResponse: TokensCreateTokenResponse,
-): string {
-  return JSON.stringify(
-    TokensCreateTokenResponse$outboundSchema.parse(tokensCreateTokenResponse),
-  );
-}
 export function tokensCreateTokenResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<TokensCreateTokenResponse, SDKValidationError> {

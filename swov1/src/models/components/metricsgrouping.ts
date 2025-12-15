@@ -9,14 +9,10 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonKeyValuePair,
   CommonKeyValuePair$inboundSchema,
-  CommonKeyValuePair$Outbound,
-  CommonKeyValuePair$outboundSchema,
 } from "./commonkeyvaluepair.js";
 import {
   MetricsMeasurement,
   MetricsMeasurement$inboundSchema,
-  MetricsMeasurement$Outbound,
-  MetricsMeasurement$outboundSchema,
 } from "./metricsmeasurement.js";
 
 export type MetricsGrouping = {
@@ -36,27 +32,7 @@ export const MetricsGrouping$inboundSchema: z.ZodType<
   attributes: z.array(CommonKeyValuePair$inboundSchema),
   measurements: z.array(MetricsMeasurement$inboundSchema),
 });
-/** @internal */
-export type MetricsGrouping$Outbound = {
-  attributes: Array<CommonKeyValuePair$Outbound>;
-  measurements: Array<MetricsMeasurement$Outbound>;
-};
 
-/** @internal */
-export const MetricsGrouping$outboundSchema: z.ZodType<
-  MetricsGrouping$Outbound,
-  z.ZodTypeDef,
-  MetricsGrouping
-> = z.object({
-  attributes: z.array(CommonKeyValuePair$outboundSchema),
-  measurements: z.array(MetricsMeasurement$outboundSchema),
-});
-
-export function metricsGroupingToJSON(
-  metricsGrouping: MetricsGrouping,
-): string {
-  return JSON.stringify(MetricsGrouping$outboundSchema.parse(metricsGrouping));
-}
 export function metricsGroupingFromJSON(
   jsonString: string,
 ): SafeParseResult<MetricsGrouping, SDKValidationError> {

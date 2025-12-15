@@ -29,33 +29,7 @@ export const LogsEvent$inboundSchema: z.ZodType<
   severity: z.string(),
   program: z.string(),
 });
-/** @internal */
-export type LogsEvent$Outbound = {
-  id: string;
-  time: string;
-  message: string;
-  hostname: string;
-  severity: string;
-  program: string;
-};
 
-/** @internal */
-export const LogsEvent$outboundSchema: z.ZodType<
-  LogsEvent$Outbound,
-  z.ZodTypeDef,
-  LogsEvent
-> = z.object({
-  id: z.string(),
-  time: z.string(),
-  message: z.string(),
-  hostname: z.string(),
-  severity: z.string(),
-  program: z.string(),
-});
-
-export function logsEventToJSON(logsEvent: LogsEvent): string {
-  return JSON.stringify(LogsEvent$outboundSchema.parse(logsEvent));
-}
 export function logsEventFromJSON(
   jsonString: string,
 ): SafeParseResult<LogsEvent, SDKValidationError> {

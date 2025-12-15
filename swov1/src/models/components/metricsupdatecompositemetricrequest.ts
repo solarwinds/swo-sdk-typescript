@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type MetricsUpdateCompositeMetricRequest = {
   /**
@@ -26,17 +23,6 @@ export type MetricsUpdateCompositeMetricRequest = {
   units?: string | null | undefined;
 };
 
-/** @internal */
-export const MetricsUpdateCompositeMetricRequest$inboundSchema: z.ZodType<
-  MetricsUpdateCompositeMetricRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  displayName: z.nullable(z.string()).optional(),
-  description: z.nullable(z.string()).optional(),
-  formula: z.string(),
-  units: z.nullable(z.string()).optional(),
-});
 /** @internal */
 export type MetricsUpdateCompositeMetricRequest$Outbound = {
   displayName?: string | null | undefined;
@@ -64,15 +50,5 @@ export function metricsUpdateCompositeMetricRequestToJSON(
     MetricsUpdateCompositeMetricRequest$outboundSchema.parse(
       metricsUpdateCompositeMetricRequest,
     ),
-  );
-}
-export function metricsUpdateCompositeMetricRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<MetricsUpdateCompositeMetricRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      MetricsUpdateCompositeMetricRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MetricsUpdateCompositeMetricRequest' from JSON`,
   );
 }

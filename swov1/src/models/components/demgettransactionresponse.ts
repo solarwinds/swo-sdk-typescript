@@ -7,17 +7,10 @@ import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import {
-  CommonTag,
-  CommonTag$inboundSchema,
-  CommonTag$Outbound,
-  CommonTag$outboundSchema,
-} from "./commontag.js";
+import { CommonTag, CommonTag$inboundSchema } from "./commontag.js";
 import {
   DemTransactionTestDefinition,
   DemTransactionTestDefinition$inboundSchema,
-  DemTransactionTestDefinition$Outbound,
-  DemTransactionTestDefinition$outboundSchema,
 } from "./demtransactiontestdefinition.js";
 
 export const DemGetTransactionResponseStatus = {
@@ -77,10 +70,6 @@ export type DemGetTransactionResponse = {
 export const DemGetTransactionResponseStatus$inboundSchema: z.ZodNativeEnum<
   typeof DemGetTransactionResponseStatus
 > = z.nativeEnum(DemGetTransactionResponseStatus);
-/** @internal */
-export const DemGetTransactionResponseStatus$outboundSchema: z.ZodNativeEnum<
-  typeof DemGetTransactionResponseStatus
-> = DemGetTransactionResponseStatus$inboundSchema;
 
 /** @internal */
 export const DemGetTransactionResponse$inboundSchema: z.ZodType<
@@ -109,52 +98,7 @@ export const DemGetTransactionResponse$inboundSchema: z.ZodType<
     z.string().datetime({ offset: true }).transform(v => new Date(v)),
   ).optional(),
 });
-/** @internal */
-export type DemGetTransactionResponse$Outbound = {
-  id: string;
-  type: string;
-  status: string;
-  name: string;
-  description?: string | undefined;
-  relatedEntityId?: string | undefined;
-  testDefinition: DemTransactionTestDefinition$Outbound;
-  tags?: Array<CommonTag$Outbound> | undefined;
-  lastOutageStartTime?: string | null | undefined;
-  lastOutageEndTime?: string | null | undefined;
-  lastTestTime?: string | null | undefined;
-  lastErrorTime?: string | null | undefined;
-};
 
-/** @internal */
-export const DemGetTransactionResponse$outboundSchema: z.ZodType<
-  DemGetTransactionResponse$Outbound,
-  z.ZodTypeDef,
-  DemGetTransactionResponse
-> = z.object({
-  id: z.string(),
-  type: z.string(),
-  status: DemGetTransactionResponseStatus$outboundSchema,
-  name: z.string(),
-  description: z.string().optional(),
-  relatedEntityId: z.string().optional(),
-  testDefinition: DemTransactionTestDefinition$outboundSchema,
-  tags: z.array(CommonTag$outboundSchema).optional(),
-  lastOutageStartTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-  lastOutageEndTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-  lastTestTime: z.nullable(z.date().transform(v => v.toISOString())).optional(),
-  lastErrorTime: z.nullable(z.date().transform(v => v.toISOString()))
-    .optional(),
-});
-
-export function demGetTransactionResponseToJSON(
-  demGetTransactionResponse: DemGetTransactionResponse,
-): string {
-  return JSON.stringify(
-    DemGetTransactionResponse$outboundSchema.parse(demGetTransactionResponse),
-  );
-}
 export function demGetTransactionResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<DemGetTransactionResponse, SDKValidationError> {

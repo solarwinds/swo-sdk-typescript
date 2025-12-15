@@ -3,22 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteUriRequest = {
   entityId: string;
 };
 
-/** @internal */
-export const DeleteUriRequest$inboundSchema: z.ZodType<
-  DeleteUriRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-});
 /** @internal */
 export type DeleteUriRequest$Outbound = {
   entityId: string;
@@ -38,14 +27,5 @@ export function deleteUriRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteUriRequest$outboundSchema.parse(deleteUriRequest),
-  );
-}
-export function deleteUriRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteUriRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteUriRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteUriRequest' from JSON`,
   );
 }

@@ -3,12 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CloudAccountsAwsOrganisationalUnit,
-  CloudAccountsAwsOrganisationalUnit$inboundSchema,
   CloudAccountsAwsOrganisationalUnit$Outbound,
   CloudAccountsAwsOrganisationalUnit$outboundSchema,
 } from "./cloudaccountsawsorganisationalunit.js";
@@ -24,15 +20,6 @@ export type CloudAccountsAwsOrganisationalUnitRequest = {
   structure: Array<CloudAccountsAwsOrganisationalUnit>;
 };
 
-/** @internal */
-export const CloudAccountsAwsOrganisationalUnitRequest$inboundSchema: z.ZodType<
-  CloudAccountsAwsOrganisationalUnitRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mgmtAccountId: z.string(),
-  structure: z.array(CloudAccountsAwsOrganisationalUnit$inboundSchema),
-});
 /** @internal */
 export type CloudAccountsAwsOrganisationalUnitRequest$Outbound = {
   mgmtAccountId: string;
@@ -58,20 +45,5 @@ export function cloudAccountsAwsOrganisationalUnitRequestToJSON(
     CloudAccountsAwsOrganisationalUnitRequest$outboundSchema.parse(
       cloudAccountsAwsOrganisationalUnitRequest,
     ),
-  );
-}
-export function cloudAccountsAwsOrganisationalUnitRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CloudAccountsAwsOrganisationalUnitRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CloudAccountsAwsOrganisationalUnitRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CloudAccountsAwsOrganisationalUnitRequest' from JSON`,
   );
 }

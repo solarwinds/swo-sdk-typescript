@@ -64,10 +64,6 @@ export class MetricsMetricForbiddenErrorResponse extends SwoError {
 export const MetricsMetricForbiddenErrorResponseCode$inboundSchema:
   z.ZodNativeEnum<typeof MetricsMetricForbiddenErrorResponseCode> = z
     .nativeEnum(MetricsMetricForbiddenErrorResponseCode);
-/** @internal */
-export const MetricsMetricForbiddenErrorResponseCode$outboundSchema:
-  z.ZodNativeEnum<typeof MetricsMetricForbiddenErrorResponseCode> =
-    MetricsMetricForbiddenErrorResponseCode$inboundSchema;
 
 /** @internal */
 export const MetricsMetricForbiddenErrorResponse$inboundSchema: z.ZodType<
@@ -88,21 +84,3 @@ export const MetricsMetricForbiddenErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type MetricsMetricForbiddenErrorResponse$Outbound = {
-  message: string;
-  code?: string | undefined;
-};
-
-/** @internal */
-export const MetricsMetricForbiddenErrorResponse$outboundSchema: z.ZodType<
-  MetricsMetricForbiddenErrorResponse$Outbound,
-  z.ZodTypeDef,
-  MetricsMetricForbiddenErrorResponse
-> = z.instanceof(MetricsMetricForbiddenErrorResponse)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string(),
-    code: MetricsMetricForbiddenErrorResponseCode$outboundSchema.optional(),
-  }));

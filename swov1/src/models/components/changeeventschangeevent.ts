@@ -3,12 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonLink,
-  CommonLink$inboundSchema,
   CommonLink$Outbound,
   CommonLink$outboundSchema,
 } from "./commonlink.js";
@@ -53,22 +49,6 @@ export type ChangeEventsChangeEvent = {
 };
 
 /** @internal */
-export const ChangeEventsChangeEvent$inboundSchema: z.ZodType<
-  ChangeEventsChangeEvent,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.number().int().optional(),
-  name: z.string(),
-  title: z.string(),
-  timestamp: z.number().int().optional(),
-  source: z.string().optional(),
-  description: z.string().optional(),
-  parentEventId: z.number().int().optional(),
-  tags: z.record(z.string()).optional(),
-  links: z.array(CommonLink$inboundSchema).optional(),
-});
-/** @internal */
 export type ChangeEventsChangeEvent$Outbound = {
   id?: number | undefined;
   name: string;
@@ -103,14 +83,5 @@ export function changeEventsChangeEventToJSON(
 ): string {
   return JSON.stringify(
     ChangeEventsChangeEvent$outboundSchema.parse(changeEventsChangeEvent),
-  );
-}
-export function changeEventsChangeEventFromJSON(
-  jsonString: string,
-): SafeParseResult<ChangeEventsChangeEvent, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ChangeEventsChangeEvent$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ChangeEventsChangeEvent' from JSON`,
   );
 }

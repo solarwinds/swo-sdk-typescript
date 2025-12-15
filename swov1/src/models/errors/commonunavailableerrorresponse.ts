@@ -62,10 +62,6 @@ export class CommonUnavailableErrorResponse extends SwoError {
 export const CommonUnavailableErrorResponseCode$inboundSchema: z.ZodNativeEnum<
   typeof CommonUnavailableErrorResponseCode
 > = z.nativeEnum(CommonUnavailableErrorResponseCode);
-/** @internal */
-export const CommonUnavailableErrorResponseCode$outboundSchema: z.ZodNativeEnum<
-  typeof CommonUnavailableErrorResponseCode
-> = CommonUnavailableErrorResponseCode$inboundSchema;
 
 /** @internal */
 export const CommonUnavailableErrorResponse$inboundSchema: z.ZodType<
@@ -86,21 +82,3 @@ export const CommonUnavailableErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type CommonUnavailableErrorResponse$Outbound = {
-  message: string;
-  code?: string | undefined;
-};
-
-/** @internal */
-export const CommonUnavailableErrorResponse$outboundSchema: z.ZodType<
-  CommonUnavailableErrorResponse$Outbound,
-  z.ZodTypeDef,
-  CommonUnavailableErrorResponse
-> = z.instanceof(CommonUnavailableErrorResponse)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string(),
-    code: CommonUnavailableErrorResponseCode$outboundSchema.optional(),
-  }));

@@ -3,18 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonTag,
-  CommonTag$inboundSchema,
   CommonTag$Outbound,
   CommonTag$outboundSchema,
 } from "./commontag.js";
 import {
   DemTransactionTestDefinition,
-  DemTransactionTestDefinition$inboundSchema,
   DemTransactionTestDefinition$Outbound,
   DemTransactionTestDefinition$outboundSchema,
 } from "./demtransactiontestdefinition.js";
@@ -43,18 +38,6 @@ export type DemTransaction = {
 };
 
 /** @internal */
-export const DemTransaction$inboundSchema: z.ZodType<
-  DemTransaction,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-  relatedEntityId: z.string().optional(),
-  testDefinition: DemTransactionTestDefinition$inboundSchema,
-  tags: z.array(CommonTag$inboundSchema).optional(),
-});
-/** @internal */
 export type DemTransaction$Outbound = {
   name: string;
   description?: string | undefined;
@@ -78,13 +61,4 @@ export const DemTransaction$outboundSchema: z.ZodType<
 
 export function demTransactionToJSON(demTransaction: DemTransaction): string {
   return JSON.stringify(DemTransaction$outboundSchema.parse(demTransaction));
-}
-export function demTransactionFromJSON(
-  jsonString: string,
-): SafeParseResult<DemTransaction, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DemTransaction$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DemTransaction' from JSON`,
-  );
 }

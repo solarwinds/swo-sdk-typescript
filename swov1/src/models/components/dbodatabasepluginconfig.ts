@@ -9,8 +9,6 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   CommonKeyValuePair,
   CommonKeyValuePair$inboundSchema,
-  CommonKeyValuePair$Outbound,
-  CommonKeyValuePair$outboundSchema,
 } from "./commonkeyvaluepair.js";
 
 export type DboDatabasePluginConfig = {
@@ -38,31 +36,7 @@ export const DboDatabasePluginConfig$inboundSchema: z.ZodType<
   configOptions: z.array(CommonKeyValuePair$inboundSchema),
   dbConnOptions: z.array(CommonKeyValuePair$inboundSchema),
 });
-/** @internal */
-export type DboDatabasePluginConfig$Outbound = {
-  pluginName: string;
-  configOptions: Array<CommonKeyValuePair$Outbound>;
-  dbConnOptions: Array<CommonKeyValuePair$Outbound>;
-};
 
-/** @internal */
-export const DboDatabasePluginConfig$outboundSchema: z.ZodType<
-  DboDatabasePluginConfig$Outbound,
-  z.ZodTypeDef,
-  DboDatabasePluginConfig
-> = z.object({
-  pluginName: z.string(),
-  configOptions: z.array(CommonKeyValuePair$outboundSchema),
-  dbConnOptions: z.array(CommonKeyValuePair$outboundSchema),
-});
-
-export function dboDatabasePluginConfigToJSON(
-  dboDatabasePluginConfig: DboDatabasePluginConfig,
-): string {
-  return JSON.stringify(
-    DboDatabasePluginConfig$outboundSchema.parse(dboDatabasePluginConfig),
-  );
-}
 export function dboDatabasePluginConfigFromJSON(
   jsonString: string,
 ): SafeParseResult<DboDatabasePluginConfig, SDKValidationError> {

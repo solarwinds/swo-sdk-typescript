@@ -62,10 +62,6 @@ export class CommonUnauthorizedErrorResponse extends SwoError {
 export const CommonUnauthorizedErrorResponseCode$inboundSchema: z.ZodNativeEnum<
   typeof CommonUnauthorizedErrorResponseCode
 > = z.nativeEnum(CommonUnauthorizedErrorResponseCode);
-/** @internal */
-export const CommonUnauthorizedErrorResponseCode$outboundSchema:
-  z.ZodNativeEnum<typeof CommonUnauthorizedErrorResponseCode> =
-    CommonUnauthorizedErrorResponseCode$inboundSchema;
 
 /** @internal */
 export const CommonUnauthorizedErrorResponse$inboundSchema: z.ZodType<
@@ -86,21 +82,3 @@ export const CommonUnauthorizedErrorResponse$inboundSchema: z.ZodType<
       body: v.body$,
     });
   });
-
-/** @internal */
-export type CommonUnauthorizedErrorResponse$Outbound = {
-  message: string;
-  code?: string | undefined;
-};
-
-/** @internal */
-export const CommonUnauthorizedErrorResponse$outboundSchema: z.ZodType<
-  CommonUnauthorizedErrorResponse$Outbound,
-  z.ZodTypeDef,
-  CommonUnauthorizedErrorResponse
-> = z.instanceof(CommonUnauthorizedErrorResponse)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string(),
-    code: CommonUnauthorizedErrorResponseCode$outboundSchema.optional(),
-  }));

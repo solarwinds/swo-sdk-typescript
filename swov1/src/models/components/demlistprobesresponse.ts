@@ -6,12 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../../lib/schemas.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import {
-  DemProbe,
-  DemProbe$inboundSchema,
-  DemProbe$Outbound,
-  DemProbe$outboundSchema,
-} from "./demprobe.js";
+import { DemProbe, DemProbe$inboundSchema } from "./demprobe.js";
 
 export type DemListProbesResponse = {
   /**
@@ -28,27 +23,7 @@ export const DemListProbesResponse$inboundSchema: z.ZodType<
 > = z.object({
   probes: z.array(DemProbe$inboundSchema),
 });
-/** @internal */
-export type DemListProbesResponse$Outbound = {
-  probes: Array<DemProbe$Outbound>;
-};
 
-/** @internal */
-export const DemListProbesResponse$outboundSchema: z.ZodType<
-  DemListProbesResponse$Outbound,
-  z.ZodTypeDef,
-  DemListProbesResponse
-> = z.object({
-  probes: z.array(DemProbe$outboundSchema),
-});
-
-export function demListProbesResponseToJSON(
-  demListProbesResponse: DemListProbesResponse,
-): string {
-  return JSON.stringify(
-    DemListProbesResponse$outboundSchema.parse(demListProbesResponse),
-  );
-}
 export function demListProbesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<DemListProbesResponse, SDKValidationError> {

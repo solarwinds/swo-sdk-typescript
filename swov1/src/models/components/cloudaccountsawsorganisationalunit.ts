@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CloudAccountsAwsOrganisationalUnit = {
   /**
@@ -23,22 +20,6 @@ export type CloudAccountsAwsOrganisationalUnit = {
   parentId?: string | undefined;
 };
 
-/** @internal */
-export const CloudAccountsAwsOrganisationalUnit$inboundSchema: z.ZodType<
-  CloudAccountsAwsOrganisationalUnit,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  child_id: z.string(),
-  child_name: z.string(),
-  parent_id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "child_id": "childId",
-    "child_name": "childName",
-    "parent_id": "parentId",
-  });
-});
 /** @internal */
 export type CloudAccountsAwsOrganisationalUnit$Outbound = {
   child_id: string;
@@ -70,15 +51,5 @@ export function cloudAccountsAwsOrganisationalUnitToJSON(
     CloudAccountsAwsOrganisationalUnit$outboundSchema.parse(
       cloudAccountsAwsOrganisationalUnit,
     ),
-  );
-}
-export function cloudAccountsAwsOrganisationalUnitFromJSON(
-  jsonString: string,
-): SafeParseResult<CloudAccountsAwsOrganisationalUnit, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CloudAccountsAwsOrganisationalUnit$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CloudAccountsAwsOrganisationalUnit' from JSON`,
   );
 }

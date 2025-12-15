@@ -3,10 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
 import { ClosedEnum } from "../../types/enums.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
  * Aggregation method used to group measurements.
@@ -110,52 +107,22 @@ export type MetricsMeasurementsRequest = {
 };
 
 /** @internal */
-export const AggregateBy$inboundSchema: z.ZodNativeEnum<typeof AggregateBy> = z
+export const AggregateBy$outboundSchema: z.ZodNativeEnum<typeof AggregateBy> = z
   .nativeEnum(AggregateBy);
-/** @internal */
-export const AggregateBy$outboundSchema: z.ZodNativeEnum<typeof AggregateBy> =
-  AggregateBy$inboundSchema;
 
-/** @internal */
-export const PreGroupByMethod$inboundSchema: z.ZodNativeEnum<
-  typeof PreGroupByMethod
-> = z.nativeEnum(PreGroupByMethod);
 /** @internal */
 export const PreGroupByMethod$outboundSchema: z.ZodNativeEnum<
   typeof PreGroupByMethod
-> = PreGroupByMethod$inboundSchema;
+> = z.nativeEnum(PreGroupByMethod);
 
 /** @internal */
-export const SeriesType$inboundSchema: z.ZodNativeEnum<typeof SeriesType> = z
+export const SeriesType$outboundSchema: z.ZodNativeEnum<typeof SeriesType> = z
   .nativeEnum(SeriesType);
-/** @internal */
-export const SeriesType$outboundSchema: z.ZodNativeEnum<typeof SeriesType> =
-  SeriesType$inboundSchema;
 
 /** @internal */
-export const FillMethod$inboundSchema: z.ZodNativeEnum<typeof FillMethod> = z
+export const FillMethod$outboundSchema: z.ZodNativeEnum<typeof FillMethod> = z
   .nativeEnum(FillMethod);
-/** @internal */
-export const FillMethod$outboundSchema: z.ZodNativeEnum<typeof FillMethod> =
-  FillMethod$inboundSchema;
 
-/** @internal */
-export const MetricsMeasurementsRequest$inboundSchema: z.ZodType<
-  MetricsMeasurementsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  name: z.string(),
-  filter: z.string().optional(),
-  groupBy: z.array(z.string()).optional(),
-  aggregateBy: AggregateBy$inboundSchema.optional(),
-  preGroupBy: z.array(z.string()).optional(),
-  preGroupByMethod: PreGroupByMethod$inboundSchema.optional(),
-  seriesType: SeriesType$inboundSchema.default("TIMESERIES"),
-  fillMethod: FillMethod$inboundSchema.default("NONE"),
-  fillIfEmpty: z.boolean().default(false),
-});
 /** @internal */
 export type MetricsMeasurementsRequest$Outbound = {
   id?: string | undefined;
@@ -193,14 +160,5 @@ export function metricsMeasurementsRequestToJSON(
 ): string {
   return JSON.stringify(
     MetricsMeasurementsRequest$outboundSchema.parse(metricsMeasurementsRequest),
-  );
-}
-export function metricsMeasurementsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<MetricsMeasurementsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MetricsMeasurementsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MetricsMeasurementsRequest' from JSON`,
   );
 }

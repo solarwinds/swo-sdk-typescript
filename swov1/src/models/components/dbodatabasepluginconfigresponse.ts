@@ -9,8 +9,6 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import {
   DboDatabasePluginConfig,
   DboDatabasePluginConfig$inboundSchema,
-  DboDatabasePluginConfig$Outbound,
-  DboDatabasePluginConfig$outboundSchema,
 } from "./dbodatabasepluginconfig.js";
 
 export type DboDatabasePluginConfigResponse = {
@@ -28,29 +26,7 @@ export const DboDatabasePluginConfigResponse$inboundSchema: z.ZodType<
 > = z.object({
   pluginConfig: z.array(DboDatabasePluginConfig$inboundSchema),
 });
-/** @internal */
-export type DboDatabasePluginConfigResponse$Outbound = {
-  pluginConfig: Array<DboDatabasePluginConfig$Outbound>;
-};
 
-/** @internal */
-export const DboDatabasePluginConfigResponse$outboundSchema: z.ZodType<
-  DboDatabasePluginConfigResponse$Outbound,
-  z.ZodTypeDef,
-  DboDatabasePluginConfigResponse
-> = z.object({
-  pluginConfig: z.array(DboDatabasePluginConfig$outboundSchema),
-});
-
-export function dboDatabasePluginConfigResponseToJSON(
-  dboDatabasePluginConfigResponse: DboDatabasePluginConfigResponse,
-): string {
-  return JSON.stringify(
-    DboDatabasePluginConfigResponse$outboundSchema.parse(
-      dboDatabasePluginConfigResponse,
-    ),
-  );
-}
 export function dboDatabasePluginConfigResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<DboDatabasePluginConfigResponse, SDKValidationError> {

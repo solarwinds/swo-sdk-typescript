@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CommonLink = {
   rel: string;
@@ -13,16 +10,6 @@ export type CommonLink = {
   label?: string | undefined;
 };
 
-/** @internal */
-export const CommonLink$inboundSchema: z.ZodType<
-  CommonLink,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rel: z.string(),
-  href: z.string(),
-  label: z.string().optional(),
-});
 /** @internal */
 export type CommonLink$Outbound = {
   rel: string;
@@ -43,13 +30,4 @@ export const CommonLink$outboundSchema: z.ZodType<
 
 export function commonLinkToJSON(commonLink: CommonLink): string {
   return JSON.stringify(CommonLink$outboundSchema.parse(commonLink));
-}
-export function commonLinkFromJSON(
-  jsonString: string,
-): SafeParseResult<CommonLink, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CommonLink$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CommonLink' from JSON`,
-  );
 }

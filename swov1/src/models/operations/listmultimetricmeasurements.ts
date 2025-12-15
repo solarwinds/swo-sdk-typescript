@@ -69,18 +69,6 @@ export type ListMultiMetricMeasurementsResponse = {
 };
 
 /** @internal */
-export const ListMultiMetricMeasurementsRequestBody$inboundSchema: z.ZodType<
-  ListMultiMetricMeasurementsRequestBody,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  metrics: z.array(components.MetricsMeasurementsRequest$inboundSchema),
-  startTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-  endTime: z.string().datetime({ offset: true }).transform(v => new Date(v))
-    .optional(),
-});
-/** @internal */
 export type ListMultiMetricMeasurementsRequestBody$Outbound = {
   metrics: Array<components.MetricsMeasurementsRequest$Outbound>;
   startTime?: string | undefined;
@@ -108,34 +96,7 @@ export function listMultiMetricMeasurementsRequestBodyToJSON(
     ),
   );
 }
-export function listMultiMetricMeasurementsRequestBodyFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMultiMetricMeasurementsRequestBody, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListMultiMetricMeasurementsRequestBody$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMultiMetricMeasurementsRequestBody' from JSON`,
-  );
-}
 
-/** @internal */
-export const ListMultiMetricMeasurementsRequest$inboundSchema: z.ZodType<
-  ListMultiMetricMeasurementsRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  forcePositional: z.boolean().default(false),
-  pageSize: z.number().int().optional(),
-  skipToken: z.string().optional(),
-  RequestBody: z.lazy(() =>
-    ListMultiMetricMeasurementsRequestBody$inboundSchema
-  ),
-}).transform((v) => {
-  return remap$(v, {
-    "RequestBody": "requestBody",
-  });
-});
 /** @internal */
 export type ListMultiMetricMeasurementsRequest$Outbound = {
   forcePositional: boolean;
@@ -171,16 +132,6 @@ export function listMultiMetricMeasurementsRequestToJSON(
     ),
   );
 }
-export function listMultiMetricMeasurementsRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMultiMetricMeasurementsRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      ListMultiMetricMeasurementsRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMultiMetricMeasurementsRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const Metric$inboundSchema: z.ZodType<Metric, z.ZodTypeDef, unknown> = z
@@ -190,29 +141,7 @@ export const Metric$inboundSchema: z.ZodType<Metric, z.ZodTypeDef, unknown> = z
     groupings: z.array(components.MetricsGrouping$inboundSchema),
     bucketSizeInSeconds: z.number().int(),
   });
-/** @internal */
-export type Metric$Outbound = {
-  id?: string | undefined;
-  name: string;
-  groupings: Array<components.MetricsGrouping$Outbound>;
-  bucketSizeInSeconds: number;
-};
 
-/** @internal */
-export const Metric$outboundSchema: z.ZodType<
-  Metric$Outbound,
-  z.ZodTypeDef,
-  Metric
-> = z.object({
-  id: z.string().optional(),
-  name: z.string(),
-  groupings: z.array(components.MetricsGrouping$outboundSchema),
-  bucketSizeInSeconds: z.number().int(),
-});
-
-export function metricToJSON(metric: Metric): string {
-  return JSON.stringify(Metric$outboundSchema.parse(metric));
-}
 export function metricFromJSON(
   jsonString: string,
 ): SafeParseResult<Metric, SDKValidationError> {
@@ -232,32 +161,7 @@ export const ListMultiMetricMeasurementsResponseBody$inboundSchema: z.ZodType<
   metrics: z.array(z.lazy(() => Metric$inboundSchema)),
   pageInfo: components.CommonPageInfo$inboundSchema,
 });
-/** @internal */
-export type ListMultiMetricMeasurementsResponseBody$Outbound = {
-  metrics: Array<Metric$Outbound>;
-  pageInfo: components.CommonPageInfo$Outbound;
-};
 
-/** @internal */
-export const ListMultiMetricMeasurementsResponseBody$outboundSchema: z.ZodType<
-  ListMultiMetricMeasurementsResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListMultiMetricMeasurementsResponseBody
-> = z.object({
-  metrics: z.array(z.lazy(() => Metric$outboundSchema)),
-  pageInfo: components.CommonPageInfo$outboundSchema,
-});
-
-export function listMultiMetricMeasurementsResponseBodyToJSON(
-  listMultiMetricMeasurementsResponseBody:
-    ListMultiMetricMeasurementsResponseBody,
-): string {
-  return JSON.stringify(
-    ListMultiMetricMeasurementsResponseBody$outboundSchema.parse(
-      listMultiMetricMeasurementsResponseBody,
-    ),
-  );
-}
 export function listMultiMetricMeasurementsResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -286,33 +190,7 @@ export const ListMultiMetricMeasurementsResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListMultiMetricMeasurementsResponse$Outbound = {
-  Result: ListMultiMetricMeasurementsResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListMultiMetricMeasurementsResponse$outboundSchema: z.ZodType<
-  ListMultiMetricMeasurementsResponse$Outbound,
-  z.ZodTypeDef,
-  ListMultiMetricMeasurementsResponse
-> = z.object({
-  result: z.lazy(() => ListMultiMetricMeasurementsResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listMultiMetricMeasurementsResponseToJSON(
-  listMultiMetricMeasurementsResponse: ListMultiMetricMeasurementsResponse,
-): string {
-  return JSON.stringify(
-    ListMultiMetricMeasurementsResponse$outboundSchema.parse(
-      listMultiMetricMeasurementsResponse,
-    ),
-  );
-}
 export function listMultiMetricMeasurementsResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListMultiMetricMeasurementsResponse, SDKValidationError> {

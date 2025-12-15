@@ -3,22 +3,11 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteDatabaseRequest = {
   entityId: string;
 };
 
-/** @internal */
-export const DeleteDatabaseRequest$inboundSchema: z.ZodType<
-  DeleteDatabaseRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  entityId: z.string(),
-});
 /** @internal */
 export type DeleteDatabaseRequest$Outbound = {
   entityId: string;
@@ -38,14 +27,5 @@ export function deleteDatabaseRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteDatabaseRequest$outboundSchema.parse(deleteDatabaseRequest),
-  );
-}
-export function deleteDatabaseRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteDatabaseRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteDatabaseRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteDatabaseRequest' from JSON`,
   );
 }

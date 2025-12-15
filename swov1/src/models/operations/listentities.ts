@@ -41,17 +41,6 @@ export type ListEntitiesResponse = {
 };
 
 /** @internal */
-export const ListEntitiesRequest$inboundSchema: z.ZodType<
-  ListEntitiesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.string(),
-  name: z.string().optional(),
-  pageSize: z.number().int().optional(),
-  skipToken: z.string().optional(),
-});
-/** @internal */
 export type ListEntitiesRequest$Outbound = {
   type: string;
   name?: string | undefined;
@@ -78,15 +67,6 @@ export function listEntitiesRequestToJSON(
     ListEntitiesRequest$outboundSchema.parse(listEntitiesRequest),
   );
 }
-export function listEntitiesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListEntitiesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListEntitiesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListEntitiesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListEntitiesResponseBody$inboundSchema: z.ZodType<
@@ -97,29 +77,7 @@ export const ListEntitiesResponseBody$inboundSchema: z.ZodType<
   entities: z.array(components.EntitiesEntity$inboundSchema),
   pageInfo: components.CommonPageInfo$inboundSchema,
 });
-/** @internal */
-export type ListEntitiesResponseBody$Outbound = {
-  entities: Array<components.EntitiesEntity$Outbound>;
-  pageInfo: components.CommonPageInfo$Outbound;
-};
 
-/** @internal */
-export const ListEntitiesResponseBody$outboundSchema: z.ZodType<
-  ListEntitiesResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListEntitiesResponseBody
-> = z.object({
-  entities: z.array(components.EntitiesEntity$outboundSchema),
-  pageInfo: components.CommonPageInfo$outboundSchema,
-});
-
-export function listEntitiesResponseBodyToJSON(
-  listEntitiesResponseBody: ListEntitiesResponseBody,
-): string {
-  return JSON.stringify(
-    ListEntitiesResponseBody$outboundSchema.parse(listEntitiesResponseBody),
-  );
-}
 export function listEntitiesResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntitiesResponseBody, SDKValidationError> {
@@ -142,31 +100,7 @@ export const ListEntitiesResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListEntitiesResponse$Outbound = {
-  Result: ListEntitiesResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListEntitiesResponse$outboundSchema: z.ZodType<
-  ListEntitiesResponse$Outbound,
-  z.ZodTypeDef,
-  ListEntitiesResponse
-> = z.object({
-  result: z.lazy(() => ListEntitiesResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listEntitiesResponseToJSON(
-  listEntitiesResponse: ListEntitiesResponse,
-): string {
-  return JSON.stringify(
-    ListEntitiesResponse$outboundSchema.parse(listEntitiesResponse),
-  );
-}
 export function listEntitiesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListEntitiesResponse, SDKValidationError> {

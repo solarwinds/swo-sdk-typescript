@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CloudAccountsAwsUpdateIntegrationRequest = {
   /**
@@ -38,20 +35,6 @@ export type CloudAccountsAwsUpdateIntegrationRequest = {
   parentOrgUnitId?: string | undefined;
 };
 
-/** @internal */
-export const CloudAccountsAwsUpdateIntegrationRequest$inboundSchema: z.ZodType<
-  CloudAccountsAwsUpdateIntegrationRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  managementAccountId: z.string(),
-  accountId: z.string(),
-  accountName: z.string(),
-  roleArn: z.string(),
-  orgUnitId: z.string().optional(),
-  orgUnitName: z.string().optional(),
-  parentOrgUnitId: z.string().optional(),
-});
 /** @internal */
 export type CloudAccountsAwsUpdateIntegrationRequest$Outbound = {
   managementAccountId: string;
@@ -86,20 +69,5 @@ export function cloudAccountsAwsUpdateIntegrationRequestToJSON(
     CloudAccountsAwsUpdateIntegrationRequest$outboundSchema.parse(
       cloudAccountsAwsUpdateIntegrationRequest,
     ),
-  );
-}
-export function cloudAccountsAwsUpdateIntegrationRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CloudAccountsAwsUpdateIntegrationRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CloudAccountsAwsUpdateIntegrationRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CloudAccountsAwsUpdateIntegrationRequest' from JSON`,
   );
 }

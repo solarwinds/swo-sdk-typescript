@@ -81,9 +81,6 @@ export type DemProbe = {
 /** @internal */
 export const Platform$inboundSchema: z.ZodNativeEnum<typeof Platform> = z
   .nativeEnum(Platform);
-/** @internal */
-export const Platform$outboundSchema: z.ZodNativeEnum<typeof Platform> =
-  Platform$inboundSchema;
 
 /** @internal */
 export const Coordinates$inboundSchema: z.ZodType<
@@ -94,25 +91,7 @@ export const Coordinates$inboundSchema: z.ZodType<
   latitude: z.number(),
   longitude: z.number(),
 });
-/** @internal */
-export type Coordinates$Outbound = {
-  latitude: number;
-  longitude: number;
-};
 
-/** @internal */
-export const Coordinates$outboundSchema: z.ZodType<
-  Coordinates$Outbound,
-  z.ZodTypeDef,
-  Coordinates
-> = z.object({
-  latitude: z.number(),
-  longitude: z.number(),
-});
-
-export function coordinatesToJSON(coordinates: Coordinates): string {
-  return JSON.stringify(Coordinates$outboundSchema.parse(coordinates));
-}
 export function coordinatesFromJSON(
   jsonString: string,
 ): SafeParseResult<Coordinates, SDKValidationError> {
@@ -140,41 +119,7 @@ export const DemProbe$inboundSchema: z.ZodType<
   ipv4Addresses: z.array(z.string()),
   ipv6Addresses: z.array(z.string()).optional(),
 });
-/** @internal */
-export type DemProbe$Outbound = {
-  id: string;
-  name: string;
-  active: boolean;
-  platform: string;
-  region: string;
-  country: string;
-  city: string;
-  coordinates: Coordinates$Outbound;
-  ipv4Addresses: Array<string>;
-  ipv6Addresses?: Array<string> | undefined;
-};
 
-/** @internal */
-export const DemProbe$outboundSchema: z.ZodType<
-  DemProbe$Outbound,
-  z.ZodTypeDef,
-  DemProbe
-> = z.object({
-  id: z.string(),
-  name: z.string(),
-  active: z.boolean(),
-  platform: Platform$outboundSchema,
-  region: z.string(),
-  country: z.string(),
-  city: z.string(),
-  coordinates: z.lazy(() => Coordinates$outboundSchema),
-  ipv4Addresses: z.array(z.string()),
-  ipv6Addresses: z.array(z.string()).optional(),
-});
-
-export function demProbeToJSON(demProbe: DemProbe): string {
-  return JSON.stringify(DemProbe$outboundSchema.parse(demProbe));
-}
 export function demProbeFromJSON(
   jsonString: string,
 ): SafeParseResult<DemProbe, SDKValidationError> {

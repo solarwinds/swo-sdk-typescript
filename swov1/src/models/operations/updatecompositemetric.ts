@@ -4,10 +4,7 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type UpdateCompositeMetricRequest = {
   /**
@@ -21,21 +18,6 @@ export type UpdateCompositeMetricRequest = {
     components.MetricsUpdateCompositeMetricRequest;
 };
 
-/** @internal */
-export const UpdateCompositeMetricRequest$inboundSchema: z.ZodType<
-  UpdateCompositeMetricRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  "Metrics.UpdateCompositeMetricRequest":
-    components.MetricsUpdateCompositeMetricRequest$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Metrics.UpdateCompositeMetricRequest":
-      "metricsUpdateCompositeMetricRequest",
-  });
-});
 /** @internal */
 export type UpdateCompositeMetricRequest$Outbound = {
   name: string;
@@ -65,14 +47,5 @@ export function updateCompositeMetricRequestToJSON(
     UpdateCompositeMetricRequest$outboundSchema.parse(
       updateCompositeMetricRequest,
     ),
-  );
-}
-export function updateCompositeMetricRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateCompositeMetricRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateCompositeMetricRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateCompositeMetricRequest' from JSON`,
   );
 }

@@ -19,23 +19,7 @@ export const CommonEntityId$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string(),
 });
-/** @internal */
-export type CommonEntityId$Outbound = {
-  id: string;
-};
 
-/** @internal */
-export const CommonEntityId$outboundSchema: z.ZodType<
-  CommonEntityId$Outbound,
-  z.ZodTypeDef,
-  CommonEntityId
-> = z.object({
-  id: z.string(),
-});
-
-export function commonEntityIdToJSON(commonEntityId: CommonEntityId): string {
-  return JSON.stringify(CommonEntityId$outboundSchema.parse(commonEntityId));
-}
 export function commonEntityIdFromJSON(
   jsonString: string,
 ): SafeParseResult<CommonEntityId, SDKValidationError> {

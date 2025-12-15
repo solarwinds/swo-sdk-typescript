@@ -41,17 +41,6 @@ export type ListLogArchivesResponse = {
 };
 
 /** @internal */
-export const ListLogArchivesRequest$inboundSchema: z.ZodType<
-  ListLogArchivesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  startTime: z.string(),
-  endTime: z.string(),
-  pageSize: z.number().int().optional(),
-  skipToken: z.string().optional(),
-});
-/** @internal */
 export type ListLogArchivesRequest$Outbound = {
   startTime: string;
   endTime: string;
@@ -78,15 +67,6 @@ export function listLogArchivesRequestToJSON(
     ListLogArchivesRequest$outboundSchema.parse(listLogArchivesRequest),
   );
 }
-export function listLogArchivesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListLogArchivesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListLogArchivesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListLogArchivesRequest' from JSON`,
-  );
-}
 
 /** @internal */
 export const ListLogArchivesResponseBody$inboundSchema: z.ZodType<
@@ -97,31 +77,7 @@ export const ListLogArchivesResponseBody$inboundSchema: z.ZodType<
   logArchives: z.array(components.LogsArchive$inboundSchema),
   pageInfo: components.CommonPageInfo$inboundSchema,
 });
-/** @internal */
-export type ListLogArchivesResponseBody$Outbound = {
-  logArchives: Array<components.LogsArchive$Outbound>;
-  pageInfo: components.CommonPageInfo$Outbound;
-};
 
-/** @internal */
-export const ListLogArchivesResponseBody$outboundSchema: z.ZodType<
-  ListLogArchivesResponseBody$Outbound,
-  z.ZodTypeDef,
-  ListLogArchivesResponseBody
-> = z.object({
-  logArchives: z.array(components.LogsArchive$outboundSchema),
-  pageInfo: components.CommonPageInfo$outboundSchema,
-});
-
-export function listLogArchivesResponseBodyToJSON(
-  listLogArchivesResponseBody: ListLogArchivesResponseBody,
-): string {
-  return JSON.stringify(
-    ListLogArchivesResponseBody$outboundSchema.parse(
-      listLogArchivesResponseBody,
-    ),
-  );
-}
 export function listLogArchivesResponseBodyFromJSON(
   jsonString: string,
 ): SafeParseResult<ListLogArchivesResponseBody, SDKValidationError> {
@@ -144,31 +100,7 @@ export const ListLogArchivesResponse$inboundSchema: z.ZodType<
     "Result": "result",
   });
 });
-/** @internal */
-export type ListLogArchivesResponse$Outbound = {
-  Result: ListLogArchivesResponseBody$Outbound;
-};
 
-/** @internal */
-export const ListLogArchivesResponse$outboundSchema: z.ZodType<
-  ListLogArchivesResponse$Outbound,
-  z.ZodTypeDef,
-  ListLogArchivesResponse
-> = z.object({
-  result: z.lazy(() => ListLogArchivesResponseBody$outboundSchema),
-}).transform((v) => {
-  return remap$(v, {
-    result: "Result",
-  });
-});
-
-export function listLogArchivesResponseToJSON(
-  listLogArchivesResponse: ListLogArchivesResponse,
-): string {
-  return JSON.stringify(
-    ListLogArchivesResponse$outboundSchema.parse(listLogArchivesResponse),
-  );
-}
 export function listLogArchivesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListLogArchivesResponse, SDKValidationError> {

@@ -32,31 +32,7 @@ export const DboDatabasePluginStatus$inboundSchema: z.ZodType<
   deploymentStatus: z.string(),
   healthStatus: z.string(),
 });
-/** @internal */
-export type DboDatabasePluginStatus$Outbound = {
-  pluginName: string;
-  deploymentStatus: string;
-  healthStatus: string;
-};
 
-/** @internal */
-export const DboDatabasePluginStatus$outboundSchema: z.ZodType<
-  DboDatabasePluginStatus$Outbound,
-  z.ZodTypeDef,
-  DboDatabasePluginStatus
-> = z.object({
-  pluginName: z.string(),
-  deploymentStatus: z.string(),
-  healthStatus: z.string(),
-});
-
-export function dboDatabasePluginStatusToJSON(
-  dboDatabasePluginStatus: DboDatabasePluginStatus,
-): string {
-  return JSON.stringify(
-    DboDatabasePluginStatus$outboundSchema.parse(dboDatabasePluginStatus),
-  );
-}
 export function dboDatabasePluginStatusFromJSON(
   jsonString: string,
 ): SafeParseResult<DboDatabasePluginStatus, SDKValidationError> {
