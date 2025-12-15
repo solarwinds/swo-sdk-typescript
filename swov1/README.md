@@ -173,18 +173,18 @@ run();
 <details open>
 <summary>Available methods</summary>
 
-### [changeEvents](docs/sdks/changeevents/README.md)
+### [ChangeEvents](docs/sdks/changeevents/README.md)
 
 * [createChangeEvent](docs/sdks/changeevents/README.md#createchangeevent) - Create an event
 
-### [cloudAccounts](docs/sdks/cloudaccounts/README.md)
+### [CloudAccounts](docs/sdks/cloudaccounts/README.md)
 
 * [activateAwsIntegration](docs/sdks/cloudaccounts/README.md#activateawsintegration) - Activate AWS Integration
 * [createOrgStructure](docs/sdks/cloudaccounts/README.md#createorgstructure) - Create Organizational Structure
 * [updateAwsIntegration](docs/sdks/cloudaccounts/README.md#updateawsintegration) - Update AWS Integration
 * [validateMgmtAccountOnboarding](docs/sdks/cloudaccounts/README.md#validatemgmtaccountonboarding) - Validate Management Account Onboarding
 
-### [dbo](docs/sdks/dbo/README.md)
+### [Dbo](docs/sdks/dbo/README.md)
 
 * [observeDatabase](docs/sdks/dbo/README.md#observedatabase) - Add database observability to a database
 * [getConfig](docs/sdks/dbo/README.md#getconfig) - Get organization-level configuration for database observability agents/plugins
@@ -196,7 +196,7 @@ run();
 * [getPlugins](docs/sdks/dbo/README.md#getplugins) - Get status of plugins observing a database
 * [pluginOperation](docs/sdks/dbo/README.md#pluginoperation) - Apply an operation on a database observability plugin
 
-### [dem](docs/sdks/dem/README.md)
+### [Dem](docs/sdks/dem/README.md)
 
 * [listProbes](docs/sdks/dem/README.md#listprobes) - Get a list of existing synthetic probes
 * [getDemSettings](docs/sdks/dem/README.md#getdemsettings) - Get DEM settings
@@ -220,23 +220,23 @@ run();
 * [pauseWebsiteMonitoring](docs/sdks/dem/README.md#pausewebsitemonitoring) - Pause monitoring of a website
 * [unpauseWebsiteMonitoring](docs/sdks/dem/README.md#unpausewebsitemonitoring) - Unpause monitoring of a website
 
-### [entities](docs/sdks/entities/README.md)
+### [Entities](docs/sdks/entities/README.md)
 
 * [listEntities](docs/sdks/entities/README.md#listentities) - Get a list of entities by type. A returned empty list indicates no entities matched the given parameters.
 * [getEntityById](docs/sdks/entities/README.md#getentitybyid) - Get an entity by ID
 * [updateEntityById](docs/sdks/entities/README.md#updateentitybyid) - Update an entity by ID
 
-### [logs](docs/sdks/logs/README.md)
+### [Logs](docs/sdks/logs/README.md)
 
 * [searchLogs](docs/sdks/logs/README.md#searchlogs) - Search logs
 * [listLogArchives](docs/sdks/logs/README.md#listlogarchives) - Retrieve location and metadata of log archives
 
-### [metadata](docs/sdks/metadata/README.md)
+### [Metadata](docs/sdks/metadata/README.md)
 
 * [listEntityTypes](docs/sdks/metadata/README.md#listentitytypes) - List all entity types
 * [listMetricsForEntityType](docs/sdks/metadata/README.md#listmetricsforentitytype) - List metrics metadata for an entity type
 
-### [metrics](docs/sdks/metrics/README.md)
+### [Metrics](docs/sdks/metrics/README.md)
 
 * [listMetrics](docs/sdks/metrics/README.md#listmetrics) - List metrics
 * [createCompositeMetric](docs/sdks/metrics/README.md#createcompositemetric) - Create composite metric
@@ -248,7 +248,7 @@ run();
 * [listMetricAttributeValues](docs/sdks/metrics/README.md#listmetricattributevalues) - List metric attribute values
 * [listMetricMeasurements](docs/sdks/metrics/README.md#listmetricmeasurements) - List metric measurement values, grouped by attributes, filtered by the filter. An empty list indicates no data points are available for the given parameters.
 
-### [tokens](docs/sdks/tokens/README.md)
+### [Tokens](docs/sdks/tokens/README.md)
 
 * [createToken](docs/sdks/tokens/README.md#createtoken) - Create ingestion token
 
