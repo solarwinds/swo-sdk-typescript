@@ -1,0 +1,31 @@
+# GetWebsiteOutageStatusesResponse
+
+## Example Usage
+
+```typescript
+import { GetWebsiteOutageStatusesResponse } from "@solarwinds/swo-sdk-typescript/models/operations";
+
+let value: GetWebsiteOutageStatusesResponse = {
+  result: {
+    statuses: [
+      {
+        startTime: new Date("2025-01-15T14:31:19.735Z"),
+        endTime: new Date("2025-01-15T14:31:19.735Z"),
+        status: "up",
+        resultId: "result-67890",
+        analysisId: "analysis-12345",
+      },
+    ],
+    pageInfo: {
+      prevPage: "<value>",
+      nextPage: "<value>",
+    },
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `result`                                                                                                           | [operations.GetWebsiteOutageStatusesResponseBody](../../models/operations/getwebsiteoutagestatusesresponsebody.md) | :heavy_check_mark:                                                                                                 | N/A                                                                                                                |

@@ -7,9 +7,9 @@
 * [listMetrics](#listmetrics) - List metrics
 * [createCompositeMetric](#createcompositemetric) - Create composite metric
 * [listMultiMetricMeasurements](#listmultimetricmeasurements) - List measurements for a batch of metrics
+* [getMetricByName](#getmetricbyname) - Get metric info by name
 * [updateCompositeMetric](#updatecompositemetric) - Update composite metric
 * [deleteCompositeMetric](#deletecompositemetric) - Delete composite metric
-* [getMetricByName](#getmetricbyname) - Get metric info by name
 * [listMetricAttributes](#listmetricattributes) - List metric attribute names
 * [listMetricAttributeValues](#listmetricattributevalues) - List metric attribute values
 * [listMetricMeasurements](#listmetricmeasurements) - List metric measurement values, grouped by attributes, filtered by the filter. An empty list indicates no data points are available for the given parameters.
@@ -279,6 +279,86 @@ run();
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
+## getMetricByName
+
+Get information about a given metric.
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getMetricByName" method="get" path="/v1/metrics/{name}" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.metrics.getMetricByName({
+    name: "<value>",
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { metricsGetMetricByName } from "@solarwinds/swo-sdk-typescript/funcs/metricsGetMetricByName.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await metricsGetMetricByName(swo, {
+    name: "<value>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("metricsGetMetricByName failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetMetricByNameRequest](../../models/operations/getmetricbynamerequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetMetricByNameResponse](../../models/operations/getmetricbynameresponse.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
 ## updateCompositeMetric
 
 Update a composite metric given a metric name.
@@ -445,86 +525,6 @@ run();
 | errors.CommonNotFoundErrorResponse         | 404                                        | application/json                           |
 | errors.CommonInternalErrorResponse         | 500                                        | application/json                           |
 | errors.APIError                            | 4XX, 5XX                                   | \*/\*                                      |
-
-## getMetricByName
-
-Get information about a given metric.
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="getMetricByName" method="get" path="/v1/metrics/{name}" -->
-```typescript
-import { Swo } from "@solarwinds/swo-sdk-typescript";
-
-const swo = new Swo({
-  apiToken: process.env["SWO_API_TOKEN"] ?? "",
-});
-
-async function run() {
-  const result = await swo.metrics.getMetricByName({
-    name: "<value>",
-  });
-
-  for await (const page of result) {
-    console.log(page);
-  }
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
-import { metricsGetMetricByName } from "@solarwinds/swo-sdk-typescript/funcs/metricsGetMetricByName.js";
-
-// Use `SwoCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const swo = new SwoCore({
-  apiToken: process.env["SWO_API_TOKEN"] ?? "",
-});
-
-async function run() {
-  const res = await metricsGetMetricByName(swo, {
-    name: "<value>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    for await (const page of result) {
-    console.log(page);
-  }
-  } else {
-    console.log("metricsGetMetricByName failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.GetMetricByNameRequest](../../models/operations/getmetricbynamerequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<[operations.GetMetricByNameResponse](../../models/operations/getmetricbynameresponse.md)\>**
-
-### Errors
-
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
-| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
-| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
-| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## listMetricAttributes
 

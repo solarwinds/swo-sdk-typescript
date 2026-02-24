@@ -11,7 +11,11 @@ import { demDeleteWebsite } from "../funcs/demDeleteWebsite.js";
 import { demGetDemSettings } from "../funcs/demGetDemSettings.js";
 import { demGetTransaction } from "../funcs/demGetTransaction.js";
 import { demGetUri } from "../funcs/demGetUri.js";
+import { demGetUriOutageStatuses } from "../funcs/demGetUriOutageStatuses.js";
+import { demGetUriTestResults } from "../funcs/demGetUriTestResults.js";
 import { demGetWebsite } from "../funcs/demGetWebsite.js";
+import { demGetWebsiteOutageStatuses } from "../funcs/demGetWebsiteOutageStatuses.js";
+import { demGetWebsiteTestResults } from "../funcs/demGetWebsiteTestResults.js";
 import { demListProbes } from "../funcs/demListProbes.js";
 import { demPauseTransactionMonitoring } from "../funcs/demPauseTransactionMonitoring.js";
 import { demPauseUriMonitoring } from "../funcs/demPauseUriMonitoring.js";
@@ -27,6 +31,7 @@ import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Dem extends ClientSDK {
   /**
@@ -115,7 +120,7 @@ export class Dem extends ClientSDK {
   async deleteTransaction(
     request: operations.DeleteTransactionRequest,
     options?: RequestOptions,
-  ): Promise<components.CommonEntityId> {
+  ): Promise<void> {
     return unwrapAsync(demDeleteTransaction(
       this,
       request,
@@ -208,6 +213,22 @@ export class Dem extends ClientSDK {
   }
 
   /**
+   * Get outage statuses
+   */
+  async getUriOutageStatuses(
+    request: operations.GetUriOutageStatusesRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.GetUriOutageStatusesResponse, { url: string }>
+  > {
+    return unwrapResultIterator(demGetUriOutageStatuses(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Pause monitoring of the URI
    */
   async pauseUriMonitoring(
@@ -215,6 +236,22 @@ export class Dem extends ClientSDK {
     options?: RequestOptions,
   ): Promise<components.CommonEntityId> {
     return unwrapAsync(demPauseUriMonitoring(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get test results
+   */
+  async getUriTestResults(
+    request: operations.GetUriTestResultsRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.GetUriTestResultsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(demGetUriTestResults(
       this,
       request,
       options,
@@ -292,6 +329,22 @@ export class Dem extends ClientSDK {
   }
 
   /**
+   * Get outage statuses
+   */
+  async getWebsiteOutageStatuses(
+    request: operations.GetWebsiteOutageStatusesRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.GetWebsiteOutageStatusesResponse, { url: string }>
+  > {
+    return unwrapResultIterator(demGetWebsiteOutageStatuses(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Pause monitoring of a website
    */
   async pauseWebsiteMonitoring(
@@ -299,6 +352,22 @@ export class Dem extends ClientSDK {
     options?: RequestOptions,
   ): Promise<components.CommonEntityId> {
     return unwrapAsync(demPauseWebsiteMonitoring(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get test results
+   */
+  async getWebsiteTestResults(
+    request: operations.GetWebsiteTestResultsRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.GetWebsiteTestResultsResponse, { url: string }>
+  > {
+    return unwrapResultIterator(demGetWebsiteTestResults(
       this,
       request,
       options,

@@ -8,11 +8,12 @@
 * [getConfig](#getconfig) - Get organization-level configuration for database observability agents/plugins
 * [setConfig](#setconfig) - Set organization-level configuration for database observability agents/plugins
 * [getPublicKey](#getpublickey) - Get public key for encrypting database credentials locally
-* [updateDatabase](#updatedatabase) - Update an observed database
 * [deleteDatabase](#deletedatabase) - Delete an observed database
+* [updateDatabase](#updatedatabase) - Update an observed database
 * [getPluginConfig](#getpluginconfig) - Get configuration of plugins observing a database
 * [getPlugins](#getplugins) - Get status of plugins observing a database
 * [pluginOperation](#pluginoperation) - Apply an operation on a database observability plugin
+* [unobserveDatabase](#unobservedatabase) - Unobserve an observed database
 
 ## observeDatabase
 
@@ -323,6 +324,83 @@ run();
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
+## deleteDatabase
+
+Delete an observed database
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="deleteDatabase" method="delete" path="/v1/dbo/databases/{entityId}" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  await swo.dbo.deleteDatabase({
+    entityId: "<id>",
+  });
+
+
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { dboDeleteDatabase } from "@solarwinds/swo-sdk-typescript/funcs/dboDeleteDatabase.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await dboDeleteDatabase(swo, {
+    entityId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("dboDeleteDatabase failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.DeleteDatabaseRequest](../../models/operations/deletedatabaserequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<void\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
 ## updateDatabase
 
 Update an observed database
@@ -384,83 +462,6 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.UpdateDatabaseRequest](../../models/operations/updatedatabaserequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
-| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
-| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
-| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
-
-### Response
-
-**Promise\<void\>**
-
-### Errors
-
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
-| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
-| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
-| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
-| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
-
-## deleteDatabase
-
-Delete an observed database
-
-### Example Usage
-
-<!-- UsageSnippet language="typescript" operationID="deleteDatabase" method="delete" path="/v1/dbo/databases/{entityId}" -->
-```typescript
-import { Swo } from "@solarwinds/swo-sdk-typescript";
-
-const swo = new Swo({
-  apiToken: process.env["SWO_API_TOKEN"] ?? "",
-});
-
-async function run() {
-  await swo.dbo.deleteDatabase({
-    entityId: "<id>",
-  });
-
-
-}
-
-run();
-```
-
-### Standalone function
-
-The standalone function version of this method:
-
-```typescript
-import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
-import { dboDeleteDatabase } from "@solarwinds/swo-sdk-typescript/funcs/dboDeleteDatabase.js";
-
-// Use `SwoCore` for best tree-shaking performance.
-// You can create one instance of it to use across an application.
-const swo = new SwoCore({
-  apiToken: process.env["SWO_API_TOKEN"] ?? "",
-});
-
-async function run() {
-  const res = await dboDeleteDatabase(swo, {
-    entityId: "<id>",
-  });
-  if (res.ok) {
-    const { value: result } = res;
-    
-  } else {
-    console.log("dboDeleteDatabase failed:", res.error);
-  }
-}
-
-run();
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                                                                                                      | [operations.DeleteDatabaseRequest](../../models/operations/deletedatabaserequest.md)                                                                                           | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
@@ -694,6 +695,83 @@ run();
 | Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `request`                                                                                                                                                                      | [operations.PluginOperationRequest](../../models/operations/pluginoperationrequest.md)                                                                                         | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<void\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## unobserveDatabase
+
+Unobserve an observed database
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="unobserveDatabase" method="put" path="/v1/dbo/databases/{entityId}/unobserve" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  await swo.dbo.unobserveDatabase({
+    entityId: "<id>",
+  });
+
+
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { dboUnobserveDatabase } from "@solarwinds/swo-sdk-typescript/funcs/dboUnobserveDatabase.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await dboUnobserveDatabase(swo, {
+    entityId: "<id>",
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    
+  } else {
+    console.log("dboUnobserveDatabase failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.UnobserveDatabaseRequest](../../models/operations/unobservedatabaserequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
 | `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
 | `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
 | `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |

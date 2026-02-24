@@ -17,13 +17,17 @@
 * [getUri](#geturi) - Get URI monitoring configuration
 * [updateUri](#updateuri) - Update URI monitoring configuration
 * [deleteUri](#deleteuri) - Delete URI
+* [getUriOutageStatuses](#geturioutagestatuses) - Get outage statuses
 * [pauseUriMonitoring](#pauseurimonitoring) - Pause monitoring of the URI
+* [getUriTestResults](#geturitestresults) - Get test results
 * [unpauseUriMonitoring](#unpauseurimonitoring) - Unpause monitoring of the URI
 * [createWebsite](#createwebsite) - Create website monitoring configuration
 * [getWebsite](#getwebsite) - Get website monitoring configuration
 * [updateWebsite](#updatewebsite) - Update website monitoring configuration
 * [deleteWebsite](#deletewebsite) - Delete website
+* [getWebsiteOutageStatuses](#getwebsiteoutagestatuses) - Get outage statuses
 * [pauseWebsiteMonitoring](#pausewebsitemonitoring) - Pause monitoring of a website
+* [getWebsiteTestResults](#getwebsitetestresults) - Get test results
 * [unpauseWebsiteMonitoring](#unpausewebsitemonitoring) - Unpause monitoring of a website
 
 ## listProbes
@@ -644,11 +648,11 @@ const swo = new Swo({
 });
 
 async function run() {
-  const result = await swo.dem.deleteTransaction({
+  await swo.dem.deleteTransaction({
     entityId: "<id>",
   });
 
-  console.log(result);
+
 }
 
 run();
@@ -674,7 +678,7 @@ async function run() {
   });
   if (res.ok) {
     const { value: result } = res;
-    console.log(result);
+    
   } else {
     console.log("demDeleteTransaction failed:", res.error);
   }
@@ -694,7 +698,7 @@ run();
 
 ### Response
 
-**Promise\<[components.CommonEntityId](../../models/components/commonentityid.md)\>**
+**Promise\<void\>**
 
 ### Errors
 
@@ -902,11 +906,7 @@ async function run() {
       tcp: {
         enabled: true,
         port: 443,
-        stringToSend: "GET / HTTP/1.1\r\n" +
-        "Host: solarwinds.com\r\n" +
-        "Connection: close\r\n" +
-        "\r\n" +
-        "",
+        stringToSend: "GET / HTTP/1.1\r\nHost: solarwinds.com\r\nConnection: close\r\n\r\n",
         stringToExpect: "HTTP/1.1 200 OK",
       },
       udp: null,
@@ -970,11 +970,7 @@ async function run() {
       tcp: {
         enabled: true,
         port: 443,
-        stringToSend: "GET / HTTP/1.1\r\n" +
-        "Host: solarwinds.com\r\n" +
-        "Connection: close\r\n" +
-        "\r\n" +
-        "",
+        stringToSend: "GET / HTTP/1.1\r\nHost: solarwinds.com\r\nConnection: close\r\n\r\n",
         stringToExpect: "HTTP/1.1 200 OK",
       },
       udp: null,
@@ -1145,21 +1141,13 @@ async function run() {
         tcp: {
           enabled: true,
           port: 443,
-          stringToSend: "GET / HTTP/1.1\r\n" +
-          "Host: solarwinds.com\r\n" +
-          "Connection: close\r\n" +
-          "\r\n" +
-          "",
+          stringToSend: "GET / HTTP/1.1\r\nHost: solarwinds.com\r\nConnection: close\r\n\r\n",
           stringToExpect: "HTTP/1.1 200 OK",
         },
         udp: {
           enabled: false,
           port: 8888,
-          stringToSend: "GET / HTTP/1.1\r\n" +
-          "Host: solarwinds.com\r\n" +
-          "Connection: close\r\n" +
-          "\r\n" +
-          "",
+          stringToSend: "GET / HTTP/1.1\r\nHost: solarwinds.com\r\nConnection: close\r\n\r\n",
           stringToExpect: "HTTP/1.1 200 OK",
         },
       },
@@ -1228,21 +1216,13 @@ async function run() {
         tcp: {
           enabled: true,
           port: 443,
-          stringToSend: "GET / HTTP/1.1\r\n" +
-          "Host: solarwinds.com\r\n" +
-          "Connection: close\r\n" +
-          "\r\n" +
-          "",
+          stringToSend: "GET / HTTP/1.1\r\nHost: solarwinds.com\r\nConnection: close\r\n\r\n",
           stringToExpect: "HTTP/1.1 200 OK",
         },
         udp: {
           enabled: false,
           port: 8888,
-          stringToSend: "GET / HTTP/1.1\r\n" +
-          "Host: solarwinds.com\r\n" +
-          "Connection: close\r\n" +
-          "\r\n" +
-          "",
+          stringToSend: "GET / HTTP/1.1\r\nHost: solarwinds.com\r\nConnection: close\r\n\r\n",
           stringToExpect: "HTTP/1.1 200 OK",
         },
       },
@@ -1364,6 +1344,90 @@ run();
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
+## getUriOutageStatuses
+
+Get outage statuses
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getUriOutageStatuses" method="get" path="/v1/dem/uris/{entityId}/outageStatuses" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.getUriOutageStatuses({
+    entityId: "<id>",
+    startTime: new Date("2025-01-07T04:04:57.949Z"),
+    endTime: new Date("2026-12-19T15:16:56.899Z"),
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demGetUriOutageStatuses } from "@solarwinds/swo-sdk-typescript/funcs/demGetUriOutageStatuses.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demGetUriOutageStatuses(swo, {
+    entityId: "<id>",
+    startTime: new Date("2025-01-07T04:04:57.949Z"),
+    endTime: new Date("2026-12-19T15:16:56.899Z"),
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("demGetUriOutageStatuses failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetUriOutageStatusesRequest](../../models/operations/geturioutagestatusesrequest.md)                                                                               | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetUriOutageStatusesResponse](../../models/operations/geturioutagestatusesresponse.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
 ## pauseUriMonitoring
 
 Pause monitoring of the URI
@@ -1437,6 +1501,90 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
 | errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## getUriTestResults
+
+Get test results
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getUriTestResults" method="get" path="/v1/dem/uris/{entityId}/testResults" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.getUriTestResults({
+    entityId: "<id>",
+    startTime: new Date("2026-04-27T21:55:07.961Z"),
+    endTime: new Date("2024-02-25T12:00:24.429Z"),
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demGetUriTestResults } from "@solarwinds/swo-sdk-typescript/funcs/demGetUriTestResults.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demGetUriTestResults(swo, {
+    entityId: "<id>",
+    startTime: new Date("2026-04-27T21:55:07.961Z"),
+    endTime: new Date("2024-02-25T12:00:24.429Z"),
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("demGetUriTestResults failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetUriTestResultsRequest](../../models/operations/geturitestresultsrequest.md)                                                                                     | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetUriTestResultsResponse](../../models/operations/geturitestresultsresponse.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
@@ -2031,6 +2179,90 @@ run();
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
+## getWebsiteOutageStatuses
+
+Get outage statuses
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getWebsiteOutageStatuses" method="get" path="/v1/dem/websites/{entityId}/outageStatuses" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.getWebsiteOutageStatuses({
+    entityId: "<id>",
+    startTime: new Date("2026-11-15T10:02:22.738Z"),
+    endTime: new Date("2026-02-24T15:45:54.358Z"),
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demGetWebsiteOutageStatuses } from "@solarwinds/swo-sdk-typescript/funcs/demGetWebsiteOutageStatuses.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demGetWebsiteOutageStatuses(swo, {
+    entityId: "<id>",
+    startTime: new Date("2026-11-15T10:02:22.738Z"),
+    endTime: new Date("2026-02-24T15:45:54.358Z"),
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("demGetWebsiteOutageStatuses failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetWebsiteOutageStatusesRequest](../../models/operations/getwebsiteoutagestatusesrequest.md)                                                                       | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetWebsiteOutageStatusesResponse](../../models/operations/getwebsiteoutagestatusesresponse.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
 ## pauseWebsiteMonitoring
 
 Pause monitoring of a website
@@ -2104,6 +2336,90 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
 | errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
+| errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
+| errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
+
+## getWebsiteTestResults
+
+Get test results
+
+### Example Usage
+
+<!-- UsageSnippet language="typescript" operationID="getWebsiteTestResults" method="get" path="/v1/dem/websites/{entityId}/testResults" -->
+```typescript
+import { Swo } from "@solarwinds/swo-sdk-typescript";
+
+const swo = new Swo({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const result = await swo.dem.getWebsiteTestResults({
+    entityId: "<id>",
+    startTime: new Date("2024-05-25T23:02:07.467Z"),
+    endTime: new Date("2024-06-25T13:36:39.740Z"),
+  });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+```
+
+### Standalone function
+
+The standalone function version of this method:
+
+```typescript
+import { SwoCore } from "@solarwinds/swo-sdk-typescript/core.js";
+import { demGetWebsiteTestResults } from "@solarwinds/swo-sdk-typescript/funcs/demGetWebsiteTestResults.js";
+
+// Use `SwoCore` for best tree-shaking performance.
+// You can create one instance of it to use across an application.
+const swo = new SwoCore({
+  apiToken: process.env["SWO_API_TOKEN"] ?? "",
+});
+
+async function run() {
+  const res = await demGetWebsiteTestResults(swo, {
+    entityId: "<id>",
+    startTime: new Date("2024-05-25T23:02:07.467Z"),
+    endTime: new Date("2024-06-25T13:36:39.740Z"),
+  });
+  if (res.ok) {
+    const { value: result } = res;
+    for await (const page of result) {
+    console.log(page);
+  }
+  } else {
+    console.log("demGetWebsiteTestResults failed:", res.error);
+  }
+}
+
+run();
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                      | Type                                                                                                                                                                           | Required                                                                                                                                                                       | Description                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                                                                                                      | [operations.GetWebsiteTestResultsRequest](../../models/operations/getwebsitetestresultsrequest.md)                                                                             | :heavy_check_mark:                                                                                                                                                             | The request object to use for the request.                                                                                                                                     |
+| `options`                                                                                                                                                                      | RequestOptions                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                             | Used to set various options for making HTTP requests.                                                                                                                          |
+| `options.fetchOptions`                                                                                                                                                         | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/Request/Request#options)                                                                                        | :heavy_minus_sign:                                                                                                                                                             | Options that are passed to the underlying HTTP request. This can be used to inject extra headers for examples. All `Request` options, except `method` and `body`, are allowed. |
+| `options.retries`                                                                                                                                                              | [RetryConfig](../../lib/utils/retryconfig.md)                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                             | Enables retrying HTTP requests under certain failure conditions.                                                                                                               |
+
+### Response
+
+**Promise\<[operations.GetWebsiteTestResultsResponse](../../models/operations/getwebsitetestresultsresponse.md)\>**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
+| errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
