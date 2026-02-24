@@ -21,6 +21,9 @@ export const Category = {
  */
 export type Category = ClosedEnum<typeof Category>;
 
+/**
+ * @deprecated class: This will be removed in a future release, please migrate away from it as soon as possible.
+ */
 export type Healthscore = {
   /**
    * Health score value from 0 to 100.
@@ -30,6 +33,33 @@ export type Healthscore = {
    * Health Score category label.
    */
   category?: Category | undefined;
+};
+
+/**
+ * Health state of the entity.
+ */
+export const State = {
+  Good: "GOOD",
+  Moderate: "MODERATE",
+  AtRisk: "AT_RISK",
+  Degraded: "DEGRADED",
+  Bad: "BAD",
+  Unknown: "UNKNOWN",
+  Disabled: "DISABLED",
+} as const;
+/**
+ * Health state of the entity.
+ */
+export type State = ClosedEnum<typeof State>;
+
+/**
+ * Health state of the entity.
+ */
+export type HealthState = {
+  /**
+   * Health state of the entity.
+   */
+  state?: State | undefined;
 };
 
 export type EntitiesEntity = {
@@ -65,7 +95,14 @@ export type EntitiesEntity = {
    * Flag telling if given entity is in maintenance mode.
    */
   inMaintenance: boolean;
+  /**
+   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
+   */
   healthscore?: Healthscore | undefined;
+  /**
+   * Health state of the entity.
+   */
+  healthState?: HealthState | undefined;
   /**
    * Entity tags. Tag is a key-value pair, where there may be only a single tag value for the same key.
    */
@@ -101,6 +138,30 @@ export function healthscoreFromJSON(
 }
 
 /** @internal */
+export const State$inboundSchema: z.ZodNativeEnum<typeof State> = z.nativeEnum(
+  State,
+);
+
+/** @internal */
+export const HealthState$inboundSchema: z.ZodType<
+  HealthState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  state: State$inboundSchema.optional(),
+});
+
+export function healthStateFromJSON(
+  jsonString: string,
+): SafeParseResult<HealthState, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HealthState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HealthState' from JSON`,
+  );
+}
+
+/** @internal */
 export const EntitiesEntity$inboundSchema: z.ZodType<
   EntitiesEntity,
   z.ZodTypeDef,
@@ -119,6 +180,7 @@ export const EntitiesEntity$inboundSchema: z.ZodType<
   ),
   inMaintenance: z.boolean(),
   healthscore: z.lazy(() => Healthscore$inboundSchema).optional(),
+  healthState: z.lazy(() => HealthState$inboundSchema).optional(),
   tags: z.record(z.nullable(z.string())),
   attributes: z.record(z.any()).optional(),
 });

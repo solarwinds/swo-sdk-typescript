@@ -10,11 +10,8 @@ import { DemUriAvailabilityCheckSettingsInputUdp } from "@solarwinds/swo-sdk-typ
 let value: DemUriAvailabilityCheckSettingsInputUdp = {
   enabled: false,
   port: 8888,
-  stringToSend: "GET / HTTP/1.1\r\n"
-    + "Host: solarwinds.com\r\n"
-    + "Connection: close\r\n"
-    + "\r\n"
-    + "",
+  stringToSend:
+    "GET / HTTP/1.1\r\nHost: solarwinds.com\r\nConnection: close\r\n\r\n",
   stringToExpect: "HTTP/1.1 200 OK",
 };
 ```
