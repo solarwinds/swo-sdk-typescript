@@ -6,7 +6,7 @@
 import { MetricsMeasurement } from "@solarwinds/swo-sdk-typescript/models/components";
 
 let value: MetricsMeasurement = {
-  time: new Date("2024-09-10T19:22:46.649Z"),
+  time: new Date("2025-09-10T19:22:46.649Z"),
   value: 4234.22,
 };
 ```

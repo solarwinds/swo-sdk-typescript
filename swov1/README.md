@@ -190,11 +190,12 @@ run();
 * [getConfig](docs/sdks/dbo/README.md#getconfig) - Get organization-level configuration for database observability agents/plugins
 * [setConfig](docs/sdks/dbo/README.md#setconfig) - Set organization-level configuration for database observability agents/plugins
 * [getPublicKey](docs/sdks/dbo/README.md#getpublickey) - Get public key for encrypting database credentials locally
-* [updateDatabase](docs/sdks/dbo/README.md#updatedatabase) - Update an observed database
 * [deleteDatabase](docs/sdks/dbo/README.md#deletedatabase) - Delete an observed database
+* [updateDatabase](docs/sdks/dbo/README.md#updatedatabase) - Update an observed database
 * [getPluginConfig](docs/sdks/dbo/README.md#getpluginconfig) - Get configuration of plugins observing a database
 * [getPlugins](docs/sdks/dbo/README.md#getplugins) - Get status of plugins observing a database
 * [pluginOperation](docs/sdks/dbo/README.md#pluginoperation) - Apply an operation on a database observability plugin
+* [unobserveDatabase](docs/sdks/dbo/README.md#unobservedatabase) - Unobserve an observed database
 
 ### [Dem](docs/sdks/dem/README.md)
 
@@ -211,13 +212,17 @@ run();
 * [getUri](docs/sdks/dem/README.md#geturi) - Get URI monitoring configuration
 * [updateUri](docs/sdks/dem/README.md#updateuri) - Update URI monitoring configuration
 * [deleteUri](docs/sdks/dem/README.md#deleteuri) - Delete URI
+* [getUriOutageStatuses](docs/sdks/dem/README.md#geturioutagestatuses) - Get outage statuses
 * [pauseUriMonitoring](docs/sdks/dem/README.md#pauseurimonitoring) - Pause monitoring of the URI
+* [getUriTestResults](docs/sdks/dem/README.md#geturitestresults) - Get test results
 * [unpauseUriMonitoring](docs/sdks/dem/README.md#unpauseurimonitoring) - Unpause monitoring of the URI
 * [createWebsite](docs/sdks/dem/README.md#createwebsite) - Create website monitoring configuration
 * [getWebsite](docs/sdks/dem/README.md#getwebsite) - Get website monitoring configuration
 * [updateWebsite](docs/sdks/dem/README.md#updatewebsite) - Update website monitoring configuration
 * [deleteWebsite](docs/sdks/dem/README.md#deletewebsite) - Delete website
+* [getWebsiteOutageStatuses](docs/sdks/dem/README.md#getwebsiteoutagestatuses) - Get outage statuses
 * [pauseWebsiteMonitoring](docs/sdks/dem/README.md#pausewebsitemonitoring) - Pause monitoring of a website
+* [getWebsiteTestResults](docs/sdks/dem/README.md#getwebsitetestresults) - Get test results
 * [unpauseWebsiteMonitoring](docs/sdks/dem/README.md#unpausewebsitemonitoring) - Unpause monitoring of a website
 
 ### [Entities](docs/sdks/entities/README.md)
@@ -241,9 +246,9 @@ run();
 * [listMetrics](docs/sdks/metrics/README.md#listmetrics) - List metrics
 * [createCompositeMetric](docs/sdks/metrics/README.md#createcompositemetric) - Create composite metric
 * [listMultiMetricMeasurements](docs/sdks/metrics/README.md#listmultimetricmeasurements) - List measurements for a batch of metrics
+* [getMetricByName](docs/sdks/metrics/README.md#getmetricbyname) - Get metric info by name
 * [updateCompositeMetric](docs/sdks/metrics/README.md#updatecompositemetric) - Update composite metric
 * [deleteCompositeMetric](docs/sdks/metrics/README.md#deletecompositemetric) - Delete composite metric
-* [getMetricByName](docs/sdks/metrics/README.md#getmetricbyname) - Get metric info by name
 * [listMetricAttributes](docs/sdks/metrics/README.md#listmetricattributes) - List metric attribute names
 * [listMetricAttributeValues](docs/sdks/metrics/README.md#listmetricattributevalues) - List metric attribute values
 * [listMetricMeasurements](docs/sdks/metrics/README.md#listmetricmeasurements) - List metric measurement values, grouped by attributes, filtered by the filter. An empty list indicates no data points are available for the given parameters.
@@ -283,6 +288,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`dboObserveDatabase`](docs/sdks/dbo/README.md#observedatabase) - Add database observability to a database
 - [`dboPluginOperation`](docs/sdks/dbo/README.md#pluginoperation) - Apply an operation on a database observability plugin
 - [`dboSetConfig`](docs/sdks/dbo/README.md#setconfig) - Set organization-level configuration for database observability agents/plugins
+- [`dboUnobserveDatabase`](docs/sdks/dbo/README.md#unobservedatabase) - Unobserve an observed database
 - [`dboUpdateDatabase`](docs/sdks/dbo/README.md#updatedatabase) - Update an observed database
 - [`demCreateTransaction`](docs/sdks/dem/README.md#createtransaction) - Create transaction monitoring configuration
 - [`demCreateUri`](docs/sdks/dem/README.md#createuri) - Create URI monitoring configuration
@@ -293,7 +299,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`demGetDemSettings`](docs/sdks/dem/README.md#getdemsettings) - Get DEM settings
 - [`demGetTransaction`](docs/sdks/dem/README.md#gettransaction) - Get transaction monitoring configuration
 - [`demGetUri`](docs/sdks/dem/README.md#geturi) - Get URI monitoring configuration
+- [`demGetUriOutageStatuses`](docs/sdks/dem/README.md#geturioutagestatuses) - Get outage statuses
+- [`demGetUriTestResults`](docs/sdks/dem/README.md#geturitestresults) - Get test results
 - [`demGetWebsite`](docs/sdks/dem/README.md#getwebsite) - Get website monitoring configuration
+- [`demGetWebsiteOutageStatuses`](docs/sdks/dem/README.md#getwebsiteoutagestatuses) - Get outage statuses
+- [`demGetWebsiteTestResults`](docs/sdks/dem/README.md#getwebsitetestresults) - Get test results
 - [`demListProbes`](docs/sdks/dem/README.md#listprobes) - Get a list of existing synthetic probes
 - [`demPauseTransactionMonitoring`](docs/sdks/dem/README.md#pausetransactionmonitoring) - Pause monitoring of the transaction
 - [`demPauseUriMonitoring`](docs/sdks/dem/README.md#pauseurimonitoring) - Pause monitoring of the URI
@@ -346,8 +356,10 @@ const swo = new Swo({
 });
 
 async function run() {
-  const result = await swo.entities.listEntities({
-    type: "<value>",
+  const result = await swo.dem.getUriOutageStatuses({
+    entityId: "<id>",
+    startTime: new Date("2025-01-07T04:04:57.949Z"),
+    endTime: new Date("2026-12-19T15:16:56.899Z"),
   });
 
   for await (const page of result) {
@@ -540,12 +552,12 @@ run();
 
 
 **Inherit from [`SwoError`](./src/models/errors/swoerror.ts)**:
-* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 32 of 52 methods.*
-* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 28 of 52 methods.*
-* [`MetricsMetricForbiddenErrorResponse`](./src/models/errors/metricsmetricforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 2 of 52 methods.*
-* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 1 of 52 methods.*
-* [`CommonConflictErrorResponse`](./src/models/errors/commonconflicterrorresponse.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 52 methods.*
-* [`CommonUnavailableErrorResponse`](./src/models/errors/commonunavailableerrorresponse.ts): Service unavailable. Status code `503`. Applicable to 1 of 52 methods.*
+* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 33 of 57 methods.*
+* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 33 of 57 methods.*
+* [`MetricsMetricForbiddenErrorResponse`](./src/models/errors/metricsmetricforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 2 of 57 methods.*
+* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 1 of 57 methods.*
+* [`CommonConflictErrorResponse`](./src/models/errors/commonconflicterrorresponse.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 57 methods.*
+* [`CommonUnavailableErrorResponse`](./src/models/errors/commonunavailableerrorresponse.ts): Service unavailable. Status code `503`. Applicable to 1 of 57 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -652,19 +664,23 @@ The `HTTPClient` constructor takes an optional `fetcher` argument that can be
 used to integrate a third-party HTTP client or when writing tests to mock out
 the HTTP client and feed in fixtures.
 
-The following example shows how to use the `"beforeRequest"` hook to to add a
-custom header and a timeout to requests and how to use the `"requestError"` hook
-to log errors:
+The following example shows how to:
+- route requests through a proxy server using [undici](https://www.npmjs.com/package/undici)'s ProxyAgent
+- use the `"beforeRequest"` hook to add a custom header and a timeout to requests
+- use the `"requestError"` hook to log errors
 
 ```typescript
 import { Swo } from "@solarwinds/swo-sdk-typescript";
+import { ProxyAgent } from "undici";
 import { HTTPClient } from "@solarwinds/swo-sdk-typescript/lib/http";
 
+const dispatcher = new ProxyAgent("http://proxy.example.com:8080");
+
 const httpClient = new HTTPClient({
-  // fetcher takes a function that has the same signature as native `fetch`.
-  fetcher: (request) => {
-    return fetch(request);
-  }
+  // 'fetcher' takes a function that has the same signature as native 'fetch'.
+  fetcher: (input, init) =>
+    // 'dispatcher' is specific to undici and not part of the standard Fetch API.
+    fetch(input, { ...init, dispatcher } as RequestInit),
 });
 
 httpClient.addHook("beforeRequest", (request) => {

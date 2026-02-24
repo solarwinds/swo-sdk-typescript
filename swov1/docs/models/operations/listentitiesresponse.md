@@ -17,9 +17,8 @@ let value: ListEntitiesResponse = {
         updatedTime: new Date("2024-12-01T16:38:24Z"),
         lastSeenTime: new Date("2024-11-25T16:38:24Z"),
         inMaintenance: false,
-        healthscore: {
-          score: 100,
-          category: "good",
+        healthState: {
+          state: "GOOD",
         },
         tags: {
           "gg.tk.token": "test",

@@ -177,7 +177,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "POST",
-    baseURL: options?.serverURL,
+    baseURL: options?.[URL_OVERRIDE]?.origin || options?.serverURL,
     path: path,
     headers: headers,
     query: query,

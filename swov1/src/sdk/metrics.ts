@@ -96,6 +96,25 @@ export class Metrics extends ClientSDK {
   }
 
   /**
+   * Get metric info by name
+   *
+   * @remarks
+   * Get information about a given metric.
+   */
+  async getMetricByName(
+    request: operations.GetMetricByNameRequest,
+    options?: RequestOptions,
+  ): Promise<
+    PageIterator<operations.GetMetricByNameResponse, { url: string }>
+  > {
+    return unwrapResultIterator(metricsGetMetricByName(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
    * Update composite metric
    *
    * @remarks
@@ -123,25 +142,6 @@ export class Metrics extends ClientSDK {
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(metricsDeleteCompositeMetric(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Get metric info by name
-   *
-   * @remarks
-   * Get information about a given metric.
-   */
-  async getMetricByName(
-    request: operations.GetMetricByNameRequest,
-    options?: RequestOptions,
-  ): Promise<
-    PageIterator<operations.GetMetricByNameResponse, { url: string }>
-  > {
-    return unwrapResultIterator(metricsGetMetricByName(
       this,
       request,
       options,

@@ -10,6 +10,7 @@ import { dboGetPublicKey } from "../funcs/dboGetPublicKey.js";
 import { dboObserveDatabase } from "../funcs/dboObserveDatabase.js";
 import { dboPluginOperation } from "../funcs/dboPluginOperation.js";
 import { dboSetConfig } from "../funcs/dboSetConfig.js";
+import { dboUnobserveDatabase } from "../funcs/dboUnobserveDatabase.js";
 import { dboUpdateDatabase } from "../funcs/dboUpdateDatabase.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
@@ -80,20 +81,6 @@ export class Dbo extends ClientSDK {
   }
 
   /**
-   * Update an observed database
-   */
-  async updateDatabase(
-    request: operations.UpdateDatabaseRequest,
-    options?: RequestOptions,
-  ): Promise<void> {
-    return unwrapAsync(dboUpdateDatabase(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
    * Delete an observed database
    */
   async deleteDatabase(
@@ -101,6 +88,20 @@ export class Dbo extends ClientSDK {
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(dboDeleteDatabase(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Update an observed database
+   */
+  async updateDatabase(
+    request: operations.UpdateDatabaseRequest,
+    options?: RequestOptions,
+  ): Promise<void> {
+    return unwrapAsync(dboUpdateDatabase(
       this,
       request,
       options,
@@ -143,6 +144,20 @@ export class Dbo extends ClientSDK {
     options?: RequestOptions,
   ): Promise<void> {
     return unwrapAsync(dboPluginOperation(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Unobserve an observed database
+   */
+  async unobserveDatabase(
+    request: operations.UnobserveDatabaseRequest,
+    options?: RequestOptions,
+  ): Promise<void> {
+    return unwrapAsync(dboUnobserveDatabase(
       this,
       request,
       options,
