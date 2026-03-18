@@ -14,4 +14,4 @@ let value: GetWebsiteRequest = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `entityId`         | *string*           | :heavy_check_mark: | N/A                |
+| `entityId`         | *string*           | :heavy_check_mark: | Entity ID.         |

@@ -66,8 +66,17 @@ export type ListMetricMeasurementsRequest = {
  * The request has succeeded.
  */
 export type ListMetricMeasurementsResponseBody = {
+  /**
+   * Measurement data grouped by attributes.
+   */
   groupings: Array<components.MetricsGrouping>;
+  /**
+   * Bucket size used for computing time series points, in seconds.
+   */
   bucketSizeInSeconds: number;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 

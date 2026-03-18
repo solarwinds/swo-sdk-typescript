@@ -8,7 +8,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CommonPageInfo = {
+  /**
+   * Token for the previous page, or empty string if on the first page.
+   */
   prevPage: string;
+  /**
+   * Token for the next page, or empty string if on the last page.
+   */
   nextPage: string;
 };
 

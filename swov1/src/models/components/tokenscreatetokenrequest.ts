@@ -6,21 +6,45 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { ClosedEnum } from "../../types/enums.js";
 
+/**
+ * Tags to associate with the token.
+ */
 export type Tags = {
+  /**
+   * Server tag value.
+   */
   server: string;
+  /**
+   * Tag without a value.
+   */
   tagWithoutValue: string;
 };
 
+/**
+ * Type of token. Currently only 'ingestion' is supported.
+ */
 export const TokensCreateTokenRequestType = {
   Ingestion: "ingestion",
 } as const;
+/**
+ * Type of token. Currently only 'ingestion' is supported.
+ */
 export type TokensCreateTokenRequestType = ClosedEnum<
   typeof TokensCreateTokenRequestType
 >;
 
 export type TokensCreateTokenRequest = {
+  /**
+   * Name of the token.
+   */
   name: string;
+  /**
+   * Tags to associate with the token.
+   */
   tags: Tags;
+  /**
+   * Type of token. Currently only 'ingestion' is supported.
+   */
   type: TokensCreateTokenRequestType;
 };
 

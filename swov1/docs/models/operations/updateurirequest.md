@@ -66,5 +66,5 @@ let value: UpdateUriRequest = {
 
 | Field                                                  | Type                                                   | Required                                               | Description                                            |
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| `entityId`                                             | *string*                                               | :heavy_check_mark:                                     | N/A                                                    |
+| `entityId`                                             | *string*                                               | :heavy_check_mark:                                     | Entity ID.                                             |
 | `demUri`                                               | [components.DemUri](../../models/components/demuri.md) | :heavy_check_mark:                                     | The updated URI monitoring configuration               |

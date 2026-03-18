@@ -1,5 +1,7 @@
 # ~~Healthscore~~
 
+Health score of the entity. Deprecated: use healthState instead.
+
 > :warning: **DEPRECATED**: This will be removed in a future release, please migrate away from it as soon as possible.
 
 ## Example Usage

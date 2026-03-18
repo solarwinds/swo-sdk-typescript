@@ -40,8 +40,17 @@ export type ListMetricAttributeValuesRequest = {
  * The request has succeeded.
  */
 export type ListMetricAttributeValuesResponseBody = {
+  /**
+   * Attribute name.
+   */
   name: string;
+  /**
+   * List of attribute values.
+   */
   values: Array<string>;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 

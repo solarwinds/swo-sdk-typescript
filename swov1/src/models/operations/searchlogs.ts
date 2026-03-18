@@ -48,7 +48,13 @@ export type SearchLogsRequest = {
  * The request has succeeded.
  */
 export type SearchLogsResponseBody = {
+  /**
+   * Array of log events.
+   */
   logs: Array<components.LogsEvent>;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 

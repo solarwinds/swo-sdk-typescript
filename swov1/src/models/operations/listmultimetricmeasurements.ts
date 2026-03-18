@@ -9,7 +9,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
+/**
+ * Batch measurement request parameters.
+ */
 export type ListMultiMetricMeasurementsRequestBody = {
+  /**
+   * List of metric measurement requests.
+   */
   metrics: Array<components.MetricsMeasurementsRequest>;
   /**
    * Timestamp in ISO 8601 format in UTC timezone: yyyy-MM-ddTHH:mm:ssZ
@@ -34,6 +40,9 @@ export type ListMultiMetricMeasurementsRequest = {
    * Token for the requested page.
    */
   skipToken?: string | undefined;
+  /**
+   * Batch measurement request parameters.
+   */
   requestBody: ListMultiMetricMeasurementsRequestBody;
 };
 
@@ -60,7 +69,13 @@ export type Metric = {
  * The request has succeeded.
  */
 export type ListMultiMetricMeasurementsResponseBody = {
+  /**
+   * Metric measurement results.
+   */
   metrics: Array<Metric>;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 

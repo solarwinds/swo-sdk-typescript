@@ -22,6 +22,8 @@ export const Category = {
 export type Category = ClosedEnum<typeof Category>;
 
 /**
+ * Health score of the entity. Deprecated: use healthState instead.
+ *
  * @deprecated class: This will be removed in a future release, please migrate away from it as soon as possible.
  */
 export type Healthscore = {
@@ -96,6 +98,8 @@ export type EntitiesEntity = {
    */
   inMaintenance: boolean;
   /**
+   * Health score of the entity. Deprecated: use healthState instead.
+   *
    * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
    */
   healthscore?: Healthscore | undefined;

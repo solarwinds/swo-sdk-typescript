@@ -10,6 +10,9 @@ import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type GetWebsiteOutageStatusesRequest = {
+  /**
+   * Entity ID.
+   */
   entityId: string;
   /**
    * Start of timespan to get results for, inclusive

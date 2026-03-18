@@ -13,7 +13,7 @@ let value: CommonPageInfo = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `prevPage`         | *string*           | :heavy_check_mark: | N/A                |
-| `nextPage`         | *string*           | :heavy_check_mark: | N/A                |
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `prevPage`                                                         | *string*                                                           | :heavy_check_mark:                                                 | Token for the previous page, or empty string if on the first page. |
+| `nextPage`                                                         | *string*                                                           | :heavy_check_mark:                                                 | Token for the next page, or empty string if on the last page.      |

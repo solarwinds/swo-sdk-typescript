@@ -13,6 +13,9 @@ import {
   DemTransactionTestDefinition$inboundSchema,
 } from "./demtransactiontestdefinition.js";
 
+/**
+ * Current availability status of the transaction.
+ */
 export const DemGetTransactionResponseStatus = {
   Up: "up",
   Down: "down",
@@ -20,13 +23,25 @@ export const DemGetTransactionResponseStatus = {
   Maintenance: "maintenance",
   Unknown: "unknown",
 } as const;
+/**
+ * Current availability status of the transaction.
+ */
 export type DemGetTransactionResponseStatus = ClosedEnum<
   typeof DemGetTransactionResponseStatus
 >;
 
 export type DemGetTransactionResponse = {
+  /**
+   * Unique identifier of the transaction.
+   */
   id: string;
+  /**
+   * Entity type, always 'SyntheticTransaction'.
+   */
   type: string;
+  /**
+   * Current availability status of the transaction.
+   */
   status: DemGetTransactionResponseStatus;
   /**
    * Name of the transaction, which must be unique within the organization. The name must not contain any control characters, any white space other than space (U+0020), or any consecutive, leading or trailing spaces.

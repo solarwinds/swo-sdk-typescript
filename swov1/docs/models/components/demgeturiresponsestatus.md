@@ -1,5 +1,7 @@
 # DemGetUriResponseStatus
 
+Current availability status of the URI.
+
 ## Example Usage
 
 ```typescript

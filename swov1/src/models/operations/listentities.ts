@@ -32,7 +32,13 @@ export type ListEntitiesRequest = {
  * The request has succeeded.
  */
 export type ListEntitiesResponseBody = {
+  /**
+   * List of matching entities.
+   */
   entities: Array<components.EntitiesEntity>;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 

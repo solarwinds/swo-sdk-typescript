@@ -15,5 +15,5 @@ let value: CommonKeyValuePair = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `key`              | *string*           | :heavy_check_mark: | N/A                |
-| `value`            | *string*           | :heavy_check_mark: | N/A                |
+| `key`              | *string*           | :heavy_check_mark: | Key.               |
+| `value`            | *string*           | :heavy_check_mark: | Value.             |

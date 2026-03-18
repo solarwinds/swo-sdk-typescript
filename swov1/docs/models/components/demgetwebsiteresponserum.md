@@ -17,8 +17,8 @@ let value: DemGetWebsiteResponseRum = {
 
 ## Fields
 
-| Field                | Type                 | Required             | Description          |
-| -------------------- | -------------------- | -------------------- | -------------------- |
-| `apdexTimeInSeconds` | *number*             | :heavy_minus_sign:   | N/A                  |
-| `snippet`            | *string*             | :heavy_minus_sign:   | N/A                  |
-| `spa`                | *boolean*            | :heavy_check_mark:   | N/A                  |
+| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
+| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `apdexTimeInSeconds`                                                  | *number*                                                              | :heavy_minus_sign:                                                    | Apdex time threshold in seconds for performance satisfaction scoring. |
+| `snippet`                                                             | *string*                                                              | :heavy_minus_sign:                                                    | JavaScript snippet to embed for real user monitoring.                 |
+| `spa`                                                                 | *boolean*                                                             | :heavy_check_mark:                                                    | Whether the website is a single-page application (SPA).               |

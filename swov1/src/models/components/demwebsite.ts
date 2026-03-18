@@ -223,7 +223,13 @@ export type DemWebsiteAvailabilityCheckSettings = {
  *     You are required to configure at least availability monitoring or real user monitoring to be able to create website.
  */
 export type DemWebsiteRum = {
+  /**
+   * Apdex time threshold in seconds for performance satisfaction scoring.
+   */
   apdexTimeInSeconds?: number | undefined;
+  /**
+   * Whether the website is a single-page application (SPA).
+   */
   spa: boolean;
 };
 

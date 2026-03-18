@@ -8,7 +8,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CommonTag = {
+  /**
+   * Tag key.
+   */
   key: string;
+  /**
+   * Tag value.
+   */
   value: string;
 };
 

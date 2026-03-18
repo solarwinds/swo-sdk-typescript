@@ -14,4 +14,4 @@ let value: CommonEntityId = {
 
 | Field                 | Type                  | Required              | Description           | Example               |
 | --------------------- | --------------------- | --------------------- | --------------------- | --------------------- |
-| `id`                  | *string*              | :heavy_check_mark:    | N/A                   | e-1448474379026206720 |
+| `id`                  | *string*              | :heavy_check_mark:    | Entity ID.            | e-1448474379026206720 |

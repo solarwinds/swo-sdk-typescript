@@ -22,6 +22,9 @@ import {
   DemWebsiteProtocol$inboundSchema,
 } from "./demwebsiteprotocol.js";
 
+/**
+ * Current availability status of the website.
+ */
 export const DemGetWebsiteResponseStatus = {
   Up: "up",
   Down: "down",
@@ -29,6 +32,9 @@ export const DemGetWebsiteResponseStatus = {
   Maintenance: "maintenance",
   Unknown: "unknown",
 } as const;
+/**
+ * Current availability status of the website.
+ */
 export type DemGetWebsiteResponseStatus = ClosedEnum<
   typeof DemGetWebsiteResponseStatus
 >;
@@ -250,14 +256,32 @@ export type DemGetWebsiteResponseAvailabilityCheckSettings = {
  * You are required to configure at least availability monitoring or real user monitoring to be able to create website.
  */
 export type DemGetWebsiteResponseRum = {
+  /**
+   * Apdex time threshold in seconds for performance satisfaction scoring.
+   */
   apdexTimeInSeconds?: number | undefined;
+  /**
+   * JavaScript snippet to embed for real user monitoring.
+   */
   snippet?: string | undefined;
+  /**
+   * Whether the website is a single-page application (SPA).
+   */
   spa: boolean;
 };
 
 export type DemGetWebsiteResponse = {
+  /**
+   * Unique identifier of the website.
+   */
   id: string;
+  /**
+   * Entity type, always 'Website'.
+   */
   type: string;
+  /**
+   * Current availability status of the website.
+   */
   status: DemGetWebsiteResponseStatus;
   /**
    *   Name of the website, which must be unique within the organization.

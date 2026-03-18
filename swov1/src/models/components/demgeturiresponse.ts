@@ -13,6 +13,9 @@ import {
   DemUriAvailabilityCheckSettings$inboundSchema,
 } from "./demuriavailabilitychecksettings.js";
 
+/**
+ * Current availability status of the URI.
+ */
 export const DemGetUriResponseStatus = {
   Up: "up",
   Down: "down",
@@ -20,13 +23,25 @@ export const DemGetUriResponseStatus = {
   Maintenance: "maintenance",
   Unknown: "unknown",
 } as const;
+/**
+ * Current availability status of the URI.
+ */
 export type DemGetUriResponseStatus = ClosedEnum<
   typeof DemGetUriResponseStatus
 >;
 
 export type DemGetUriResponse = {
+  /**
+   * Unique identifier of the URI.
+   */
   id: string;
+  /**
+   * Entity type, always 'Uri'.
+   */
   type: string;
+  /**
+   * Current availability status of the URI.
+   */
   status: DemGetUriResponseStatus;
   /**
    *   Name of the URI, which must be unique within the organization.

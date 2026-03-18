@@ -17,11 +17,11 @@ let value: LogsEvent = {
 
 ## Fields
 
-| Field                 | Type                  | Required              | Description           | Example               |
-| --------------------- | --------------------- | --------------------- | --------------------- | --------------------- |
-| `id`                  | *string*              | :heavy_check_mark:    | N/A                   | 1793698955374546944   |
-| `time`                | *string*              | :heavy_check_mark:    | N/A                   | 2024-01-01T00:00:00Z  |
-| `message`             | *string*              | :heavy_check_mark:    | N/A                   | This is a log message |
-| `hostname`            | *string*              | :heavy_check_mark:    | N/A                   | webserver.example.com |
-| `severity`            | *string*              | :heavy_check_mark:    | N/A                   | INFO                  |
-| `program`             | *string*              | :heavy_check_mark:    | N/A                   | httpd                 |
+| Field                                                | Type                                                 | Required                                             | Description                                          | Example                                              |
+| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
+| `id`                                                 | *string*                                             | :heavy_check_mark:                                   | Unique identifier of the log event.                  | 1793698955374546944                                  |
+| `time`                                               | *string*                                             | :heavy_check_mark:                                   | Timestamp of the log event.                          | 2024-01-01T00:00:00Z                                 |
+| `message`                                            | *string*                                             | :heavy_check_mark:                                   | Log message content.                                 | This is a log message                                |
+| `hostname`                                           | *string*                                             | :heavy_check_mark:                                   | Hostname of the server that generated the log event. | webserver.example.com                                |
+| `severity`                                           | *string*                                             | :heavy_check_mark:                                   | Severity level of the log event.                     | INFO                                                 |
+| `program`                                            | *string*                                             | :heavy_check_mark:                                   | Name of the program that generated the log event.    | httpd                                                |

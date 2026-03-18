@@ -36,7 +36,13 @@ export type ListMetricsRequest = {
  * The request has succeeded.
  */
 export type ListMetricsResponseBody = {
+  /**
+   * List of metric metadata.
+   */
   metricsInfo: Array<components.CommonMetricInfo>;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 
