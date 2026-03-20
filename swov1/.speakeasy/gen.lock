@@ -3,7 +3,7 @@ id: 07bd7da1-2b9c-45f1-ab2f-485c7af5c2f1
 management:
   docChecksum: a07f29701d075344971e8795524e842f
   docVersion: 1.0.14
-  speakeasyVersion: 1.757.1
+  speakeasyVersion: 1.758.0
   generationVersion: 2.866.2
   releaseVersion: 0.9.1
   configChecksum: e8c7a5cf7aba119673e61e107aec332e
@@ -12,8 +12,8 @@ management:
   installationURL: https://github.com/solarwinds/swo-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 212a0fdb-d66d-4f1b-9282-b88b2fb19db1
-  pristine_commit_hash: 29931df3da004e91bd2bb8c0bf73233460e98e62
+  generation_id: 0240b373-260d-4a1c-a437-f931909ae3ad
+  pristine_commit_hash: 818eb7b0b59e5b96f1580a89587c1db08721b6c9
   pristine_tree_hash: 844d8ad069416f7f2beafaea40f1b73bedea4c98
 features:
   typescript:
