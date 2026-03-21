@@ -106,11 +106,11 @@ Based on:
 ### Releases
 - [NPM v0.9.0] https://www.npmjs.com/package/@solarwinds/swo-sdk-typescript/v/0.9.0 - swov1
 
-## 2026-03-20 00:06:24
+## 2026-03-21 00:06:03
 ### Changes
 Based on:
 - OpenAPI Doc  
-- Speakeasy CLI 1.758.0 (2.866.2) https://github.com/speakeasy-api/speakeasy
+- Speakeasy CLI 1.759.0 (2.869.3) https://github.com/speakeasy-api/speakeasy
 ### Generated
 - [typescript v0.9.1] swov1
 ### Releases
