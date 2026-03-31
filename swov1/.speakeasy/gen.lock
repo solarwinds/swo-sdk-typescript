@@ -3,8 +3,8 @@ id: 07bd7da1-2b9c-45f1-ab2f-485c7af5c2f1
 management:
   docChecksum: a07f29701d075344971e8795524e842f
   docVersion: 1.0.14
-  speakeasyVersion: 1.759.3
-  generationVersion: 2.869.25
+  speakeasyVersion: 1.760.0
+  generationVersion: 2.873.1
   releaseVersion: 0.9.1
   configChecksum: e8c7a5cf7aba119673e61e107aec332e
   repoURL: https://github.com/solarwinds/swo-sdk-typescript.git
@@ -12,20 +12,20 @@ management:
   installationURL: https://github.com/solarwinds/swo-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 627eca8b-e71d-4814-94f7-39cee0ce0120
-  pristine_commit_hash: 1e2b2ac1953646717491faa370df177fd00384f7
-  pristine_tree_hash: 7413eb03b4ffdd02a3a77eeba531422525f6050c
+  generation_id: 9f1fffca-6f0d-425d-a08e-f3b24f08078b
+  pristine_commit_hash: 6630cfa47a1526761bcb32c47dc3ac33a72b63eb
+  pristine_tree_hash: 3b1f6c2d920f2c5632b1323d84a9ceebffaa2a20
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.26.44
+    core: 3.26.45
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
     enumUnions: 0.1.0
     envVarSecurityUsage: 0.1.2
-    globalSecurity: 2.82.15
+    globalSecurity: 2.82.16
     globalSecurityCallbacks: 0.1.0
     globalSecurityFlattening: 0.1.1
     globalServerURLs: 2.83.1
@@ -1243,8 +1243,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:655c20087cb76f41fcfaee7d5aa31ead1b42549c
-    pristine_git_object: fdfea7938ef15534d9cc1a2dbc70b91db465bb51
+    last_write_checksum: sha1:3507a8affc8c112c75f707154054f51af9331283
+    pristine_git_object: ff23281fe59d54a32a3403152c4c63b1fc55aba8
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -1295,8 +1295,8 @@ trackedFiles:
     pristine_git_object: cdb65d683c3daa6db3de7de61894d33cfd4b7a1d
   src/lib/security.ts:
     id: 0502afa7922e
-    last_write_checksum: sha1:fce1c23054589f67d6da4702591b76a93c4ed76b
-    pristine_git_object: e1a4ec00daa8c07f3bcef3ae54ccadb9506a6483
+    last_write_checksum: sha1:702efc479ba05acbcb806882765b61e38eb0dcd1
+    pristine_git_object: dfade17c9c9dc383c321a1c5d9a0befa0ac7d4a5
   src/lib/url.ts:
     id: b0057e24ed76
     last_write_checksum: sha1:3bceadd74bf0b31adf13eb06b7531077c3e07d65
