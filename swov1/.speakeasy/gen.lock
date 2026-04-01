@@ -3,23 +3,23 @@ id: 07bd7da1-2b9c-45f1-ab2f-485c7af5c2f1
 management:
   docChecksum: a07f29701d075344971e8795524e842f
   docVersion: 1.0.14
-  speakeasyVersion: 1.760.0
-  generationVersion: 2.873.1
+  speakeasyVersion: 1.761.0
+  generationVersion: 2.879.1
   releaseVersion: 0.9.1
-  configChecksum: e8c7a5cf7aba119673e61e107aec332e
+  configChecksum: ce1b6e7f6629d3684c0c4f119bab3ffb
   repoURL: https://github.com/solarwinds/swo-sdk-typescript.git
   repoSubDirectory: swov1
   installationURL: https://github.com/solarwinds/swo-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 9f1fffca-6f0d-425d-a08e-f3b24f08078b
-  pristine_commit_hash: 6630cfa47a1526761bcb32c47dc3ac33a72b63eb
-  pristine_tree_hash: 3b1f6c2d920f2c5632b1323d84a9ceebffaa2a20
+  generation_id: 837fc934-65df-455a-ae70-acc388a541cb
+  pristine_commit_hash: 2a511612820420680876caa60d7ac7feaca134a7
+  pristine_tree_hash: 18bcf489965990247a0605127e431954ff7a76fb
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.26.45
+    core: 3.26.46
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -1243,8 +1243,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:3507a8affc8c112c75f707154054f51af9331283
-    pristine_git_object: ff23281fe59d54a32a3403152c4c63b1fc55aba8
+    last_write_checksum: sha1:bb6169584079d1d473ef6c4f4a3168ec17772d7f
+    pristine_git_object: 14ed86967f55c94be28e68d6898ccc02d2476a56
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250

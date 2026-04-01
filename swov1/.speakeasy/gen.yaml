@@ -53,6 +53,7 @@ typescript:
   enumFormat: union
   envVarPrefix: SWO
   exportZodModelNamespace: false
+  fixEnumNameSanitization: false
   flatAdditionalProperties: false
   flattenGlobalSecurity: true
   flatteningOrder: parameters-first
