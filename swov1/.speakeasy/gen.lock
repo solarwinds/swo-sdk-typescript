@@ -12,8 +12,8 @@ management:
   installationURL: https://github.com/solarwinds/swo-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 4eb46696-2708-4c59-b887-d6b3e499d69b
-  pristine_commit_hash: 466c64c8adaf7a681bb48496e409a4444d0d9588
+  generation_id: 31532ec4-c210-4181-841e-4372700c7d34
+  pristine_commit_hash: b6ee05ddc6955cf1cd8bb877d2b8e4d5be5bd269
   pristine_tree_hash: 5f3e56eaa74bcc7309967d4aa59f08b16c0d8478
 features:
   typescript:
