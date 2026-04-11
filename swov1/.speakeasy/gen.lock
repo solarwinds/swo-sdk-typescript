@@ -3,8 +3,8 @@ id: 07bd7da1-2b9c-45f1-ab2f-485c7af5c2f1
 management:
   docChecksum: a07f29701d075344971e8795524e842f
   docVersion: 1.0.14
-  speakeasyVersion: 1.761.1
-  generationVersion: 2.879.6
+  speakeasyVersion: 1.761.3
+  generationVersion: 2.879.11
   releaseVersion: 0.9.1
   configChecksum: ce1b6e7f6629d3684c0c4f119bab3ffb
   repoURL: https://github.com/solarwinds/swo-sdk-typescript.git
@@ -12,14 +12,14 @@ management:
   installationURL: https://github.com/solarwinds/swo-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 0641842a-5fa2-4663-a17e-4a65bf598294
-  pristine_commit_hash: 6e8fe183c4ffbe17161f8d483c75e7542f50d954
-  pristine_tree_hash: 5f3e56eaa74bcc7309967d4aa59f08b16c0d8478
+  generation_id: 0d907c89-caef-4233-9b18-bb0a52e55891
+  pristine_commit_hash: 98352a8502a5ae215268c46b884e436e927692b2
+  pristine_tree_hash: 9e74097cdac7ea9dc09837e8938cdfc1b1c45137
 features:
   typescript:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.14
-    core: 3.26.46
+    core: 3.26.47
     defaultEnabledRetries: 0.1.0
     deprecations: 2.81.1
     devContainers: 2.90.1
@@ -1243,16 +1243,16 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:ba56f360707a3ce94ad884d96bf5116dc5e8c29f
-    pristine_git_object: 9dcf839f1757525e45e06f60fd95b1aa9297b054
+    last_write_checksum: sha1:12fa551407f484f98a49bd21502d8c490052a02a
+    pristine_git_object: 8167446895ee219ba30794c9f2aa105fd83eaa01
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
     pristine_git_object: e81091f5e536f82739f71379b1fddc2d147c49e2
   src/lib/encodings.ts:
     id: 3bd8ead98afd
-    last_write_checksum: sha1:14a1c57947f58b6851f480ab87aef14def989fa0
-    pristine_git_object: d21ccfedbfd9f8460372edcf9b65273612aaa955
+    last_write_checksum: sha1:d47614c415b37e092965c34cb668562195701004
+    pristine_git_object: 2791d25bc4f7cf6eec17a65f899851e225fa3deb
   src/lib/env.ts:
     id: c52972a3b198
     last_write_checksum: sha1:01cdf583ac1508caa46fb93e2739d10bbc91742c
