@@ -106,7 +106,7 @@ Based on:
 ### Releases
 - [NPM v0.9.0] https://www.npmjs.com/package/@solarwinds/swo-sdk-typescript/v/0.9.0 - swov1
 
-## 2026-04-11 00:09:07
+## 2026-04-12 00:09:35
 ### Changes
 Based on:
 - OpenAPI Doc  
