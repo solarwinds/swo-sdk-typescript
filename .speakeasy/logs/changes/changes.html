@@ -98,19 +98,25 @@
 <body><h2 id="typescript-sdk-changes">Typescript SDK Changes:</h2>
 
 <ul>
-<li><code>swo.dem.deleteTransaction()</code>: <code>response</code> <strong>Changed</strong> (Breaking ⚠️)
+<li><code>swo.dem.getTransaction()</code>:  <code>response.testDefinition.commands[].command.enum(clickAt)</code> <strong>Added</strong> (Breaking ⚠️)</li>
+<li><code>swo.entities.listEntities()</code>:  <code>response.entities[].healthscore</code> <strong>Removed</strong> (Breaking ⚠️)</li>
+<li><code>swo.entities.getEntityById()</code>:  <code>response.healthscore</code> <strong>Removed</strong> (Breaking ⚠️)</li>
+<li><code>swo.metrics.listMetricMeasurements()</code>:
 
 <ul>
-<li><code>status[200]</code> <strong>Removed</strong> (Breaking ⚠️)</li>
-<li><code>status[204]</code> <strong>Added</strong> (Breaking ⚠️)</li>
+<li><code>request.bucketSizeInSeconds</code> <strong>Removed</strong> (Breaking ⚠️)</li>
 </ul></li>
-<li><code>swo.dbo.unobserveDatabase()</code>: <strong>Added</strong></li>
-<li><code>swo.dem.getUriOutageStatuses()</code>: <strong>Added</strong></li>
-<li><code>swo.dem.getUriTestResults()</code>: <strong>Added</strong></li>
-<li><code>swo.dem.getWebsiteOutageStatuses()</code>: <strong>Added</strong></li>
-<li><code>swo.dem.getWebsiteTestResults()</code>: <strong>Added</strong></li>
-<li><code>swo.entities.listEntities()</code>:  <code>response.entities[].healthState</code> <strong>Added</strong></li>
-<li><code>swo.entities.getEntityById()</code>:  <code>response.healthState</code> <strong>Added</strong></li>
+<li><code>swo.cloudAccounts.validateMgmtAccountOnboarding()</code>: <strong>Removed</strong> (Breaking ⚠️)</li>
+<li><code>swo.dem.createTransaction()</code>:
+
+<ul>
+<li><code>request.testDefinition.commands[].command.enum(clickAt)</code> <strong>Added</strong></li>
+</ul></li>
+<li><code>swo.dem.updateTransaction()</code>:
+
+<ul>
+<li><code>request.dem.transaction.testDefinition.commands[].command.enum(clickAt)</code> <strong>Added</strong></li>
+</ul></li>
 </ul>
 </body>
 </html>

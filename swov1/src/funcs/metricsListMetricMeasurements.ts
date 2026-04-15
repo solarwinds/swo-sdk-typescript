@@ -118,7 +118,6 @@ async function $do(
     ? options[URL_OVERRIDE].search.substring(1)
     : encodeFormQuery({
       "aggregateBy": payload.aggregateBy,
-      "bucketSizeInSeconds": payload.bucketSizeInSeconds,
       "endTime": payload.endTime,
       "filter": payload.filter,
       "groupBy": payload.groupBy,

@@ -1,6 +1,6 @@
 {
   "name": "@solarwinds/swo-sdk-typescript",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "author": "Speakeasy",
   "type": "module",
   "tshy": {

@@ -182,7 +182,6 @@ run();
 * [activateAwsIntegration](docs/sdks/cloudaccounts/README.md#activateawsintegration) - Activate AWS Integration
 * [createOrgStructure](docs/sdks/cloudaccounts/README.md#createorgstructure) - Create Organizational Structure
 * [updateAwsIntegration](docs/sdks/cloudaccounts/README.md#updateawsintegration) - Update AWS Integration
-* [validateMgmtAccountOnboarding](docs/sdks/cloudaccounts/README.md#validatemgmtaccountonboarding) - Validate Management Account Onboarding
 
 ### [Dbo](docs/sdks/dbo/README.md)
 
@@ -279,7 +278,6 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`cloudAccountsActivateAwsIntegration`](docs/sdks/cloudaccounts/README.md#activateawsintegration) - Activate AWS Integration
 - [`cloudAccountsCreateOrgStructure`](docs/sdks/cloudaccounts/README.md#createorgstructure) - Create Organizational Structure
 - [`cloudAccountsUpdateAwsIntegration`](docs/sdks/cloudaccounts/README.md#updateawsintegration) - Update AWS Integration
-- [`cloudAccountsValidateMgmtAccountOnboarding`](docs/sdks/cloudaccounts/README.md#validatemgmtaccountonboarding) - Validate Management Account Onboarding
 - [`dboDeleteDatabase`](docs/sdks/dbo/README.md#deletedatabase) - Delete an observed database
 - [`dboGetConfig`](docs/sdks/dbo/README.md#getconfig) - Get organization-level configuration for database observability agents/plugins
 - [`dboGetPluginConfig`](docs/sdks/dbo/README.md#getpluginconfig) - Get configuration of plugins observing a database
@@ -552,12 +550,12 @@ run();
 
 
 **Inherit from [`SwoError`](./src/models/errors/swoerror.ts)**:
-* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 33 of 57 methods.*
-* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 33 of 57 methods.*
-* [`MetricsMetricForbiddenErrorResponse`](./src/models/errors/metricsmetricforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 2 of 57 methods.*
-* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 1 of 57 methods.*
-* [`CommonConflictErrorResponse`](./src/models/errors/commonconflicterrorresponse.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 57 methods.*
-* [`CommonUnavailableErrorResponse`](./src/models/errors/commonunavailableerrorresponse.ts): Service unavailable. Status code `503`. Applicable to 1 of 57 methods.*
+* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 33 of 56 methods.*
+* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 32 of 56 methods.*
+* [`MetricsMetricForbiddenErrorResponse`](./src/models/errors/metricsmetricforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 2 of 56 methods.*
+* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 1 of 56 methods.*
+* [`CommonConflictErrorResponse`](./src/models/errors/commonconflicterrorresponse.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 56 methods.*
+* [`CommonUnavailableErrorResponse`](./src/models/errors/commonunavailableerrorresponse.ts): Service unavailable. Status code `503`. Applicable to 1 of 56 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
