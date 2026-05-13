@@ -7,6 +7,9 @@ import { remap as remap$ } from "../../lib/primitives.js";
 import * as components from "../components/index.js";
 
 export type UpdateTransactionRequest = {
+  /**
+   * Entity ID.
+   */
   entityId: string;
   /**
    * Update transaction monitoring configuration

@@ -5,7 +5,13 @@
 import * as z from "zod/v3";
 
 export type PluginOperationRequest = {
+  /**
+   * Entity ID.
+   */
   entityId: string;
+  /**
+   * Name of the operation to apply to the plugin.
+   */
   operation: string;
 };
 

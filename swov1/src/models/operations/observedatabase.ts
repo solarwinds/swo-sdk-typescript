@@ -11,6 +11,9 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  * The request has succeeded and a new resource has been created as a result.
  */
 export type ObserveDatabaseResponse = {
+  /**
+   * Resource identifier.
+   */
   id: string;
 };
 

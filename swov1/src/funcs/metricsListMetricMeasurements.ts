@@ -111,14 +111,13 @@ async function $do(
     }),
   };
   const path = options?.[URL_OVERRIDE]
-    ? options[URL_OVERRIDE].pathname
+    ? ""
     : pathToFunc("/v1/metrics/{name}/measurements")(pathParams);
 
   const query = options?.[URL_OVERRIDE]
     ? options[URL_OVERRIDE].search.substring(1)
     : encodeFormQuery({
       "aggregateBy": payload.aggregateBy,
-      "bucketSizeInSeconds": payload.bucketSizeInSeconds,
       "endTime": payload.endTime,
       "filter": payload.filter,
       "groupBy": payload.groupBy,
@@ -166,7 +165,7 @@ async function $do(
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
     method: "GET",
-    baseURL: options?.[URL_OVERRIDE]?.origin || options?.serverURL,
+    baseURL: options?.[URL_OVERRIDE]?.href || options?.serverURL,
     path: path,
     headers: headers,
     query: query,
@@ -251,11 +250,10 @@ async function $do(
       return { next: () => null };
     }
 
-    if (nextURL.startsWith("/")) {
-      nextURL = `${client._baseURL?.origin}${nextURL}`;
-    }
-
     try {
+      if (nextURL.startsWith("/")) {
+        nextURL = new URL(nextURL, client._baseURL ?? "").href;
+      }
       new URL(nextURL);
     } catch (_error) {
       return { next: () => null };

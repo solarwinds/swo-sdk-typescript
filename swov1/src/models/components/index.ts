@@ -4,8 +4,6 @@
 
 export * from "./changeeventschangeevent.js";
 export * from "./cloudaccountsawsactivateintegrationrequest.js";
-export * from "./cloudaccountsawsmgmtaccountonboardingrequest.js";
-export * from "./cloudaccountsawsmgmtaccountonboardingresponse.js";
 export * from "./cloudaccountsawsorganisationalunit.js";
 export * from "./cloudaccountsawsorganisationalunitrequest.js";
 export * from "./cloudaccountsawsupdateintegrationrequest.js";

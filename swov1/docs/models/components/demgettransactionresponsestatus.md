@@ -1,5 +1,7 @@
 # DemGetTransactionResponseStatus
 
+Current availability status of the transaction.
+
 ## Example Usage
 
 ```typescript

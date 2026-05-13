@@ -36,7 +36,13 @@ export type ListMetricAttributesRequest = {
  * The request has succeeded.
  */
 export type ListMetricAttributesResponseBody = {
+  /**
+   * List of attribute names.
+   */
   names: Array<string>;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 

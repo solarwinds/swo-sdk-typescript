@@ -17,6 +17,7 @@ export const DemTransactionCommandName = {
   AssertValue: "ASSERT_VALUE",
   Check: "CHECK",
   Click: "CLICK",
+  ClickAt: "CLICK_AT",
   Open: "OPEN",
   Pause: "PAUSE",
   SwoAssertTextContains: "SWO_ASSERT_TEXT_CONTAINS",

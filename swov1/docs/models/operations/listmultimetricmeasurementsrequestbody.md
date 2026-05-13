@@ -1,5 +1,7 @@
 # ListMultiMetricMeasurementsRequestBody
 
+Batch measurement request parameters.
+
 ## Example Usage
 
 ```typescript
@@ -28,6 +30,6 @@ let value: ListMultiMetricMeasurementsRequestBody = {
 
 | Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
 | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| `metrics`                                                                                        | [components.MetricsMeasurementsRequest](../../models/components/metricsmeasurementsrequest.md)[] | :heavy_check_mark:                                                                               | N/A                                                                                              |
+| `metrics`                                                                                        | [components.MetricsMeasurementsRequest](../../models/components/metricsmeasurementsrequest.md)[] | :heavy_check_mark:                                                                               | List of metric measurement requests.                                                             |
 | `startTime`                                                                                      | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)    | :heavy_minus_sign:                                                                               | Timestamp in ISO 8601 format in UTC timezone: yyyy-MM-ddTHH:mm:ssZ                               |
 | `endTime`                                                                                        | [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)    | :heavy_minus_sign:                                                                               | Timestamp in ISO 8601 format in UTC timezone: yyyy-MM-ddTHH:mm:ssZ                               |

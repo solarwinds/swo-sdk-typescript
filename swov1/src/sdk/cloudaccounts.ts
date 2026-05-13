@@ -5,10 +5,8 @@
 import { cloudAccountsActivateAwsIntegration } from "../funcs/cloudAccountsActivateAwsIntegration.js";
 import { cloudAccountsCreateOrgStructure } from "../funcs/cloudAccountsCreateOrgStructure.js";
 import { cloudAccountsUpdateAwsIntegration } from "../funcs/cloudAccountsUpdateAwsIntegration.js";
-import { cloudAccountsValidateMgmtAccountOnboarding } from "../funcs/cloudAccountsValidateMgmtAccountOnboarding.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as components from "../models/components/index.js";
-import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class CloudAccounts extends ClientSDK {
@@ -57,23 +55,6 @@ export class CloudAccounts extends ClientSDK {
     options?: RequestOptions,
   ): Promise<components.CloudAccountsAwsUpdateIntegrationResponse> {
     return unwrapAsync(cloudAccountsUpdateAwsIntegration(
-      this,
-      request,
-      options,
-    ));
-  }
-
-  /**
-   * Validate Management Account Onboarding
-   *
-   * @remarks
-   * Validate if the management account is onboarded.
-   */
-  async validateMgmtAccountOnboarding(
-    request: operations.ValidateMgmtAccountOnboardingRequest,
-    options?: RequestOptions,
-  ): Promise<components.CloudAccountsAwsMgmtAccountOnboardingResponse> {
-    return unwrapAsync(cloudAccountsValidateMgmtAccountOnboarding(
       this,
       request,
       options,

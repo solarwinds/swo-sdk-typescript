@@ -44,4 +44,3 @@ export * from "./updateentitybyid.js";
 export * from "./updatetransaction.js";
 export * from "./updateuri.js";
 export * from "./updatewebsite.js";
-export * from "./validatemgmtaccountonboarding.js";

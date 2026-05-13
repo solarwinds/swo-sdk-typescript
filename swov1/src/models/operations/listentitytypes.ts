@@ -11,6 +11,9 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  * List of entity types
  */
 export type ListEntityTypesResponse = {
+  /**
+   * List of entity type names.
+   */
   types: Array<string>;
 };
 

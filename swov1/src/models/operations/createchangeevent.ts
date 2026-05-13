@@ -11,6 +11,9 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
  * The ID of the created event
  */
 export type CreateChangeEventResponse = {
+  /**
+   * Resource identifier.
+   */
   id: number;
 };
 

@@ -15,5 +15,5 @@ let value: CommonTag = {
 
 | Field              | Type               | Required           | Description        | Example            |
 | ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| `key`              | *string*           | :heavy_check_mark: | N/A                | environment        |
-| `value`            | *string*           | :heavy_check_mark: | N/A                | production         |
+| `key`              | *string*           | :heavy_check_mark: | Tag key.           | environment        |
+| `value`            | *string*           | :heavy_check_mark: | Tag value.         | production         |

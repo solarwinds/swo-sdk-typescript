@@ -8,11 +8,29 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type LogsEvent = {
+  /**
+   * Unique identifier of the log event.
+   */
   id: string;
+  /**
+   * Timestamp of the log event.
+   */
   time: string;
+  /**
+   * Log message content.
+   */
   message: string;
+  /**
+   * Hostname of the server that generated the log event.
+   */
   hostname: string;
+  /**
+   * Severity level of the log event.
+   */
   severity: string;
+  /**
+   * Name of the program that generated the log event.
+   */
   program: string;
 };
 

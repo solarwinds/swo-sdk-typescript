@@ -13,7 +13,7 @@ let value: PluginOperationRequest = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `entityId`         | *string*           | :heavy_check_mark: | N/A                |
-| `operation`        | *string*           | :heavy_check_mark: | N/A                |
+| Field                                         | Type                                          | Required                                      | Description                                   |
+| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
+| `entityId`                                    | *string*                                      | :heavy_check_mark:                            | Entity ID.                                    |
+| `operation`                                   | *string*                                      | :heavy_check_mark:                            | Name of the operation to apply to the plugin. |

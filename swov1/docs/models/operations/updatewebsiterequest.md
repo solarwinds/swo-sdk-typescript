@@ -68,5 +68,5 @@ let value: UpdateWebsiteRequest = {
 
 | Field                                                          | Type                                                           | Required                                                       | Description                                                    |
 | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
-| `entityId`                                                     | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `entityId`                                                     | *string*                                                       | :heavy_check_mark:                                             | Entity ID.                                                     |
 | `demWebsite`                                                   | [components.DemWebsite](../../models/components/demwebsite.md) | :heavy_check_mark:                                             | The updated website monitoring configuration                   |

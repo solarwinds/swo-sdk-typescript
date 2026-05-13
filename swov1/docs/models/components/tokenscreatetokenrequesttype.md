@@ -1,5 +1,7 @@
 # TokensCreateTokenRequestType
 
+Type of token. Currently only 'ingestion' is supported.
+
 ## Example Usage
 
 ```typescript

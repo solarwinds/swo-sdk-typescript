@@ -98,7 +98,6 @@ async function $do(
       charEncoding: "percent",
     }),
   };
-
   const path = pathToFunc("/v1/dbo/databases/{entityId}/plugins")(pathParams);
 
   const headers = new Headers(compactMap({

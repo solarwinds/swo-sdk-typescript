@@ -9,33 +9,6 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 /**
- * Health Score category label.
- */
-export const Category = {
-  Good: "good",
-  Bad: "bad",
-  Moderate: "moderate",
-} as const;
-/**
- * Health Score category label.
- */
-export type Category = ClosedEnum<typeof Category>;
-
-/**
- * @deprecated class: This will be removed in a future release, please migrate away from it as soon as possible.
- */
-export type Healthscore = {
-  /**
-   * Health score value from 0 to 100.
-   */
-  score?: number | undefined;
-  /**
-   * Health Score category label.
-   */
-  category?: Category | undefined;
-};
-
-/**
  * Health state of the entity.
  */
 export const State = {
@@ -96,10 +69,6 @@ export type EntitiesEntity = {
    */
   inMaintenance: boolean;
   /**
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  healthscore?: Healthscore | undefined;
-  /**
    * Health state of the entity.
    */
   healthState?: HealthState | undefined;
@@ -112,30 +81,6 @@ export type EntitiesEntity = {
    */
   attributes?: { [k: string]: any } | undefined;
 };
-
-/** @internal */
-export const Category$inboundSchema: z.ZodNativeEnum<typeof Category> = z
-  .nativeEnum(Category);
-
-/** @internal */
-export const Healthscore$inboundSchema: z.ZodType<
-  Healthscore,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  score: z.number().int().optional(),
-  category: Category$inboundSchema.optional(),
-});
-
-export function healthscoreFromJSON(
-  jsonString: string,
-): SafeParseResult<Healthscore, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Healthscore$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Healthscore' from JSON`,
-  );
-}
 
 /** @internal */
 export const State$inboundSchema: z.ZodNativeEnum<typeof State> = z.nativeEnum(
@@ -179,7 +124,6 @@ export const EntitiesEntity$inboundSchema: z.ZodType<
     new Date(v)
   ),
   inMaintenance: z.boolean(),
-  healthscore: z.lazy(() => Healthscore$inboundSchema).optional(),
   healthState: z.lazy(() => HealthState$inboundSchema).optional(),
   tags: z.record(z.nullable(z.string())),
   attributes: z.record(z.any()).optional(),

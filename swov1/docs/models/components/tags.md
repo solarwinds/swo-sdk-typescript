@@ -1,5 +1,7 @@
 # Tags
 
+Tags to associate with the token.
+
 ## Example Usage
 
 ```typescript
@@ -13,7 +15,7 @@ let value: Tags = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `server`           | *string*           | :heavy_check_mark: | N/A                |
-| `tagWithoutValue`  | *string*           | :heavy_check_mark: | N/A                |
+| Field                | Type                 | Required             | Description          |
+| -------------------- | -------------------- | -------------------- | -------------------- |
+| `server`             | *string*             | :heavy_check_mark:   | Server tag value.    |
+| `tagWithoutValue`    | *string*             | :heavy_check_mark:   | Tag without a value. |

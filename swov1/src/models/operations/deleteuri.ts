@@ -5,6 +5,9 @@
 import * as z from "zod/v3";
 
 export type DeleteUriRequest = {
+  /**
+   * Entity ID.
+   */
   entityId: string;
 };
 

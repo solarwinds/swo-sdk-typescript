@@ -32,7 +32,13 @@ export type ListLogArchivesRequest = {
  * The request has succeeded.
  */
 export type ListLogArchivesResponseBody = {
+  /**
+   * Array of log archives.
+   */
   logArchives: Array<components.LogsArchive>;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 

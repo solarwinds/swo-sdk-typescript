@@ -1,5 +1,7 @@
 # DemGetWebsiteResponseStatus
 
+Current availability status of the website.
+
 ## Example Usage
 
 ```typescript

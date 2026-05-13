@@ -27,12 +27,6 @@ export type ListMetricMeasurementsRequest = {
    */
   aggregateBy?: components.MetricsAggregationMethods | undefined;
   /**
-   * This parameter is deprecated. Bucket size is determined by the API layer.
-   *
-   * @deprecated field: This will be removed in a future release, please migrate away from it as soon as possible.
-   */
-  bucketSizeInSeconds?: number | undefined;
-  /**
    * Secondary grouping to allow aggregating data points inside individual buckets. Has to be set together with `preGroupByMethod`.
    */
   preGroupBy?: string | undefined;
@@ -66,8 +60,17 @@ export type ListMetricMeasurementsRequest = {
  * The request has succeeded.
  */
 export type ListMetricMeasurementsResponseBody = {
+  /**
+   * Measurement data grouped by attributes.
+   */
   groupings: Array<components.MetricsGrouping>;
+  /**
+   * Bucket size used for computing time series points, in seconds.
+   */
   bucketSizeInSeconds: number;
+  /**
+   * Pagination information.
+   */
   pageInfo: components.CommonPageInfo;
 };
 
@@ -81,7 +84,6 @@ export type ListMetricMeasurementsRequest$Outbound = {
   filter?: string | undefined;
   groupBy?: string | undefined;
   aggregateBy?: string | undefined;
-  bucketSizeInSeconds?: number | undefined;
   preGroupBy?: string | undefined;
   preGroupByMethod?: string | undefined;
   seriesType: string;
@@ -101,7 +103,6 @@ export const ListMetricMeasurementsRequest$outboundSchema: z.ZodType<
   filter: z.string().optional(),
   groupBy: z.string().optional(),
   aggregateBy: components.MetricsAggregationMethods$outboundSchema.optional(),
-  bucketSizeInSeconds: z.number().int().optional(),
   preGroupBy: z.string().optional(),
   preGroupByMethod: components.MetricsAggregationMethods$outboundSchema
     .optional(),

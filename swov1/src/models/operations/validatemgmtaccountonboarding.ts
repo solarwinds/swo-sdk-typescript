@@ -6,6 +6,9 @@ import * as z from "zod/v3";
 import * as components from "../components/index.js";
 
 export type ValidateMgmtAccountOnboardingRequest = {
+  /**
+   * Management account onboarding validation parameters.
+   */
   request: components.CloudAccountsAwsMgmtAccountOnboardingRequest;
 };
 

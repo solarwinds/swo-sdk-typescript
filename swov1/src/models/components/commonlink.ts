@@ -5,8 +5,17 @@
 import * as z from "zod/v3";
 
 export type CommonLink = {
+  /**
+   * Relationship of the link to the current resource.
+   */
   rel: string;
+  /**
+   * URL of the linked resource.
+   */
   href: string;
+  /**
+   * Display label for the link.
+   */
   label?: string | undefined;
 };
 

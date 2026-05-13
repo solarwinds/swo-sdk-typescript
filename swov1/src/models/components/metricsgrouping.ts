@@ -16,6 +16,9 @@ import {
 } from "./metricsmeasurement.js";
 
 export type MetricsGrouping = {
+  /**
+   * Attribute key-value pairs identifying this grouping.
+   */
   attributes: Array<CommonKeyValuePair>;
   /**
    * An empty list indicates no data points are available.

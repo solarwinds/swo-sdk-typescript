@@ -9,6 +9,9 @@ import * as components from "../components/index.js";
 import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ListMetricsForEntityTypeRequest = {
+  /**
+   * Entity type to list metrics for.
+   */
   type: string;
   /**
    * Timestamp in ISO 8601 format in UTC timezone: yyyy-MM-ddTHH:mm:ssZ
@@ -24,6 +27,9 @@ export type ListMetricsForEntityTypeRequest = {
  * The request has succeeded.
  */
 export type ListMetricsForEntityTypeResponse = {
+  /**
+   * Entity type name.
+   */
   type: string;
   /**
    * A list of metrics and their metadata. An empty list indicates no metrics matched the given parameters.
