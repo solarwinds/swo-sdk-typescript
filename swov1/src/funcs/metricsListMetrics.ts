@@ -5,6 +5,7 @@
 import { SwoCore } from "../core.js";
 import { dlv } from "../lib/dlv.js";
 import { encodeFormQuery } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -47,6 +48,7 @@ export function metricsListMetrics(
   PageIterator<
     Result<
       operations.ListMetricsResponse,
+      | errors.CommonBadRequestErrorResponse
       | errors.CommonUnauthorizedErrorResponse
       | errors.CommonInternalErrorResponse
       | SwoError
@@ -77,6 +79,7 @@ async function $do(
     PageIterator<
       Result<
         operations.ListMetricsResponse,
+        | errors.CommonBadRequestErrorResponse
         | errors.CommonUnauthorizedErrorResponse
         | errors.CommonInternalErrorResponse
         | SwoError
@@ -169,7 +172,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -184,6 +188,7 @@ async function $do(
 
   const [result, raw] = await M.match<
     operations.ListMetricsResponse,
+    | errors.CommonBadRequestErrorResponse
     | errors.CommonUnauthorizedErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
@@ -198,6 +203,7 @@ async function $do(
     M.json(200, operations.ListMetricsResponse$inboundSchema, {
       key: "Result",
     }),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
     M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
     M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
@@ -217,6 +223,7 @@ async function $do(
     next: Paginator<
       Result<
         operations.ListMetricsResponse,
+        | errors.CommonBadRequestErrorResponse
         | errors.CommonUnauthorizedErrorResponse
         | errors.CommonInternalErrorResponse
         | SwoError

@@ -146,6 +146,27 @@ export type DemWebsiteSsl = {
 };
 
 /**
+ *   Configure HTTP basic authentication for the availability probe requests.
+ *
+ * @remarks
+ *   The credentialId field accepts a DEM credential ID, not a plaintext password.
+ *   If omitted or set to null, no authentication is applied.
+ */
+export type DemWebsiteAuthentication = {
+  /**
+   * Username for HTTP basic authentication.
+   */
+  username: string;
+  /**
+   *   The ID of a DEM synthetic credential. The credential's value is used as the password.
+   *
+   * @remarks
+   *   If omitted or set to null, authentication proceeds with the username only.
+   */
+  credentialId?: string | null | undefined;
+};
+
+/**
  * Use this field to configure availability tests for the website.
  */
 export type DemWebsiteAvailabilityCheckSettings = {
@@ -159,7 +180,7 @@ export type DemWebsiteAvailabilityCheckSettings = {
    * @remarks
    *   Acceptable values depend on the selected type and actual values of existing probes.
    */
-  testFrom: DemTestFrom;
+  testFrom?: DemTestFrom | undefined;
   /**
    * Configure how often availability tests should be performed. Provide a number of seconds that is one of 60, 300, 600, 900, 1800, 3600, 7200, 14400.
    */
@@ -214,6 +235,14 @@ export type DemWebsiteAvailabilityCheckSettings = {
    *   If omitted or set to null/empty string, the probe will send the usual GET requests.
    */
   postData?: string | null | undefined;
+  /**
+   *   Configure HTTP basic authentication for the availability probe requests.
+   *
+   * @remarks
+   *   The credentialId field accepts a DEM credential ID, not a plaintext password.
+   *   If omitted or set to null, no authentication is applied.
+   */
+  authentication?: DemWebsiteAuthentication | null | undefined;
 };
 
 /**
@@ -369,9 +398,33 @@ export function demWebsiteSslToJSON(demWebsiteSsl: DemWebsiteSsl): string {
 }
 
 /** @internal */
+export type DemWebsiteAuthentication$Outbound = {
+  username: string;
+  credentialId?: string | null | undefined;
+};
+
+/** @internal */
+export const DemWebsiteAuthentication$outboundSchema: z.ZodType<
+  DemWebsiteAuthentication$Outbound,
+  z.ZodTypeDef,
+  DemWebsiteAuthentication
+> = z.object({
+  username: z.string(),
+  credentialId: z.nullable(z.string()).optional(),
+});
+
+export function demWebsiteAuthenticationToJSON(
+  demWebsiteAuthentication: DemWebsiteAuthentication,
+): string {
+  return JSON.stringify(
+    DemWebsiteAuthentication$outboundSchema.parse(demWebsiteAuthentication),
+  );
+}
+
+/** @internal */
 export type DemWebsiteAvailabilityCheckSettings$Outbound = {
   platformOptions?: DemWebsitePlatformOptions$Outbound | null | undefined;
-  testFrom: DemTestFrom$Outbound;
+  testFrom?: DemTestFrom$Outbound | undefined;
   testIntervalInSeconds: number;
   outageConfiguration?:
     | DemWebsiteOutageConfiguration$Outbound
@@ -383,6 +436,7 @@ export type DemWebsiteAvailabilityCheckSettings$Outbound = {
   customHeaders?: Array<DemCustomHeaders$Outbound> | null | undefined;
   allowInsecureRenegotiation?: boolean | undefined;
   postData?: string | null | undefined;
+  authentication?: DemWebsiteAuthentication$Outbound | null | undefined;
 };
 
 /** @internal */
@@ -394,7 +448,7 @@ export const DemWebsiteAvailabilityCheckSettings$outboundSchema: z.ZodType<
   platformOptions: z.nullable(
     z.lazy(() => DemWebsitePlatformOptions$outboundSchema),
   ).optional(),
-  testFrom: DemTestFrom$outboundSchema,
+  testFrom: DemTestFrom$outboundSchema.optional(),
   testIntervalInSeconds: z.number(),
   outageConfiguration: z.nullable(
     z.lazy(() => DemWebsiteOutageConfiguration$outboundSchema),
@@ -408,6 +462,9 @@ export const DemWebsiteAvailabilityCheckSettings$outboundSchema: z.ZodType<
     .optional(),
   allowInsecureRenegotiation: z.boolean().optional(),
   postData: z.nullable(z.string()).optional(),
+  authentication: z.nullable(
+    z.lazy(() => DemWebsiteAuthentication$outboundSchema),
+  ).optional(),
 });
 
 export function demWebsiteAvailabilityCheckSettingsToJSON(

@@ -5,6 +5,7 @@
 import { SwoCore } from "../core.js";
 import { dlv } from "../lib/dlv.js";
 import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
+import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -47,6 +48,7 @@ export function metricsListMetricAttributeValues(
   PageIterator<
     Result<
       operations.ListMetricAttributeValuesResponse,
+      | errors.CommonBadRequestErrorResponse
       | errors.CommonUnauthorizedErrorResponse
       | errors.CommonNotFoundErrorResponse
       | errors.CommonInternalErrorResponse
@@ -78,6 +80,7 @@ async function $do(
     PageIterator<
       Result<
         operations.ListMetricAttributeValuesResponse,
+        | errors.CommonBadRequestErrorResponse
         | errors.CommonUnauthorizedErrorResponse
         | errors.CommonNotFoundErrorResponse
         | errors.CommonInternalErrorResponse
@@ -181,7 +184,8 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["401", "404", "4XX", "500", "5XX"],
+    isErrorStatusCode: (statusCode: number) =>
+      matchStatusCode({ status: statusCode } as Response, ["4XX", "5XX"]),
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -196,6 +200,7 @@ async function $do(
 
   const [result, raw] = await M.match<
     operations.ListMetricAttributeValuesResponse,
+    | errors.CommonBadRequestErrorResponse
     | errors.CommonUnauthorizedErrorResponse
     | errors.CommonNotFoundErrorResponse
     | errors.CommonInternalErrorResponse
@@ -211,6 +216,7 @@ async function $do(
     M.json(200, operations.ListMetricAttributeValuesResponse$inboundSchema, {
       key: "Result",
     }),
+    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
     M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
     M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
     M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
@@ -231,6 +237,7 @@ async function $do(
     next: Paginator<
       Result<
         operations.ListMetricAttributeValuesResponse,
+        | errors.CommonBadRequestErrorResponse
         | errors.CommonUnauthorizedErrorResponse
         | errors.CommonNotFoundErrorResponse
         | errors.CommonInternalErrorResponse

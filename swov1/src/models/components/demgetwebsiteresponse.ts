@@ -173,6 +173,27 @@ export type DemGetWebsiteResponseSsl = {
 };
 
 /**
+ *   Configure HTTP basic authentication for the availability probe requests.
+ *
+ * @remarks
+ *   The credentialId field accepts a DEM credential ID, not a plaintext password.
+ *   If omitted or set to null, no authentication is applied.
+ */
+export type DemGetWebsiteResponseAuthentication = {
+  /**
+   * Username for HTTP basic authentication.
+   */
+  username: string;
+  /**
+   *   The ID of a DEM synthetic credential. The credential's value is used as the password.
+   *
+   * @remarks
+   *   If omitted or set to null, authentication proceeds with the username only.
+   */
+  credentialId?: string | null | undefined;
+};
+
+/**
  *   Use this field to configure availability tests for the website.
  *
  * @remarks
@@ -189,7 +210,7 @@ export type DemGetWebsiteResponseAvailabilityCheckSettings = {
    * @remarks
    *   Acceptable values depend on the selected type and actual values of existing probes.
    */
-  testFrom: DemTestFrom;
+  testFrom?: DemTestFrom | undefined;
   /**
    * Configure how often availability tests should be performed. Provide a number of seconds that is one of 60, 300, 600, 900, 1800, 3600, 7200, 14400.
    */
@@ -247,6 +268,14 @@ export type DemGetWebsiteResponseAvailabilityCheckSettings = {
    *   If omitted or set to null/empty string, the probe will send the usual GET requests.
    */
   postData?: string | null | undefined;
+  /**
+   *   Configure HTTP basic authentication for the availability probe requests.
+   *
+   * @remarks
+   *   The credentialId field accepts a DEM credential ID, not a plaintext password.
+   *   If omitted or set to null, no authentication is applied.
+   */
+  authentication?: DemGetWebsiteResponseAuthentication | null | undefined;
 };
 
 /**
@@ -470,6 +499,27 @@ export function demGetWebsiteResponseSslFromJSON(
 }
 
 /** @internal */
+export const DemGetWebsiteResponseAuthentication$inboundSchema: z.ZodType<
+  DemGetWebsiteResponseAuthentication,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  username: z.string(),
+  credentialId: z.nullable(z.string()).optional(),
+});
+
+export function demGetWebsiteResponseAuthenticationFromJSON(
+  jsonString: string,
+): SafeParseResult<DemGetWebsiteResponseAuthentication, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      DemGetWebsiteResponseAuthentication$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DemGetWebsiteResponseAuthentication' from JSON`,
+  );
+}
+
+/** @internal */
 export const DemGetWebsiteResponseAvailabilityCheckSettings$inboundSchema:
   z.ZodType<
     DemGetWebsiteResponseAvailabilityCheckSettings,
@@ -479,7 +529,7 @@ export const DemGetWebsiteResponseAvailabilityCheckSettings$inboundSchema:
     platformOptions: z.nullable(
       z.lazy(() => DemGetWebsiteResponsePlatformOptions$inboundSchema),
     ).optional(),
-    testFrom: DemTestFrom$inboundSchema,
+    testFrom: DemTestFrom$inboundSchema.optional(),
     testIntervalInSeconds: z.number(),
     outageConfiguration: z.nullable(
       z.lazy(() => DemGetWebsiteResponseOutageConfiguration$inboundSchema),
@@ -494,6 +544,9 @@ export const DemGetWebsiteResponseAvailabilityCheckSettings$inboundSchema:
       .optional(),
     allowInsecureRenegotiation: z.boolean().optional(),
     postData: z.nullable(z.string()).optional(),
+    authentication: z.nullable(
+      z.lazy(() => DemGetWebsiteResponseAuthentication$inboundSchema),
+    ).optional(),
   });
 
 export function demGetWebsiteResponseAvailabilityCheckSettingsFromJSON(
