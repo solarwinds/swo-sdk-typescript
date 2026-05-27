@@ -172,7 +172,7 @@ export type DemUriAvailabilityCheckSettingsInput = {
    * @remarks
    *   Acceptable values depend on the selected type and actual values of existing probes.
    */
-  testFrom: DemTestFrom;
+  testFrom?: DemTestFrom | undefined;
   /**
    * Configure how often availability tests should be performed. Provide a number of seconds that is one of 60, 300, 600, 900, 1800, 3600, 7200, 14400.
    */
@@ -391,7 +391,7 @@ export type DemUriAvailabilityCheckSettingsInput$Outbound = {
     | DemUriAvailabilityCheckSettingsInputPlatformOptions$Outbound
     | null
     | undefined;
-  testFrom: DemTestFrom$Outbound;
+  testFrom?: DemTestFrom$Outbound | undefined;
   testIntervalInSeconds: number;
   outageConfiguration?:
     | DemUriAvailabilityCheckSettingsInputOutageConfiguration$Outbound
@@ -414,7 +414,7 @@ export const DemUriAvailabilityCheckSettingsInput$outboundSchema: z.ZodType<
       DemUriAvailabilityCheckSettingsInputPlatformOptions$outboundSchema
     ),
   ).optional(),
-  testFrom: DemTestFrom$outboundSchema,
+  testFrom: DemTestFrom$outboundSchema.optional(),
   testIntervalInSeconds: z.number(),
   outageConfiguration: z.nullable(
     z.lazy(() =>

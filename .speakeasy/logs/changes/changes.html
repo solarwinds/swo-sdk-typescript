@@ -98,25 +98,64 @@
 <body><h2 id="typescript-sdk-changes">Typescript SDK Changes:</h2>
 
 <ul>
-<li><code>swo.dem.getTransaction()</code>:  <code>response.testDefinition.commands[].command.enum(clickAt)</code> <strong>Added</strong> (Breaking ⚠️)</li>
-<li><code>swo.entities.listEntities()</code>:  <code>response.entities[].healthscore</code> <strong>Removed</strong> (Breaking ⚠️)</li>
-<li><code>swo.entities.getEntityById()</code>:  <code>response.healthscore</code> <strong>Removed</strong> (Breaking ⚠️)</li>
-<li><code>swo.metrics.listMetricMeasurements()</code>:
+<li><code>swo.entities.listEntities()</code>:
 
 <ul>
-<li><code>request.bucketSizeInSeconds</code> <strong>Removed</strong> (Breaking ⚠️)</li>
-</ul></li>
-<li><code>swo.cloudAccounts.validateMgmtAccountOnboarding()</code>: <strong>Removed</strong> (Breaking ⚠️)</li>
-<li><code>swo.dem.createTransaction()</code>:
+<li><code>request.type</code> <strong>Changed</strong></li>
+<li><code>response.entities[]</code> <strong>Changed</strong> (Breaking ⚠️)
 
 <ul>
-<li><code>request.testDefinition.commands[].command.enum(clickAt)</code> <strong>Added</strong></li>
+<li><code>healthState.state</code> <strong>Changed</strong> (Breaking ⚠️)</li>
+<li><code>healthscore</code> <strong>Added</strong></li>
 </ul></li>
-<li><code>swo.dem.updateTransaction()</code>:
+</ul></li>
+<li><code>swo.entities.getEntityById()</code>: <code>response</code> <strong>Changed</strong> (Breaking ⚠️)
 
 <ul>
-<li><code>request.dem.transaction.testDefinition.commands[].command.enum(clickAt)</code> <strong>Added</strong></li>
+<li><code>healthState.state</code> <strong>Changed</strong> (Breaking ⚠️)</li>
+<li><code>healthscore</code> <strong>Added</strong></li>
 </ul></li>
+<li><code>swo.dem.createUri()</code>:
+
+<ul>
+<li><code>request.availabilityCheckSettings.testFrom</code> <strong>Changed</strong></li>
+</ul></li>
+<li><code>swo.dem.getUri()</code>:  <code>response.availabilityCheckSettings.testFrom</code> <strong>Changed</strong></li>
+<li><code>swo.dem.updateUri()</code>:
+
+<ul>
+<li><code>request.dem.uri.availabilityCheckSettings.testFrom</code> <strong>Changed</strong></li>
+</ul></li>
+<li><code>swo.dem.createWebsite()</code>:
+
+<ul>
+<li><code>request.availabilityCheckSettings</code> <strong>Changed</strong>
+
+<ul>
+<li><code>authentication</code> <strong>Added</strong></li>
+<li><code>testFrom</code> <strong>Changed</strong></li>
+</ul></li>
+</ul></li>
+<li><code>swo.dem.getWebsite()</code>: <code>response.availabilityCheckSettings</code> <strong>Changed</strong>
+
+<ul>
+<li><code>authentication</code> <strong>Added</strong></li>
+<li><code>testFrom</code> <strong>Changed</strong></li>
+</ul></li>
+<li><code>swo.dem.updateWebsite()</code>:
+
+<ul>
+<li><code>request.dem.website.availabilityCheckSettings</code> <strong>Changed</strong>
+
+<ul>
+<li><code>authentication</code> <strong>Added</strong></li>
+<li><code>testFrom</code> <strong>Changed</strong></li>
+</ul></li>
+</ul></li>
+<li><code>swo.metrics.listMetrics()</code>:  <code>error.status[400]</code> <strong>Added</strong></li>
+<li><code>swo.metrics.listMetricAttributes()</code>:  <code>error.status[400]</code> <strong>Added</strong></li>
+<li><code>swo.metrics.listMetricAttributeValues()</code>:  <code>error.status[400]</code> <strong>Added</strong></li>
+<li><code>swo.metrics.listMetricMeasurements()</code>:  <code>error.status[400]</code> <strong>Added</strong></li>
 </ul>
 </body>
 </html>

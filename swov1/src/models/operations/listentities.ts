@@ -11,11 +11,11 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ListEntitiesRequest = {
   /**
-   * The entity type to search for
+   * The entity type to search. If omitted or empty, the search includes all entity types.
    */
-  type: string;
+  type?: string | undefined;
   /**
-   * The entity name to search for
+   * The entity name to search for. Searches are case-insensitive and match any value containing the provided string.
    */
   name?: string | undefined;
   /**
@@ -48,7 +48,7 @@ export type ListEntitiesResponse = {
 
 /** @internal */
 export type ListEntitiesRequest$Outbound = {
-  type: string;
+  type?: string | undefined;
   name?: string | undefined;
   pageSize?: number | undefined;
   skipToken?: string | undefined;
@@ -60,7 +60,7 @@ export const ListEntitiesRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListEntitiesRequest
 > = z.object({
-  type: z.string(),
+  type: z.string().optional(),
   name: z.string().optional(),
   pageSize: z.number().int().optional(),
   skipToken: z.string().optional(),
