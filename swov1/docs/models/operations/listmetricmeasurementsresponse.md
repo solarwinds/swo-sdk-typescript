@@ -13,7 +13,7 @@ let value: ListMetricMeasurementsResponse = {
         measurements: [
           {
             time: new Date("2026-06-12T04:58:43.421Z"),
-            value: 1220.89,
+            value: 4613.47,
           },
         ],
       },

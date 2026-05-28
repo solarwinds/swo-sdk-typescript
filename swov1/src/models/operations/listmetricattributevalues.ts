@@ -15,7 +15,7 @@ export type ListMetricAttributeValuesRequest = {
    */
   name: string;
   /**
-   * attribute name
+   * Attribute name.
    */
   attributeName: string;
   /**

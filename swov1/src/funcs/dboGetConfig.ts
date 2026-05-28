@@ -34,6 +34,7 @@ export function dboGetConfig(
   Result<
     components.DboConfig,
     | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonForbiddenErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
@@ -59,6 +60,7 @@ async function $do(
     Result<
       components.DboConfig,
       | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonForbiddenErrorResponse
       | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
@@ -140,6 +142,7 @@ async function $do(
   const [result] = await M.match<
     components.DboConfig,
     | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonForbiddenErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
@@ -152,6 +155,7 @@ async function $do(
   >(
     M.json(200, components.DboConfig$inboundSchema),
     M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(403, errors.CommonForbiddenErrorResponse$inboundSchema),
     M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

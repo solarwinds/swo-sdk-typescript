@@ -15,7 +15,7 @@ export type MetricsMeasurement = {
   /**
    * Value of the measurement.
    */
-  value: number;
+  value: number | null;
 };
 
 /** @internal */
@@ -25,7 +25,7 @@ export const MetricsMeasurement$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   time: z.string().datetime({ offset: true }).transform(v => new Date(v)),
-  value: z.number(),
+  value: z.nullable(z.number()),
 });
 
 export function metricsMeasurementFromJSON(

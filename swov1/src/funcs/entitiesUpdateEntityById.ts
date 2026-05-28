@@ -183,7 +183,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.nil(202, z.void()),
+    M.nil(200, z.void()),
     M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
     M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
     M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),

@@ -39,6 +39,7 @@ export function dboUpdateDatabase(
     void,
     | errors.CommonBadRequestErrorResponse
     | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonForbiddenErrorResponse
     | errors.CommonNotFoundErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
@@ -68,6 +69,7 @@ async function $do(
       void,
       | errors.CommonBadRequestErrorResponse
       | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonForbiddenErrorResponse
       | errors.CommonNotFoundErrorResponse
       | errors.CommonInternalErrorResponse
       | SwoError
@@ -172,6 +174,7 @@ async function $do(
     void,
     | errors.CommonBadRequestErrorResponse
     | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonForbiddenErrorResponse
     | errors.CommonNotFoundErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
@@ -186,6 +189,7 @@ async function $do(
     M.nil(204, z.void()),
     M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
     M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(403, errors.CommonForbiddenErrorResponse$inboundSchema),
     M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
     M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),

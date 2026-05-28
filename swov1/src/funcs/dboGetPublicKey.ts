@@ -33,9 +33,7 @@ export function dboGetPublicKey(
 ): APIPromise<
   Result<
     components.DboDatabaseCredentialsPublicKeyResponse,
-    | errors.CommonBadRequestErrorResponse
     | errors.CommonUnauthorizedErrorResponse
-    | errors.CommonNotFoundErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
@@ -60,9 +58,7 @@ async function $do(
   [
     Result<
       components.DboDatabaseCredentialsPublicKeyResponse,
-      | errors.CommonBadRequestErrorResponse
       | errors.CommonUnauthorizedErrorResponse
-      | errors.CommonNotFoundErrorResponse
       | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
@@ -143,9 +139,7 @@ async function $do(
 
   const [result] = await M.match<
     components.DboDatabaseCredentialsPublicKeyResponse,
-    | errors.CommonBadRequestErrorResponse
     | errors.CommonUnauthorizedErrorResponse
-    | errors.CommonNotFoundErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
@@ -160,9 +154,7 @@ async function $do(
       200,
       components.DboDatabaseCredentialsPublicKeyResponse$inboundSchema,
     ),
-    M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
     M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
-    M.jsonErr(404, errors.CommonNotFoundErrorResponse$inboundSchema),
     M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),

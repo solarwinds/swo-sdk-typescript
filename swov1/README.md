@@ -550,10 +550,10 @@ run();
 
 
 **Inherit from [`SwoError`](./src/models/errors/swoerror.ts)**:
-* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 36 of 56 methods.*
-* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 33 of 56 methods.*
+* [`CommonBadRequestErrorResponse`](./src/models/errors/commonbadrequesterrorresponse.ts): The server could not understand the request due to invalid syntax. Status code `400`. Applicable to 35 of 56 methods.*
+* [`CommonNotFoundErrorResponse`](./src/models/errors/commonnotfounderrorresponse.ts): The server cannot find the requested resource. Status code `404`. Applicable to 32 of 56 methods.*
+* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 10 of 56 methods.*
 * [`MetricsMetricForbiddenErrorResponse`](./src/models/errors/metricsmetricforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 2 of 56 methods.*
-* [`CommonForbiddenErrorResponse`](./src/models/errors/commonforbiddenerrorresponse.ts): Access is forbidden. Status code `403`. Applicable to 1 of 56 methods.*
 * [`CommonConflictErrorResponse`](./src/models/errors/commonconflicterrorresponse.ts): The request conflicts with the current state of the server. Status code `409`. Applicable to 1 of 56 methods.*
 * [`CommonUnavailableErrorResponse`](./src/models/errors/commonunavailableerrorresponse.ts): Service unavailable. Status code `503`. Applicable to 1 of 56 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
