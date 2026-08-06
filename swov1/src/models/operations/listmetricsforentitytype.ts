@@ -10,7 +10,7 @@ import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type ListMetricsForEntityTypeRequest = {
   /**
-   * Entity type to list metrics for.
+   * Entity type for which metrics are retrieved. Value is case-sensitive.
    */
   type: string;
   /**
@@ -28,11 +28,11 @@ export type ListMetricsForEntityTypeRequest = {
  */
 export type ListMetricsForEntityTypeResponse = {
   /**
-   * Entity type name.
+   * Entity type.
    */
   type: string;
   /**
-   * A list of metrics and their metadata. An empty list indicates no metrics matched the given parameters.
+   * A list of metrics and their metadata. An empty list indicates that no metrics matched the specified parameters.
    */
   metrics: Array<components.CommonMetricInfo>;
 };

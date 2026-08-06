@@ -100,6 +100,7 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
@@ -170,6 +171,7 @@ run();
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
@@ -249,6 +251,7 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
@@ -318,9 +321,7 @@ run();
 
 | Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
-| errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
 
@@ -397,6 +398,7 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
@@ -476,6 +478,7 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
@@ -553,6 +556,7 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
@@ -630,6 +634,7 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
@@ -709,6 +714,7 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |
@@ -786,6 +792,7 @@ run();
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.CommonBadRequestErrorResponse   | 400                                    | application/json                       |
 | errors.CommonUnauthorizedErrorResponse | 401                                    | application/json                       |
+| errors.CommonForbiddenErrorResponse    | 403                                    | application/json                       |
 | errors.CommonNotFoundErrorResponse     | 404                                    | application/json                       |
 | errors.CommonInternalErrorResponse     | 500                                    | application/json                       |
 | errors.APIError                        | 4XX, 5XX                               | \*/\*                                  |

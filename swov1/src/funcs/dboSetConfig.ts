@@ -49,6 +49,7 @@ export function dboSetConfig(
     void,
     | errors.CommonBadRequestErrorResponse
     | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonForbiddenErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
@@ -77,6 +78,7 @@ async function $do(
       void,
       | errors.CommonBadRequestErrorResponse
       | errors.CommonUnauthorizedErrorResponse
+      | errors.CommonForbiddenErrorResponse
       | errors.CommonInternalErrorResponse
       | SwoError
       | ResponseValidationError
@@ -173,6 +175,7 @@ async function $do(
     void,
     | errors.CommonBadRequestErrorResponse
     | errors.CommonUnauthorizedErrorResponse
+    | errors.CommonForbiddenErrorResponse
     | errors.CommonInternalErrorResponse
     | SwoError
     | ResponseValidationError
@@ -186,6 +189,7 @@ async function $do(
     M.nil(204, z.void()),
     M.jsonErr(400, errors.CommonBadRequestErrorResponse$inboundSchema),
     M.jsonErr(401, errors.CommonUnauthorizedErrorResponse$inboundSchema),
+    M.jsonErr(403, errors.CommonForbiddenErrorResponse$inboundSchema),
     M.jsonErr(500, errors.CommonInternalErrorResponse$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
